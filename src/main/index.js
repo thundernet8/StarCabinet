@@ -1,6 +1,9 @@
-const {app, BrowserWindow} = require('electron')
+const {electron, app, BrowserWindow} = require('electron')
 const path = require('path')
+const fs = require('fs')
 const url = require('url')
+const createMainWindow = require('./windows/main')
+const createLoginWindow = require('./windows/login')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -8,22 +11,15 @@ let win
 
 function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow({width: 960, height: 640})
+  win = createLoginWindow()
 
+  var packageConfigs = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../package.json')))
   // Add React dev tools
-  // Note: uncomments here and change the path to yours
-  BrowserWindow.addDevToolsExtension('C:\\Users\\WXQ\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\fmkadmapgofadopljbjfkapdkoienihi\\0.15.7_0')
-
-  // and load the index.html of the app.
-  win.loadURL(url.format({
-    pathname: path.resolve(__dirname, './index.html'),
-    protocol: 'file:',
-    slashes: true
-  }))
+  BrowserWindow.addDevToolsExtension(packageConfigs.reactDevTool)
 
   // Open the DevTools.
   if (process.env.NODE_ENV !== 'production') {
-    win.webContents.openDevTools()
+      win.webContents.openDevTools()
   }
 
   // Emitted when the window is closed.
@@ -32,6 +28,17 @@ function createWindow () {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     win = null
+  })
+
+  const page = win.webContents
+
+  // page.on('dom-ready', () => {
+  //   page.insertCSS(fs.readFileSync(path.join(__dirname, 'browser.css'), 'utf8'))
+  // })
+
+  page.on('new-window', (e, url) => {
+    e.preventDefault()
+    electron.shell.openExternal(url) // 在外部浏览器打开链接
   })
 }
 

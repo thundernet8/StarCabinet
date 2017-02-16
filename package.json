@@ -115,5 +115,6 @@
   "devEngines": {
     "node": ">=6.x",
     "npm": ">=3.x"
-  }
+  },
+  "reactDevTool": "C:\\Users\\WXQ\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\fmkadmapgofadopljbjfkapdkoienihi\\2.0.11_0"
 }
