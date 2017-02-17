@@ -15,7 +15,7 @@ function createWindow () {
 
   var packageConfigs = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../package.json')))
   // Add React dev tools
-  BrowserWindow.addDevToolsExtension(packageConfigs.reactDevTool)
+  // BrowserWindow.addDevToolsExtension(packageConfigs.reactDevTool)
 
   // Open the DevTools.
   if (process.env.NODE_ENV !== 'production') {

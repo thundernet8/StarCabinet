@@ -3,7 +3,6 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 import styles from '../styles/App.scss'
-// import styles from '../styles/App.css'
 
 class App extends Component {
   render () {

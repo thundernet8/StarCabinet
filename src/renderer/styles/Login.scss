@@ -1,0 +1,70 @@
+// Login Page
+
+.wrapper {
+    height: 100%;
+    background: #fafaff;
+    border-radius: 4px;
+
+    >header {
+        -webkit-app-region: drag;
+        width: 260px;
+        height: 36px;
+        padding: 8px 10px;
+        line-height: 20px;
+        color: #343536;
+        font-size: 15px;
+
+        >div {
+            display: inline-block;
+        }
+    }
+}
+
+.close {
+    position: fixed;
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    >i {
+        position: absolute;
+        display: inline-block;
+        width: 14px;
+        height: 1px;
+        background: #bbb;
+        top: 5px;
+        left: 0;
+        transform-origin: center;
+        transform: rotate(45deg);
+        &:last-child {
+            transform: rotate(-45deg);
+        }
+    }
+    &:hover {
+        >i {
+            background: #666;
+        }
+    }
+}
+
+.logoWrapper {
+    position: relative;
+    padding: 30px 0 20px;
+    height: 122px;
+}
+
+.logo {
+    -webkit-user-drag: none;
+    width: 72px;
+    height: 72px;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    margin-left: -36px;
+}
+
+.loginBox {
+    padding: 10px 20px;
+}

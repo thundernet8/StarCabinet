@@ -8,10 +8,11 @@ import createLogger from 'redux-logger'
 // import useScroll from 'scroll-behavior'
 import { useScroll } from 'react-router-scroll'
 import routes from './routes'
-// import * as 202692348 from './reducers'
+// import * as reducers from './reducers'
 import mainReducer from './reducers/mainReducer'
 // import * as actions from './actions'
-import styles from './styles/global/normalize.css'
+import normalizeStyles from './styles/global/normalize.css'
+import globalStyles from './styles/global/global.scss'
 
 // const logger = createLogger({
 //   predicate: (getState, action) => action.type !== 'FETCHING'

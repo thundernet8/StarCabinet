@@ -1,6 +1,9 @@
 const {BrowserWindow} = require('electron')
 const path = require('path')
 const url = require('url')
+const fs = require('fs')
+
+let injectStyle = '*{margin:0;padding:0;}'
 
 function createLoginWindow () {
     let win = new BrowserWindow({
@@ -18,8 +21,13 @@ function createLoginWindow () {
         pathname: path.resolve(__dirname, 'index.html'),
         protocol: 'file:',
         slashes: true,
-        search: '?screen=login'
+        hash: 'login'
     }))
+
+    let page = win.webContents
+    page.on('dom-ready', () => {
+        page.insertCSS(injectStyle)
+    })
 
     return win
 }

@@ -7,6 +7,12 @@
  *    IE on Windows Phone and in iOS.
  */
 
+/* Box
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+}    
+
 /* Document
    ========================================================================== */
 
@@ -15,6 +21,7 @@ html {
   line-height: 1.15; /* 2 */
   -ms-text-size-adjust: 100%; /* 3 */
   -webkit-text-size-adjust: 100%; /* 3 */
+  height: 100%;
 }
 
 /* Sections
@@ -26,6 +33,7 @@ html {
 
 body {
   margin: 0;
+  height: 100%;
 }
 
 /**

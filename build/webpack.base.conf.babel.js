@@ -65,7 +65,7 @@ module.exports = {
       // },
       {
         test: /\.css$/,
-        include: /styles\/global/,
+        include: /global/,
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader')
       },
       // {
@@ -77,25 +77,35 @@ module.exports = {
       // },
       {
         test: /\.css$/,
-        exclude: /styles\/global/,
+        exclude: /global/,
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader')
       },
       {
         test: /\.scss$/,
-        include: /styles\/global/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!sass-loader!postcss-loader')
+        include: /global/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader!sass-loader')
       },
       {
         test: /\.scss$/,
-        exclude: /styles\/global/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass-loader!postcss-loader')
+        exclude: /global/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader!sass-loader')
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
-        loader: 'url',
+        test: /\.(png|jpg|gif)$/,
+        exclude: /node_modules/,
+        loader: 'url-loader',
         query: {
           limit: 10000,
-          name: '[name].[ext]?[hash:7]'
+          name: 'assets/images/[name].[ext]' // 'assets/images/[name].[ext]?[hash:7]'
+        }
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|svg)/, // if /\.(woff|woff2|eot|ttf|svg)$/ the font-awesome with url like xx.woff?v=4.7.0 can not be loaded
+        exclude: /node_modules/,
+        loader: 'url-loader',
+        query: {
+          limit: 10000,
+          name: 'assets/fonts/[name].[ext]'
         }
       }
     ]
