@@ -6,15 +6,13 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 // eval-source-map is faster for development
 config.devtool = '#eval-source-map'
 
-config.module.loaders = (config.module.loaders || []).concat({
+var loaders = (config.module.loaders || [])
+loaders.unshift({
   test: /\.jsx$/,
-  loader: 'babel',
-  query: {
-    presets: ['react-hot', 'es2015', 'stage-2'],
-    plugins: ['transform-runtime', 'transform-decorators-legacy']
-  },
-  exclude: /node_modules/
+  exclude: /node_modules/,
+  loaders: ['react-hot']
 })
+config.module.loaders = loaders
 
 // add hot-reload related code to entry chunks
 var polyfill = 'eventsource-polyfill'

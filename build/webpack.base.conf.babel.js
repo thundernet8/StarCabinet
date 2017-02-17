@@ -8,7 +8,7 @@ module.exports = {
 		__dirname: false
 	},
   entry: {
-    app: './src/renderer/index.js',
+    app: './src/renderer/index.jsx',
     electron: './src/main/index.js'
   },
   output: {
@@ -45,6 +45,15 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
+        loader: 'babel',
+        query: {
+          presets: ['es2015', 'stage-2'],
+          plugins: ['transform-runtime', 'transform-decorators-legacy']
+        },
+        exclude: /node_modules/
+      },
+      {
+        test: /\.jsx$/,
         loader: 'babel',
         query: {
           presets: ['react', 'es2015', 'stage-2'],
