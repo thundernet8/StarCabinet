@@ -15,7 +15,9 @@ class LoginPage extends Component {
             <div className={styles.logoWrapper}>
               <img className={styles.logo} src={require('../../assets/images/icon.png')}/>
             </div>
-            <div className={styles.loginBox}>Loginbox</div>
+            <div className={styles.loginBox}>
+              Loginbox
+            </div>
         </div>
     )
   }

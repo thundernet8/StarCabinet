@@ -11,8 +11,8 @@ const routes = (
     <IndexRoute component={HomePage}/>
     <Route path="/" component={HomePage}/>
     {/* <Redirect from='*' to='/404'/> */}
-  </Route>,
-  <Route path="/login" component={LoginPage}/>
+    <Route path="/login" component={LoginPage}/>
+  </Route>
 )
 
 export default routes

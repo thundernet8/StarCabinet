@@ -3,7 +3,7 @@ const path = require('path')
 const url = require('url')
 const fs = require('fs')
 
-let injectStyle = '*{margin:0;padding:0;}'
+// let injectStyle = '*{margin:0;padding:0;}'
 
 function createLoginWindow () {
     let win = new BrowserWindow({
@@ -24,10 +24,10 @@ function createLoginWindow () {
         hash: 'login'
     }))
 
-    let page = win.webContents
-    page.on('dom-ready', () => {
-        page.insertCSS(injectStyle)
-    })
+    // let page = win.webContents
+    // page.on('dom-ready', () => {
+    //     page.insertCSS(injectStyle)
+    // })
 
     return win
 }

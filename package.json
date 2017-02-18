@@ -51,6 +51,7 @@
   },
   "homepage": "https://github.com/thundernet8/StarCabinet#readme",
   "devDependencies": {
+    "antd": "^2.7.2",
     "autoprefixer": "^6.6.1",
     "babel-core": "^6.20.0",
     "babel-loader": "^6.2.10",
