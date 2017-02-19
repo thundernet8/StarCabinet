@@ -1,12 +1,12 @@
 import { connect }                  from 'react-redux'
-import App                          from '../components/app'
+import HomePage                     from '../components/homePage'
 
 // Redux connection
 const mapStateToProps = (state) => {
   return {
-    data: state.mainReducer
+    data: state.mainReducer.data
   }
 }
 
 // Which props to inject from the global atomic state
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps)(HomePage)
