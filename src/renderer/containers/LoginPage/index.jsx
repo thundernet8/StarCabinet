@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router'
-import { connect } from 'react-redux'
-import styles from '../../styles/Login.scss'
-import FontAwesome from 'react-fontawesome'
-import * as EVENTS from '../../../shared/events'
-import { ipcRenderer } from 'electron'
+import React, { Component }         from 'react'
+import { Link }                     from 'react-router'
+import { connect }                  from 'react-redux'
+import styles                       from '../../styles/Login.scss'
+import FontAwesome                  from 'react-fontawesome'
+import * as EVENTS                  from '../../../shared/events'
+import { ipcRenderer }              from 'electron'
 
 class LoginPage extends Component {
   closeLoginWindow () {

@@ -1,6 +1,6 @@
-const {BrowserWindow} = require('electron')
-const path = require('path')
-const url = require('url')
+import {BrowserWindow}    from 'electron'
+import path               from 'path'
+import url                from 'url'
 
 function createMainWindow () {
     let win = new BrowserWindow({

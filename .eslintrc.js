@@ -20,6 +20,7 @@ module.exports = {
     // indent
     'indent': ['warn', 2,  { 'SwitchCase': 2 }],
     // unused vars
-    'no-unused-vars': 1
+    'no-unused-vars': 1,
+    'no-multi-spaces': ['error', { exceptions: { 'ImportDeclaration': true } }]
   }
 }

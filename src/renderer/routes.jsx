@@ -1,4 +1,4 @@
-import React from 'react'
+import React                                                from 'react'
 import { IndexRoute, Route, Link, IndexRedirect, Redirect } from 'react-router'
 
 /* containers */

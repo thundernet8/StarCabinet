@@ -1,4 +1,4 @@
-const windowLifeCycle = require('./windowLifeCycle')
+import windowLifeCycle from './windowLifeCycle'
 
 function register () {
   windowLifeCycle()

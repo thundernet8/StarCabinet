@@ -20,9 +20,10 @@
   "postinstall": "install-app-deps",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev-server": "webpack --progress --hide-modules --config build/webpack.dev.conf.babel.js && rimraf static && node build/dev-server.js",
+    "dev-server": "node build/dev-server.js",
     "build": "rimraf app/dist && mkdirp app/dist && cross-env NODE_ENV=production webpack --progress --hide-modules --config build/webpack.prod.conf.babel.js",
     "build-dev": "rimraf dist && mkdirp dist && cross-env NODE_ENV=development webpack --progress --hide-modules --config build/webpack.dev.conf.babel.js",
+    "dev": "npm run build-dev && npm run dev-server",
     "start": "electron .",
     "pack": "build --dir",
     "dist": "build"

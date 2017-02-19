@@ -1,16 +1,18 @@
-const {electron, app, BrowserWindow} = require('electron')
-const path = require('path')
-const fs = require('fs')
-const url = require('url')
-const createMainWindow = require('./windows/main')
-const createLoginWindow = require('./windows/login')
-const services = require('./services')
+import {electron, app, BrowserWindow} from 'electron'
+import path                           from 'path'
+import fs                             from 'fs'
+import url                            from 'url'
+import createMainWindow               from './windows/main'
+import createLoginWindow              from './windows/login'
+import services                       from './services'
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let win
+let win = null
 
 function createWindow () {
+  if (win) return
+
   // Create the browser window.
   win = createLoginWindow()
 
@@ -20,6 +22,11 @@ function createWindow () {
 
   // Open the DevTools.
   if (process.env.NODE_ENV !== 'production') {
+      win.webContents.on('devtools-opened', () => {
+        setImmediate(() => {
+          win.focus()
+        })
+      })
       win.webContents.openDevTools()
   }
 
@@ -39,7 +46,7 @@ function createWindow () {
 
   page.on('new-window', (e, url) => {
     e.preventDefault()
-    electron.shell.openExternal(url) // 在外部浏览器打开链接
+    electron.shell.openExternal(url) // open links external
   })
 }
 

@@ -1,7 +1,7 @@
-const {BrowserWindow} = require('electron')
-const path = require('path')
-const url = require('url')
-const fs = require('fs')
+import {BrowserWindow}        from 'electron'
+import path                   from 'path'
+import url                    from 'url'
+import fs                     from 'fs'
 
 // let injectStyle = '*{margin:0;padding:0;}'
 
