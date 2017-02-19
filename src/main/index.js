@@ -4,6 +4,7 @@ const fs = require('fs')
 const url = require('url')
 const createMainWindow = require('./windows/main')
 const createLoginWindow = require('./windows/login')
+const services = require('./services')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -15,7 +16,7 @@ function createWindow () {
 
   var packageConfigs = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../package.json')))
   // Add React dev tools
-  BrowserWindow.addDevToolsExtension(packageConfigs.reactDevTool)
+  // BrowserWindow.addDevToolsExtension(packageConfigs.reactDevTool)
 
   // Open the DevTools.
   if (process.env.NODE_ENV !== 'production') {
@@ -66,3 +67,5 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+services.register()
