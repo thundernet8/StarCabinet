@@ -1,5 +1,6 @@
-// import * as types from '../constants'
+import * as accounts        from './accounts'
 
-export default function actionTrigger (type, data) {
-  return { type, data }
-}
+export default Object.assign(
+  accounts,
+  {} // TODO
+)

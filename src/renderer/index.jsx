@@ -9,7 +9,7 @@ import createLogger                                             from 'redux-logg
 import { useScroll }                                            from 'react-router-scroll'
 import routes                                                   from './routes'
 // import * as reducers                                         from './reducers'
-import mainReducer                                              from './reducers/mainReducer'
+import rootReducer                                              from './reducers/rootReducer'
 // import * as actions                                          from './actions'
 import './styles/global/normalize.css'
 import 'antd/dist/antd.css'
@@ -21,7 +21,7 @@ import './styles/global/global.scss'
 
 const reducer = combineReducers({
   /* ...reducers, */
-  mainReducer,
+  rootReducer,
   routing: routerReducer
 })
 
