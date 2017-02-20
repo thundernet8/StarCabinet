@@ -4,9 +4,14 @@
 // "error" or 2 - turn the rule on as an error (exit code will be 1)
 
 module.exports = {
+  parser: 'babel-eslint',
   root: true,
   // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
   extends: 'standard',
+  env: {
+    'es6': true,
+    'node': true
+  },
   // required to lint *.vue files
   plugins: [
     'html'

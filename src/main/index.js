@@ -40,9 +40,10 @@ function createWindow () {
 
   const page = win.webContents
 
-  // page.on('dom-ready', () => {
-  //   page.insertCSS(fs.readFileSync(path.join(__dirname, 'browser.css'), 'utf8'))
-  // })
+  page.on('dom-ready', () => {
+  // page.insertCSS(fs.readFileSync(path.join(__dirname, 'browser.css'), 'utf8'))
+    page.executeJavaScript(`document.body.className="platform_${process.platform}"`, false)
+  })
 
   page.on('new-window', (e, url) => {
     e.preventDefault()

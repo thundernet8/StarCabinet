@@ -7,7 +7,7 @@
     right: 0;
     bottom: 0;
     height: 100%;
-    background: #fafaff;
+    background: #f5f5fa;
     border-radius: 4px;
 
     >header {
@@ -56,8 +56,8 @@
 
 .logoWrapper {
     position: relative;
-    padding: 30px 0 20px;
-    height: 122px;
+    padding: 30px 0;
+    height: 132px;
 }
 
 .logo {
@@ -72,4 +72,8 @@
 
 .loginBox {
     padding: 10px 20px;
+}
+
+.loginBtn {
+    width: 100%;
 }

@@ -74,7 +74,7 @@ module.exports = {
       // },
       {
         test: /\.css$/,
-        include: /global/,
+        include: [/global/, /node_modules/],
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader')
       },
       // {
@@ -86,17 +86,17 @@ module.exports = {
       // },
       {
         test: /\.css$/,
-        exclude: /global/,
+        exclude: [/global/, /node_modules/],
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader')
       },
       {
         test: /\.scss$/,
-        include: /global/,
+        include: [/global/, /node_modules/],
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader!sass-loader')
       },
       {
         test: /\.scss$/,
-        exclude: /global/,
+        exclude: [/global/, /node_modules/],
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader!sass-loader')
       },
       {
