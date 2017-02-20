@@ -1,0 +1,13 @@
+{
+  "globalDependencies": {
+    "antd": "registry:dt/antd#0.12.10+20170123203653",
+    "electron": "registry:dt/electron#1.4.8+20170202141310",
+    "mocha": "registry:dt/mocha#2.2.5+20170204022515",
+    "node": "registry:env/node#6.0.0+20170213133316",
+    "redux": "registry:dt/redux#3.5.2+20160703092728"
+  },
+  "dependencies": {
+    "react": "registry:dt/react#15.0.0+20170217213317",
+    "react-redux": "registry:npm/react-redux#4.4.0+20160614222153"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/9b5329839558a78550bf078c3e5f323c2f0f3b86/antd/index.d.ts",
+    "raw": "registry:dt/antd#0.12.10+20170123203653",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/9b5329839558a78550bf078c3e5f323c2f0f3b86/antd/index.d.ts"
+  }
+}
