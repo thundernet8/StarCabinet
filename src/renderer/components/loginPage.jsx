@@ -10,35 +10,34 @@ export default class LoginPage extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      userName: '',
-      password: '',
       submitting: false
     }
   }
   emitUsernameEmpty = () => {
     this.userNameInput.focus()
-    this.setState({ userName: '' })
+    this.props.onClearUsername()
   }
   emitPasswordEmpty = () => {
     this.passwordInput.focus()
-    this.setState({ password: '' })
+    this.props.onClearPassword()
   }
   onChangeUserName = (e) => {
-    this.setState({ userName: e.target.value })
+    this.props.onChangeUsername(e)
   }
   onChangePassword = (e) => {
-    this.setState({ password: e.target.value })
+    this.props.onChangePassword(e)
   }
   enterSubmit = (e) => {
     this.setState({ submitting: true })
-    console.log(100)
+    this.props.onGetLocalCredentials()
   }
   closeLoginWindow () {
     ipcRenderer.sendSync(EVENTS.CLOSE_LOGIN, '')
   }
   render () {
-    const { userName, password, submitting } = this.state
-    const usernameSuffix = userName ? <Icon type="close-circle" onClick={this.emitUsernameEmpty} /> : null
+    const { submitting } = this.state
+    const { username, password } = this.props.accounts
+    const usernameSuffix = username ? <Icon type="close-circle" onClick={this.emitUsernameEmpty} /> : null
     const passwordSuffix = password ? <Icon type="close-circle" onClick={this.emitPasswordEmpty} /> : null
     return (
         <div className={styles.wrapper}>
@@ -56,7 +55,7 @@ export default class LoginPage extends React.Component {
                   placeholder="Github UserName"
                   prefix={<Icon type="user" />}
                   suffix={usernameSuffix}
-                  value={userName}
+                  value={username}
                   onChange={this.onChangeUserName}
                   ref={ (node) => { this.userNameInput = node } }
                 />

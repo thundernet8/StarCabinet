@@ -111,6 +111,7 @@
     "rebuild": "^0.1.2",
     "redux": "^3.6.0",
     "redux-logger": "^2.7.4",
+    "redux-thunk": "^2.2.0",
     "rimraf": "^2.5.4",
     "sass-loader": "^4.1.1",
     "scroll-behavior": "^0.9.2",
@@ -124,5 +125,5 @@
     "node": ">=6.x",
     "npm": ">=3.x"
   },
-  "reactDevTool": "C:\\Users\\WXQ\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\fmkadmapgofadopljbjfkapdkoienihi\\2.0.12_0"
+  "reactDevTool": "C:\\Users\\wuxu\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\fmkadmapgofadopljbjfkapdkoienihi\\2.0.12_0"
 }

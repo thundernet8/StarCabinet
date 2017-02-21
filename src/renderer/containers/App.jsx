@@ -3,10 +3,12 @@ import App                          from '../components/app'
 
 // Redux connection
 const mapStateToProps = (state) => {
-  return {
-    data: state.mainReducer
-  }
+  return {}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {}
 }
 
 // Which props to inject from the global atomic state
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

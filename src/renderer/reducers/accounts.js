@@ -1,12 +1,29 @@
 import * as Constant      from '../constants'
 
-export const accounts = (state = [], action) => {
+export const accountsReducer = (state = {username: '', password: ''}, action) => {
   switch (action.type) {
     case Constant.GET_LOCAL_CREDENTIALS:
-      // TODO get token
-      let token = ''
-      return [...state, token];
+      return {
+        username: 'name', // TODO
+        password: 'pwd'
+      }
+    case Constant.CLEAR_LOGIN_USERNAME:
+      return {
+        username: ''
+      }
+    case Constant.CLEAR_LOGIN_PASSWORD:
+      return {
+        password: ''
+      }
+    case Constant.CHANGE_LOGIN_USERNAME:
+      return {
+        username: action.username
+      }
+    case Constant.CHANGE_LOGIN_PASSWORD:
+      return {
+        password: action.password
+      }
     default:
-      return state;
+      return state
   }
 }

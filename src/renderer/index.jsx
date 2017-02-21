@@ -2,39 +2,35 @@ import React                                                    from 'react'
 import ReactDOM                                                 from 'react-dom'
 import { Router, hashHistory, applyRouterMiddleware }           from 'react-router'
 import { Provider }                                             from 'react-redux'
-import { createStore, /* applyMiddleware, */ combineReducers }  from 'redux'
-import { syncHistoryWithStore, routerReducer }                  from 'react-router-redux'
-import createLogger                                             from 'redux-logger'
+import { combineReducers }                                      from 'redux'
+import { syncHistoryWithStore }                                 from 'react-router-redux'
 // import useScroll                                             from 'scroll-behavior'
 import { useScroll }                                            from 'react-router-scroll'
+import configureStore                                           from './store/configureStore'
 import routes                                                   from './routes'
-// import * as reducers                                         from './reducers'
-import rootReducer                                              from './reducers/rootReducer'
-// import * as actions                                          from './actions'
 import './styles/global/normalize.css'
 import 'antd/dist/antd.css'
 import './styles/global/global.scss'
 
-// const logger = createLogger({
-//   predicate: (getState, action) => action.type !== 'FETCHING'
-// })
+let store = configureStore()
 
-const reducer = combineReducers({
-  /* ...reducers, */
-  rootReducer,
-  routing: routerReducer
-})
-
-const store = createStore(reducer/*, applyMiddleware(thunk, logger) */) // TODO async task
 // const scrollHistory = useScroll(() => browserHistory)()
 // Create an enhanced history that syncs navigation events with the store
 // const history = syncHistoryWithStore(scrollHistory, store)
+
+// Debug store
+if (process.env.NODE_ENV === 'development') {
+  store.subscribe(() =>
+    console.log(store.getState())
+  )
+}
+
 const history = syncHistoryWithStore(hashHistory, store) // use hashHistory instead browserHistory in case of react-router cannot match routes
 
 // Make reducers hot reloadable, see http://stackoverflow.com/questions/34243684/make-redux-reducers-and-other-non-components-hot-loadable
 if (module.hot) {
-  module.hot.accept('./reducers/mainReducer', () => {
-    const nextRootReducer = require('./reducers/mainReducer').default
+  module.hot.accept('./reducers', () => {
+    const nextRootReducer = require('./reducers').default
     store.replaceReducer(nextRootReducer)
   })
 }
