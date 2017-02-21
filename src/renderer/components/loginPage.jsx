@@ -10,26 +10,36 @@ export default class LoginPage extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      submitting: false
+      submitting: false,
+      username: this.props.credentials.username,
+      password: this.props.credentials.password
     }
   }
-  emitUsernameEmpty = () => {
+  emitUsernameEmpty = (e) => {
     this.userNameInput.focus()
-    this.props.onClearUsername()
+    this.setState({
+      username: ''
+    })
   }
   emitPasswordEmpty = () => {
     this.passwordInput.focus()
-    this.props.onClearPassword()
+    this.setState({
+      password: ''
+    })
   }
   onChangeUserName = (e) => {
-    this.props.onChangeUsername(e)
+    this.setState({
+      username: e.target.value
+    })
   }
   onChangePassword = (e) => {
-    this.props.onChangePassword(e)
+    this.setState({
+      password: e.target.value
+    })
   }
   enterSubmit = (e) => {
     this.setState({ submitting: true })
-    this.props.onGetLocalCredentials()
+    this.props.onRequestLogin()
   }
   closeLoginWindow () {
     ipcRenderer.sendSync(EVENTS.CLOSE_LOGIN, '')

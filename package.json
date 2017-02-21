@@ -87,6 +87,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.10.0",
     "fontawesome": "^4.7.0",
+    "github": "^9.0.0",
     "html-webpack-plugin": "^2.24.1",
     "json": "^9.0.4",
     "keytar": "^3.0.2",

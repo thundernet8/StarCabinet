@@ -5,7 +5,8 @@ import Actions                      from '../actions'
 // Redux connection
 const mapStateToProps = (state) => {
   return {
-    accounts: state.accounts
+    credentials: state.credentials,
+    loginResult: state.loginResult
   }
 }
 
@@ -14,17 +15,8 @@ const mapDispatchToProps = (dispatch) => {
     onGetLocalCredentials: () => {
       dispatch(Actions.getLocalCredentials())
     },
-    onClearUsername: () => {
-      dispatch(Actions.clearLoginUsername())
-    },
-    onClearPassword: () => {
-      dispatch(Actions.clearLoginPassword())
-    },
-    onChangeUsername: (event) => {
-      dispatch(Actions.changeLoginUsername(event.target.value))
-    },
-    onChangePassword: (event) => {
-      dispatch(Actions.changeLoginPassword(event.target.value))
+    onRequestLogin: (credentials) => {
+      dispatch(Actions.requestLogin(credentials))
     }
   }
 }

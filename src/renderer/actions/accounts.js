@@ -6,30 +6,9 @@ export const getLocalCredentials = () => {
   }
 }
 
-export const clearLoginUsername = () => {
+export const requestLogin = (credentials) => {
   return {
-    type: Constant.CLEAR_LOGIN_USERNAME,
-    username: ''
-  }
-}
-
-export const clearLoginPassword = () => {
-  return {
-    type: Constant.CLEAR_LOGIN_PASSWORD,
-    password: ''
-  }
-}
-
-export const changeLoginUsername = (username) => {
-  return {
-    type: Constant.CHANGE_LOGIN_USERNAME,
-    username: username
-  }
-}
-
-export const changeLoginPassword = (password) => {
-  return {
-    type: Constant.CHANGE_LOGIN_PASSWORD,
-    password: password
+    type: Constant.REQUEST_LOGIN,
+    credentials: credentials
   }
 }
