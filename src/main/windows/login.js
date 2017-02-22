@@ -3,7 +3,7 @@ import path                   from 'path'
 import url                    from 'url'
 import fs                     from 'fs'
 
-// let injectStyle = '*{margin:0;padding:0;}'
+let injectStyle = 'body{background-color:transparent !important;}'
 
 function createLoginWindow () {
     let win = new BrowserWindow({
@@ -24,10 +24,10 @@ function createLoginWindow () {
         hash: 'login'
     }))
 
-    // let page = win.webContents
-    // page.on('dom-ready', () => {
-    //     page.insertCSS(injectStyle)
-    // })
+    let page = win.webContents
+    page.on('dom-ready', () => {
+        page.insertCSS(injectStyle)
+    })
 
     return win
 }

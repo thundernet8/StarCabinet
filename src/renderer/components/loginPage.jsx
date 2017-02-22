@@ -39,14 +39,17 @@ export default class LoginPage extends React.Component {
   }
   enterSubmit = (e) => {
     this.setState({ submitting: true })
-    this.props.onRequestLogin()
+    this.props.onRequestLogin({
+      username: this.state.username,
+      password: this.state.password
+    })
   }
   closeLoginWindow () {
     ipcRenderer.sendSync(EVENTS.CLOSE_LOGIN, '')
   }
   render () {
     const { submitting } = this.state
-    const { username, password } = this.props.accounts
+    const { username, password } = this.state
     const usernameSuffix = username ? <Icon type="close-circle" onClick={this.emitUsernameEmpty} /> : null
     const passwordSuffix = password ? <Icon type="close-circle" onClick={this.emitPasswordEmpty} /> : null
     return (
@@ -67,6 +70,7 @@ export default class LoginPage extends React.Component {
                   suffix={usernameSuffix}
                   value={username}
                   onChange={this.onChangeUserName}
+                  disabled = {submitting}
                   ref={ (node) => { this.userNameInput = node } }
                 />
               </div>
@@ -74,16 +78,25 @@ export default class LoginPage extends React.Component {
                 <Input
                   size="large"
                   type="password"
-                  placeholder="Password"
+                  placeholder="Access Token"
                   prefix={<Icon type="lock" />}
                   suffix={passwordSuffix}
                   value={password}
                   onChange={this.onChangePassword}
+                  disabled = {submitting}
                   ref={ (node) => { this.passwordInput = node } }
                 />
               </div>
               <div className="mt30">
-                <Button className={styles.loginBtn} size="large" type="primary" loading={submitting} onClick={this.enterSubmit} ref={ (node) => { this.submitBtn = node } }>
+                <Button
+                  className={styles.loginBtn}
+                  size="large"
+                  type="primary"
+                  loading={submitting}
+                  onClick={this.enterSubmit}
+                  disabled={this.state.username.length < 2 || this.state.password.length < 6}
+                  ref={ (node) => { this.submitBtn = node } }
+                >
                   {submitting ? '' : 'Login'}
                 </Button>
               </div>
