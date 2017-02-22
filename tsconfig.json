@@ -1,0 +1,26 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmitOnError": false,
+    "noImplicitAny": false,
+    "preserveConstEnums": true,
+    "removeComments": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "skipLibCheck": true,
+    "target": "es2015",
+    "lib": ["es6", "dom"],
+    "types": ["node", "electron", "react"],
+    "typeRoots": [
+      "../node_modules/@types",
+      "./typings/globals",
+      "./typings/modules"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

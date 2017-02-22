@@ -3,7 +3,9 @@ import * as EVENTS        from '../../shared/events'
 import GithubClient       from '../utils/githubClient'
 import { ipcRenderer }    from 'electron'
 
-export const credentialsReducer = (state = {username: '', password: ''}, action) => {
+import { ICredentials }   from '../../interfaces/ICredentials'
+
+export const credentialsReducer = (state: ICredentials = {username: '', password: ''}, action) => {
   switch (action.type) {
     case Constant.GET_LOCAL_CREDENTIALS:
       return {

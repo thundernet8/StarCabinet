@@ -11,6 +11,10 @@ loaders.unshift({
   test: /\.jsx$/,
   exclude: /node_modules/,
   loaders: ['react-hot']
+}, {
+  test: /\.tsx$/,
+  exclude: [/node_modules/, /typings/],
+  loaders: ['react-hot', 'babel?presets[]=es2015', 'ts-loader']
 })
 config.module.loaders = loaders
 

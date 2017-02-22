@@ -1,5 +1,5 @@
-const { ipcMain, BrowserWindow } = require('electron')
-const EVENTS = require('../../shared/events')
+import { ipcMain, BrowserWindow }       from 'electron'
+import * as EVENTS                      from'../../shared/events'
 
 function windowLifeCycle () {
   // handle close window events

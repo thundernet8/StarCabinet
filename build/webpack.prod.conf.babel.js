@@ -1,8 +1,8 @@
-import path from 'path'
-import webpack from 'webpack'
-import config from './webpack.base.conf.babel'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import _ from 'lodash'
+import path                 from 'path'
+import webpack              from 'webpack'
+import config               from './webpack.base.conf.babel'
+import HtmlWebpackPlugin    from 'html-webpack-plugin'
+import _                    from 'lodash'
 
 config.output.filename = '[name].[chunkhash:8].js' // [name].[chunkhash]
 config.output.chunkFilename = '[id].js' // [id].[chunkhash]
@@ -13,7 +13,8 @@ var SOURCE_MAP = true
 
 config.devtool = SOURCE_MAP ? '#source-map' : false
 
-config.module.loaders = (config.module.loaders || []).concat({
+var loaders = (config.module.loaders || [])
+loaders.unshift({
   test: /\.jsx$/,
   loader: 'babel',
   query: {
@@ -21,7 +22,12 @@ config.module.loaders = (config.module.loaders || []).concat({
     plugins: ['transform-runtime', 'transform-decorators-legacy']
   },
   exclude: /node_modules/
+}, {
+  test: /\.tsx$/,
+  loader: 'babel-loader?presets[]=react&presets[]=es2015&presets[]=stage-2!ts-loader',
+  exclude: [/node_modules/, /typings/]
 })
+config.module.loaders = loaders
 
 config.output.path = path.resolve(__dirname, '../app/dist')
 config.output.publicPath =  './'

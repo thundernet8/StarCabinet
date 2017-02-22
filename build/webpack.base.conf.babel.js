@@ -8,8 +8,8 @@ module.exports = {
 		__dirname: false
 	},
   entry: {
-    app: './src/renderer/index.jsx',
-    electron: './src/main/index.js'
+    app: './src/renderer/index.tsx',
+    electron: './src/main/index.ts'
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
@@ -17,7 +17,7 @@ module.exports = {
     filename: '[name].js'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
     fallback: [path.join(__dirname, '../node_modules')],
     alias: {
       'app': path.resolve(__dirname, '../app'),
@@ -53,13 +53,9 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.jsx$/,
-        loader: 'babel',
-        query: {
-          presets: ['react', 'es2015', 'stage-2'],
-          plugins: ['transform-runtime', 'transform-decorators-legacy']
-        },
-        exclude: /node_modules/
+        test: /\.ts$/,
+        loader: 'babel-loader?presets[]=es2015&presets[]=stage-2!ts-loader',
+        exclude: [/node_modules/, /typings/]
       },
       {
         test: /\.json$/,

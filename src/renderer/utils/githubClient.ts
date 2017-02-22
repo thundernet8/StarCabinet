@@ -1,6 +1,6 @@
 import GitHubApi         from 'github-api'
 import Constant          from '../constants'
-import Promise           from 'bluebird'
+// import Promise           from 'bluebird'
 
 export default class GithubClient {
   constructor (credentials) {
