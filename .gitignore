@@ -1,10 +1,10 @@
+**/node_modules/
+dist/
+static/
+**/npm-debug.log
+app/dist/
+dist/
+release/
 .idea/
 .vscode/
-**/node_modules/
-**/npm-debug.log
-dist/
-app/dist/
-release/
-static/
-src/renderer/styles/**/*.d.ts
 debug.log

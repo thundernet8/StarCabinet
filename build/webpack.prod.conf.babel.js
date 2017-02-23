@@ -1,8 +1,8 @@
-import path                 from 'path'
-import webpack              from 'webpack'
-import config               from './webpack.base.conf.babel'
-import HtmlWebpackPlugin    from 'html-webpack-plugin'
-import _                    from 'lodash'
+import path from 'path'
+import webpack from 'webpack'
+import config from './webpack.base.conf.babel'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import _ from 'lodash'
 
 config.output.filename = '[name].[chunkhash:8].js' // [name].[chunkhash]
 config.output.chunkFilename = '[id].js' // [id].[chunkhash]
@@ -13,8 +13,7 @@ var SOURCE_MAP = true
 
 config.devtool = SOURCE_MAP ? '#source-map' : false
 
-var loaders = (config.module.loaders || [])
-loaders.unshift({
+config.module.loaders = (config.module.loaders || []).concat({
   test: /\.jsx$/,
   loader: 'babel',
   query: {
@@ -22,20 +21,16 @@ loaders.unshift({
     plugins: ['transform-runtime', 'transform-decorators-legacy']
   },
   exclude: /node_modules/
-}, {
-  test: /\.tsx?$/,
-  loader: 'babel-loader?presets[]=react&presets[]=es2015&presets[]=stage-2!ts-loader',
-  exclude: /node_modules/
 })
-config.module.loaders = loaders
 
 config.output.path = path.resolve(__dirname, '../app/dist')
 config.output.publicPath =  './'
 
 config.plugins = (config.plugins || []).concat([
+  // http://vuejs.github.io/vue-loader/workflow/production.html
   new webpack.DefinePlugin({
     'process.env': {
-      NODE_ENV: JSON.stringify('production')
+      NODE_ENV: '"production"'
     }
   }),
   new webpack.optimize.UglifyJsPlugin({
@@ -50,6 +45,9 @@ config.plugins = (config.plugins || []).concat([
 
 var electronConfig = _.cloneDeep(config)
 config.plugins = config.plugins.concat([
+  new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify('production')
+  }),
   // see https://github.com/ampedandwired/html-webpack-plugin
   new HtmlWebpackPlugin({
     filename: '../../app/dist/index.html',

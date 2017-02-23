@@ -2,7 +2,7 @@ import {BrowserWindow}    from 'electron'
 import path               from 'path'
 import url                from 'url'
 
-const createMainWindow = (): Electron.BrowserWindow => {
+function createMainWindow () {
     let win = new BrowserWindow({
         width: 960,
         height: 640,
@@ -22,4 +22,4 @@ const createMainWindow = (): Electron.BrowserWindow => {
     return win
 }
 
-export default createMainWindow
+module.exports = createMainWindow

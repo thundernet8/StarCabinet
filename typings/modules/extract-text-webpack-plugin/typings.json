@@ -1,8 +1,0 @@
-{
-  "resolution": "main",
-  "tree": {
-    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/df177d2915be6639a2d30d39805985ea9a3e10e6/extract-text-webpack-plugin/index.d.ts",
-    "raw": "registry:dt/extract-text-webpack-plugin#2.0.0+20161115081840",
-    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/df177d2915be6639a2d30d39805985ea9a3e10e6/extract-text-webpack-plugin/index.d.ts"
-  }
-}

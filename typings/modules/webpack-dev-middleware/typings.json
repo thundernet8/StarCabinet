@@ -1,8 +1,0 @@
-{
-  "resolution": "main",
-  "tree": {
-    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/8a5f18f78bb1882ddb50c9526cfbc7c5995b2c94/webpack-dev-middleware/index.d.ts",
-    "raw": "registry:dt/webpack-dev-middleware#1.9.0+20170117213649",
-    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/8a5f18f78bb1882ddb50c9526cfbc7c5995b2c94/webpack-dev-middleware/index.d.ts"
-  }
-}

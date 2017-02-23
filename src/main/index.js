@@ -1,4 +1,4 @@
-import {shell, app, BrowserWindow} from 'electron'
+import {electron, app, BrowserWindow} from 'electron'
 import path                           from 'path'
 import fs                             from 'fs'
 import url                            from 'url'
@@ -10,13 +10,13 @@ import services                       from './services'
 // be closed automatically when the JavaScript object is garbage collected.
 let win = null
 
-const createWindow = (): Electron.BrowserWindow | void => {
+function createWindow () {
   if (win) return
 
   // Create the browser window.
   win = createLoginWindow()
 
-  var packageConfigs = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../package.json')).toString())
+  var packageConfigs = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../package.json')))
   // Add React dev tools
   BrowserWindow.addDevToolsExtension(packageConfigs.reactDevTool)
 
@@ -47,7 +47,7 @@ const createWindow = (): Electron.BrowserWindow | void => {
 
   page.on('new-window', (e, url) => {
     e.preventDefault()
-    shell.openExternal(url) // open links external
+    electron.shell.openExternal(url) // open links external
   })
 }
 

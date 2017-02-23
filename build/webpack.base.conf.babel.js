@@ -8,8 +8,8 @@ module.exports = {
 		__dirname: false
 	},
   entry: {
-    app: './src/renderer/index.tsx',
-    electron: './src/main/index.ts'
+    app: './src/renderer/index.jsx',
+    electron: './src/main/index.js'
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
@@ -17,7 +17,7 @@ module.exports = {
     filename: '[name].js'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
+    extensions: ['', '.js', '.jsx'],
     fallback: [path.join(__dirname, '../node_modules')],
     alias: {
       'app': path.resolve(__dirname, '../app'),
@@ -40,17 +40,7 @@ module.exports = {
         test: /\.js$/,
         loader: 'eslint',
         exclude: /node_modules/
-      },
-      {
-        test: /\.css$/,
-        exclude: [/global/, /node_modules/],
-        loader: 'typed-css-modules'
-      },
-      {
-        test: /\.scss$/,
-        exclude: [/global/, /node_modules/],
-        loader: 'typed-css-modules'
-      },
+      }
     ],
     loaders: [
       {
@@ -58,6 +48,15 @@ module.exports = {
         loader: 'babel',
         query: {
           presets: ['es2015', 'stage-2'],
+          plugins: ['transform-runtime', 'transform-decorators-legacy']
+        },
+        exclude: /node_modules/
+      },
+      {
+        test: /\.jsx$/,
+        loader: 'babel',
+        query: {
+          presets: ['react', 'es2015', 'stage-2'],
           plugins: ['transform-runtime', 'transform-decorators-legacy']
         },
         exclude: /node_modules/

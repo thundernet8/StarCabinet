@@ -5,8 +5,8 @@ import fs                     from 'fs'
 
 let injectStyle = 'body{background-color:transparent !important;}'
 
-const createLoginWindow = (): Electron.BrowserWindow => {
-    let win: Electron.BrowserWindow = new BrowserWindow({
+function createLoginWindow () {
+    let win = new BrowserWindow({
         width: 288,
         height: 400,
         // titleBarStyle: 'hidden-inset',
@@ -24,7 +24,7 @@ const createLoginWindow = (): Electron.BrowserWindow => {
         hash: 'login'
     }))
 
-    let page: Electron.WebContents = win.webContents
+    let page = win.webContents
     page.on('dom-ready', () => {
         page.insertCSS(injectStyle)
     })
@@ -32,4 +32,4 @@ const createLoginWindow = (): Electron.BrowserWindow => {
     return win
 }
 
-export default createLoginWindow
+module.exports = createLoginWindow
