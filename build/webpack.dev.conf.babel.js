@@ -28,7 +28,10 @@ config.output.publicPath =  'http://localhost:' + config.port + '/static/'
 
 config.plugins = (config.plugins || []).concat([
   new webpack.DefinePlugin({
-    'process.env.NODE_ENV': JSON.stringify('development')
+    'process.env': {
+      NODE_ENV: JSON.stringify('development'),
+      PORT: config.port
+    }
   }),
   new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.HotModuleReplacementPlugin(),

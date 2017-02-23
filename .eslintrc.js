@@ -10,7 +10,8 @@ module.exports = {
   extends: 'standard',
   env: {
     'es6': true,
-    'node': true
+    'node': true,
+    "browser": true
   },
   // required to lint *.vue files
   plugins: [

@@ -1,7 +1,7 @@
-const { ipcMain, BrowserWindow } = require('electron')
-const EVENTS = require('../../shared/events')
+import { ipcMain, BrowserWindow }      from 'electron'
+import * as EVENTS                     from '../../shared/events'
 
-function windowLifeCycle () {
+const windowLifeCycle = () => {
   // handle close window events
   ipcMain.on(EVENTS.CLOSE_LOGIN, (event, arg) => {
     let window = BrowserWindow.getFocusedWindow()
@@ -9,4 +9,4 @@ function windowLifeCycle () {
   })
 }
 
-module.exports = windowLifeCycle
+export default windowLifeCycle

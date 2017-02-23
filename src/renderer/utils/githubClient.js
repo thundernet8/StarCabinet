@@ -11,7 +11,7 @@ export default class GithubClient {
     this.me = this.client.getUser()
   }
 
-  verifyLoginStatus (callback) {
+  getMyProfile (callback) {
     this.me.getProfile(function (err, res) {
       callback(err, res)
     })

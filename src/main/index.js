@@ -21,7 +21,7 @@ function createWindow () {
   BrowserWindow.addDevToolsExtension(packageConfigs.reactDevTool)
 
   // Open the DevTools.
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV === 'development') {
       win.webContents.on('devtools-opened', () => {
         setImmediate(() => {
           win.focus()

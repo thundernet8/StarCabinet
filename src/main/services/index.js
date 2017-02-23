@@ -1,6 +1,6 @@
 import windowLifeCycle from './windowLifeCycle'
 
-function register () {
+const register = () => {
   windowLifeCycle()
 }
 

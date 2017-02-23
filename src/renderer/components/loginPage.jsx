@@ -47,6 +47,9 @@ export default class LoginPage extends React.Component {
   closeLoginWindow () {
     ipcRenderer.sendSync(EVENTS.CLOSE_LOGIN, '')
   }
+  componentDidMount () {
+    this.props.onGetLocalCredentials()
+  }
   render () {
     const { submitting } = this.state
     const { username, password } = this.state

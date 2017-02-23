@@ -1,8 +1,8 @@
-import path from 'path'
-import webpack from 'webpack'
-import config from './webpack.base.conf.babel'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import _ from 'lodash'
+import path                   from 'path'
+import webpack                from 'webpack'
+import config                 from './webpack.base.conf.babel'
+import HtmlWebpackPlugin      from 'html-webpack-plugin'
+import _                      from 'lodash'
 
 config.output.filename = '[name].[chunkhash:8].js' // [name].[chunkhash]
 config.output.chunkFilename = '[id].js' // [id].[chunkhash]
@@ -30,7 +30,7 @@ config.plugins = (config.plugins || []).concat([
   // http://vuejs.github.io/vue-loader/workflow/production.html
   new webpack.DefinePlugin({
     'process.env': {
-      NODE_ENV: '"production"'
+      NODE_ENV: JSON.stringify('development')
     }
   }),
   new webpack.optimize.UglifyJsPlugin({
