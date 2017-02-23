@@ -23,9 +23,9 @@ loaders.unshift({
   },
   exclude: /node_modules/
 }, {
-  test: /\.tsx$/,
+  test: /\.tsx?$/,
   loader: 'babel-loader?presets[]=react&presets[]=es2015&presets[]=stage-2!ts-loader',
-  exclude: [/node_modules/, /typings/]
+  exclude: /node_modules/
 })
 config.module.loaders = loaders
 
@@ -33,10 +33,9 @@ config.output.path = path.resolve(__dirname, '../app/dist')
 config.output.publicPath =  './'
 
 config.plugins = (config.plugins || []).concat([
-  // http://vuejs.github.io/vue-loader/workflow/production.html
   new webpack.DefinePlugin({
     'process.env': {
-      NODE_ENV: '"production"'
+      NODE_ENV: JSON.stringify('production')
     }
   }),
   new webpack.optimize.UglifyJsPlugin({
@@ -51,9 +50,6 @@ config.plugins = (config.plugins || []).concat([
 
 var electronConfig = _.cloneDeep(config)
 config.plugins = config.plugins.concat([
-  new webpack.DefinePlugin({
-    'process.env.NODE_ENV': JSON.stringify('production')
-  }),
   // see https://github.com/ampedandwired/html-webpack-plugin
   new HtmlWebpackPlugin({
     filename: '../../app/dist/index.html',

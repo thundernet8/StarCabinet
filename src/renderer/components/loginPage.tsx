@@ -1,12 +1,16 @@
 import React, { PropTypes }         from 'react'
 import { Link }                     from 'react-router'
-import styles                       from '../styles/login.scss'
+import * as styles                  from '../styles/login.scss'
 import FontAwesome                  from 'react-fontawesome'
 import * as EVENTS                  from '../../shared/events'
 import { ipcRenderer }              from 'electron'
 import { Input, Icon, Button }      from 'antd'
 
-export default class LoginPage extends React.Component {
+export default class LoginPage extends React.Component<any, any> {
+  private userNameInput: any
+  private passwordInput: any
+  private submitBtn: any
+  
   constructor (props) {
     super(props)
     this.state = {

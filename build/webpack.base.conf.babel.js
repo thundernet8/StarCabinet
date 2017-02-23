@@ -40,7 +40,17 @@ module.exports = {
         test: /\.js$/,
         loader: 'eslint',
         exclude: /node_modules/
-      }
+      },
+      {
+        test: /\.css$/,
+        exclude: [/global/, /node_modules/],
+        loader: 'typed-css-modules'
+      },
+      {
+        test: /\.scss$/,
+        exclude: [/global/, /node_modules/],
+        loader: 'typed-css-modules'
+      },
     ],
     loaders: [
       {
@@ -51,11 +61,6 @@ module.exports = {
           plugins: ['transform-runtime', 'transform-decorators-legacy']
         },
         exclude: /node_modules/
-      },
-      {
-        test: /\.ts$/,
-        loader: 'babel-loader?presets[]=es2015&presets[]=stage-2!ts-loader',
-        exclude: [/node_modules/, /typings/]
       },
       {
         test: /\.json$/,

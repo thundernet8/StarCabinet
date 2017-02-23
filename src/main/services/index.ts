@@ -1,7 +1,5 @@
 import windowLifeCycle from './windowLifeCycle'
 
-function register () {
+export const register = (): void => {
   windowLifeCycle()
 }
-
-exports.register = register

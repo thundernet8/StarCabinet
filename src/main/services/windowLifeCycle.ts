@@ -1,12 +1,12 @@
 import { ipcMain, BrowserWindow }       from 'electron'
 import * as EVENTS                      from'../../shared/events'
 
-function windowLifeCycle () {
+const windowLifeCycle = (): void => {
   // handle close window events
   ipcMain.on(EVENTS.CLOSE_LOGIN, (event, arg) => {
-    let window = BrowserWindow.getFocusedWindow()
+    let window: Electron.BrowserWindow = BrowserWindow.getFocusedWindow()
     window.close()
   })
 }
 
-module.exports = windowLifeCycle
+export default windowLifeCycle

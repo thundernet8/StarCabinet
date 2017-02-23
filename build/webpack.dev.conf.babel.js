@@ -1,7 +1,7 @@
-var path = require('path')
-var webpack = require('webpack')
-var config = require('./webpack.base.conf.babel')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
+import path                 from 'path'
+import webpack              from 'webpack'
+import config               from './webpack.base.conf.babel'
+import HtmlWebpackPlugin    from 'html-webpack-plugin'
 
 // eval-source-map is faster for development
 config.devtool = '#eval-source-map'
@@ -12,9 +12,9 @@ loaders.unshift({
   exclude: /node_modules/,
   loaders: ['react-hot']
 }, {
-  test: /\.tsx$/,
-  exclude: [/node_modules/, /typings/],
-  loaders: ['react-hot', 'babel?presets[]=es2015', 'ts-loader']
+  test: /\.tsx?$/,
+  exclude: /node_modules/,
+  loaders: ['babel?presets[]=react&presets[]=es2015&presets[]=stage-2', 'ts-loader']
 })
 config.module.loaders = loaders
 
@@ -32,10 +32,14 @@ config.output.publicPath =  'http://localhost:' + config.port + '/static/'
 
 config.plugins = (config.plugins || []).concat([
   new webpack.DefinePlugin({
-    'process.env.NODE_ENV': JSON.stringify('development')
+    'process.env': {
+      NODE_ENV: JSON.stringify('development')
+    }
   }),
-  new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.HotModuleReplacementPlugin(),
+  // prints more readable module names in the browser console on HMR updates
+  new webpack.NamedModulesPlugin(),
+  new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.NoErrorsPlugin(),
   // https://github.com/ampedandwired/html-webpack-plugin
   new HtmlWebpackPlugin({

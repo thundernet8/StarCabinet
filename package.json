@@ -52,8 +52,12 @@
   },
   "homepage": "https://github.com/thundernet8/StarCabinet#readme",
   "devDependencies": {
+    "@types/react": "^15.0.12",
+    "@types/react-dom": "^0.14.23",
+    "@types/react-redux": "^4.4.36",
     "antd": "^2.7.2",
     "autoprefixer": "^6.6.1",
+    "awesome-typescript-loader": "^3.0.7",
     "babel-core": "^6.20.0",
     "babel-eslint": "^6.1.2",
     "babel-loader": "^6.2.10",
@@ -122,10 +126,13 @@
     "ts-loader": "^2.0.0",
     "ts-node": "^2.1.0",
     "ts-register": "^0.1.0",
+    "typed-css-modules": "^0.2.0",
+    "typed-css-modules-loader": "^0.0.4",
     "typescript": "^2.1.6",
     "url-loader": "^0.5.7",
     "webpack": "^1.14.0",
     "webpack-dev-middleware": "^1.8.4",
+    "webpack-dev-server": "^2.4.1",
     "webpack-hot-middleware": "^2.13.2"
   },
   "devEngines": {

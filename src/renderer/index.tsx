@@ -27,14 +27,6 @@ if (process.env.NODE_ENV === 'development') {
 
 const history = syncHistoryWithStore(hashHistory, store) // use hashHistory instead browserHistory in case of react-router cannot match routes
 
-// Make reducers hot reloadable, see http://stackoverflow.com/questions/34243684/make-redux-reducers-and-other-non-components-hot-loadable
-if (module.hot) {
-  module.hot.accept('./reducers', () => {
-    const nextRootReducer = require('./reducers').default
-    store.replaceReducer(nextRootReducer)
-  })
-}
-
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history} routes={routes} render={applyRouterMiddleware(useScroll())} />

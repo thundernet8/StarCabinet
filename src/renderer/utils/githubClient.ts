@@ -3,6 +3,9 @@ import Constant          from '../constants'
 // import Promise           from 'bluebird'
 
 export default class GithubClient {
+  public client: GitHubApi;
+  public me: any;
+
   constructor (credentials) {
     this.client = new GitHubApi({
       username: credentials.username,

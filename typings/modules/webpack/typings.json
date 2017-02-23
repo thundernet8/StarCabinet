@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/c093ee6b1168a1bb3d1a41502f1de6aeabfc0988/webpack/index.d.ts",
+    "raw": "registry:dt/webpack#2.2.0+20170215060038",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/c093ee6b1168a1bb3d1a41502f1de6aeabfc0988/webpack/index.d.ts"
+  }
+}

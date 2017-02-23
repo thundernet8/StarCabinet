@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/b299105c8115935e9850b535c56dd78c2bef4ce5/webpack-hot-middleware/index.d.ts",
+    "raw": "registry:dt/webpack-hot-middleware#2.15.0+20170117213728",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/b299105c8115935e9850b535c56dd78c2bef4ce5/webpack-hot-middleware/index.d.ts"
+  }
+}
