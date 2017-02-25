@@ -47,17 +47,7 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel',
         query: {
-          presets: ['es2015', 'stage-2'],
-          plugins: ['transform-runtime', 'transform-decorators-legacy']
-        },
-        exclude: /node_modules/
-      },
-      {
-        test: /\.jsx$/,
-        loader: 'babel',
-        query: {
-          presets: ['react', 'es2015', 'stage-2'],
-          plugins: ['transform-runtime', 'transform-decorators-legacy']
+          presets: ['es2015', 'stage-2']
         },
         exclude: /node_modules/
       },
@@ -90,6 +80,16 @@ module.exports = {
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader')
       },
       {
+        test: /\.less$/,
+        include: [/global/, /node_modules/],
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader!less-loader')
+      },
+      {
+        test: /\.less$/,
+        exclude: [/global/, /node_modules/],
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader!less-loader')
+      },
+      {
         test: /\.scss$/,
         include: [/global/, /node_modules/],
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader!sass-loader')
@@ -116,6 +116,10 @@ module.exports = {
           limit: 10000,
           name: 'assets/fonts/[name].[ext]'
         }
+      },
+      {
+        test: /\.node$/,
+        loader: 'node-loader'
       }
     ]
   },

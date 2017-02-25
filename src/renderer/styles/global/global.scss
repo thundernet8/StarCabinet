@@ -63,3 +63,20 @@ img {
 #app {
     height: 100%;
 }
+
+/* Transition */
+.trans {
+    transition: all .3s ease;
+}
+
+.trans-ease-out {
+    transition: all .3s ease-out;
+}
+
+.trans-ease-in {
+    transition: all .3s ease-in;
+}
+
+.trans-ease-in-out {
+    transition: all .3s ease-in-out;
+}

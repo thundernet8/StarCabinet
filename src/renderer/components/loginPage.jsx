@@ -1,10 +1,15 @@
-import React, { PropTypes }         from 'react'
-import { Link }                     from 'react-router'
-import styles                       from '../styles/login.scss'
-import FontAwesome                  from 'react-fontawesome'
-import * as EVENTS                  from '../../shared/events'
-import { ipcRenderer }              from 'electron'
-import { Input, Icon, Button }      from 'antd'
+import React, { PropTypes }                         from 'react'
+import { Link }                                     from 'react-router'
+import styles                                       from '../styles/login.scss'
+import FontAwesome                                  from 'react-fontawesome'
+import * as EVENTS                                  from '../../shared/events'
+import { ipcRenderer }                              from 'electron'
+import { Input, Icon, Button, message }             from 'antd'
+
+message.config({
+  top: 150,
+  duration: 5
+})
 
 export default class LoginPage extends React.Component {
   constructor (props) {
@@ -42,7 +47,14 @@ export default class LoginPage extends React.Component {
     this.props.onRequestLogin({
       username: this.state.username,
       password: this.state.password
-    })
+    }, this.showLoginMsg)
+  }
+  showLoginMsg = (success, msg) => {
+    if (success) {
+      message.success(msg)
+    } else {
+      message.error(msg)
+    }
   }
   closeLoginWindow () {
     ipcRenderer.sendSync(EVENTS.CLOSE_LOGIN, '')
@@ -50,11 +62,22 @@ export default class LoginPage extends React.Component {
   componentDidMount () {
     this.props.onGetLocalCredentials()
   }
+  componentWillReceiveProps (nextProps) {
+    let newState = {
+      username: nextProps.credentials.username,
+      password: nextProps.credentials.password
+    }
+    if (nextProps.loginResult.success !== null) {
+      newState.submitting = false
+    }
+    this.setState(newState)
+  }
   render () {
     const { submitting } = this.state
     const { username, password } = this.state
     const usernameSuffix = username ? <Icon type="close-circle" onClick={this.emitUsernameEmpty} /> : null
     const passwordSuffix = password ? <Icon type="close-circle" onClick={this.emitPasswordEmpty} /> : null
+    const btnDisabled = submitting || !username || !password || username.length < 2 || password.length < 5
     return (
         <div className={styles.wrapper}>
             <header>
@@ -97,7 +120,7 @@ export default class LoginPage extends React.Component {
                   type="primary"
                   loading={submitting}
                   onClick={this.enterSubmit}
-                  disabled={this.state.username.length < 2 || this.state.password.length < 6}
+                  disabled={btnDisabled}
                   ref={ (node) => { this.submitBtn = node } }
                 >
                   {submitting ? '' : 'Login'}

@@ -6,6 +6,7 @@ import createLogger                         from 'redux-logger'
 // const logger = createLogger({
 //   predicate: (getState, action) => action.type !== 'FETCHING'
 // })
+const logger = createLogger()
 
 export default function configureStore (initialState) {
     return createStore(
@@ -13,7 +14,7 @@ export default function configureStore (initialState) {
         initialState,
         applyMiddleware(
             ReduxThunk,
-            // logger
+            logger
         )
     )
 }

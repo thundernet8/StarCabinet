@@ -24,9 +24,9 @@ module.exports = {
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     // indent
-    'indent': ['warn', 2,  { 'SwitchCase': 2 }],
+    'indent': [0, 2,  { 'SwitchCase': 2 }],
     // unused vars
-    'no-unused-vars': 1,
+    'no-unused-vars': 0,
     'no-multi-spaces': ['error', { exceptions: { 'ImportDeclaration': true } }]
   }
 }

@@ -10,7 +10,7 @@ var loaders = (config.module.loaders || [])
 loaders.unshift({
   test: /\.jsx$/,
   exclude: /node_modules/,
-  loaders: ['react-hot']
+  loaders: ['react-hot', 'babel?presets[]=react&presets[]=es2015&presets[]=stage-2']
 })
 config.module.loaders = loaders
 

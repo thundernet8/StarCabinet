@@ -18,13 +18,6 @@ let store = configureStore()
 // Create an enhanced history that syncs navigation events with the store
 // const history = syncHistoryWithStore(scrollHistory, store)
 
-// Debug store
-if (process.env.NODE_ENV === 'development') {
-  store.subscribe(() =>
-    console.log(store.getState())
-  )
-}
-
 const history = syncHistoryWithStore(hashHistory, store) // use hashHistory instead browserHistory in case of react-router cannot match routes
 
 // Make reducers hot reloadable, see http://stackoverflow.com/questions/34243684/make-redux-reducers-and-other-non-components-hot-loadable

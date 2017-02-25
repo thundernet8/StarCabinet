@@ -1,5 +1,5 @@
 {
   "presets": ["es2015", "stage-2"],
-  "plugins": ["transform-runtime"],
+  "plugins": ["transform-runtime", "transform-decorators-legacy", ["import", {"libraryName": "antd", "style": true}]],
   "comments": false
 }

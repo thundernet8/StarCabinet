@@ -17,8 +17,7 @@ config.module.loaders = (config.module.loaders || []).concat({
   test: /\.jsx$/,
   loader: 'babel',
   query: {
-    presets: ['react', 'es2015', 'stage-2'],
-    plugins: ['transform-runtime', 'transform-decorators-legacy']
+    presets: ['react', 'es2015', 'stage-2']
   },
   exclude: /node_modules/
 })
