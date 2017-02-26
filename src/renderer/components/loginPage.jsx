@@ -3,11 +3,13 @@ import { Link }                                     from 'react-router'
 import styles                                       from '../styles/login.scss'
 import FontAwesome                                  from 'react-fontawesome'
 import * as EVENTS                                  from '../../shared/events'
+import * as SHAREDCONSTANTS                         from '../../shared/constants'
 import { ipcRenderer }                              from 'electron'
 import { Input, Icon, Button, message }             from 'antd'
+import classNames                                   from 'classnames'
 
 message.config({
-  top: 150,
+  top: 60,
   duration: 5
 })
 
@@ -43,6 +45,9 @@ export default class LoginPage extends React.Component {
     })
   }
   enterSubmit = (e) => {
+    if (this.state.submitting) {
+      return
+    }
     this.setState({ submitting: true })
     this.props.onRequestLogin({
       username: this.state.username,
@@ -77,16 +82,22 @@ export default class LoginPage extends React.Component {
     const { username, password } = this.state
     const usernameSuffix = username ? <Icon type="close-circle" onClick={this.emitUsernameEmpty} /> : null
     const passwordSuffix = password ? <Icon type="close-circle" onClick={this.emitPasswordEmpty} /> : null
-    const btnDisabled = submitting || !username || !password || username.length < 2 || password.length < 5
+    const btnDisabled = !username || !password || username.length < 2 || password.length < 5
+    const avatar = this.props.loginResult.profile ? this.props.loginResult.profile.avatar_url : require('../assets/images/icon.png')
     return (
         <div className={styles.wrapper}>
             <header>
-              <div>StarCabinet</div>
+              <div>{SHAREDCONSTANTS.APP}</div>
               <span id="closeLogin" className={styles.close} onClick={this.closeLoginWindow}><i></i><i></i></span>
             </header>
             <div className={styles.logoWrapper}>
-              <img className={styles.logo} src={require('../assets/images/icon.png')}/>
+              <img key="logo" className={classNames(styles.logo, 'logo', 'trans', {[styles.logoLogged]: this.props.loginResult.success === true})} src={avatar}/>
+              {this.props.loginResult.success === true &&
+              <div className={classNames(styles.name, 'name center fadeInDelay')}>
+                <span>{this.props.loginResult.profile.name}</span>
+              </div>}
             </div>
+            {this.props.loginResult.success !== true &&
             <div className={styles.loginBox}>
               <div className="mt20">
                 <Input
@@ -127,6 +138,7 @@ export default class LoginPage extends React.Component {
                 </Button>
               </div>
             </div>
+            }
         </div>
     )
   }

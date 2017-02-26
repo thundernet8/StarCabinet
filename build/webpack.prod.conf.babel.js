@@ -1,8 +1,9 @@
-import path                   from 'path'
-import webpack                from 'webpack'
-import baseConfig             from './webpack.base.conf.babel'
-import HtmlWebpackPlugin      from 'html-webpack-plugin'
-import merge                  from 'webpack-merge'
+import path                           from 'path'
+import webpack                        from 'webpack'
+import baseConfig                     from './webpack.base.conf.babel'
+import HtmlWebpackPlugin              from 'html-webpack-plugin'
+import merge                          from 'webpack-merge'
+import OptimizeCssAssetsPlugin        from 'optimize-css-assets-webpack-plugin'
 
 baseConfig.entry = {}
 
@@ -43,6 +44,12 @@ let appProdConfig = {
       compress: {
         warnings: false
       }
+    }),
+    new OptimizeCssAssetsPlugin({
+      assetNameRegExp: /\.min\.css$/g,
+      cssProcessor: require('cssnano'),
+      cssProcessorOptions: { discardComments: {removeAll: true } },
+      canPrint: true
     }),
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({

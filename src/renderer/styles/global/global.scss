@@ -1,6 +1,9 @@
 /* Font Awesome */
 @import "font/font-awesome";
 
+/* Antd Theme */
+@import "antd-theme";
+
 /* Utilities */
 .mt10 {
     margin-top: 10px;
@@ -50,6 +53,10 @@
     margin-left: 30px;
 }
 
+.center {
+    text-align: center;
+}
+
 /* Elements */
 
 html, body {
@@ -79,4 +86,22 @@ img {
 
 .trans-ease-in-out {
     transition: all .3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0
+    }
+
+    100% {
+        opacity: 1
+    }
+}
+
+.fadeIn {
+    animation: fadeIn .5s forwards;
+}
+
+.fadeInDelay {
+    animation: fadeIn .8s .5s forwards;
 }

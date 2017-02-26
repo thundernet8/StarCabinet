@@ -71,6 +71,19 @@
     border-radius: 50%;
 }
 
+.logoLogged {
+    top: 100px;
+    transform: scale(1.2)
+}
+
+.name {
+    position: absolute;
+    top: 200px;
+    width: 100%;
+    font-size: 16px;
+    opacity: 0;
+}
+
 .loginBox {
     padding: 10px 20px;
 }

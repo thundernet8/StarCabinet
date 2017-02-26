@@ -21,3 +21,4 @@ export const REQUEST_LOGIN_FAIL = 'REQUEST_LOGIN_FAIL'
 // localStorage key
 
 export const LOCAL_STORAGE_USERNAME_KEY = 'sc_username'
+export const LOCAL_STORAGE_USER_PROFILE = 'sc_profile'

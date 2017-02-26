@@ -9,8 +9,8 @@ import { useScroll }                                            from 'react-rout
 import configureStore                                           from './store/configureStore'
 import routes                                                   from './routes'
 import './styles/global/normalize.css'
-import 'antd/dist/antd.css'
 import './styles/global/global.scss'
+// import 'antd/dist/antd.css' // we use 'babel-plugin-import' import antd components css
 
 let store = configureStore()
 

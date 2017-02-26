@@ -28,6 +28,12 @@ export default class Authentication {
     })
   }
 
+  static saveProfileToLocal (profile, callback) {
+    localStorage.setItem(CONSTANTS.LOCAL_STORAGE_USER_PROFILE, JSON.stringify(profile))
+
+    typeof callback === 'function' && callback()
+  }
+
   static deleteLocalCredentials (callback) {
     let username = localStorage.getItem(CONSTANTS.LOCAL_STORAGE_USERNAME_KEY)
 
@@ -51,8 +57,16 @@ export default class Authentication {
         msg = err.message
       }
       typeof callback === 'function' && callback(msg, profile)
-      // save credentials to windows credentials
-      if (!err && profile.login === credentials.username) Authentication.saveCredentialsToSystem(credentials, null)
+
+      // success stuff
+      if (!err && profile.login === credentials.username) {
+        // save credentials to windows credentials
+        Authentication.saveCredentialsToSystem(credentials, null)
+        Authentication.saveProfileToLocal(profile, null)
+
+        // show main window now and close login window
+        ipcRenderer.send(EVENTS.SHOW_MAIN_WIN_AND_CLOSE_LOGIN_WIN, JSON.stringify(credentials))
+      }
     })
   }
 
