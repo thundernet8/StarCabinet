@@ -1,7 +1,7 @@
-var path = require('path')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
+import path               from 'path'
+import ExtractTextPlugin  from 'extract-text-webpack-plugin'
 
-module.exports = {
+export default {
   // http://webpack.github.io/docs/configuration.html#node
   node: {
 		__filename: false,
@@ -17,87 +17,75 @@ module.exports = {
     filename: '[name].js'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
-    fallback: [path.join(__dirname, '../node_modules')],
+    extensions: ['.js', '.jsx', '.css', '.scss'],
+    modules: [
+      path.join(__dirname, '../node_modules')
+    ],
     alias: {
       'app': path.resolve(__dirname, '../app'),
       'dist': path.resolve(__dirname, '../dist'),
       'src': path.resolve(__dirname, '../src')
     }
   },
-  resolveLoader: {
-    fallback: [path.join(__dirname, '../node_modules')]
-  },
   target: 'electron-renderer',  // important
   module: {
-    preLoaders: [
+    rules: [
       {
         test: /\.jsx$/,
-        loader: 'eslint',
-        exclude: /node_modules/
+        loader: 'eslint-loader',
+        exclude: /node_modules/,
+        enforce: 'pre',
+        options: {
+          formatter: require('eslint-friendly-formatter')
+        }
       },
       {
         test: /\.js$/,
-        loader: 'eslint',
-        exclude: /node_modules/
-      }
-    ],
-    loaders: [
+        loader: 'eslint-loader',
+        exclude: /node_modules/,
+        enforce: 'pre',
+        options: {
+          formatter: require('eslint-friendly-formatter')
+        }
+      },
       {
         test: /\.js$/,
-        loader: 'babel',
-        query: {
-          presets: ['es2015', 'stage-2']
-        },
+        loader: 'babel-loader?presets[]=es2015&presets[]=stage-2',
         exclude: /node_modules/
       },
       {
         test: /\.json$/,
         loader: 'json-loader'
       },
-      // {
-      //   test: /\.global\.css$/,
-      //   loaders: [
-      //     'style-loader',
-      //     'css-loader?sourceMap!postcss-loader'
-      //   ]
-      // },
       {
         test: /\.css$/,
         include: [/global/, /node_modules/],
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader')
+        loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader?sourceMap!postcss-loader'})
       },
-      // {
-      //   test: /^((?!\.global).)*\.css$/,
-      //   loaders: [
-      //     'style-loader',
-      //     'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
-      //   ]
-      // },
       {
         test: /\.css$/,
         exclude: [/global/, /node_modules/],
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader')
+        loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'})
       },
       {
         test: /\.less$/,
         include: [/global/, /node_modules/],
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader!less-loader')
+        loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader?sourceMap!postcss-loader!less-loader'})
       },
       {
         test: /\.less$/,
         exclude: [/global/, /node_modules/],
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader!less-loader')
+        loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader!less-loader'})
       },
       {
         test: /\.scss$/,
         include: [/global/, /node_modules/],
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader!sass-loader')
+        loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader?sourceMap!postcss-loader!sass-loader'})
       },
       {
         test: /\.scss$/,
         exclude: [/global/, /node_modules/],
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader!sass-loader')
+        loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader!sass-loader'})
       },
       {
         test: /\.(png|jpg|gif)$/,
@@ -123,18 +111,8 @@ module.exports = {
       }
     ]
   },
-  postcss() {
-    return [
-      require('postcss-import'),
-      require('postcss-nested'),
-      require('autoprefixer')
-    ];
-  },
-  eslint: {
-    formatter: require('eslint-friendly-formatter')
-  },
   plugins: [
     // extract css to one file
-    new ExtractTextPlugin('style.css', { allChunks: true })
+    new ExtractTextPlugin({filename: 'style.css', disable: false, allChunks: true})
   ]
 }

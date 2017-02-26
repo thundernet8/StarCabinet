@@ -1,71 +1,96 @@
 import path                   from 'path'
 import webpack                from 'webpack'
-import config                 from './webpack.base.conf.babel'
+import baseConfig             from './webpack.base.conf.babel'
 import HtmlWebpackPlugin      from 'html-webpack-plugin'
-import _                      from 'lodash'
+import merge                  from 'webpack-merge'
 
-config.output.filename = '[name].[chunkhash:8].js' // [name].[chunkhash]
-config.output.chunkFilename = '[id].js' // [id].[chunkhash]
+baseConfig.entry = {}
 
-// whether to generate source map for production files.
-// disabling this can speed up the build.
-var SOURCE_MAP = true
+let appProdConfig = {
+  // whether to generate source map for production files.
+  // disabling this can speed up the build.
+  devtool: false, // '#source-map',
 
-config.devtool = SOURCE_MAP ? '#source-map' : false
-
-config.module.loaders = (config.module.loaders || []).concat({
-  test: /\.jsx$/,
-  loader: 'babel',
-  query: {
-    presets: ['react', 'es2015', 'stage-2']
+  entry: {
+    app: './src/renderer/index.jsx'
   },
-  exclude: /node_modules/
-})
 
-config.output.path = path.resolve(__dirname, '../app/dist')
-config.output.publicPath =  './'
+  output: {
+    filename: '[name].[chunkhash:8].js',
+    chunkFilename: '[id].js',
+    path: path.resolve(__dirname, '../app/dist'),
+    publicPath: './'
+  },
 
-config.plugins = (config.plugins || []).concat([
-  // http://vuejs.github.io/vue-loader/workflow/production.html
-  new webpack.DefinePlugin({
-    'process.env': {
-      NODE_ENV: JSON.stringify('development')
-    }
-  }),
-  new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false
-    }
-  }),
-  new webpack.optimize.OccurenceOrderPlugin(),
-  // extract css into its own file
-  // new ExtractTextPlugin('[name].[contenthash:8].css')
-])
+  module: {
+    rules: [
+      {
+        test: /\.jsx$/,
+        loader: 'babel-loader?presets[]=react&presets[]=es2015&presets[]=stage-2',
+        exclude: /node_modules/
+      }
+    ]
+  },
 
-var electronConfig = _.cloneDeep(config)
-config.plugins = config.plugins.concat([
-  new webpack.DefinePlugin({
-    'process.env.NODE_ENV': JSON.stringify('production')
-  }),
-  // see https://github.com/ampedandwired/html-webpack-plugin
-  new HtmlWebpackPlugin({
-    filename: '../../app/dist/index.html',
-    template: 'src/renderer/index.html',
-    inject: true,
-    // minify: {
-    //   removeComments: true,
-    //   collapseWhitespace: true,
-    //   removeAttributeQuotes: true
-    //   // more options:
-    //   // https://github.com/kangax/html-minifier#options-quick-reference
-    // }
-    //excludeChunks: ['electron']
-  })
-])
+  plugins: [
+    // http://vuejs.github.io/vue-loader/workflow/production.html
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
+    // see https://github.com/ampedandwired/html-webpack-plugin
+    new HtmlWebpackPlugin({
+      filename: '../../app/dist/index.html',
+      template: 'src/renderer/index.html',
+      inject: true,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+        // more options:
+        // https://github.com/kangax/html-minifier#options-quick-reference
+      }
+    })
+  ]
+}
 
-delete electronConfig.entry.app
-delete config.entry.electron
+let electronProdConfig = {
+  // whether to generate source map for production files.
+  // disabling this can speed up the build.
+  devtool: false, // '#source-map',
 
-electronConfig.output.filename = '[name].js' // for Electron, the main entry name is fixed in package.json, hash should removed
+  entry: {
+    electron: './src/main/index.js'
+  },
 
-module.exports = [config, electronConfig]
+  output: {
+    filename: '[name].js', // for Electron, the main entry name is fixed in package.json, hash should removed
+    chunkFilename: '[id].js',
+    path: path.resolve(__dirname, '../app/dist'),
+    publicPath: './'
+  },
+
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
+  ]
+}
+
+export default [
+  merge(baseConfig, appProdConfig),
+  merge(baseConfig, electronProdConfig)
+]

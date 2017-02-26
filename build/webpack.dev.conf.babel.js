@@ -1,48 +1,59 @@
-var path = require('path')
-var webpack = require('webpack')
-var config = require('./webpack.base.conf.babel')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
+import path               from 'path'
+import webpack            from 'webpack'
+import baseConfig         from './webpack.base.conf.babel'
+import merge              from 'webpack-merge'
+import HtmlWebpackPlugin  from 'html-webpack-plugin'
 
-// eval-source-map is faster for development
-config.devtool = '#eval-source-map'
+const port = process.env.PORT || 3000
 
-var loaders = (config.module.loaders || [])
-loaders.unshift({
-  test: /\.jsx$/,
-  exclude: /node_modules/,
-  loaders: ['react-hot', 'babel?presets[]=react&presets[]=es2015&presets[]=stage-2']
-})
-config.module.loaders = loaders
+let devConfig = {
+  // eval-source-map is faster for development
+  devtool: '#eval-source-map',
 
-// add hot-reload related code to entry chunks
-var polyfill = 'eventsource-polyfill'
-var devClient = './build/dev-client'
-Object.keys(config.entry).forEach(function (name, i) {
-  var extras = i === 0 ? [polyfill, devClient] : [devClient]
-  config.entry[name] = extras.concat(config.entry[name])
-})
+  entry: {
+    app: [
+      `webpack-hot-middleware/client?path=http://localhost:${port}/__webpack_hmr`,
+      'babel-polyfill',
+      './src/renderer/index.jsx'
+    ],
+    electron: [
+      `webpack-hot-middleware/client?path=http://localhost:${port}/__webpack_hmr`,
+      'babel-polyfill',
+      './src/main/index.js'
+    ]
+  },
 
-config.port = 8080;
-config.output.path = path.resolve(__dirname, '../dist')
-config.output.publicPath =  'http://localhost:' + config.port + '/static/'
+  output: {
+    path: path.resolve(__dirname, '../dist'),
+    publicPath: `http://localhost:${port}/static/`
+  },
 
-config.plugins = (config.plugins || []).concat([
-  new webpack.DefinePlugin({
-    'process.env': {
-      NODE_ENV: JSON.stringify('development'),
-      PORT: config.port
-    }
-  }),
-  new webpack.optimize.OccurenceOrderPlugin(),
-  new webpack.HotModuleReplacementPlugin(),
-  new webpack.NoErrorsPlugin(),
-  // https://github.com/ampedandwired/html-webpack-plugin
-  new HtmlWebpackPlugin({
-    filename: '../dist/index.html',
-    template: 'src/renderer/index.html',
-    inject: true,
-    excludeChunks: ['electron']
-  })
-])
+  module: {
+    rules: [
+      {
+        test: /\.jsx$/,
+        exclude: /node_modules/,
+        loaders: ['react-hot-loader', 'babel-loader?presets[]=react&presets[]=es2015&presets[]=stage-2']
+      }
+    ]
+  },
 
-module.exports = config
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('development')
+      }
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+    // https://github.com/ampedandwired/html-webpack-plugin
+    new HtmlWebpackPlugin({
+      filename: '../dist/index.html',
+      template: 'src/renderer/index.html',
+      inject: true,
+      excludeChunks: ['electron']
+    })
+  ]
+}
+
+export default merge(baseConfig, devConfig)
