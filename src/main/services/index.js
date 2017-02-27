@@ -1,8 +1,8 @@
 import windowLifeCycle          from './windowLifeCycle'
 import handleCredentialsEvents  from './credentials'
 
-const register = () => {
-  windowLifeCycle()
+const register = (globalWin) => {
+  windowLifeCycle(globalWin)
   handleCredentialsEvents()
 }
 

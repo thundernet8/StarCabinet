@@ -83,11 +83,10 @@ export default class LoginPage extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    console.log('componentWillReceiveProps')
     let newState = {
       username: nextProps.credentials.username,
       password: nextProps.credentials.password,
-      submitting: false // nextProps.credentials.username && nextProps.credentials.password && nextProps.loginResult.success === null
+      submitting: !!nextProps.credentials.username && !!nextProps.credentials.password && nextProps.loginResult.success === null
     }
 
     this.setState(newState)
