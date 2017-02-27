@@ -65,7 +65,9 @@ export default class Authentication {
         Authentication.saveProfileToLocal(profile, null)
 
         // show main window now and close login window
-        ipcRenderer.send(EVENTS.SHOW_MAIN_WIN_AND_CLOSE_LOGIN_WIN, JSON.stringify(credentials))
+        setTimeout(() => {
+          ipcRenderer.send(EVENTS.SHOW_MAIN_WIN_AND_CLOSE_LOGIN_WIN, JSON.stringify(credentials))
+        }, 3000)
       }
     })
   }

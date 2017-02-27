@@ -1,13 +1,20 @@
 import { connect }                  from 'react-redux'
 import HomePage                     from '../components/homePage'
+import Actions                      from '../actions'
 
 // Redux connection
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    credentials: state.credentials
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {}
+  return {
+    onGetLocalCredentials: () => {
+      dispatch(Actions.getLocalCredentials())
+    }
+  }
 }
 
 // Which props to inject from the global atomic state

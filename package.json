@@ -20,9 +20,9 @@
   "postinstall": "install-app-deps",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev-server": "cross-env NODE_ENV=development PORT=8080 node -r babel-register build/dev-server.js",
+    "dev-server": "cross-env NODE_ENV=development PORT=3000 node -r babel-register build/dev-server.js",
     "build": "rimraf app/dist && mkdirp app/dist && cross-env NODE_ENV=production webpack --progress --hide-modules --config build/webpack.prod.conf.babel.js",
-    "build-dev": "rimraf dist && mkdirp dist && cross-env NODE_ENV=development PORT=8080 webpack --progress --hide-modules --config build/webpack.dev.conf.babel.js",
+    "build-dev": "rimraf dist && mkdirp dist && cross-env NODE_ENV=development PORT=3000 webpack --progress --hide-modules --config build/webpack.dev.conf.babel.js",
     "dev": "npm run build-dev && npm run dev-server",
     "start": "electron .",
     "pack": "build --dir",
@@ -142,6 +142,5 @@
   "devEngines": {
     "node": ">=6.x",
     "npm": ">=3.x"
-  },
-  "reactDevTool": "C:\\Users\\WXQ\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\fmkadmapgofadopljbjfkapdkoienihi\\2.0.12_0"
+  }
 }

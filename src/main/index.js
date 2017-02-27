@@ -16,19 +16,8 @@ function createWindow () {
   // Create the browser window.
   win = createLoginWindow()
 
-  var packageConfigs = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../package.json')))
   // Add React dev tools
-  BrowserWindow.addDevToolsExtension(packageConfigs.reactDevTool)
-
-  // Open the DevTools.
-  if (process.env.NODE_ENV === 'development') {
-      win.webContents.on('devtools-opened', () => {
-        setImmediate(() => {
-          win.focus()
-        })
-      })
-      win.webContents.openDevTools()
-  }
+  BrowserWindow.addDevToolsExtension(path.resolve(__dirname, '../chrome/ReactDevTool/2.0.12_0'))
 
   // Emitted when the window is closed.
   win.on('closed', () => {
@@ -36,18 +25,6 @@ function createWindow () {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     win = null
-  })
-
-  const page = win.webContents
-
-  page.on('dom-ready', () => {
-  // page.insertCSS(fs.readFileSync(path.join(__dirname, 'browser.css'), 'utf8'))
-    page.executeJavaScript(`document.body.className="platform_${process.platform}"`, false)
-  })
-
-  page.on('new-window', (e, url) => {
-    e.preventDefault()
-    electron.shell.openExternal(url) // open links external
   })
 }
 

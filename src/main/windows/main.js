@@ -1,6 +1,6 @@
-import {BrowserWindow}    from 'electron'
-import path               from 'path'
-import url                from 'url'
+import {electron, BrowserWindow}        from 'electron'
+import path                             from 'path'
+import url                              from 'url'
 
 function createMainWindow () {
     let win = new BrowserWindow({
@@ -19,7 +19,27 @@ function createMainWindow () {
         slashes: true
     }))
 
+    // Open the DevTools.
+    if (process.env.NODE_ENV === 'development') {
+        win.webContents.on('devtools-opened', () => {
+          setImmediate(() => {
+            win.focus()
+          })
+        })
+        win.webContents.openDevTools()
+    }
+    // Insert platform body class
+    win.webContents.on('dom-ready', () => {
+      win.webContents.executeJavaScript(`document.body.className="platform_${process.platform}"`, false)
+    })
+
+    // Open links external
+    win.webContents.on('new-window', (e, url) => {
+        e.preventDefault()
+        electron.shell.openExternal(url)
+    })
+
     return win
 }
 
-module.exports = createMainWindow
+export default createMainWindow
