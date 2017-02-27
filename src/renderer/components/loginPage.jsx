@@ -22,28 +22,39 @@ export default class LoginPage extends React.Component {
       password: this.props.credentials.password
     }
   }
+
   emitUsernameEmpty = (e) => {
+    if (this.state.submitting) {
+      return
+    }
     this.userNameInput.focus()
     this.setState({
       username: ''
     })
   }
+
   emitPasswordEmpty = () => {
+    if (this.state.submitting) {
+      return
+    }
     this.passwordInput.focus()
     this.setState({
       password: ''
     })
   }
+
   onChangeUserName = (e) => {
     this.setState({
       username: e.target.value
     })
   }
+
   onChangePassword = (e) => {
     this.setState({
       password: e.target.value
     })
   }
+
   enterSubmit = (e) => {
     if (this.state.submitting) {
       return
@@ -54,6 +65,7 @@ export default class LoginPage extends React.Component {
       password: this.state.password
     }, this.showLoginMsg)
   }
+
   showLoginMsg = (success, msg) => {
     if (success) {
       message.success(msg)
@@ -61,22 +73,26 @@ export default class LoginPage extends React.Component {
       message.error(msg)
     }
   }
+
   closeLoginWindow () {
     ipcRenderer.sendSync(EVENTS.CLOSE_LOGIN, '')
   }
+
   componentDidMount () {
-    this.props.onGetLocalCredentials()
+    this.props.onGetLocalCredentials(this.showLoginMsg)
   }
+
   componentWillReceiveProps (nextProps) {
+    console.log('componentWillReceiveProps')
     let newState = {
       username: nextProps.credentials.username,
-      password: nextProps.credentials.password
+      password: nextProps.credentials.password,
+      submitting: false // nextProps.credentials.username && nextProps.credentials.password && nextProps.loginResult.success === null
     }
-    if (nextProps.loginResult.success !== null) {
-      newState.submitting = false
-    }
+
     this.setState(newState)
   }
+
   render () {
     const { submitting } = this.state
     const { username, password } = this.state

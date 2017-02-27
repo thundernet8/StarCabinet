@@ -1,5 +1,5 @@
 import { connect }                  from 'react-redux'
-import HomePage                     from '../components/homePage'
+import MainPage                     from '../components/mainPage'
 import Actions                      from '../actions'
 
 // Redux connection
@@ -18,4 +18,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 // Which props to inject from the global atomic state
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage)

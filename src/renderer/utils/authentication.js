@@ -67,7 +67,7 @@ export default class Authentication {
         // show main window now and close login window
         setTimeout(() => {
           ipcRenderer.send(EVENTS.SHOW_MAIN_WIN_AND_CLOSE_LOGIN_WIN, JSON.stringify(credentials))
-        }, 3000)
+        }, 5000)
       }
     })
   }
