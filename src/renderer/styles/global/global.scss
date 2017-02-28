@@ -4,6 +4,9 @@
 /* Antd Theme */
 @import "antd-theme";
 
+/* System|Platform difference */
+@import "system";
+
 /* Utilities */
 .mt10 {
     margin-top: 10px;

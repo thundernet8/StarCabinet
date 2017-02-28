@@ -7,7 +7,7 @@ function createMainWindow (wins) {
         width: 960,
         height: 640,
         titleBarStyle: 'hidden-inset',
-        resizable: false,
+        // resizable: false,
         frame: true // Specify false to create a Frameless Window. Default is true.
     })
 
