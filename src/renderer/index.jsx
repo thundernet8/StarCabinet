@@ -8,8 +8,6 @@ import { syncHistoryWithStore }                                 from 'react-rout
 import { useScroll }                                            from 'react-router-scroll'
 import configureStore                                           from './store/configureStore'
 import routes                                                   from './routes'
-import './styles/global/normalize.css'
-import './styles/global/global.scss'
 // import 'antd/dist/antd.css' // we use 'babel-plugin-import' import antd components css
 
 let store = configureStore()
