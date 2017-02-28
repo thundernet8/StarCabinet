@@ -5,7 +5,7 @@ import fs                               from 'fs'
 
 let injectStyle = 'body{background-color:transparent !important;}'
 
-function createLoginWindow () {
+function createLoginWindow (wins) {
     let win = new BrowserWindow({
         width: 288,
         height: 400,
@@ -34,6 +34,14 @@ function createLoginWindow () {
         win.webContents.openDevTools()
     }
 
+    // Emitted when the window is closed.
+    win.on('closed', () => {
+        // Dereference the window object, usually you would store windows
+        // in an array if your app supports multi windows, this is the time
+        // when you should delete the corresponding element.
+        wins.login = null
+    })
+
     let page = win.webContents
 
     page.on('dom-ready', () => {
@@ -47,6 +55,8 @@ function createLoginWindow () {
         e.preventDefault()
         electron.shell.openExternal(url)
     })
+
+    wins.login = win
 
     return win
 }

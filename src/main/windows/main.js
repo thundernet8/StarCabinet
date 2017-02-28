@@ -2,7 +2,7 @@ import {electron, BrowserWindow}        from 'electron'
 import path                             from 'path'
 import url                              from 'url'
 
-function createMainWindow () {
+function createMainWindow (wins) {
     let win = new BrowserWindow({
         width: 960,
         height: 640,
@@ -28,6 +28,15 @@ function createMainWindow () {
         })
         win.webContents.openDevTools()
     }
+
+    // Emitted when the window is closed.
+    win.on('closed', () => {
+        // Dereference the window object, usually you would store windows
+        // in an array if your app supports multi windows, this is the time
+        // when you should delete the corresponding element.
+        wins.main = null
+    })
+
     // Insert platform body class
     win.webContents.on('dom-ready', () => {
       win.webContents.executeJavaScript(`document.body.className="platform_${process.platform}"`, false)
@@ -38,6 +47,8 @@ function createMainWindow () {
         e.preventDefault()
         electron.shell.openExternal(url)
     })
+
+    wins.main = win
 
     return win
 }

@@ -2,32 +2,42 @@ import {electron, app, BrowserWindow} from 'electron'
 import path                           from 'path'
 import fs                             from 'fs'
 import url                            from 'url'
-import createMainWindow               from './windows/main'
 import createLoginWindow              from './windows/login'
 import services                       from './services'
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let win = null
+let win = {
+  login: null,
+  main: null
+}
 
 function createWindow () {
-  if (win) return
+  if (win.login || win.main) return
 
   // Create the browser window.
-  win = createLoginWindow()
+  createLoginWindow(win)
 
   // Add React dev tools
   BrowserWindow.addDevToolsExtension(path.resolve(__dirname, '../chrome/ReactDevTool/2.0.12_0'))
 
-  // Emitted when the window is closed.
-  win.on('closed', () => {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    win = null
-  })
-
   services.register(win)
+}
+
+// Make app single instance
+let shouldQuit = app.makeSingleInstance(function (commandLine, workingDirectory) {
+  // Someone tried to run a second instance, we should focus our window.
+  if (win.login) {
+    win.login.focus()
+  }
+  if (win.main) {
+    if (win.main.isMinimized()) win.main.restore()
+    win.main.focus()
+  }
+})
+
+if (shouldQuit) {
+  app.quit()
 }
 
 // This method will be called when Electron has finished
@@ -47,7 +57,7 @@ app.on('window-all-closed', () => {
 app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
-  if (win === null && BrowserWindow.getAllWindows().length === 0) {
+  if (BrowserWindow.getAllWindows().length === 0) {
     createWindow()
   }
 })

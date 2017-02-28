@@ -11,10 +11,9 @@ const windowLifeCycle = (globalWin) => {
 
   // user logged in -> close login window and open main window
   ipcMain.on(EVENTS.SHOW_MAIN_WIN_AND_CLOSE_LOGIN_WIN, (event, credentials) => {
-    let loginWin = globalWin// BrowserWindow.getFocusedWindow()
-    globalWin = createMainWindow() // TODO the reference to globalWin not work
-    loginWin.close()
-    loginWin = null
+    createMainWindow(globalWin)
+    globalWin.login.close()
+    // globalWin.login = null // not need
   })
 }
 
