@@ -1,5 +1,6 @@
 import { connect }                  from 'react-redux'
 import App                          from '../components/app'
+import Actions                      from '../actions'
 
 // Redux connection
 const mapStateToProps = (state) => {
@@ -7,7 +8,14 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {}
+  return {
+    listenNetworkChange: () => {
+      dispatch(Actions.listenNetworkChange())
+    },
+    diListenNetworkChange: () => {
+      dispatch(Actions.diListenNetworkChange())
+    }
+  }
 }
 
 // Which props to inject from the global atomic state

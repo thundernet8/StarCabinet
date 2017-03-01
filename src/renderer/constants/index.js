@@ -22,3 +22,8 @@ export const REQUEST_LOGIN_FAIL = 'REQUEST_LOGIN_FAIL'
 
 export const LOCAL_STORAGE_USERNAME_KEY = 'sc_username'
 export const LOCAL_STORAGE_USER_PROFILE = 'sc_profile'
+
+// app network
+
+export const APP_OFFLINE = 'APP_OFFLINE'
+export const APP_ONLINE = 'APP_ONLINE'
