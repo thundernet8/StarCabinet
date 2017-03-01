@@ -11,6 +11,7 @@ const windowLifeCycle = (globalWin) => {
 
   // user logged in -> close login window and open main window
   ipcMain.on(EVENTS.SHOW_MAIN_WIN_AND_CLOSE_LOGIN_WIN, (event, credentials) => {
+    if (!globalWin.login) return
     createMainWindow(globalWin)
     globalWin.login.close()
     // globalWin.login = null // not need

@@ -27,3 +27,8 @@ export const LOCAL_STORAGE_USER_PROFILE = 'sc_profile'
 
 export const APP_OFFLINE = 'APP_OFFLINE'
 export const APP_ONLINE = 'APP_ONLINE'
+
+// database
+export const DB_CONNECTED = 'DB_CONNECTED'
+export const DB_DISCONNECTED = 'DB_DISCONNECTED'
+export const DB_CONNECTION_CHANGE = 'DB_CONNECTION_CHANGE'

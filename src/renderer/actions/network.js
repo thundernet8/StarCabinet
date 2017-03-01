@@ -15,7 +15,6 @@ let _updateNetworkStatus = (dispatch) => {
     let offline = !navigator.onLine
 
     if (offline) {
-        document.body.classList.remove('offline')
         document.body.classList.add('offline')
     } else {
         document.body.classList.remove('offline')
