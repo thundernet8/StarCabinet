@@ -11,15 +11,11 @@ export default class GithubClient {
     this.me = this.client.getUser()
   }
 
-  getMyProfile (callback) {
-    this.me.getProfile(function (err, res) {
-      callback(err, res)
-    })
+  getMyProfile () {
+    return this.me.getProfile().then((ret) => ret.data)
   }
 
-  getStarredRepos (callback) {
-    this.me.listStarredRepos(function (err, res) {
-      callback(err, res)
-    })
+  getStarredRepos () {
+    return this.me.listStarredRepos()
   }
 }

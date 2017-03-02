@@ -6,6 +6,12 @@
     bottom: 0;
     left: 0;
     right: 0;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
     border-top: 1px solid rgba(186, 208, 223, 0.36);
 }
 

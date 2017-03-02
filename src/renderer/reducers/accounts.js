@@ -20,13 +20,11 @@ export const credentialsReducer = (state = {username: '', password: ''}, action)
 export const loginResultReducer = (state = {success: null, profile: null}, action) => {
   switch (action.type) {
     case CONSTANTS.REQUEST_LOGIN_SUCCESS:
-      action.callback(true, 'login successfully')
       return {
         success: true,
         profile: action.profile
       }
     case CONSTANTS.REQUEST_LOGIN_FAIL:
-      action.callback(false, action.msg)
       return {
         success: false,
         profile: null

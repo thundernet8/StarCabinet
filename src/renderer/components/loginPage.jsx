@@ -79,7 +79,11 @@ export default class LoginPage extends React.Component {
   }
 
   componentDidMount () {
-    this.props.onGetLocalCredentials(this.showLoginMsg)
+    this.props.onGetLocalCredentials(true).then((msg) => {
+      this.showLoginMsg(true, msg)
+    }).catch((err) => {
+      this.showLoginMsg(false, err.message)
+    })
   }
 
   componentWillReceiveProps (nextProps) {

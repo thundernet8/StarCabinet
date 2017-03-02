@@ -12,11 +12,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onGetLocalCredentials: (callback) => {
-      dispatch(Actions.getLocalCredentials(callback, true))
+    onGetLocalCredentials: (autoSignin) => {
+      return dispatch(Actions.getLocalCredentials(autoSignin))
     },
     onRequestLogin: (credentials, callback) => {
-      dispatch(Actions.requestLogin(credentials, callback))
+      return dispatch(Actions.requestLogin(credentials, callback))
     }
   }
 }
