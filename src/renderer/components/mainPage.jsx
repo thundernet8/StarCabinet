@@ -3,28 +3,26 @@ import { Link }                     from 'react-router'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main'
 import GithubClient                 from '../utils/githubClient'
+import MainGroupPane                from './mainGroupPane'
+import MainListPane                 from './mainListPane'
+import MainDetailPane               from './mainDetailPane'
 
 export default class MainPage extends React.Component {
-  getStarredRepos = (credentials) => {
-    let github = new GithubClient(credentials)
-    github.getStarredRepos((err, res) => {
-      if (!err) {
-        console.dir(res)
-        this.props.onGetRxDB(`${credentials.username}starcabinetdb`)
-      } else {
-        console.dir(err)
-      }
-    })
+  connectRxDB = (credentials) => {
+    this.props.onGetRxDB(`scdb4${credentials.username}`) // database name include username to differentiate
   }
-  componentDidMount () {
-    this.props.onGetLocalCredentials(this.getStarredRepos)
+
+  componentWillMount () {
+    this.props.onGetLocalCredentials(this.connectRxDB)
   }
+
   render () {
     return (
       <div className={classNames('main', styles.main)}>
         <header id="titleBar"/>
-        <h2>Hello, StarCabinet</h2>
-        <p>Welcome... {this.props.credentials.password}</p>
+        <MainGroupPane/>
+        <MainListPane/>
+        <MainDetailPane/>
       </div>
     )
   }

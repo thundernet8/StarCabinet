@@ -1,7 +1,7 @@
 import * as CONSTANTS     from '../constants'
 
 let initialState = {
-    value: false,
+    value: !navigator.onLine,
     time: 0
 }
 

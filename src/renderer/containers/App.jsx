@@ -4,7 +4,9 @@ import Actions                      from '../actions'
 
 // Redux connection
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    offline: state.offline.value
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {

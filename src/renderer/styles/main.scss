@@ -6,4 +6,34 @@
     bottom: 0;
     left: 0;
     right: 0;
+    border-top: 1px solid rgba(186, 208, 223, 0.36);
+}
+
+.left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 160px;
+    height: 100%;
+    background-color: rgba(221,238,251,0.5);
+    border-right: 1px solid rgba(186,208,223,0.72);
+}
+
+.mid {
+    position: absolute;
+    top: 0;
+    left: 160px;
+    width: 200px;
+    height: 100%;
+    background-color: #f9f9f9;
+    border-right: 1px solid rgba(186, 208, 223, 0.36);
+}
+
+.right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: calc(100% - 360px);
+    height: 100%;
+    background-color: #ffffff;
 }
