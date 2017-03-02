@@ -12,11 +12,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onGetLocalCredentials: (callback) => {
-      dispatch(Actions.getLocalCredentials(callback))
+    onGetLocalCredentials: () => {
+      return dispatch(Actions.getLocalCredentials())
     },
     onGetRxDB: (dbName) => {
-      dispatch(Actions.connectRxDB(dbName))
+      return dispatch(Actions.connectRxDB(dbName))
     }
   }
 }

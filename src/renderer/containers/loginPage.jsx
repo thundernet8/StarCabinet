@@ -15,8 +15,8 @@ const mapDispatchToProps = (dispatch) => {
     onGetLocalCredentials: (autoSignin) => {
       return dispatch(Actions.getLocalCredentials(autoSignin))
     },
-    onRequestLogin: (credentials, callback) => {
-      return dispatch(Actions.requestLogin(credentials, callback))
+    onRequestLogin: (credentials) => {
+      return dispatch(Actions.requestLogin(credentials))
     }
   }
 }

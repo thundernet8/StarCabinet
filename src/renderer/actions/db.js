@@ -17,10 +17,10 @@ let _connectRxDB = async (dbName, dispatch) => {
     const db = await Database.get(dbName)
 
     dispatch(dbConnectionChange(true, db))
+
+    return db
 }
 
 export const connectRxDB = (dbName) => {
-    return (dispatch) => {
-        _connectRxDB(dbName, dispatch)
-    }
+    return (dispatch) => _connectRxDB(dbName, dispatch)
 }
