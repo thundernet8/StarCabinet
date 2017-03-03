@@ -14,7 +14,7 @@ export const dbConnectionChange = (connected, db = null) => {
 }
 
 let _connectRxDB = async (dbName, dispatch) => {
-    const db = await Database.get(dbName)
+    const db = await Database.get(dbName, dispatch)
 
     dispatch(dbConnectionChange(true, db))
 

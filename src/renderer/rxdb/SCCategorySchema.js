@@ -18,6 +18,9 @@ const SCCategorySchema = {
     'order': {
       'type': 'number'
     },
+    'type': {
+      'type': 'string' // language or custom
+    },
     'reposCount': {
       'type': 'number'
     },

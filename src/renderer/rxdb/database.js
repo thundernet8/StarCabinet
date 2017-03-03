@@ -43,7 +43,7 @@ const collections = [
 
 let dbPromise = null
 
-const _create = async function(dbName) {
+const _create = async function(dbName, dispatch) {
     Logger(`DatabaseService: creating database ${dbName}..`)
 
     const db = await RxDB.create({name: dbName, adapter: 'idb', password: ''})
@@ -84,9 +84,9 @@ const _create = async function(dbName) {
     return db
 }
 
-export function get (dbName) {
+export function get (dbName, dispatch) {
     if (!dbPromise) {
-      dbPromise = _create(dbName)
+      dbPromise = _create(dbName, dispatch)
     }
     return dbPromise
 }
