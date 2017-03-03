@@ -93,7 +93,7 @@ export default {
         exclude: /node_modules/,
         loader: 'url-loader',
         query: {
-          limit: 10000,
+          limit: 2000,
           name: 'assets/images/[name].[ext]' // 'assets/images/[name].[ext]?[hash:7]'
         }
       },

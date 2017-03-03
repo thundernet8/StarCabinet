@@ -4,7 +4,7 @@ import url                              from 'url'
 
 function createMainWindow (wins) {
     let win = new BrowserWindow({
-        width: 960,
+        width: 1020,
         height: 640,
         titleBarStyle: 'hidden-inset',
         // resizable: false,
