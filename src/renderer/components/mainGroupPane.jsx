@@ -4,16 +4,17 @@ import styles                       from '../styles/main.scss'
 
 // left part of the main window
 export default class MainGroupPane extends React.Component {
-  componentDidMount () {}
+    componentDidMount () {}
 
-  componentWillUnmount () {}
+    componentWillUnmount () {}
 
-  render () {
-    return (
-      <div className={classNames('left', styles.left)}>
-        <p>Group</p>
-        {this.props.children}
-      </div>
-    )
-  }
+    render () {
+        return (
+            <div className={classNames('left', styles.left)}>
+                <header id="titleBar"/>
+                <p>Group</p>
+                {this.props.children}
+            </div>
+        )
+    }
 }

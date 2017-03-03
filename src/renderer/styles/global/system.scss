@@ -13,10 +13,15 @@
 
 .platform_darwin {
     .main {
-        >#titleBar {
-            display: block;
-            height: 36px;
-            -webkit-app-region: drag;
+        >.container {
+            border-top: 0;
+            >.left {
+                >#titleBar {
+                    display: block;
+                    height: 36px;
+                    -webkit-app-region: drag;
+                }
+            }
         }
     }
 }

@@ -21,8 +21,9 @@
     left: 0;
     width: 160px;
     height: 100%;
-    background-color: rgba(221,238,251,0.5);
+    background-color: rgba(39, 49, 67, 1);
     border-right: 1px solid rgba(186,208,223,0.72);
+    color: rgba(204, 204, 204, 1);
 }
 
 .mid {
@@ -31,7 +32,7 @@
     left: 160px;
     width: 200px;
     height: 100%;
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     border-right: 1px solid rgba(186, 208, 223, 0.36);
 }
 
@@ -41,5 +42,5 @@
     right: 0;
     width: calc(100% - 360px);
     height: 100%;
-    background-color: #ffffff;
+    background-color: rgba(246, 246, 247, 1);
 }

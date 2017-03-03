@@ -33,11 +33,11 @@ export default class MainPage extends React.Component {
     render () {
         return (
             <div className={classNames('main', styles.main)}>
-                <header id="titleBar"/>
+                {/* <header id="titleBar"/> */}
                 <section className={classNames('container', styles.container)}>
-                <MainGroupPane/>
-                <MainListPane/>
-                <MainDetailPane/>
+                    <MainGroupPane/>
+                    <MainListPane/>
+                    <MainDetailPane/>
                 </section>
             </div>
         )
