@@ -14,10 +14,10 @@ export const updateFilterCondition = (filter) => {
     }
 }
 
-export const updateSortCondition = (sort) => {
+export const updateOrderCondition = (order) => {
     return {
-        type: CONSTANTS.UPDATE_SORT_CONDITION,
-        sort
+        type: CONSTANTS.UPDATE_ORDER_CONDITION,
+        order
     }
 }
 

@@ -38,6 +38,13 @@ export const DB_DOCUMENT_INSERT = 'DB_DOCUMENT_INSERT'
 export const DB_DOCUMENT_DELETE = 'DB_DOCUMENT_DELETE'
 export const DB_DOCUMENT_UPDATE = 'DB_DOCUMENT_UPDATE'
 
+// database collections
+export const DB_COLLECTION_OF_REPO = 'repos'
+export const DB_COLLECTION_OF_OWNER = 'owners'
+export const DB_COLLECTION_OF_TAG = 'tags'
+export const DB_COLLECTION_OF_CATEGORY = 'categories'
+export const DB_COLLECTION_OF_ME = 'me'
+
 // real-time repos lists
 export const UPDATE_REPOS_LIST = 'UPDATE_REPOS_LIST'
 export const UPDATE_REPOS_LIST_SUCCESS = 'UPDATE_REPOS_LIST_SUCCESS'
@@ -61,14 +68,23 @@ export const FILTER_TYPE_FLAG = 'FILTER_TYPE_FLAG'
 export const FILTER_TYPE_REMAKR = 'FILTER_TYPE_REMAKR'
 export const FILTER_TYPE_UNREAD = 'FILTER_TYPE_UNREAD'
 
-
 // order types
 export const ORDER_BY_DEFAULT = 'ORDER_BY_DEFAULT'
 export const ORDER_BY_STARS_COUNT = 'ORDER_BY_STARS_COUNT'
 export const ORDER_BY_FORKS_COUNT = 'ORDER_BY_FORKS_COUNT'
 export const ORDER_BY_WATCHERS_COUNT = 'ORDER_BY_WATCHERS_COUNT'
 export const ORDER_BY_OPEN_ISSUES_COUNT = 'ORDER_BY_OPEN_ISSUES_COUNT'
-export const ORDER_BY_SIZE
-export const SORT_TYPE_
-export const SORT_TYPE_
-export const SORT_TYPE_
+export const ORDER_BY_SIZE = 'ORDER_BY_SIZE'
+export const ORDER_BY_CREATE_TIME = 'ORDER_BY_CREATE_TIME'
+export const ORDER_BY_UPDATE_TIME = 'ORDER_BY_UPDATE_TIME'
+export const ORDER_BY_PUSH_TIME = 'ORDER_BY_PUSH_TIME'
+export const ORDER_BY_SCORE = 'ORDER_BY_SCORE'
+
+export const ORDER_DESC = 'ORDER_DESC'
+export const ORDER_ASC = 'ORDER_ASC'
+
+// category types
+export const CATEGORY_TYPE_CUSTOM = 'CATEGORY_TYPE_CUSTOM'
+export const CATEGORY_TYPE_LANGUAGE = 'CATEGORY_TYPE_LANGUAGE'
+export const CATEGORY_TYPE_UNKNOWN = 'CATEGORY_TYPE_UNKNOWN' // repos who do not have a custom category
+export const CATEGORY_TYPE_ALL = 'CATEGORY_TYPE_ALL' // means removing category filter

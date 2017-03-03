@@ -1,6 +1,6 @@
 {
   "presets": ["es2015", "stage-2"],
-  "plugins": ["transform-runtime", "transform-decorators-legacy", ["transform-async-to-module-method", {
+  "plugins": ["transform-runtime", "transform-decorators-legacy", "transform-object-rest-spread", ["transform-async-to-module-method", {
       "module": "bluebird",
       "method": "coroutine"
     }], ["import", {"libraryName": "antd", "style": true}]],
