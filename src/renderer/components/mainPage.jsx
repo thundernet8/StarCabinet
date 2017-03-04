@@ -10,15 +10,12 @@ import deepEqual                    from 'deep-equal'
 import dbName                       from '../utils/dbName'
 
 export default class MainPage extends React.Component {
-    connectRxDB = (credentials) => {
-        return this.props.onGetRxDB(dbName(credentials.username))
-    }
-
     componentWillMount () {
-        this.props.onGetLocalCredentials().then((credentials) => {
-            return this.connectRxDB(credentials)
+        this.props.onGetLocalCredentials()
+        .then((credentials) => {
+            return this.props.onGetRxDB(dbName(credentials.username))
         })
-        .then((ret) => console.log(ret))
+        .then(() => this.props.onGetMyProfile())
     }
 
     componentWillReceiveProps (nextProps) {

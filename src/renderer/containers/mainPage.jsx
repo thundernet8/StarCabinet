@@ -6,6 +6,7 @@ import Actions                      from '../actions'
 const mapStateToProps = (state) => {
     return {
         credentials: state.credentials,
+        profile: state.profile,
         db: state.db,
         search: state.search,
         order: state.order,
@@ -24,6 +25,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onNeedUpdateReposList: () => {
             return dispatch(Actions.updateReposList())
+        },
+        onGetMyProfile: () => {
+            return dispatch(Actions.getMyProfile())
         }
     }
 }

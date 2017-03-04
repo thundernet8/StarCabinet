@@ -88,3 +88,8 @@ export const CATEGORY_TYPE_CUSTOM = 'CATEGORY_TYPE_CUSTOM'
 export const CATEGORY_TYPE_LANGUAGE = 'CATEGORY_TYPE_LANGUAGE'
 export const CATEGORY_TYPE_UNKNOWN = 'CATEGORY_TYPE_UNKNOWN' // repos who do not have a custom category
 export const CATEGORY_TYPE_ALL = 'CATEGORY_TYPE_ALL' // means removing category filter
+
+// query profile
+export const QUERY_MY_PROFILE = 'QUERY_MY_PROFILE'
+export const QUERY_MY_PROFILE_SUCCESS = 'QUERY_MY_PROFILE_SUCCESS'
+export const QUERY_MY_PROFILE_FAIL = 'QUERY_MY_PROFILE_FAIL'

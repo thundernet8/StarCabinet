@@ -2,20 +2,25 @@ import * as Database                from './database'
 import * as CONSTANTS               from '../constants'
 
 export default class DBHandler {
-    constructor (dbName) {
-        this.dbName = dbName
-        this.RxDB = null
+    constructor (dbOrName) {
+        if (typeof dbOrName === 'string') {
+            this.dbName = dbOrName
+        } else {
+            this.RxDB = dbOrName
+        }
     }
 
     initDB = async () => {
-        this.RxDB = await Database.get(this.dbName, null)
+        if (!this.RxDB) {
+            this.RxDB = await Database.get(this.dbName, null)
+        }
 
         return this
     }
 
     upsertProfile = async (profile) => {
         if (!this.RxDB) {
-            throw new Error('You must call `getDB()` first')
+            throw new Error('You must call `initDB()` first')
         }
 
         let meCollection = this.RxDB.me
@@ -65,5 +70,20 @@ export default class DBHandler {
         })
 
         return doc
+    }
+
+    getProfile = async (username = '') => {
+        if (!this.RxDB) {
+            throw new Error('You must call `initDB()` first')
+        }
+
+        let meCollection = this.RxDB.me
+        let query = meCollection.findOne()
+        if (username) {
+            query = query.where('login').eq(username)
+        }
+
+        let doc = await query.exec()
+        return doc.toJSON()
     }
 }

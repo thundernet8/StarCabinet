@@ -10,12 +10,14 @@ import {
     categoryConditionReducer,
     filterConditionReducer
 }                                                         from './conditional'
+import { profileReducer }                                 from './profile'
 
 export default combineReducers({
     routing: routerReducer,
     offline: offlineReducer,
     db: dbConnectReducer,
     credentials: credentialsReducer,
+    profile: profileReducer,
     loginResult: loginResultReducer,
     search: searchConditionReducer,
     order: orderConditionReducer,
