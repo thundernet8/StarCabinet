@@ -43,7 +43,7 @@ export const orderConditionReducer = (state = initialOrderCondition, action) => 
 }
 
 const initialCategoryCondition = {
-    type: CONSTANTS.CATEGORY_TYPE_NONE,
+    type: CONSTANTS.CATEGORY_TYPE_ALL,
     id: 0
 }
 

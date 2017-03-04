@@ -55,7 +55,7 @@ const ownerSchema = {
       'type': 'string'
     },
     'siteAdmin': {
-      'type': 'number'
+      'type': 'boolen'
     }
   },
   'required': ['id']

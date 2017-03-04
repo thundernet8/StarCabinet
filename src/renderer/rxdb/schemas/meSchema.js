@@ -55,7 +55,7 @@ const meSchema = {
       'type': 'string'
     },
     'siteAdmin': {
-      'type': 'number'
+      'type': 'boolen'
     },
     'name': {
       'type': 'string'
@@ -70,7 +70,7 @@ const meSchema = {
       'type': 'string'
     },
     'hireable': {
-      'type': 'number'
+      'type': 'boolen'
     },
     'publicRepos': {
       'type': 'number'
@@ -112,7 +112,7 @@ const meSchema = {
       'type': 'number'
     },
     'twoFactorAuthentication': {
-      'type': 'number'
+      'type': 'boolen'
     },
     'plan': {
       'type': 'object',

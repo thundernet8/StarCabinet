@@ -7,22 +7,22 @@ RxDB.plugin(require('pouchdb-adapter-idb'))
 const collections = [
   {
     name: 'repos',
-    schema: require('./repoSchema.js').default,
+    schema: require('./schemas/repoSchema.js').default,
     sync: false
   },
   {
     name: 'owners',
-    schema: require('./ownerSchema.js').default,
+    schema: require('./schemas/ownerSchema.js').default,
     sync: false
   },
   {
     name: 'me',
-    schema: require('./meSchema.js').default,
+    schema: require('./schemas/meSchema.js').default,
     sync: false
   },
   {
     name: 'tags',
-    schema: require('./SCTagSchema.js').default,
+    schema: require('./schemas/SCTagSchema.js').default,
     methods: {
         countRepos () {
             return this.repos.length
@@ -32,13 +32,18 @@ const collections = [
   },
   {
     name: 'categories',
-    schema: require('./SCCategorySchema.js').default,
+    schema: require('./schemas/SCCategorySchema.js').default,
     methods: {
         countRepos () {
             return this.repos.length
         }
     },
     sync: false
+  },
+  {
+      name: 'settings',
+      schema: require('./schemas/settingSchema.js').default,
+      sync: false
   }
 ]
 
@@ -59,8 +64,7 @@ const _create = async function(dbName, dispatch) {
     // create collections
     Logger('DatabaseService: create collections')
 
-    let x = await Promise.all(collections.map(colData => db.collection(colData)))
-    Logger(x)
+    await Promise.all(collections.map(colData => db.collection(colData)))
 
     // hooks
     Logger('DatabaseService: add hooks')
@@ -86,7 +90,7 @@ const _create = async function(dbName, dispatch) {
     return db
 }
 
-export function get (dbName, dispatch) {
+export function get (dbName, dispatch = null) {
     if (!dbPromise) {
       dbPromise = _create(dbName, dispatch)
     }

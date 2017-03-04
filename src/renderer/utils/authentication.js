@@ -4,6 +4,8 @@ import * as SHAREDCONSTANTS   from '../../shared/constants'
 import * as CONSTANTS         from '../constants'
 import { ipcRenderer }        from 'electron'
 import Promise                from 'bluebird'
+import DBHandler              from '../rxdb/dbHandler'
+import dbName                 from './dbName'
 
 export default class Authentication {
 
@@ -79,13 +81,16 @@ export default class Authentication {
         // save credentials to windows credentials
         let p1 = Authentication.saveCredentialsToSystem(credentials, null)
         let p2 = Authentication.saveProfileToLocal(profile, null)
+        // init rxdb and save profile to db
+        const dbHandler = new DBHandler(dbName(credentials.username))
+        let p3 = dbHandler.initDB().then(() => dbHandler.upsertProfile(profile))
 
         // show main window now and close login window
         setTimeout(() => {
           ipcRenderer.send(EVENTS.SHOW_MAIN_WIN_AND_CLOSE_LOGIN_WIN, JSON.stringify(credentials))
         }, 3000)
 
-        return Promise.all([p1, p2]).then(() => profile)
+        return Promise.all([p1, p2, p3]).then(() => profile)
       } else {
         return new Error('The token you provided does not match this account')
       }

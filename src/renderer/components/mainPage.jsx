@@ -7,10 +7,11 @@ import MainGroupPane                from './mainGroupPane'
 import MainListPane                 from './mainListPane'
 import MainDetailPane               from './mainDetailPane'
 import deepEqual                    from 'deep-equal'
+import dbName                       from '../utils/dbName'
 
 export default class MainPage extends React.Component {
     connectRxDB = (credentials) => {
-        return this.props.onGetRxDB(`scdb4${credentials.username}`) // database name include username to differentiate
+        return this.props.onGetRxDB(dbName(credentials.username))
     }
 
     componentWillMount () {
