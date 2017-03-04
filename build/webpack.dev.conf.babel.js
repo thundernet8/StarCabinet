@@ -51,7 +51,9 @@ let devConfig = {
       filename: '../dist/index.html',
       template: 'src/renderer/index.html',
       inject: true,
-      excludeChunks: ['electron']
+      excludeChunks: ['electron'],
+      favicon: '../dist/assets/images/favicon.png',
+      bodyClass: `platform_${process.platform}`
     })
   ]
 }

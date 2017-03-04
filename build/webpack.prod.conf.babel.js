@@ -62,7 +62,9 @@ let appProdConfig = {
         removeAttributeQuotes: true
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference
-      }
+      },
+      favicon: '../../app/dist/assets/images/favicon.png',
+      bodyClass: `platform_${process.platform}`
     })
   ]
 }
