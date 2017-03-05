@@ -25,6 +25,7 @@ export default class DBHandler {
 
         let meCollection = this.RxDB.me
         const doc = await meCollection.upsert({
+            key: profile.id.toString(),
             id: profile.id,
             login: profile.login,
             avatarUrl: profile.avatar_url,

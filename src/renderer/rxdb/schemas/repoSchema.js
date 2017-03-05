@@ -12,7 +12,7 @@ const repoSchema = {
         'type': 'number'
       },
       'name': {
-        'type': 'string',
+        'type': 'string'
       },
       'fullName': {
         'type': 'string'
