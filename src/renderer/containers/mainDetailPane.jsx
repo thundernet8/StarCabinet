@@ -1,6 +1,6 @@
 import { connect }                  from 'react-redux'
 import MainDetailPane               from '../components/mainDetailPane'
-import Actions                      from '../actions' 
+import Actions                      from '../actions'
 
 // Redux connection
 const mapStateToProps = (state) => {
