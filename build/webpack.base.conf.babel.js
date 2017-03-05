@@ -7,10 +7,6 @@ export default {
   node: {
 		__filename: false,
 		__dirname: false
-	},
-  entry: {
-    app: './src/renderer/index.jsx',
-    electron: './src/main/index.js'
   },
   output: {
     path: path.resolve(__dirname, '../dist'),

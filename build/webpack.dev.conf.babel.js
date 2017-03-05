@@ -48,12 +48,11 @@ let devConfig = {
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: '../dist/index.html',
-      template: 'src/renderer/index.html',
-      inject: true,
-      excludeChunks: ['electron'],
-      favicon: '../dist/assets/images/favicon.png',
-      bodyClass: `platform_${process.platform}`
+        template: 'src/renderer/index.html',
+        filename: '../dist/index.html',
+        inject: true,
+        excludeChunks: ['electron'],
+        bodyClass: `platform_${process.platform}`
     })
   ]
 }
