@@ -1,5 +1,5 @@
 import { connect }                  from 'react-redux'
-import MainGroupBottomToolBar       from '../components/mainGroupBottomToolBar'
+import MainGroupFooter              from '../components/mainGroupFooter'
 import Actions                      from '../actions'
 
 // Redux connection
@@ -12,4 +12,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 // Which props to inject from the global atomic state
-export default connect(mapStateToProps, mapDispatchToProps)(MainGroupBottomToolBar)
+export default connect(mapStateToProps, mapDispatchToProps)(MainGroupFooter)

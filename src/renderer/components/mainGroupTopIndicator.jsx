@@ -4,10 +4,7 @@ import styles                       from '../styles/main'
 import { Icon }                     from 'antd'
 
 export default class MainGroupTopIndicator extends React.Component {
-    constructor (props) {
-        super(props)
-        this.state = {}
-    }
+    state = {}
 
     render () {
         return (

@@ -4,6 +4,7 @@ import styles                       from '../styles/main.scss'
 import MainGroupTopIndicator        from '../containers/mainGroupTopIndicator'
 import MainGroupAvatar              from '../containers/mainGroupAvatar'
 import MainGroupNavs                from '../containers/mainGroupNavs'
+import MainGroupFooter              from '../containers/mainGroupFooter'
 
 // left part of the main window
 export default class MainGroupPane extends React.Component {
@@ -19,6 +20,7 @@ export default class MainGroupPane extends React.Component {
                 </header>
                 <MainGroupAvatar/>
                 <MainGroupNavs/>
+                <MainGroupFooter/>
             </div>
         )
     }
