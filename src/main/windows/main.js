@@ -1,4 +1,4 @@
-import {electron, BrowserWindow}        from 'electron'
+import {shell, BrowserWindow}           from 'electron'
 import path                             from 'path'
 import url                              from 'url'
 
@@ -45,7 +45,7 @@ function createMainWindow (wins) {
     // Open links external
     win.webContents.on('new-window', (e, url) => {
         e.preventDefault()
-        electron.shell.openExternal(url)
+        shell.openExternal(url)
     })
 
     wins.main = win

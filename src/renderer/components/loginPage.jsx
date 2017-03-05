@@ -1,7 +1,6 @@
 import React, { PropTypes }                         from 'react'
 import { Link }                                     from 'react-router'
 import styles                                       from '../styles/login.scss'
-import FontAwesome                                  from 'react-fontawesome'
 import * as EVENTS                                  from '../../shared/events'
 import * as SHAREDCONSTANTS                         from '../../shared/constants'
 import { ipcRenderer }                              from 'electron'

@@ -1,5 +1,4 @@
 import React                        from 'react'
-import { Link }                     from 'react-router'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main'
 import GithubClient                 from '../utils/githubClient'

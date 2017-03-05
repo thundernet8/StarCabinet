@@ -15,7 +15,7 @@
     position: relative;
     width: 100%;
     height: 100%;
-    border-top: 1px solid rgba(186, 208, 223, 0.36);
+    //border-top: 1px solid rgba(186, 208, 223, 0.36);
 }
 
 .left {
@@ -35,7 +35,7 @@
     left: 200px;
     width: 250px;
     height: 100%;
-    background-color: #ffffff;
+    background-color: #fbfbfb;
     border-right: 1px solid rgba(229, 229, 229, 1);
 }
 
@@ -52,4 +52,46 @@
     height: 100%;
     background-repeat: no-repeat;
     background-position: 50%;
+}
+
+.indicatorWrap {
+    position: relative;
+    width: 100%;
+    height: 30px;
+}
+
+.indicator {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.profileCard {
+    width: 100%;
+    text-align: center;
+    padding: 15px 0;
+}
+
+.profileAvatar {
+    display: block;
+    margin: 0 auto;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.profileName {
+    color: #eee;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 5px;
+}
+
+.groupNav {
+    position: relative;
 }

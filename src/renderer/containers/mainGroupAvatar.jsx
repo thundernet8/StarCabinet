@@ -1,11 +1,11 @@
 import { connect }                  from 'react-redux'
-import MainGroupNavs                from '../components/mainGroupNavs'
+import MainGroupAvatar              from '../components/mainGroupAvatar'
 import Actions                      from '../actions'
 
 // Redux connection
 const mapStateToProps = (state) => {
     return {
-        category: state.category
+        profile: state.profile
     }
 }
 
@@ -14,4 +14,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 // Which props to inject from the global atomic state
-export default connect(mapStateToProps, mapDispatchToProps)(MainGroupNavs)
+export default connect(mapStateToProps, mapDispatchToProps)(MainGroupAvatar)

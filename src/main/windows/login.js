@@ -1,4 +1,4 @@
-import {electron, BrowserWindow}        from 'electron'
+import {shell, BrowserWindow}           from 'electron'
 import path                             from 'path'
 import url                              from 'url'
 import fs                               from 'fs'
@@ -53,7 +53,7 @@ function createLoginWindow (wins) {
     // Open links external
     page.on('new-window', (e, url) => {
         e.preventDefault()
-        electron.shell.openExternal(url)
+        shell.openExternal(url)
     })
 
     wins.login = win
