@@ -20,6 +20,8 @@
             }
             >.ant-menu-sub {
                 background-color: transparent;
+                max-height: 168px;
+                overflow-y: scroll;
                 >li {
                     &:not(.ant-menu-item-selected) {
                         &:hover {

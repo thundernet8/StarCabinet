@@ -4,13 +4,15 @@ const repoSchema = {
   'version': 0,
   'type': 'object',
   'properties': {
+      'key': {
+        'type': 'string',
+        'primary': true // juse string of id
+      },
       'id': {
         'type': 'number'
-        // 'primary': true
       },
       'name': {
         'type': 'string',
-        'primary': true
       },
       'fullName': {
         'type': 'string'
@@ -247,9 +249,21 @@ const repoSchema = {
         'maxItems': 10,
         'uniqueItems': true,
         'item': 'number'
+      },
+      'score': {
+          'type': 'number' // 0~5
+      },
+      'flag': {
+          'type': 'boolen'
+      },
+      'read': {
+          'type': 'boolen'
+      },
+      'remark': {
+          'type': 'string'
       }
   },
-  'required': ['id', 'owner', 'htmlUrl', 'createdAt', 'createdTime', 'updatedAt', 'updatedTime', 'pushedAt', 'pushedTime', 'forks', 'watchers', 'stars', 'defaultBranch', 'openIssues']
+  'required': ['id', 'name', 'owner', 'htmlUrl', 'createdAt', 'createdTime', 'updatedAt', 'updatedTime', 'pushedAt', 'pushedTime', 'forks', 'watchers', 'stars', 'defaultBranch', 'openIssues']
 }
 
 export default repoSchema
