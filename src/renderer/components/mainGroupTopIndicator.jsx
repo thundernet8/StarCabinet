@@ -11,8 +11,8 @@ export default class MainGroupTopIndicator extends React.Component {
 
     render () {
         return (
-            <div className={styles.indicatorWrap}>
-                <Icon className={styles.indicator} type="reload"/>
+            <div className={classNames('indicatorWrap', styles.indicatorWrap)}>
+                <Icon className={classNames('indicator', styles.indicator)} type="reload"/>
             </div>
         )
     }

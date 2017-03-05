@@ -3,3 +3,37 @@
 .ant-message-notice-content {
     min-width: 160px;
 }
+
+.groupNav {
+    .ant-menu-dark {
+        background-color: transparent;
+        >li {
+            &:not(.ant-menu-submenu-open) {
+                &:not(.ant-menu-item-selected) {
+                    &:hover {
+                        background-color: rgb(55, 65, 81);
+                    }
+                }
+            }
+            &.ant-menu-item-selected {
+                background-color: rgb(71, 79, 95);
+            }
+            >.ant-menu-sub {
+                background-color: transparent;
+                >li {
+                    &:not(.ant-menu-item-selected) {
+                        &:hover {
+                            background-color: rgb(55, 65, 81);
+                        }
+                    }
+                }
+            }
+        }
+        &.ant-menu-inline {
+            .ant-menu-item-selected {
+                // background-color: rgb(39, 49, 67);
+                background-color: rgb(71, 79, 95);
+            }
+        }
+    }
+}

@@ -14,8 +14,9 @@ export default class MainGroupPane extends React.Component {
     render () {
         return (
             <div className={classNames('left', styles.left)}>
-                <header id="titleBar"/>
-                <MainGroupTopIndicator/>
+                <header id="titleBar">
+                    <MainGroupTopIndicator/>
+                </header>
                 <MainGroupAvatar/>
                 <MainGroupNavs/>
             </div>

@@ -52,7 +52,7 @@ export default class MainGroupNavs extends React.Component {
 
     render () {
         return (
-            <div className={styles.groupNav}>
+            <div className={classNames('groupNav', styles.groupNav)}>
                 <Menu mode="inline" theme="dark" openKeys={this.state.openKeys} selectedKeys={[this.state.current]}
                     onOpenChange={this.onOpenChange} onClick={this.handleClick}>
                     <Menu.Item key={CONSTANTS.CATEGORY_TYPE_ALL}>
