@@ -45,10 +45,15 @@ export const DB_COLLECTION_OF_TAG = 'tags'
 export const DB_COLLECTION_OF_CATEGORY = 'categories'
 export const DB_COLLECTION_OF_ME = 'me'
 
-// real-time repos lists
+// real-time repos lists sync with rxdb
 export const UPDATE_REPOS_LIST = 'UPDATE_REPOS_LIST'
 export const UPDATE_REPOS_LIST_SUCCESS = 'UPDATE_REPOS_LIST_SUCCESS'
 export const UPDATE_REPOS_LIST_FAIL = 'UPDATE_REPOS_LIST_FAIL'
+
+// fetch repos from server
+export const FETCH_REPOS_LIST = 'FETCH_REPOS_LIST'
+export const FETCH_REPOS_LIST_SUCCESS = 'FETCH_REPOS_LIST_SUCCESS'
+export const FETCH_REPOS_LIST_FAIL = 'FETCH_REPOS_LIST_FAIL'
 
 // search/order/filter/category
 export const UPDATE_SEARCH_CONDITION = 'UPDATE_SEARCH_CONDITION'

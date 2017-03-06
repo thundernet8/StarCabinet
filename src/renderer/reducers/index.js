@@ -3,7 +3,10 @@ import { routerReducer }                                  from 'react-router-red
 import { credentialsReducer, loginResultReducer }         from './accounts'
 import { offlineReducer }                                 from './network'
 import { dbConnectReducer }                               from './db'
-import { reposListReducer }                               from './repos'
+import {
+    reposListReducer,
+    fetchingReposStatusReducer
+}                                                         from './repos'
 import {
     searchConditionReducer,
     orderConditionReducer,
@@ -22,5 +25,7 @@ export default combineReducers({
     search: searchConditionReducer,
     order: orderConditionReducer,
     filter: filterConditionReducer,
-    category: categoryConditionReducer
+    category: categoryConditionReducer,
+    repos: reposListReducer,
+    fetchStatus: fetchingReposStatusReducer
 })

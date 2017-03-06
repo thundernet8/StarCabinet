@@ -11,7 +11,8 @@ const mapStateToProps = (state) => {
         search: state.search,
         order: state.order,
         filter: state.filter,
-        category: state.category
+        category: state.category,
+        repos: state.repos
     }
 }
 
@@ -28,6 +29,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onGetMyProfile: () => {
             return dispatch(Actions.getMyProfile())
+        },
+        onFetchStarredRepos: () => {
+            return dispatch(Actions.fetchRemoteReposList())
         }
     }
 }

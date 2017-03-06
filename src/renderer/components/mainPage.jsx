@@ -14,7 +14,11 @@ export default class MainPage extends React.Component {
         .then((credentials) => {
             return this.props.onGetRxDB(dbName(credentials.username))
         })
-        .then(() => this.props.onGetMyProfile())
+        .then(() => {
+            this.props.onGetMyProfile()
+            this.props.onFetchStarredRepos()
+            .then((repos) => console.dir(repos))
+        })
     }
 
     componentWillReceiveProps (nextProps) {

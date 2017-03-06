@@ -1,5 +1,6 @@
 import * as Database                from './database'
 import * as CONSTANTS               from '../constants'
+import Promise                      from 'bluebird'
 
 export default class DBHandler {
     constructor (dbOrName) {
@@ -7,6 +8,12 @@ export default class DBHandler {
             this.dbName = dbOrName
         } else {
             this.RxDB = dbOrName
+        }
+    }
+
+    checkInstance = () => {
+        if (!this.RxDB) {
+            throw new Error('You must call `initDB()` first')
         }
     }
 
@@ -19,9 +26,7 @@ export default class DBHandler {
     }
 
     upsertProfile = async (profile) => {
-        if (!this.RxDB) {
-            throw new Error('You must call `initDB()` first')
-        }
+        this.checkInstance()
 
         let meCollection = this.RxDB.me
         const doc = await meCollection.upsert({
@@ -86,5 +91,98 @@ export default class DBHandler {
 
         let doc = await query.exec()
         return doc.toJSON()
+    }
+
+    upsertRepos = async (repos) => {
+        this.checkInstance()
+
+        let reposCollection = this.RxDB.repos
+        let inserts = []
+        repos.forEach((repo) => {
+            inserts.push(reposCollection.upsert({
+                key: repo.id.toString(),
+                id: repo.id,
+                name: repo.name,
+                fullName: repo.full_name,
+                owner: repo.owner.id,
+                private: repo.private,
+                htmlUrl: repo.html_url,
+                description: repo.description || '',
+                fork: repo.fork,
+                url: repo.url,
+                forksUrl: repo.forks_url,
+                keysUrl: repo.keys_url,
+                collaboratorsUrl: repo.collaborators_url,
+                teamsUrl: repo.teams_url,
+                hooksUrl: repo.hooks_url,
+                issueEventsUrl: repo.issue_events_url,
+                eventsUrl: repo.events_url,
+                assigneesUrl: repo.assignees_url,
+                branchesUrl: repo.branches_url,
+                tagsUrl: repo.tags_url,
+                blobsUrl: repo.blobs_url,
+                gitTagsUrl: repo.git_tags_url,
+                gitRefsUrl: repo.git_refs_url,
+                treesUrl: repo.trees_url,
+                statusesUrl: repo.statuses_url,
+                languagesUrl: repo.languages_url,
+                stargazersUrl: repo.stargazers_url,
+                contributorsUrl: repo.contributors_url,
+                subscribersUrl: repo.subscribers_url,
+                subscriptionUrl: repo.subscription_url,
+                commitsUrl: repo.commits_url,
+                gitCommitsUrl: repo.git_commits_url,
+                commentsUrl: repo.comments_url,
+                issueCommentUrl: repo.issue_comment_url,
+                contentsUrl: repo.contents_url,
+                compareUrl: repo.compare_url,
+                mergesUrl: repo.merges_url,
+                archiveUrl: repo.archive_url,
+                downloadsUrl: repo.downloads_url,
+                issuesUrl: repo.issues_url,
+                pullsUrl: repo.pulls_url,
+                milestonesUrl: repo.milestones_url,
+                notificationsUrl: repo.notifications_url,
+                labelsUrl: repo.labels_url,
+                releasesUrl: repo.releases_url,
+                deploymentsUrl: repo.deployments_url,
+                createdAt: repo.created_at,
+                createdTime: parseInt((new Date(repo.created_at)) / 1000),
+                updatedAt: repo.updated_at,
+                updatedTime: parseInt((new Date(repo.updated_at)) / 1000),
+                pushedAt: repo.pushed_at,
+                pushedTime: parseInt((new Date(repo.pushed_at)) / 1000),
+                gitUrl: repo.git_url,
+                sshUrl: repo.ssh_url,
+                cloneUrl: repo.clone_url,
+                svnUrl: repo.svn_url,
+                homePage: repo.homepage || '',
+                size: repo.size,
+                stargazersCount: repo.stargazers_count,
+                stars: repo.stargazers_count,
+                watchersCount: repo.watchers_count,
+                lang: repo.lang,
+                hasIssues: repo.has_issues,
+                hasDownloads: repo.has_downloads,
+                hasWiki: repo.has_wiki,
+                hasPages: repo.has_pages,
+                forksCount: repo.forks_count,
+                // mirrorUrl: repo.mirror_url,
+                openIssuesCount: repo.open_issues_count,
+                forks: repo.forks,
+                openIssues: repo.open_issues,
+                watchers: repo.watchers,
+                defaultBranch: repo.default_branch,
+                permissions: repo.permissions
+                // SCTags: [], // add them in a update method
+                // SCCategories: [],
+                // score: 0,
+                // flag: false,
+                // read: false,
+                // remark: ''
+            }))
+        })
+
+        return Promise.all(inserts)
     }
 }

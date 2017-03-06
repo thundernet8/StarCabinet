@@ -4,11 +4,17 @@ import Actions                      from '../actions'
 
 // Redux connection
 const mapStateToProps = (state) => {
-    return {}
+    return {
+        fetchStatus: state.fetchStatus
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {}
+    return {
+        onRefresh: () => {
+            dispatch(Actions.fetchRemoteReposList())
+        }
+    }
 }
 
 // Which props to inject from the global atomic state
