@@ -1,6 +1,8 @@
 import * as CONSTANTS                from '../constants'
 import GithubClient                  from '../utils/githubClient'
 import DBHandler                     from '../rxdb/dbHandler'
+import Promise                       from 'bluebird'
+import { updateLanguagesList }       from './languages'
 
 export const updateReposList = () => {
     return (dispatch, getState) => {
@@ -31,11 +33,16 @@ export const fetchRemoteReposList = () => {
             const dbHandler = new DBHandler(state.db)
             return dbHandler.initDB()
             .then(() => {
-                return dbHandler.upsertRepos(repos)
-                .then((docs) => {
+                return Promise.all([dbHandler.upsertRepos(repos), dbHandler.upsertLanguages(repos)])
+                .then((ret) => {
+                    console.dir(ret)
                     dispatch({
                         type: CONSTANTS.FETCH_REPOS_LIST_SUCCESS
                     })
+
+                    // update languages state meanwhile
+                    dispatch(updateLanguagesList())
+
                     return repos
                 })
                 .catch((err) => {

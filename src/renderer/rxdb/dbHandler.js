@@ -79,9 +79,7 @@ export default class DBHandler {
     }
 
     getProfile = async (username = '') => {
-        if (!this.RxDB) {
-            throw new Error('You must call `initDB()` first')
-        }
+        this.checkInstance()
 
         let meCollection = this.RxDB.me
         let query = meCollection.findOne()
@@ -161,7 +159,7 @@ export default class DBHandler {
                 stargazersCount: repo.stargazers_count,
                 stars: repo.stargazers_count,
                 watchersCount: repo.watchers_count,
-                lang: repo.lang,
+                lang: repo.language || 'Unknown',
                 hasIssues: repo.has_issues,
                 hasDownloads: repo.has_downloads,
                 hasWiki: repo.has_wiki,
@@ -184,5 +182,58 @@ export default class DBHandler {
         })
 
         return Promise.all(inserts)
+    }
+
+    upsertLanguages = async (repos) => {
+        this.checkInstance()
+
+        let langsCollection = this.RxDB.languages
+
+        await langsCollection.find().remove() // clean the collection
+
+        let langs = {
+            _Unknown: []
+        }
+        repos.forEach((repo) => {
+            if (!repo.language) {
+                langs['_Unknown'].push(repo.id)
+            } else {
+                langs['_' + repo.language] ? langs['_' + repo.language].push(repo.id) : langs['_' + repo.language] = [repo.id]
+            }
+        })
+
+        let inserts = []
+        let index = 1
+        for (let key in langs) {
+            inserts.push(langsCollection.upsert({
+                key: key.substr(1).toLowerCase(),
+                id: index,
+                name: key.substr(1),
+                repos: langs[key]
+            }))
+            index++
+        }
+
+        return Promise.all(inserts)
+    }
+
+    getLanguages = async () => {
+        this.checkInstance()
+
+        let langsCollection = this.RxDB.languages
+
+        let query = langsCollection.find()
+
+        let docs = await query.exec()
+
+        let languages = []
+
+        docs.forEach((doc) => {
+            let language = doc.toJSON()
+            language.reposCount = doc.countRepos()
+            languages.push(language)
+        })
+
+        return languages
     }
 }

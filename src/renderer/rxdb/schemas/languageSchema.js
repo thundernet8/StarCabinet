@@ -1,6 +1,6 @@
-const SCCategorySchema = {
-    'title': 'SC Category schema',
-    'description': 'describes a single SC category',
+const LanguageSchema = {
+    'title': 'SC Language schema',
+    'description': 'describes a single language',
     'version': 0,
     'type': 'object',
     'properties': {
@@ -21,21 +21,9 @@ const SCCategorySchema = {
             'type': 'array',
             'uniqueItems': true,
             'item': 'number'
-        },
-        'createdAt': {
-            'type': 'string'
-        },
-        'createdTime': {
-            'type': 'number'
-        },
-        'updatedAt': {
-            'type': 'string'
-        },
-        'updatedTime': {
-            'type': 'number'
         }
     },
     'required': ['id', 'name']
 }
 
-export default SCCategorySchema
+export default LanguageSchema

@@ -4,6 +4,7 @@ import * as db              from './db'
 import * as repos           from './repos'
 import * as conditions      from './conditional'
 import * as profile         from './profile'
+import * as languages       from './languages'
 
 export default Object.assign(
     {},
@@ -12,5 +13,6 @@ export default Object.assign(
     db,
     repos,
     conditions,
-    profile
+    profile,
+    languages
 )

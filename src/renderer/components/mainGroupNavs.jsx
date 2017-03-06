@@ -51,6 +51,8 @@ export default class MainGroupNavs extends React.Component {
     }
 
     render () {
+        const languages = this.props.languages || []
+        const langItems = languages.map((language) => <Menu.Item key={'lang_' + language.id}>{language.name}</Menu.Item>)
         return (
             <div className={classNames('groupNav', styles.groupNav)}>
                 <Menu mode="inline" theme="dark" openKeys={this.state.openKeys} selectedKeys={[this.state.current]}
@@ -59,8 +61,7 @@ export default class MainGroupNavs extends React.Component {
                         <Icon type="bars" /><span>ALL</span>
                     </Menu.Item>
                     <SubMenu key={CONSTANTS.CATEGORY_TYPE_LANGUAGE} title={<span><Icon type="book" /><span>LANGUAGE</span></span>}>
-                        <Menu.Item key="1">PHP</Menu.Item>
-                        <Menu.Item key="2">JavaScript</Menu.Item>
+                        {langItems}
                     </SubMenu>
                     <SubMenu key={CONSTANTS.CATEGORY_TYPE_CUSTOM} title={<span><Icon type="folder" /><span>CATEGORIES</span></span>}>
                         <Menu.Item key="3">CATEGORY 1</Menu.Item>

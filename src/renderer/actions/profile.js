@@ -3,6 +3,10 @@ import DBHandler                            from '../rxdb/dbHandler'
 
 export const getMyProfile = (username = '') => {
     return (dispatch, getState) => {
+        dispatch({
+            type: CONSTANTS.QUERY_MY_PROFILE
+        })
+
         const dbHandler = new DBHandler(getState().db)
         dbHandler.initDB().then(() => dbHandler.getProfile(username))
         .then((profile) => {

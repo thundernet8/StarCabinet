@@ -14,6 +14,7 @@ import {
     filterConditionReducer
 }                                                         from './conditional'
 import { profileReducer }                                 from './profile'
+import { languagesReducer }                               from './languages'
 
 export default combineReducers({
     routing: routerReducer,
@@ -27,5 +28,6 @@ export default combineReducers({
     filter: filterConditionReducer,
     category: categoryConditionReducer,
     repos: reposListReducer,
+    languages: languagesReducer,
     fetchStatus: fetchingReposStatusReducer
 })

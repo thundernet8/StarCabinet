@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onRefresh: () => {
-            dispatch(Actions.fetchRemoteReposList())
+            return dispatch(Actions.fetchRemoteReposList())
         }
     }
 }

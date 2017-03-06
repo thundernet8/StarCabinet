@@ -5,7 +5,8 @@ import Actions                      from '../actions'
 // Redux connection
 const mapStateToProps = (state) => {
     return {
-        category: state.category
+        category: state.category,
+        languages: state.languages
     }
 }
 

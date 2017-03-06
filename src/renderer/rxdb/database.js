@@ -41,6 +41,15 @@ const collections = [
     sync: false
   },
   {
+    name: 'languages',
+    schema: require('./schemas/languageSchema.js').default,
+    methods: {
+        countRepos () {
+            return this.repos.length
+        }
+    }
+  },
+  {
       name: 'settings',
       schema: require('./schemas/settingSchema.js').default,
       sync: false
@@ -58,7 +67,7 @@ const _create = async function(dbName, dispatch) {
     // debug
     if (window._DEBUG_) {
       window['sc_db'] = db
-      db.$.subscribe(changeEvent => Logger(changeEvent))
+      // db.$.subscribe(changeEvent => Logger(changeEvent))
     }
 
     // create collections

@@ -44,7 +44,7 @@ export const orderConditionReducer = (state = initialOrderCondition, action) => 
 
 const initialCategoryCondition = {
     type: CONSTANTS.CATEGORY_TYPE_ALL,
-    id: 0
+    id: CONSTANTS.CATEGORY_TYPE_ALL // 0
 }
 
 export const categoryConditionReducer = (state = initialCategoryCondition, action) => {
