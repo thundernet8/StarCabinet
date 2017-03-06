@@ -21,7 +21,7 @@
             >.ant-menu-sub {
                 background-color: transparent;
                 max-height: 168px;
-                overflow-y: scroll;
+                overflow-y: auto;
                 >li {
                     &:not(.ant-menu-item-selected) {
                         &:hover {
@@ -44,6 +44,6 @@
     .ant-radio-button-wrapper {
         line-height: 24px;
         height: 26px;
-        padding: 0 13px;
+        padding: 0 12px;
     }
 }

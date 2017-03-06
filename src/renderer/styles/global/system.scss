@@ -6,6 +6,12 @@
             display: none;
         }
     }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {width: 5px; height:6px; background-color: transparent;}
+    ::-webkit-scrollbar-track-piece{background-color: transparent;}
+    ::-webkit-scrollbar-thumb:window-inactive,
+    ::-webkit-scrollbar-thumb {background-color: rgba(0, 0, 0, .8); border-radius: 5px;}
 }
 
 

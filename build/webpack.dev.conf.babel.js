@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000
 
 let devConfig = {
   // eval-source-map is faster for development
-  devtool: '#eval-source-map',
+  devtool: '#source-map', // '#eval-source-map',
 
   entry: {
     app: [
