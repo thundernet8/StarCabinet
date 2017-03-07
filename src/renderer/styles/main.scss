@@ -30,6 +30,8 @@
 }
 
 .mid {
+    display: flex;
+    flex-direction: column;
     position: absolute;
     top: 0;
     left: 200px;
@@ -189,4 +191,16 @@
     transition: all .3s ease;
     margin-top: -36px;
     text-align: center;
+}
+
+.reposListWrapper {
+    position: relative;
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+
+.repoListItem {
+    position: relative;
 }

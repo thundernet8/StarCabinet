@@ -10,7 +10,7 @@ import {
 import {
     searchConditionReducer,
     orderConditionReducer,
-    categoryConditionReducer,
+    groupConditionReducer,
     filterConditionReducer
 }                                                         from './conditional'
 import { profileReducer }                                 from './profile'
@@ -27,7 +27,7 @@ export default combineReducers({
     search: searchConditionReducer,
     order: orderConditionReducer,
     filter: filterConditionReducer,
-    category: categoryConditionReducer,
+    group: groupConditionReducer,
     repos: reposListReducer,
     languages: languagesReducer,
     categories: categoriesReducer,

@@ -23,11 +23,11 @@ export default class MainPage extends React.Component {
     }
 
     componentWillReceiveProps (nextProps) {
-        // check search/order/filter/category conditions to judge whether the repos list should be updated
+        // check search/order/filter/group conditions to judge whether the repos list should be updated
         if (!deepEqual(nextProps.search, this.props.search) ||
-        !deepEqual(nextProps.order, this.props.order ||
+        !deepEqual(nextProps.order, this.props.order) ||
         !deepEqual(nextProps.filter, this.props.filter) ||
-        !deepEqual(nextProps.category, this.props.category))) {
+        !deepEqual(nextProps.group, this.props.group)) {
             this.props.onNeedUpdateReposList()
         }
     }

@@ -21,9 +21,9 @@ export const updateOrderCondition = (order) => {
     }
 }
 
-export const updateCategoryCondition = (category) => {
+export const updateGroupCondition = (group) => {
     return {
-        type: CONSTANTS.UPDATE_CATEGORY_CONDITION,
-        category
+        type: CONSTANTS.UPDATE_GROUP_CONDITION,
+        group
     }
 }

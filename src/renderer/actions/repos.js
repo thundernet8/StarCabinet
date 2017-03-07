@@ -15,6 +15,34 @@ export const updateReposList = () => {
         // dispatch({
         //     type: CONSTANTS.UPDATE_REPOS_LIST_FAIL
         // })
+        dispatch({
+            type: CONSTANTS.QUERY_REPOS_LIST
+        })
+
+        const state = getState()
+        const conditions = {
+            group: state.group,
+            search: state.search,
+            order: state.order,
+            filter: state.filter
+        }
+
+        const dbHandler = new DBHandler(getState().db)
+        dbHandler.initDB().then(() => dbHandler.getRepos(conditions))
+        .then((repos) => {
+            dispatch({
+                type: CONSTANTS.QUERY_REPOS_LIST_SUCCESS,
+                repos
+            })
+            return repos
+        })
+        .catch((err) => {
+            dispatch({
+                type: CONSTANTS.QUERY_REPOS_LIST_FAIL,
+                err
+            })
+            return err
+        })
     }
 }
 
@@ -40,11 +68,13 @@ export const fetchRemoteReposList = () => {
 
                     // update languages state meanwhile
                     dispatch(updateLanguagesList())
+                    // update repos state meanwhile
+                    dispatch(updateReposList())
 
                     return repos
                 })
                 .catch((err) => {
-                    console.dir(err)
+                    console.error(err)
                     dispatch({
                         type: CONSTANTS.FETCH_REPOS_LIST_FAIL
                     })
@@ -52,12 +82,12 @@ export const fetchRemoteReposList = () => {
                 })
             })
             .catch((err) => {
-                console.dir(err)
+                console.error(err)
                 return err
             })
         })
         .catch((err) => {
-            console.dir(err)
+            console.error(err)
             dispatch({
                 type: CONSTANTS.FETCH_REPOS_LIST_FAIL
             })

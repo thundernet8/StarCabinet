@@ -42,15 +42,15 @@ export const orderConditionReducer = (state = initialOrderCondition, action) => 
     }
 }
 
-const initialCategoryCondition = {
+const initialGroupCondition = {
     type: CONSTANTS.CATEGORY_TYPE_ALL,
     id: CONSTANTS.CATEGORY_TYPE_ALL // 0
 }
 
-export const categoryConditionReducer = (state = initialCategoryCondition, action) => {
+export const groupConditionReducer = (state = initialGroupCondition, action) => {
     switch (action.type) {
-        case CONSTANTS.UPDATE_CATEGORY_CONDITION:
-            return Object.assign({}, action.category)
+        case CONSTANTS.UPDATE_GROUP_CONDITION:
+            return Object.assign({}, action.group)
         default:
             return state
     }

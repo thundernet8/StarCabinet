@@ -5,14 +5,19 @@ import Actions                      from '../actions'
 // Redux connection
 const mapStateToProps = (state) => {
     return {
-        category: state.category,
+        group: state.group,
         languages: state.languages,
-        categories: state.categories
+        categories: state.categories,
+        fetchStatus: state.fetchStatus
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {}
+    return {
+        onUpdateGroupCondition: (group) => {
+            return dispatch(Actions.updateGroupCondition(group))
+        }
+    }
 }
 
 // Which props to inject from the global atomic state

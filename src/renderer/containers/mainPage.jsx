@@ -11,7 +11,7 @@ const mapStateToProps = (state) => {
         search: state.search,
         order: state.order,
         filter: state.filter,
-        category: state.category,
+        group: state.group,
         repos: state.repos
     }
 }

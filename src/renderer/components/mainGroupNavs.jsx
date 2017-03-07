@@ -16,7 +16,25 @@ export default class MainGroupNavs extends React.Component {
 
     handleClick = (e) => {
         console.log('Clicked: ', e)
-        this.setState({ current: e.key })
+        if (!this.props.fetchStatus || this.props.fetchStatus.fetching) {
+            return // not available when fetching data
+        }
+        let group
+        const key = e.key
+        const keyPath = e.keyPath
+        if (keyPath.length === 1) {
+            group = {
+                id: key,
+                type: key
+            }
+        } else {
+            group = {
+                id: key.split('_')[1],
+                type: keyPath[1]
+            }
+        }
+        this.props.onUpdateGroupCondition(group)
+        this.setState({ current: key })
     }
 
     onOpenChange = (openKeys) => {
@@ -41,7 +59,7 @@ export default class MainGroupNavs extends React.Component {
 
     render () {
         const languages = this.props.languages || []
-        const langItems = languages.map((language) => <Menu.Item key={'lang_' + language.id} className={styles.langItem}>{language.name}<span className={styles.navBadge}>{language.reposCount}</span></Menu.Item>)
+        const langItems = languages.map((language) => <Menu.Item key={'lang_' + language.name} className={styles.langItem}>{language.name}<span className={styles.navBadge}>{language.reposCount}</span></Menu.Item>)
 
         const categories = this.props.categories || []
         const catItems = categories.map((category) => <Menu.Item key={'cat_' + category.id} className={styles.catItem}>{category.name}</Menu.Item>)
@@ -52,7 +70,7 @@ export default class MainGroupNavs extends React.Component {
                     <Menu.Item key={CONSTANTS.CATEGORY_TYPE_ALL}>
                         <Icon type="bars" /><span>ALL</span>
                     </Menu.Item>
-                    <SubMenu key={CONSTANTS.CATEGORY_TYPE_LANGUAGE} title={<span><Icon type="book" /><span>LANGUAGE</span></span>}>
+                    <SubMenu key={CONSTANTS.CATEGORY_TYPE_LANGUAGE} title={<span><Icon type="book" /><span>LANGUAGES</span></span>}>
                         {langItems}
                     </SubMenu>
                     <SubMenu key={CONSTANTS.CATEGORY_TYPE_CUSTOM} title={<span><Icon type="folder" /><span>CATEGORIES</span></span>}>

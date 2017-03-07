@@ -184,12 +184,42 @@ export default class DBHandler {
         return Promise.all(inserts)
     }
 
+    getRepos = async (conditions) => {
+        this.checkInstance()
+
+        let reposCollection = this.RxDB.repos
+
+        let args = {}
+        if (conditions.group) {
+            switch (conditions.group.type) {
+                case CONSTANTS.CATEGORY_TYPE_LANGUAGE:
+                    args = {lang: {$eq: conditions.group.id}}
+                    break
+                default:
+                    args = {}
+            }
+        }
+
+        let query = reposCollection.find(args) // TODO conditions
+
+        let docs = await query.exec()
+
+        let repos = []
+
+        docs.forEach((doc) => {
+            let repo = doc.toJSON()
+            repos.push(repo)
+        })
+
+        return repos
+    }
+
     upsertLanguages = async (repos) => {
         this.checkInstance()
 
         let langsCollection = this.RxDB.languages
 
-        await langsCollection.find().remove() // clean the collection
+        // await langsCollection.find().remove() // clean the collection
 
         let langs = {
             _Unknown: []
@@ -253,5 +283,7 @@ export default class DBHandler {
             category.reposCount = doc.countRepos()
             categories.push(category)
         })
+
+        return categories
     }
 }
