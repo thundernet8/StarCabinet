@@ -1,8 +1,4 @@
 import * as CONSTANTS     from '../constants'
-import * as EVENTS        from '../../shared/events'
-import GithubClient       from '../utils/githubClient'
-import Authentication     from '../utils/authentication'
-import { ipcRenderer }    from 'electron'
 
 export const credentialsReducer = (state = {username: '', password: ''}, action) => {
     switch (action.type) {

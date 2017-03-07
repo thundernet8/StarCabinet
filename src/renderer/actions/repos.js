@@ -29,13 +29,11 @@ export const fetchRemoteReposList = () => {
         return client.getStarredRepos()
         .then(ret => ret.data)
         .then((repos) => {
-            console.dir(repos)
             const dbHandler = new DBHandler(state.db)
             return dbHandler.initDB()
             .then(() => {
                 return Promise.all([dbHandler.upsertRepos(repos), dbHandler.upsertLanguages(repos)])
                 .then((ret) => {
-                    console.dir(ret)
                     dispatch({
                         type: CONSTANTS.FETCH_REPOS_LIST_SUCCESS
                     })

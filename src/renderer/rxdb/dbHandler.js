@@ -236,4 +236,22 @@ export default class DBHandler {
 
         return languages
     }
+
+    getCategories = async () => {
+        this.checkInstance()
+
+        let catsCollection = this.RxDB.categories
+
+        let query = catsCollection.find()
+
+        let docs = await query.exec()
+
+        let categories = []
+
+        docs.forEach((doc) => {
+            let category = doc.toJSON()
+            category.reposCount = doc.countRepos()
+            categories.push(category)
+        })
+    }
 }

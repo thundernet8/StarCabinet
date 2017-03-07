@@ -22,23 +22,12 @@ export default class MainGroupNavs extends React.Component {
     onOpenChange = (openKeys) => {
         const state = this.state
         const latestOpenKey = openKeys.find(key => !(state.openKeys.indexOf(key) > -1))
-        const latestCloseKey = state.openKeys.find(key => !(openKeys.indexOf(key) > -1))
 
         let nextOpenKeys = []
         if (latestOpenKey) {
-            nextOpenKeys = this.getAncestorKeys(latestOpenKey).concat(latestOpenKey)
-        }
-        if (latestCloseKey) {
-            nextOpenKeys = this.getAncestorKeys(latestCloseKey)
+            nextOpenKeys = [].concat(latestOpenKey)
         }
         this.setState({ openKeys: nextOpenKeys })
-    }
-
-    getAncestorKeys = (key) => {
-        const map = {
-            sub3: ['sub2']
-        }
-        return map[key] || []
     }
 
     componentWillReceiveProps (nextProps) {
@@ -53,6 +42,9 @@ export default class MainGroupNavs extends React.Component {
     render () {
         const languages = this.props.languages || []
         const langItems = languages.map((language) => <Menu.Item key={'lang_' + language.id}>{language.name}</Menu.Item>)
+
+        const categories = this.props.categories || []
+        const catItems = categories.map((category) => <Menu.Item key={'cat_' + category.id}>{category.name}</Menu.Item>)
         return (
             <div className={classNames('groupNav', styles.groupNav)}>
                 <Menu mode="inline" theme="dark" openKeys={this.state.openKeys} selectedKeys={[this.state.current]}
@@ -64,10 +56,7 @@ export default class MainGroupNavs extends React.Component {
                         {langItems}
                     </SubMenu>
                     <SubMenu key={CONSTANTS.CATEGORY_TYPE_CUSTOM} title={<span><Icon type="folder" /><span>CATEGORIES</span></span>}>
-                        <Menu.Item key="3">CATEGORY 1</Menu.Item>
-                        <Menu.Item key="4">CATEGORY 2</Menu.Item>
-                        <Menu.Item key="0">CATEGORY 3</Menu.Item>
-                        <Menu.Item key="6">CATEGORY 4</Menu.Item>
+                        {catItems}
                     </SubMenu>
                     <Menu.Item key={CONSTANTS.CATEGORY_TYPE_UNKNOWN}>
                         <Icon type="exception" /><span>UNCATEGORIZED</span>

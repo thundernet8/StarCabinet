@@ -30,6 +30,9 @@ const mapDispatchToProps = (dispatch) => {
         onGetMyProfile: () => {
             return dispatch(Actions.getMyProfile())
         },
+        onGetCategories: () => {
+            return dispatch(Actions.updateCategoriesList())
+        },
         onFetchStarredRepos: () => {
             return dispatch(Actions.fetchRemoteReposList())
         }

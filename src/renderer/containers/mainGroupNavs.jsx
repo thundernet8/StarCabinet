@@ -6,7 +6,8 @@ import Actions                      from '../actions'
 const mapStateToProps = (state) => {
     return {
         category: state.category,
-        languages: state.languages
+        languages: state.languages,
+        categories: state.categories
     }
 }
 

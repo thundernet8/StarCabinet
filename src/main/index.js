@@ -19,7 +19,9 @@ function createWindow () {
   createLoginWindow(win)
 
   // Add React dev tools
-  BrowserWindow.addDevToolsExtension(path.resolve(__dirname, '../chrome/ReactDevTool/2.0.12_0'))
+  if (process.env.NODE_ENV === 'development') {
+      BrowserWindow.addDevToolsExtension(path.resolve(__dirname, '../chrome/ReactDevTool/2.0.12_0'))
+  }
 
   services.register(win)
 }
