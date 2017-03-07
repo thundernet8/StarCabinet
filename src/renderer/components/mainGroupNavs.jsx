@@ -41,7 +41,7 @@ export default class MainGroupNavs extends React.Component {
 
     render () {
         const languages = this.props.languages || []
-        const langItems = languages.map((language) => <Menu.Item key={'lang_' + language.id}>{language.name}</Menu.Item>)
+        const langItems = languages.map((language) => <Menu.Item key={'lang_' + language.id}>{language.name}<span className={styles.navBadge}>{language.reposCount}</span></Menu.Item>)
 
         const categories = this.props.categories || []
         const catItems = categories.map((category) => <Menu.Item key={'cat_' + category.id}>{category.name}</Menu.Item>)

@@ -96,6 +96,17 @@
     position: relative;
 }
 
+.navBadge {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    text-align: right;
+    padding: 0 6px;
+    font-size: 14px;
+    line-height: 42px;
+    color: #fafafa;
+}
+
 .groupFooter {
     position: absolute;
     width: 100%;
