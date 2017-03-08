@@ -104,11 +104,11 @@ export const ORDER_BY_SCORE = 'ORDER_BY_SCORE'
 export const ORDER_DESC = 'ORDER_DESC'
 export const ORDER_ASC = 'ORDER_ASC'
 
-// category types
-export const CATEGORY_TYPE_CUSTOM = 'CATEGORY_TYPE_CUSTOM'
-export const CATEGORY_TYPE_LANGUAGE = 'CATEGORY_TYPE_LANGUAGE'
-export const CATEGORY_TYPE_UNKNOWN = 'CATEGORY_TYPE_UNKNOWN' // repos who do not have a custom category
-export const CATEGORY_TYPE_ALL = 'CATEGORY_TYPE_ALL' // means removing category filter
+// group types
+export const GROUP_TYPE_CATEGORY = 'GROUP_TYPE_CATEGORY'
+export const GROUP_TYPE_LANGUAGE = 'GROUP_TYPE_LANGUAGE'
+export const GROUP_TYPE_UNKNOWN = 'GROUP_TYPE_UNKNOWN' // repos who do not have a custom category
+export const GROUP_TYPE_ALL = 'GROUP_TYPE_ALL' // means removing category filter
 
 // query profile
 export const QUERY_MY_PROFILE = 'QUERY_MY_PROFILE'
@@ -119,6 +119,11 @@ export const QUERY_MY_PROFILE_FAIL = 'QUERY_MY_PROFILE_FAIL'
 export const ADD_CUSTOM_CATEGORY = 'ADD_CUSTOM_CATEGORY'
 export const ADD_CUSTOM_CATEGORY_SUCCESS = 'ADD_CUSTOM_CATEGORY_SUCCESS'
 export const ADD_CUSTOM_CATEGORY_FAIL = 'ADD_CUSTOM_CATEGORY_FAIL'
+
+// delete a custom category
+export const DELETE_CUSTOM_CATEGORY = 'DELETE_CUSTOM_CATEGORY'
+export const DELETE_CUSTOM_CATEGORY_SUCCESS = 'DELETE_CUSTOM_CATEGORY_SUCCESS'
+export const DELETE_CUSTOM_CATEGORY_FAIL = 'DELETE_CUSTOM_CATEGORY_FAIL'
 
 // attach a category to a repo
 export const ATTACH_CUSTOM_CATEGORY = 'ATTACH_CUSTOM_CATEGORY'

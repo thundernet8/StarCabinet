@@ -9,3 +9,19 @@ export const categoriesReducer = (state = [], action) => {
             return state
     }
 }
+
+export const categoryAddingResultReducer = (state = null, action) => {
+    switch (action.type) {
+        case CONSTANTS.ADD_CUSTOM_CATEGORY_SUCCESS:
+            return {
+                category: action.category,
+                success: true
+            }
+        case CONSTANTS.ADD_CUSTOM_CATEGORY_FAIL:
+            return {
+                error: action.error
+            }
+        default:
+            return state
+    }
+}

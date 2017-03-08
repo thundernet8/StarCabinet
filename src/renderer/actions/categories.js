@@ -39,12 +39,42 @@ export const addNewCategory = (name) => {
                 type: CONSTANTS.ADD_CUSTOM_CATEGORY_SUCCESS,
                 category: categoryDoc.toJSON()
             })
+            // refresh the categories list
+            dispatch(updateCategoriesList())
+
             return categoryDoc
         })
         .catch((err) => {
             dispatch({
                 type: CONSTANTS.ADD_CUSTOM_CATEGORY_FAIL,
-                err
+                error: err
+            })
+            return err
+        })
+    }
+}
+
+export const deleteCategory = (id) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: CONSTANTS.DELETE_CUSTOM_CATEGORY
+        })
+
+        const dbHandler = new DBHandler(getState().db)
+        dbHandler.initDB().then(() => dbHandler.deleteCategory(id))
+        .then((id) => {
+            dispatch({
+                type: CONSTANTS.DELETE_CUSTOM_CATEGORY_SUCCESS
+            })
+            // refresh the categories list
+            dispatch(updateCategoriesList()) // maybe only need do this, reducer is not required
+
+            return id
+        })
+        .catch((err) => {
+            dispatch({
+                type: CONSTANTS.DELETE_CUSTOM_CATEGORY_FAIL,
+                error: err
             })
             return err
         })

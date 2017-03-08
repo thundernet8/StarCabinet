@@ -43,8 +43,8 @@ export const orderConditionReducer = (state = initialOrderCondition, action) => 
 }
 
 const initialGroupCondition = {
-    type: CONSTANTS.CATEGORY_TYPE_ALL,
-    id: CONSTANTS.CATEGORY_TYPE_ALL // 0
+    type: CONSTANTS.GROUP_TYPE_ALL,
+    id: CONSTANTS.GROUP_TYPE_ALL // 0
 }
 
 export const groupConditionReducer = (state = initialGroupCondition, action) => {

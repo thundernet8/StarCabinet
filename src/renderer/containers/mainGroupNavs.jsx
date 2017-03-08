@@ -16,6 +16,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onUpdateGroupCondition: (group) => {
             return dispatch(Actions.updateGroupCondition(group))
+        },
+        onDeleteCategory: (id) => {
+            return dispatch(Actions.deleteCategory(id))
         }
     }
 }

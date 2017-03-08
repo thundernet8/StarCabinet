@@ -4,11 +4,17 @@ import Actions                      from '../actions'
 
 // Redux connection
 const mapStateToProps = (state) => {
-    return {}
+    return {
+        catAdd: state.catAdd
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {}
+    return {
+        onAddNewCategory: (name) => {
+            return dispatch(Actions.addNewCategory(name))
+        }
+    }
 }
 
 // Which props to inject from the global atomic state

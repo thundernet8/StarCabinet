@@ -15,7 +15,8 @@ export default class MainGroupFooter extends React.Component {
             return
         }
         this.setState({
-            modalVisible: true
+            modalVisible: true,
+            error: null
         })
     }
 
@@ -26,7 +27,7 @@ export default class MainGroupFooter extends React.Component {
     }
 
     submitCatName = () => {
-        const catName = this.catNameInput.value // TODO validate cat name
+        const catName = this.catNameInput.refs.input.value // TODO validate cat name
         if (!catName) {
             this.setState({
                 error: 'Please input category name'
@@ -36,12 +37,33 @@ export default class MainGroupFooter extends React.Component {
         this.setState({
             submitting: true
         })
+        setTimeout(() => {
+            this.props.onAddNewCategory(catName)
+        }, 2000)
     }
 
     clearError = () => {
         this.setState({
             error: null
         })
+    }
+
+    componentWillReceiveProps (nextProps) {
+        if (nextProps.catAdd) {
+            const catAddResult = nextProps.catAdd
+            if (catAddResult.success) {
+                this.catNameInput.refs.input.value = ''
+                this.setState({
+                    modalVisible: false,
+                    submitting: false
+                })
+            } else if (catAddResult.error) {
+                this.setState({
+                    error: catAddResult.error.message,
+                    submitting: false
+                })
+            }
+        }
     }
 
     render () {

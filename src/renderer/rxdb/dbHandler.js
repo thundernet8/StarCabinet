@@ -192,8 +192,11 @@ export default class DBHandler {
         let args = {}
         if (conditions.group) {
             switch (conditions.group.type) {
-                case CONSTANTS.CATEGORY_TYPE_LANGUAGE:
+                case CONSTANTS.GROUP_TYPE_LANGUAGE:
                     args = {lang: {$eq: conditions.group.id}}
+                    break
+                case CONSTANTS.GROUP_TYPE_CATEGORY:
+                    args = {SCCategories: conditions.group.id}
                     break
                 default:
                     args = {}
@@ -295,17 +298,18 @@ export default class DBHandler {
         let exist = await catsCollection.findOne({name: {$eq: name}}).exec()
 
         if (exist) {
-            return new Error('Duplicative category name')
+            throw new Error('Duplicative category name')
         }
 
-        let docs = await catsCollection.find().exec()
+        let docs = await catsCollection.find().sort('key').exec() // -key does not work
+        const docsLength = docs ? docs.length : 0
 
-        const length = docs ? docs.length + 1 : 1
+        const start = docsLength ? docs[docsLength - 1].id + 1 : 1
         const date = new Date()
 
         const category = {
-            key: length.toString(),
-            id: length,
+            key: start.toString(),
+            id: start,
             name: name,
             repos: [],
             createdAt: date.toISOString(),
@@ -315,5 +319,18 @@ export default class DBHandler {
         let upsert = await catsCollection.upsert(category)
 
         return upsert
+    }
+
+    deleteCategory = async (id) => {
+        this.checkInstance()
+
+        let catsCollection = this.RxDB.categories
+
+        try {
+            await catsCollection.find({id: {$eq: id}}).remove()
+            return id
+        } catch (err) {
+            throw new Error(err)
+        }
     }
 }
