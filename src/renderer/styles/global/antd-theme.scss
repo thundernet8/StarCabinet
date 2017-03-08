@@ -1,5 +1,11 @@
 /* Customize Antd */
 
+input {
+    &:focus {
+        box-shadow: none !important;
+    }
+}
+
 .ant-message-notice-content {
     min-width: 160px;
 }

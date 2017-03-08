@@ -25,3 +25,28 @@ export const updateCategoriesList = () => {
         })
     }
 }
+
+export const addNewCategory = (name) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: CONSTANTS.ADD_CUSTOM_CATEGORY
+        })
+
+        const dbHandler = new DBHandler(getState().db)
+        dbHandler.initDB().then(() => dbHandler.upsertCategory(name))
+        .then((categoryDoc) => {
+            dispatch({
+                type: CONSTANTS.ADD_CUSTOM_CATEGORY_SUCCESS,
+                category: categoryDoc.toJSON()
+            })
+            return categoryDoc
+        })
+        .catch((err) => {
+            dispatch({
+                type: CONSTANTS.ADD_CUSTOM_CATEGORY_FAIL,
+                err
+            })
+            return err
+        })
+    }
+}

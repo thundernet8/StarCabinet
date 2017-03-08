@@ -286,4 +286,34 @@ export default class DBHandler {
 
         return categories
     }
+
+    upsertCategory = async (name) => {
+        this.checkInstance()
+
+        let catsCollection = this.RxDB.categories
+
+        let exist = await catsCollection.findOne({name: {$eq: name}}).exec()
+
+        if (exist) {
+            return new Error('Duplicative category name')
+        }
+
+        let docs = await catsCollection.find().exec()
+
+        const length = docs ? docs.length + 1 : 1
+        const date = new Date()
+
+        const category = {
+            key: length.toString(),
+            id: length,
+            name: name,
+            repos: [],
+            createdAt: date.toISOString(),
+            createdTime: parseInt(date.getTime() / 1000)
+        }
+
+        let upsert = await catsCollection.upsert(category)
+
+        return upsert
+    }
 }
