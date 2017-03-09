@@ -238,18 +238,18 @@ const repoSchema = {
           }
         }
       },
-      'SCTags': {
-        'type': 'array',
-        'maxItems': 100,
-        'uniqueItems': true,
-        'item': 'number'
-      },
-      'SCCategories': {
-        'type': 'array',
-        'maxItems': 10,
-        'uniqueItems': true,
-        'item': 'number'
-      },
+    //   'SCTags': {
+    //     'type': 'array',
+    //     'maxItems': 100,
+    //     'uniqueItems': true,
+    //     'item': 'number'
+    //   },
+    //   'SCCategories': {
+    //     'type': 'array',
+    //     'maxItems': 10,
+    //     'uniqueItems': true,
+    //     'item': 'number'
+    //   },
       'score': {
           'type': 'number' // 0~5
       },

@@ -20,7 +20,7 @@ export default class MainGroupNavs extends React.Component {
     }
 
     handleClick = (e) => {
-        if (!this.props.fetchStatus || this.props.fetchStatus.fetching) {
+        if (this.state.stopBubble || !this.props.fetchStatus || this.props.fetchStatus.fetching) {
             return // not available when fetching data
         }
         let group
@@ -55,7 +55,8 @@ export default class MainGroupNavs extends React.Component {
         this.setState({ openKeys: nextOpenKeys })
     }
 
-    deleteCategory = (id) => {
+    deleteCategory = (id, e) => {
+        e.stopPropagation()
         this.props.onDeleteCategory(id)
     }
 

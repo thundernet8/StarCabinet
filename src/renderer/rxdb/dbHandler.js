@@ -205,12 +205,13 @@ export default class DBHandler {
         let query
         if (conditions.group) {
             const id = conditions.group.id // string
-            console.log(typeof id)
             switch (conditions.group.type) {
                 case CONSTANTS.GROUP_TYPE_LANGUAGE:
                     args = {lang: {$eq: id}}
                     break
                 case CONSTANTS.GROUP_TYPE_CATEGORY:
+                    // we should go to category table to find the repos list
+                    // TODO
                     args = {SCCategories: {$in: [parseInt(id)]}}
                     break
                 case CONSTANTS.GROUP_TYPE_UNKNOWN:
