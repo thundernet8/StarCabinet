@@ -1,0 +1,1 @@
+"unknown operator "0" - should be one of $eq, $lte, $lt, $gt, $gte, $exists, $ne, $in, $nin, $size, $mod, $regex, $elemMatch, $type or $all"

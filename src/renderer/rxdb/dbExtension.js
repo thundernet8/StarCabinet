@@ -34,7 +34,6 @@ export const extendRxDB = ($this) => {
             fields.forEach((field) => {
                 delete json[field]
             })
-
             const data = Object.assign({}, existing._data, json)
             data._rev = existing._rev
             existing._data = data

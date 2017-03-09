@@ -199,22 +199,22 @@ export default class DBHandler {
     getRepos = async (conditions) => {
         this.checkInstance()
 
-        await this.restoreReposScore()
-
         let reposCollection = this.RxDB.repos
 
         let args = {}
         let query
         if (conditions.group) {
+            const id = conditions.group.id // string
+            console.log(typeof id)
             switch (conditions.group.type) {
                 case CONSTANTS.GROUP_TYPE_LANGUAGE:
-                    args = {lang: {$eq: conditions.group.id}}
+                    args = {lang: {$eq: id}}
                     break
                 case CONSTANTS.GROUP_TYPE_CATEGORY:
-                    args = {SCCategories: conditions.group.id}
+                    args = {SCCategories: {$in: [parseInt(id)]}}
                     break
                 case CONSTANTS.GROUP_TYPE_UNKNOWN:
-                    args = {SCCategories: {$exists: false}}
+                    args = {SCCategories: {$eq: []}}
                     break
                 default:
                     args = {}
@@ -239,10 +239,6 @@ export default class DBHandler {
         })
 
         return repos
-    }
-
-    restoreReposScore = async () => {
-
     }
 
     upsertLanguages = async (repos) => {
