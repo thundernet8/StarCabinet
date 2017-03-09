@@ -1,6 +1,7 @@
 import * as RxDB                    from 'rxdb'
 import Logger                       from '../utils/logHelper'
 import { dbCollectionChange }       from '../actions/dbHooks'
+import { extendRxDB }               from './dbExtension'
 
 RxDB.plugin(require('pouchdb-adapter-idb'))
 
@@ -73,7 +74,11 @@ const _create = async function(dbName, dispatch) {
     // create collections
     Logger('DatabaseService: create collections')
 
-    await Promise.all(collections.map(colData => db.collection(colData)))
+    const cols = await Promise.all(collections.map(colData => db.collection(colData)))
+
+    cols.forEach((col) => {
+        extendRxDB(col)
+    })
 
     // hooks
     Logger('DatabaseService: add hooks')

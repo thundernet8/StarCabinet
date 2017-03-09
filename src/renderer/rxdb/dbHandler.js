@@ -99,7 +99,7 @@ export default class DBHandler {
         let index = 0
         repos.forEach((repo) => {
             index++
-            inserts.push(reposCollection.upsert({
+            inserts.push(reposCollection.upsertExcludeFields({
                 key: repo.id.toString(),
                 id: repo.id,
                 name: repo.name,
@@ -182,15 +182,15 @@ export default class DBHandler {
                 indexedWatchers: repo.watchers.toString(),
                 defaultBranch: repo.default_branch,
                 permissions: repo.permissions,
-                // SCTags: [], // add them in a update method
-                // SCCategories: [],
-                // score: 0,
-                // indexedScore:
-                // flag: false,
-                // read: false,
-                // remark: ''
-                indexedScore: 0 // required as it's indexed, so we need restore score data when sort repos by it
-            }))
+                SCTags: [], // add them in a update method
+                SCCategories: [],
+                score: 0,
+                indexedScore: '0',
+                flag: false,
+                read: false,
+                remark: '',
+                indexedDefaultOrder: '0' // not avaiable now
+            }, ['SCTags', 'SCCategories', 'score', 'indexedScore', 'flag', 'read', 'remark']))
         })
 
         return Promise.all(inserts)
@@ -330,7 +330,7 @@ export default class DBHandler {
         }
 
         let docs = await catsCollection.find().sort({key: -1}).limit(1).exec()
-        const start = docs ? docs[0].id + 1 : 1
+        const start = docs instanceof Array && docs.length > 0 ? docs[0].id + 1 : 1
         const date = new Date()
 
         const category = {
