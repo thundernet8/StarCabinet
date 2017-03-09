@@ -1,4 +1,4 @@
-import React, { PropTypes }         from 'react'
+import React                        from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main.scss'
 import MainGroupTopIndicator        from '../containers/mainGroupTopIndicator'
@@ -8,9 +8,6 @@ import MainGroupFooter              from '../containers/mainGroupFooter'
 
 // left part of the main window
 export default class MainGroupPane extends React.Component {
-    componentDidMount () {}
-
-    componentWillUnmount () {}
 
     render () {
         return (

@@ -261,6 +261,46 @@ const repoSchema = {
       },
       'remark': {
           'type': 'string'
+      },
+      'indexedScore': {
+          'type': 'string',
+          'index': true
+      },
+      'indexedCreatedTime': {
+          'type': 'string',
+          'index': true
+      },
+      'indexedUpdatedTime': {
+          'type': 'string',
+          'index': true
+      },
+      'indexedPushedTime': {
+          'type': 'string',
+          'index': true
+      },
+      'indexedSize': {
+          'type': 'string',
+          'index': true
+      },
+      'indexedStars': {
+          'type': 'string',
+          'index': true
+      },
+      'indexedForks': {
+          'type': 'string',
+          'index': true
+      },
+      'indexedOpenIssues': {
+          'type': 'string',
+          'index': true
+      },
+      'indexedWatchers': {
+          'type': 'string',
+          'index': true
+      },
+      'indexedDefaultOrder': {
+          'type': 'string',
+          'index': true
       }
   },
   'required': ['id', 'name', 'owner', 'htmlUrl', 'createdAt', 'createdTime', 'updatedAt', 'updatedTime', 'pushedAt', 'pushedTime', 'forks', 'watchers', 'stars', 'defaultBranch', 'openIssues']

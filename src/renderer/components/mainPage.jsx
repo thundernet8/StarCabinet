@@ -9,6 +9,7 @@ import deepEqual                    from 'deep-equal'
 import dbName                       from '../utils/dbName'
 
 export default class MainPage extends React.Component {
+
     componentWillMount () {
         this.props.onGetLocalCredentials()
         .then((credentials) => {

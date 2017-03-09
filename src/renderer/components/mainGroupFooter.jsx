@@ -1,9 +1,15 @@
-import React                                from 'react'
+import React, { PropTypes }                 from 'react'
 import classNames                           from 'classnames'
 import styles                               from '../styles/main'
 import { Icon, Modal, Input, Alert }        from 'antd'
 
 export default class MainGroupFooter extends React.Component {
+    static propTypes = {
+        modalVisible: PropTypes.bool,
+        submitting: PropTypes.bool,
+        error: PropTypes.any
+    }
+
     state = {
         modalVisible: false,
         submitting: false,

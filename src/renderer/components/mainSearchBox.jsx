@@ -1,4 +1,4 @@
-import React                        from 'react'
+import React, { PropTypes }         from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main'
 import * as CONSTANTS               from '../constants'
@@ -8,6 +8,11 @@ const RadioButton = Radio.Button
 const RadioGroup = Radio.Group
 
 export default class MainSearchBox extends React.Component {
+    static propTypes = {
+        focus: PropTypes.bool,
+        focusLock: PropTypes.bool
+    }
+
     state = {
         focus: false,
         focusLock: false

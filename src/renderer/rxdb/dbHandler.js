@@ -96,7 +96,9 @@ export default class DBHandler {
 
         let reposCollection = this.RxDB.repos
         let inserts = []
+        let index = 0
         repos.forEach((repo) => {
+            index++
             inserts.push(reposCollection.upsert({
                 key: repo.id.toString(),
                 id: repo.id,
@@ -146,18 +148,23 @@ export default class DBHandler {
                 deploymentsUrl: repo.deployments_url,
                 createdAt: repo.created_at,
                 createdTime: parseInt((new Date(repo.created_at)) / 1000),
+                indexedCreatedTime: parseInt((new Date(repo.created_at)) / 1000).toString(),
                 updatedAt: repo.updated_at,
                 updatedTime: parseInt((new Date(repo.updated_at)) / 1000),
+                indexedUpdatedTime: parseInt((new Date(repo.updated_at)) / 1000).toString(),
                 pushedAt: repo.pushed_at,
                 pushedTime: parseInt((new Date(repo.pushed_at)) / 1000),
+                indexedPushedTime: parseInt((new Date(repo.pushed_at)) / 1000).toString(),
                 gitUrl: repo.git_url,
                 sshUrl: repo.ssh_url,
                 cloneUrl: repo.clone_url,
                 svnUrl: repo.svn_url,
                 homePage: repo.homepage || '',
                 size: repo.size,
+                indexedSize: repo.size.toString(),
                 stargazersCount: repo.stargazers_count,
                 stars: repo.stargazers_count,
+                indexedStars: repo.stargazers_count.toString(),
                 watchersCount: repo.watchers_count,
                 lang: repo.language || 'Unknown',
                 hasIssues: repo.has_issues,
@@ -168,16 +175,21 @@ export default class DBHandler {
                 // mirrorUrl: repo.mirror_url,
                 openIssuesCount: repo.open_issues_count,
                 forks: repo.forks,
+                indexedForks: repo.forks.toString(),
                 openIssues: repo.open_issues,
+                indexedOpenIssues: repo.open_issues.toString(),
                 watchers: repo.watchers,
+                indexedWatchers: repo.watchers.toString(),
                 defaultBranch: repo.default_branch,
-                permissions: repo.permissions
+                permissions: repo.permissions,
                 // SCTags: [], // add them in a update method
                 // SCCategories: [],
                 // score: 0,
+                // indexedScore:
                 // flag: false,
                 // read: false,
                 // remark: ''
+                indexedScore: 0 // required as it's indexed, so we need restore score data when sort repos by it
             }))
         })
 
@@ -187,9 +199,12 @@ export default class DBHandler {
     getRepos = async (conditions) => {
         this.checkInstance()
 
+        await this.restoreReposScore()
+
         let reposCollection = this.RxDB.repos
 
         let args = {}
+        let query
         if (conditions.group) {
             switch (conditions.group.type) {
                 case CONSTANTS.GROUP_TYPE_LANGUAGE:
@@ -198,12 +213,21 @@ export default class DBHandler {
                 case CONSTANTS.GROUP_TYPE_CATEGORY:
                     args = {SCCategories: conditions.group.id}
                     break
+                case CONSTANTS.GROUP_TYPE_UNKNOWN:
+                    args = {SCCategories: {$exists: false}}
+                    break
                 default:
                     args = {}
             }
         }
+        query = reposCollection.find(args)
 
-        let query = reposCollection.find(args) // TODO conditions
+        if (conditions.order) {
+            const sc = conditions.order.desc ? -1 : 1
+            query = query.sort({[conditions.order.by]: sc})
+        }
+
+        // TODO conditions (filter/search)
 
         let docs = await query.exec()
 
@@ -215,6 +239,10 @@ export default class DBHandler {
         })
 
         return repos
+    }
+
+    restoreReposScore = async () => {
+
     }
 
     upsertLanguages = async (repos) => {
@@ -301,10 +329,8 @@ export default class DBHandler {
             throw new Error('Duplicative category name')
         }
 
-        let docs = await catsCollection.find().sort('key').exec() // -key does not work
-        const docsLength = docs ? docs.length : 0
-
-        const start = docsLength ? docs[docsLength - 1].id + 1 : 1
+        let docs = await catsCollection.find().sort({key: -1}).limit(1).exec()
+        const start = docs ? docs[0].id + 1 : 1
         const date = new Date()
 
         const category = {
