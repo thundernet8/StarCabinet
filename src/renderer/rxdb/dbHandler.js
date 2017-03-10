@@ -355,7 +355,10 @@ export default class DBHandler {
 
         let catsCollection = this.RxDB.categories
 
-        let exist = await catsCollection.findOne({name: {$eq: name}}).exec()
+        // let exist = await catsCollection.findOne({name: {$eq: name}}).exec()
+
+        const regKey = '^' + name + '$'
+        let exist = await catsCollection.findOne({name: {$regex: new RegExp(regKey, 'i')}}).exec()
 
         if (exist) {
             throw new Error('Duplicative category name')
