@@ -8,7 +8,11 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {}
+    return {
+        onSelectRepo: (id) => {
+            dispatch(Actions.selectOneRepo(id))
+        }
+    }
 }
 
 // Which props to inject from the global atomic state

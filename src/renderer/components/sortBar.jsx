@@ -18,6 +18,10 @@ export default class SortBar extends React.Component {
     }
 
     onMenuSelect = (({key}) => {
+        if (this.props.fetchStatus || this.props.fetchStatus.fetching) {
+            return
+        }
+
         const order = {
             desc: this.state.desc,
             by: this.state.by

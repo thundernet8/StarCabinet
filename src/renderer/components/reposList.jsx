@@ -10,7 +10,7 @@ export default class ReposList extends React.Component {
     }
 
     render () {
-        const repoItems = this.props.repos.map((repo) => <RepoItem key={repo.id} repo={repo}/>)
+        const repoItems = this.props.repos.map((repo) => <RepoItem key={repo.id} repo={repo} selectedRepoId={this.props.selectedRepoId} />)
         return (
             <div className={classNames('reposListWrapper', styles.reposListWrapper)}>
                 {repoItems}

@@ -91,6 +91,10 @@ export const fetchRemoteReposList = () => {
             dispatch({
                 type: CONSTANTS.FETCH_REPOS_LIST_FAIL
             })
+
+            // now update the repos list from indexed db
+            dispatch(updateReposList())
+
             return err
         })
     }

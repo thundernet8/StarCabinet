@@ -36,9 +36,6 @@ export default class MainSearchBox extends React.Component {
     }
 
     onSearch = (value) => {
-        this.setState({
-            focus: false
-        })
         const search = {
             key: value,
             field: this.state.searchField
