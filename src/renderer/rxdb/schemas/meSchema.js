@@ -9,7 +9,7 @@ const meSchema = {
             'primary': true // juse string of id
         },
         'id': {
-            'type': 'number'
+            'type': 'integer'
         },
         'login': {
             'type': 'string'
@@ -75,43 +75,43 @@ const meSchema = {
             'type': 'boolen'
         },
         'publicRepos': {
-            'type': 'number'
+            'type': 'integer'
         },
         'publicGists': {
-            'type': 'number'
+            'type': 'integer'
         },
         'followers': {
-            'type': 'number'
+            'type': 'integer'
         },
         'following': {
-            'type': 'number'
+            'type': 'integer'
         },
         'createdAt': {
             'type': 'string'
         },
         'createdTime': {
-            'type': 'number'
+            'type': 'integer'
         },
         'updatedAt': {
             'type': 'string'
         },
         'updatedTime': {
-            'type': 'number'
+            'type': 'integer'
         },
         'privateGists': {
-            'type': 'number'
+            'type': 'integer'
         },
         'totalPrivateRepos': {
-            'type': 'number'
+            'type': 'integer'
         },
         'ownedPrivateRepos': {
-            'type': 'number'
+            'type': 'integer'
         },
         'diskUsage': {
-            'type': 'number'
+            'type': 'integer'
         },
         'collaborators': {
-            'type': 'number'
+            'type': 'integer'
         },
         'twoFactorAuthentication': {
             'type': 'boolen'
@@ -123,13 +123,13 @@ const meSchema = {
                     'type': 'string'
                 },
                 'space': {
-                    'type': 'number'
+                    'type': 'integer'
                 },
                 'collaborators': {
-                    'type': 'number'
+                    'type': 'integer'
                 },
                 'privateRepos': {
-                    'type': 'number'
+                    'type': 'integer'
                 }
             }
         }

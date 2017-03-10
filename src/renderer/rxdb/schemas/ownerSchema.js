@@ -9,10 +9,12 @@ const ownerSchema = {
             'primary': true // juse string of id
         },
         'id': {
-            'type': 'number'
+            'type': 'integer',
+            'index': true
         },
         'login': {
-            'type': 'string'
+            'type': 'string',
+            'index': true
         },
         'avatarUrl': {
             'type': 'string'

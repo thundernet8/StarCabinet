@@ -9,7 +9,8 @@ const repoSchema = {
         'primary': true // juse string of id
       },
       'id': {
-        'type': 'number'
+        'type': 'integer',
+        'index': true
       },
       'name': {
         'type': 'string'
@@ -18,7 +19,7 @@ const repoSchema = {
         'type': 'string'
       },
       'owner': {
-        'type': 'number'
+        'type': 'integer'
       },
       'private': {
         'type': 'boolen'
@@ -147,19 +148,19 @@ const repoSchema = {
         'type': 'string'
       },
       'createdTime': {
-        'type': 'number'
+        'type': 'integer'
       },
       'updatedAt': {
         'type': 'string'
       },
       'updatedTime': {
-        'type': 'number'
+        'type': 'integer'
       },
       'pushedAt': {
         'type': 'string'
       },
       'pushedTime': {
-        'type': 'number'
+        'type': 'integer'
       },
       'gitUrl': {
         'type': 'string'
@@ -177,16 +178,16 @@ const repoSchema = {
         'type': 'string'
       },
       'size': {
-        'type': 'number'
+        'type': 'integer'
       },
       'stargazersCount': {
-        'type': 'number'
+        'type': 'integer'
       },
       'stars': {
-        'type': 'number'
+        'type': 'integer'
       },
       'watchersCount': {
-        'type': 'number'
+        'type': 'integer'
       },
       'lang': {
         'type': 'string'
@@ -204,22 +205,22 @@ const repoSchema = {
         'type': 'boolen'
       },
       'forksCount': {
-        'type': 'number'
+        'type': 'integer'
       },
       'mirrorUrl': {
         'type': 'string'
       },
       'openIssuesCount': {
-        'type': 'number'
+        'type': 'integer'
       },
       'forks': {
-        'type': 'number'
+        'type': 'integer'
       },
       'openIssues': {
-        'type': 'number'
+        'type': 'integer'
       },
       'watchers': {
-        'type': 'number'
+        'type': 'integer'
       },
       'defaultBranch': {
         'type': 'string'
@@ -238,20 +239,20 @@ const repoSchema = {
           }
         }
       },
-    //   'SCTags': {
-    //     'type': 'array',
-    //     'maxItems': 100,
-    //     'uniqueItems': true,
-    //     'item': 'number'
-    //   },
-    //   'SCCategories': {
-    //     'type': 'array',
-    //     'maxItems': 10,
-    //     'uniqueItems': true,
-    //     'item': 'number'
-    //   },
+      'SCTags': {
+        'type': 'array',
+        'maxItems': 100,
+        'uniqueItems': true,
+        'item': 'number'
+      },
+      'SCCategories': {
+        'type': 'array',
+        'maxItems': 10,
+        'uniqueItems': true,
+        'item': 'number'
+      },
       'score': {
-          'type': 'number' // 0~5
+          'type': 'integer' // 0~5
       },
       'flag': {
           'type': 'boolen'
@@ -262,44 +263,8 @@ const repoSchema = {
       'remark': {
           'type': 'string'
       },
-      'indexedScore': {
-          'type': 'string',
-          'index': true
-      },
-      'indexedCreatedTime': {
-          'type': 'string',
-          'index': true
-      },
-      'indexedUpdatedTime': {
-          'type': 'string',
-          'index': true
-      },
-      'indexedPushedTime': {
-          'type': 'string',
-          'index': true
-      },
-      'indexedSize': {
-          'type': 'string',
-          'index': true
-      },
-      'indexedStars': {
-          'type': 'string',
-          'index': true
-      },
-      'indexedForks': {
-          'type': 'string',
-          'index': true
-      },
-      'indexedOpenIssues': {
-          'type': 'string',
-          'index': true
-      },
-      'indexedWatchers': {
-          'type': 'string',
-          'index': true
-      },
-      'indexedDefaultOrder': {
-          'type': 'string',
+      'defaultOrder': {
+          'type': 'integer',
           'index': true
       }
   },

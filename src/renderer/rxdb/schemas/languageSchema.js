@@ -9,7 +9,8 @@ const LanguageSchema = {
             'primary': true // just string of id
         },
         'id': {
-            'type': 'number'
+            'type': 'integer',
+            'index': true
         },
         'name': {
             'type': 'string'
@@ -20,7 +21,7 @@ const LanguageSchema = {
         'repos': {
             'type': 'array',
             'uniqueItems': true,
-            'item': 'number'
+            'item': 'integer'
         }
     },
     'required': ['id', 'name']

@@ -9,7 +9,8 @@ const SCCategorySchema = {
             'primary': true // just string of id
         },
         'id': {
-            'type': 'number'
+            'type': 'integer',
+            'index': true
         },
         'name': {
             'type': 'string'
@@ -20,19 +21,19 @@ const SCCategorySchema = {
         'repos': {
             'type': 'array',
             'uniqueItems': true,
-            'item': 'number'
+            'item': 'integer'
         },
         'createdAt': {
             'type': 'string'
         },
         'createdTime': {
-            'type': 'number'
+            'type': 'integer'
         },
         'updatedAt': {
             'type': 'string'
         },
         'updatedTime': {
-            'type': 'number'
+            'type': 'integer'
         }
     },
     'required': ['id', 'name']

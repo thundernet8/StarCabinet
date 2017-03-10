@@ -90,16 +90,16 @@ export const FILTER_TYPE_REMAKR = 'FILTER_TYPE_REMAKR'
 export const FILTER_TYPE_UNREAD = 'FILTER_TYPE_UNREAD'
 
 // order types
-export const ORDER_BY_DEFAULT = 'indexedDefaultOrder' // TODO change to starred time, need change github api npm package
-export const ORDER_BY_STARS_COUNT = 'indexedStars'
-export const ORDER_BY_FORKS_COUNT = 'indexedForks'
-export const ORDER_BY_WATCHERS_COUNT = 'indexedWatchers'
-export const ORDER_BY_OPEN_ISSUES_COUNT = 'indexedOpenIssues'
-export const ORDER_BY_SIZE = 'indexedSize'
-export const ORDER_BY_CREATE_TIME = 'indexedCreatedTime'
-export const ORDER_BY_UPDATE_TIME = 'indexedUpdatedTime'
-export const ORDER_BY_PUSH_TIME = 'indexedPushedTime'
-export const ORDER_BY_SCORE = 'indexedScore'
+export const ORDER_BY_DEFAULT = 'defaultOrder' // TODO change to starred time, need change github api npm package
+export const ORDER_BY_STARS_COUNT = 'stars'
+export const ORDER_BY_FORKS_COUNT = 'forks'
+export const ORDER_BY_WATCHERS_COUNT = 'watchers'
+export const ORDER_BY_OPEN_ISSUES_COUNT = 'openIssues'
+export const ORDER_BY_SIZE = 'size'
+export const ORDER_BY_CREATE_TIME = 'createdTime'
+export const ORDER_BY_UPDATE_TIME = 'updatedTime'
+export const ORDER_BY_PUSH_TIME = 'pushedTime'
+export const ORDER_BY_SCORE = 'score'
 
 export const ORDER_DESC = 'ORDER_DESC'
 export const ORDER_ASC = 'ORDER_ASC'

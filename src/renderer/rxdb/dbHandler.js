@@ -97,6 +97,7 @@ export default class DBHandler {
         let reposCollection = this.RxDB.repos
         let inserts = []
         let index = 0
+        repos.reverse()
         repos.forEach((repo) => {
             index++
             inserts.push(reposCollection.upsertExcludeFields({
@@ -148,23 +149,18 @@ export default class DBHandler {
                 deploymentsUrl: repo.deployments_url,
                 createdAt: repo.created_at,
                 createdTime: parseInt((new Date(repo.created_at)) / 1000),
-                indexedCreatedTime: parseInt((new Date(repo.created_at)) / 1000).toString(),
                 updatedAt: repo.updated_at,
                 updatedTime: parseInt((new Date(repo.updated_at)) / 1000),
-                indexedUpdatedTime: parseInt((new Date(repo.updated_at)) / 1000).toString(),
                 pushedAt: repo.pushed_at,
                 pushedTime: parseInt((new Date(repo.pushed_at)) / 1000),
-                indexedPushedTime: parseInt((new Date(repo.pushed_at)) / 1000).toString(),
                 gitUrl: repo.git_url,
                 sshUrl: repo.ssh_url,
                 cloneUrl: repo.clone_url,
                 svnUrl: repo.svn_url,
                 homePage: repo.homepage || '',
                 size: repo.size,
-                indexedSize: repo.size.toString(),
                 stargazersCount: repo.stargazers_count,
                 stars: repo.stargazers_count,
-                indexedStars: repo.stargazers_count.toString(),
                 watchersCount: repo.watchers_count,
                 lang: repo.language || 'Unknown',
                 hasIssues: repo.has_issues,
@@ -175,21 +171,17 @@ export default class DBHandler {
                 // mirrorUrl: repo.mirror_url,
                 openIssuesCount: repo.open_issues_count,
                 forks: repo.forks,
-                indexedForks: repo.forks.toString(),
                 openIssues: repo.open_issues,
-                indexedOpenIssues: repo.open_issues.toString(),
                 watchers: repo.watchers,
-                indexedWatchers: repo.watchers.toString(),
                 defaultBranch: repo.default_branch,
                 permissions: repo.permissions,
                 score: 0,
-                indexedScore: '0',
                 SCCategories: [],
                 SCTags: [],
                 flag: false,
                 read: false,
                 remark: '',
-                indexedDefaultOrder: index.toString()
+                defaultOrder: index
             }, ['score', 'indexedScore', 'flag', 'read', 'remark', 'SCCategories', 'SCTags']))
         })
 

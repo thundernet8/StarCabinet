@@ -9,8 +9,8 @@ const SCTagSchema = {
             'primary': true // juse string of id
         },
         'id': {
-            'type': 'number'
-            // 'primary': true
+            'type': 'integer',
+            'index': true
         },
         'name': {
             'type': 'string'
@@ -19,24 +19,24 @@ const SCTagSchema = {
             'type': 'string'
         },
         'reposCount': {
-            'type': 'number'
+            'type': 'integer'
         },
         'repos': {
             'type': 'array',
             'uniqueItems': true,
-            'item': 'number'
+            'item': 'integer'
         },
         'createdAt': {
             'type': 'string'
         },
         'createdTime': {
-            'type': 'number'
+            'type': 'integer'
         },
         'updatedAt': {
             'type': 'string'
         },
         'updatedTime': {
-            'type': 'number'
+            'type': 'integer'
         }
     },
     'required': ['id']
