@@ -182,15 +182,13 @@ export default class DBHandler {
                 indexedWatchers: repo.watchers.toString(),
                 defaultBranch: repo.default_branch,
                 permissions: repo.permissions,
-                SCTags: [], // add them in a update method
-                SCCategories: [],
                 score: 0,
                 indexedScore: '0',
                 flag: false,
                 read: false,
                 remark: '',
                 indexedDefaultOrder: '0' // not avaiable now
-            }, ['SCTags', 'SCCategories', 'score', 'indexedScore', 'flag', 'read', 'remark']))
+            }, ['score', 'indexedScore', 'flag', 'read', 'remark']))
         })
 
         return Promise.all(inserts)
@@ -199,36 +197,79 @@ export default class DBHandler {
     getRepos = async (conditions) => {
         this.checkInstance()
 
-        let reposCollection = this.RxDB.repos
+        const reposCollection = this.RxDB.repos
 
-        let args = {}
         let query
+        let groupQueryArgs = {}
         if (conditions.group) {
             const id = conditions.group.id // string
             switch (conditions.group.type) {
                 case CONSTANTS.GROUP_TYPE_LANGUAGE:
-                    args = {lang: {$eq: id}}
+                    groupQueryArgs = {lang: {$eq: id}}
+                    query = reposCollection.find(groupQueryArgs)
                     break
                 case CONSTANTS.GROUP_TYPE_CATEGORY:
                     // we should go to category table to find the repos list
-                    // TODO
-                    args = {SCCategories: {$in: [parseInt(id)]}}
+                    const catsCollection = this.RxDB.categories
+                    const category = await catsCollection.findOne({key: {$eq: id}}).exec()
+                    const repoIds = category.repos
+                    groupQueryArgs = {id: {$in: repoIds}}
+                    query = reposCollection.find(groupQueryArgs)
                     break
-                case CONSTANTS.GROUP_TYPE_UNKNOWN:
-                    args = {SCCategories: {$eq: []}}
+                case CONSTANTS.GROUP_TYPE_UNKNOWN: // TODO
+                    groupQueryArgs = {SCCategories: {$eq: []}}
+                    query = reposCollection.find(groupQueryArgs)
                     break
                 default:
-                    args = {}
+                    query = reposCollection.find()
             }
         }
-        query = reposCollection.find(args)
+
+        if (conditions.search && conditions.search.key) {
+            const key = conditions.search.key
+            switch (conditions.search.field) {
+                case CONSTANTS.SEARCH_FIELD_REPO_NAME:
+                    query = query.find({name: {$regex: new RegExp(key, 'i')}})
+                    break
+                case CONSTANTS.SEARCH_FIELD_REPO_DESCRIPTION:
+                    query = query.find({description: {$regex: new RegExp(key, 'i')}})
+                    break
+                case CONSTANTS.SEARCH_FIELD_REPO_REMARK:
+                    query = query.find({remark: {$regex: new RegExp(key, 'i')}})
+                    break
+                case CONSTANTS.SEARCH_FIELD_ALL:
+                default:
+                    // query = query.find({$or: [{name: {$regex: new RegExp(key, 'i')}}, {description: {$regex: new RegExp(key, 'i')}}, {remark: {$regex: new RegExp(key, 'i')}}]}) // TODO this does not work but no error
+
+                    // so use the bad way
+                    let tempRepoIds = []
+                    const nameSearchDocs = await reposCollection.find(Object.assign({}, groupQueryArgs, {name: {$regex: new RegExp(key, 'i')}})).exec()
+                    nameSearchDocs.forEach((nameSearchDoc) => {
+                        tempRepoIds.push(nameSearchDoc.id)
+                    })
+
+                    const introSearchDocs = await reposCollection.find(Object.assign({}, groupQueryArgs, {description: {$regex: new RegExp(key, 'i')}})).exec()
+                    introSearchDocs.forEach((introSearchDoc) => {
+                        tempRepoIds.push(introSearchDoc.id)
+                    })
+
+                    const remarkSearchDocs = await reposCollection.find(Object.assign({}, groupQueryArgs, {remark: {$regex: new RegExp(key, 'i')}})).exec()
+                    remarkSearchDocs.forEach((remarkSearchDoc) => {
+                        tempRepoIds.push(remarkSearchDoc.id)
+                    })
+
+                    tempRepoIds = Array.from(new Set(tempRepoIds))
+
+                    query = reposCollection.find({id: {$in: tempRepoIds}})
+            }
+        }
 
         if (conditions.order) {
             const sc = conditions.order.desc ? -1 : 1
             query = query.sort({[conditions.order.by]: sc})
         }
 
-        // TODO conditions (filter/search)
+        // TODO conditions (filter)
 
         let docs = await query.exec()
 

@@ -10,7 +10,11 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {}
+    return {
+        onUpdateSearchCondition: (search) => {
+            return dispatch(Actions.updateSearchCondition(search))
+        }
+    }
 }
 
 // Which props to inject from the global atomic state

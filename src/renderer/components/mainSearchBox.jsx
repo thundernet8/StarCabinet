@@ -10,12 +10,14 @@ const RadioGroup = Radio.Group
 export default class MainSearchBox extends React.Component {
     static propTypes = {
         focus: PropTypes.bool,
-        focusLock: PropTypes.bool
+        focusLock: PropTypes.bool,
+        searchField: PropTypes.string
     }
 
     state = {
         focus: false,
-        focusLock: false
+        focusLock: false,
+        searchField: CONSTANTS.SEARCH_FIELD_ALL
     }
 
     onFocus = () => {
@@ -33,10 +35,15 @@ export default class MainSearchBox extends React.Component {
         })
     }
 
-    onSearch = () => {
+    onSearch = (value) => {
         this.setState({
             focus: false
         })
+        const search = {
+            key: value,
+            field: this.state.searchField
+        }
+        this.props.onUpdateSearchCondition(search)
     }
 
     onMouseEnter = () => {
@@ -51,6 +58,13 @@ export default class MainSearchBox extends React.Component {
         })
     }
 
+    onRadioChange = (e) => {
+        const field = e.target.value
+        this.setState({
+            searchField: field
+        })
+    }
+
     render () {
         return (
             <div className={classNames('searchBox', styles.searchBox, {[styles.searchBoxFocused]: this.state.focus})}
@@ -58,7 +72,7 @@ export default class MainSearchBox extends React.Component {
                 <Search className={classNames('searchInput', styles.searchInput)} id="searchInput" placeholder="Search"
     onSearch={this.onSearch}/>
                 <div className={classNames('searchFields', styles.searchFields)}>
-                    <RadioGroup defaultValue={CONSTANTS.SEARCH_FIELD_ALL} size="medium">
+                    <RadioGroup defaultValue={CONSTANTS.SEARCH_FIELD_ALL} size="medium" onChange={this.onRadioChange}>
                         <RadioButton value={CONSTANTS.SEARCH_FIELD_ALL}>All</RadioButton>
                         <RadioButton value={CONSTANTS.SEARCH_FIELD_REPO_NAME}>Name</RadioButton>
                         <RadioButton value={CONSTANTS.SEARCH_FIELD_REPO_DESCRIPTION}>Intro</RadioButton>
