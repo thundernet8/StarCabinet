@@ -53,3 +53,13 @@ input {
         padding: 0 12px;
     }
 }
+
+.sortDropdown {
+    >.ant-dropdown-menu-item {
+        line-height: 14px;
+        padding: 5px 16px;
+    }
+    >.ant-dropdown-menu-item-divider {
+        margin: 4px 0;
+    }
+}
