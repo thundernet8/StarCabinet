@@ -17,17 +17,31 @@ export default class SortBar extends React.Component {
         by: CONSTANTS.ORDER_BY_DEFAULT
     }
 
-    checkSortField = (key, e) => {
-        this.setState({
-            by: key
-        })
-    }
+    onMenuSelect = (({key}) => {
+        const order = {
+            desc: this.state.desc,
+            by: this.state.by
+        }
 
-    checkSC = (isDesc, e) => {
-        this.setState({
-            desc: isDesc
-        })
-    }
+        if (key === CONSTANTS.ORDER_ASC) {
+            this.setState({
+                desc: false
+            })
+            order.desc = false
+        } else if (key === CONSTANTS.ORDER_DESC) {
+            this.setState({
+                desc: true
+            })
+            order.desc = true
+        } else {
+            this.setState({
+                by: key
+            })
+            order.by = key
+        }
+
+        this.props.onUpdateOrderCondition(order)
+    })
 
     render () {
         const bys = {
@@ -46,7 +60,7 @@ export default class SortBar extends React.Component {
         const upMenuItems = Object.keys(bys).map((key) => {
             return (
                 <Menu.Item key={key}>
-                    <Checkbox onChange={this.checkSortField.bind(key)} checked={this.state.by === key}>
+                    <Checkbox checked={this.state.by === key}>
                         <a href="javascript:;">{bys[key]}</a>
                     </Checkbox>
                 </Menu.Item>
@@ -54,16 +68,16 @@ export default class SortBar extends React.Component {
         })
 
         const menu = (
-            <Menu className={classNames('sortDropdown', styles.sortDropdown)}>
+            <Menu className={classNames('sortDropdown', styles.sortDropdown)} onClick={this.onMenuSelect}>
                 {upMenuItems}
                 <Menu.Divider />
                 <Menu.Item key={CONSTANTS.ORDER_ASC}>
-                    <Checkbox onChange={this.checkSC.bind(false)} checked={!this.state.desc}>
+                    <Checkbox checked={!this.state.desc}>
                         <a href="javascript:;">ASC</a>
                     </Checkbox>
                 </Menu.Item>
                 <Menu.Item key={CONSTANTS.ORDER_DESC}>
-                    <Checkbox onChange={this.checkSC.bind(true)} checked={this.state.desc}>
+                    <Checkbox checked={this.state.desc}>
                         <a href="javascript:;">DESC</a>
                     </Checkbox>
                 </Menu.Item>

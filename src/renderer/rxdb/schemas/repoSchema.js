@@ -148,19 +148,22 @@ const repoSchema = {
         'type': 'string'
       },
       'createdTime': {
-        'type': 'integer'
+        'type': 'integer',
+        'index': true
       },
       'updatedAt': {
         'type': 'string'
       },
       'updatedTime': {
-        'type': 'integer'
+        'type': 'integer',
+        'index': true
       },
       'pushedAt': {
         'type': 'string'
       },
       'pushedTime': {
-        'type': 'integer'
+        'type': 'integer',
+        'index': true
       },
       'gitUrl': {
         'type': 'string'
@@ -178,13 +181,15 @@ const repoSchema = {
         'type': 'string'
       },
       'size': {
-        'type': 'integer'
+        'type': 'integer',
+        'index': true
       },
       'stargazersCount': {
         'type': 'integer'
       },
       'stars': {
-        'type': 'integer'
+        'type': 'integer',
+        'index': true
       },
       'watchersCount': {
         'type': 'integer'
@@ -214,13 +219,16 @@ const repoSchema = {
         'type': 'integer'
       },
       'forks': {
-        'type': 'integer'
+        'type': 'integer',
+        'index': true
       },
       'openIssues': {
-        'type': 'integer'
+        'type': 'integer',
+        'index': true
       },
       'watchers': {
-        'type': 'integer'
+        'type': 'integer',
+        'index': true
       },
       'defaultBranch': {
         'type': 'string'
@@ -252,7 +260,8 @@ const repoSchema = {
         'item': 'number'
       },
       'score': {
-          'type': 'integer' // 0~5
+          'type': 'integer', // 0~5
+          'index': true
       },
       'flag': {
           'type': 'boolen'
