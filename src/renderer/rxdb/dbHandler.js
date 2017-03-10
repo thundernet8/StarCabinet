@@ -184,11 +184,13 @@ export default class DBHandler {
                 permissions: repo.permissions,
                 score: 0,
                 indexedScore: '0',
+                SCCategories: [],
+                SCTags: [],
                 flag: false,
                 read: false,
                 remark: '',
-                indexedDefaultOrder: '0' // not avaiable now
-            }, ['score', 'indexedScore', 'flag', 'read', 'remark']))
+                indexedDefaultOrder: index.toString()
+            }, ['score', 'indexedScore', 'flag', 'read', 'remark', 'SCCategories', 'SCTags']))
         })
 
         return Promise.all(inserts)

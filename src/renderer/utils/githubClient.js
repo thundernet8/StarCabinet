@@ -16,6 +16,11 @@ export default class GithubClient {
   }
 
   getStarredRepos () {
-    return this.me.listStarredRepos()
+    // return this.me.listStarredRepos() // this method only fetch repos sorted by 'updated', but we need the order of starred time desc
+
+    // ugly hack
+    const user = this.me
+    let requestOptions = user._getOptionsWithDefaults({sort: 'created'})
+    return user._requestAllPages(user.__getScopedUrl('starred'), requestOptions, null)
   }
 }

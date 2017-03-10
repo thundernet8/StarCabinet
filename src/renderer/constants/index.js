@@ -90,7 +90,7 @@ export const FILTER_TYPE_REMAKR = 'FILTER_TYPE_REMAKR'
 export const FILTER_TYPE_UNREAD = 'FILTER_TYPE_UNREAD'
 
 // order types
-export const ORDER_BY_DEFAULT = 'indexedPushedTime' // TODO change to starred time, need change github api npm package
+export const ORDER_BY_DEFAULT = 'indexedDefaultOrder' // TODO change to starred time, need change github api npm package
 export const ORDER_BY_STARS_COUNT = 'indexedStars'
 export const ORDER_BY_FORKS_COUNT = 'indexedForks'
 export const ORDER_BY_WATCHERS_COUNT = 'indexedWatchers'
