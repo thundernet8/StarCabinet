@@ -45,7 +45,7 @@ export default class DBHandler {
             organizationsUrl: profile.organizations_url,
             reposUrl: profile.repos_url,
             eventsUrl: profile.events_url,
-            receivedEventsUrl: profile.receivedEvents_url,
+            receivedEventsUrl: profile.received_events_url,
             type: profile.type,
             siteAdmin: profile.site_admin,
             name: profile.name,
@@ -97,9 +97,12 @@ export default class DBHandler {
         let reposCollection = this.RxDB.repos
         let inserts = []
         let index = 0
+        let owners = []
+
         repos.reverse()
         repos.forEach((repo) => {
             index++
+            owners.push(repo.owner)
             inserts.push(reposCollection.upsertExcludeFields({
                 key: repo.id.toString(),
                 id: repo.id,
@@ -184,6 +187,8 @@ export default class DBHandler {
                 defaultOrder: index
             }, ['score', 'indexedScore', 'flag', 'read', 'remark', 'SCCategories', 'SCTags']))
         })
+
+        await _upsertOwners(owners)
 
         return Promise.all(inserts)
     }
@@ -414,5 +419,37 @@ export default class DBHandler {
         await repo.save()
 
         return repo.toJSON()
+    }
+
+    // private functions
+    _upsertOwners = async (owners) => {
+        this.checkInstance()
+
+        const ownersCollection = this.RxDB.owners
+        let inserts = []
+        owners.forEach((owner) => {
+            inserts.push(ownersCollection.upsert({
+                key: owner.id.toString(),
+                id: owner.id,
+                login: owner.login,
+                avatarUrl: owner.avatar_url,
+                gravatarId: owner.gravatar_id,
+                url: owner.url,
+                htmlUrl: owner.html_url,
+                followersUrl: owner.followers_url,
+                followingUrl: owner.following_url,
+                gistsUrl: owner.gists_url,
+                starredUrl: owner.starred_url,
+                subscriptionsUrl: owner.subscriptions_url,
+                organizationsUrl: owner.organizations_url,
+                reposUrl: owner.repos_url,
+                eventsUrl: owner.events_url,
+                receivedEventsUrl: owner.received_events_url,
+                type: owner.type,
+                siteAdmin: owner.site_admin
+            }))
+        })
+
+        return Promise.all(inserts)
     }
 }
