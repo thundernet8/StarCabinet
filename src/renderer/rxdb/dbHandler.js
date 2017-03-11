@@ -322,10 +322,17 @@ export default class DBHandler {
 
         const settingsCollection = this.RxDB.settings
         const doc = await settingsCollection.findOne({id: {$eq: 'reposCount'}}).exec()
-        const oldCount = parseInt(doc.value)
+        const oldCount = doc ? parseInt(doc.value) : 0
 
-        doc.value = count.toString()
-        await doc.save()
+        if (doc) {
+            doc.value = count.toString()
+            await doc.save()
+        } else {
+            settingsCollection.upsert({
+                id: 'reposCount',
+                value: count.toString()
+            })
+        }
 
         return count - oldCount
     }
