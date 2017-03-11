@@ -19,7 +19,7 @@ export const categoryAddingResultReducer = (state = null, action) => {
             }
         case CONSTANTS.ADD_CUSTOM_CATEGORY_FAIL:
             return {
-                error: action.error
+                error: action.err
             }
         default:
             return state

@@ -76,7 +76,8 @@ export const fetchRemoteReposList = () => {
                 .catch((err) => {
                     console.error(err)
                     dispatch({
-                        type: CONSTANTS.FETCH_REPOS_LIST_FAIL
+                        type: CONSTANTS.FETCH_REPOS_LIST_FAIL,
+                        err
                     })
                     return err
                 })

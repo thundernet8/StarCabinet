@@ -47,7 +47,7 @@ export const addNewCategory = (name) => {
         .catch((err) => {
             dispatch({
                 type: CONSTANTS.ADD_CUSTOM_CATEGORY_FAIL,
-                error: err
+                err
             })
             return err
         })
@@ -74,7 +74,7 @@ export const deleteCategory = (id) => {
         .catch((err) => {
             dispatch({
                 type: CONSTANTS.DELETE_CUSTOM_CATEGORY_FAIL,
-                error: err
+                err
             })
             return err
         })

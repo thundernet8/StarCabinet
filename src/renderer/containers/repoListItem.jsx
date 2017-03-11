@@ -11,6 +11,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onSelectRepo: (id) => {
             dispatch(Actions.selectOneRepo(id))
+        },
+        onRateRepo: (id, score) => {
+            dispatch(Actions.rateOneRepo(id, score))
         }
     }
 }

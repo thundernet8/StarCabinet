@@ -229,6 +229,16 @@
         background-color: #e5e5e5;
         margin: 0 -10px;
         padding: 10px;
+        >header {
+            >span {
+                >ul {
+                    >li {
+                        color: #fff;
+                        transition: none;
+                    }
+                }
+            }
+        }
     }
     >header {
         position: relative;
@@ -261,7 +271,7 @@
     }
     >div {
         >p {
-            font-size: 12px;
+            font-size: 13px;
             line-height: 1.5;
             padding: 8px 0;
             color: #888;

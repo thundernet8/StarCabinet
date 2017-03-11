@@ -394,4 +394,25 @@ export default class DBHandler {
             throw new Error(err)
         }
     }
+
+    updateRepo = async (obj) => {
+        this.checkInstance()
+
+        const reposCollection = this.RxDB.repos
+        const id = obj.id
+        let repo = await reposCollection.findOne({id: {$eq: id}}).exec()
+        if (!repo) {
+            throw new Error('The specified repo is not exist')
+        }
+
+        for (let prop in obj) {
+            if (prop !== 'id' && obj.hasOwnProperty(prop)) {
+                repo[prop] = obj[prop] // TODO validate the prop existed in schema
+            }
+        }
+
+        await repo.save()
+
+        return repo.toJSON()
+    }
 }

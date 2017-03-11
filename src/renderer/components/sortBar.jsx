@@ -18,7 +18,7 @@ export default class SortBar extends React.Component {
     }
 
     onMenuSelect = (({key}) => {
-        if (this.props.fetchStatus || this.props.fetchStatus.fetching) {
+        if (this.props.fetchStatus && this.props.fetchStatus.fetching) {
             return
         }
 
