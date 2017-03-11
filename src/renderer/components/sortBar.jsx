@@ -55,9 +55,9 @@ export default class SortBar extends React.Component {
             [CONSTANTS.ORDER_BY_WATCHERS_COUNT]: 'WATCHERS',
             [CONSTANTS.ORDER_BY_CREATE_TIME]: 'CREATE TIME',
             [CONSTANTS.ORDER_BY_UPDATE_TIME]: 'UPDATE TIME',
+            [CONSTANTS.ORDER_BY_PUSH_TIME]: 'PUSH TIME',
             [CONSTANTS.ORDER_BY_SCORE]: 'SCORE',
             [CONSTANTS.ORDER_BY_SIZE]: 'SIZE',
-            [CONSTANTS.ORDER_BY_PUSH_TIME]: 'PUSH TIME',
             [CONSTANTS.ORDER_BY_OPEN_ISSUES_COUNT]: 'OPEN ISSUES'
         }
 
