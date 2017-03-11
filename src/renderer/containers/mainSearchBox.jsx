@@ -5,7 +5,9 @@ import Actions                      from '../actions'
 // Redux connection
 const mapStateToProps = (state) => {
     return {
-        search: state.search
+        search: state.search,
+        fetchStatus: state.fetchStatus,
+        repos: state.repos
     }
 }
 

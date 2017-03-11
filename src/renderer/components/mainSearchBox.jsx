@@ -2,7 +2,7 @@ import React, { PropTypes }         from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main'
 import * as CONSTANTS               from '../constants'
-import { Input, Radio }             from 'antd'
+import { Input, Radio, message }    from 'antd'
 const Search = Input.Search
 const RadioButton = Radio.Button
 const RadioGroup = Radio.Group
@@ -11,13 +11,17 @@ export default class MainSearchBox extends React.Component {
     static propTypes = {
         focus: PropTypes.bool,
         focusLock: PropTypes.bool,
-        searchField: PropTypes.string
+        searchField: PropTypes.string,
+        words: PropTypes.string,
+        searching: PropTypes.bool
     }
 
     state = {
         focus: false,
         focusLock: false,
-        searchField: CONSTANTS.SEARCH_FIELD_ALL
+        searchField: CONSTANTS.SEARCH_FIELD_ALL,
+        words: '',
+        searching: false
     }
 
     onFocus = () => {
@@ -36,11 +40,18 @@ export default class MainSearchBox extends React.Component {
     }
 
     onSearch = (value) => {
+        if (this.state.searching || this.state.words === value || (this.props.fetchStatus && this.props.fetchStatus.fetching)) {
+            return
+        }
         const search = {
             key: value,
             field: this.state.searchField
         }
         this.props.onUpdateSearchCondition(search)
+        this.setState({
+            searching: true,
+            words: value
+        })
     }
 
     onMouseEnter = () => {
@@ -60,6 +71,17 @@ export default class MainSearchBox extends React.Component {
         this.setState({
             searchField: field
         })
+    }
+
+    componentWillReceiveProps (nextProps) {
+        console.log(nextProps)
+        console.log(this.props)
+        if (this.state.searching && nextProps.search.key === this.props.search.key) {
+            message.success(`Searched ${nextProps.repos.length} results`)
+            this.setState({
+                searching: false
+            })
+        }
     }
 
     render () {

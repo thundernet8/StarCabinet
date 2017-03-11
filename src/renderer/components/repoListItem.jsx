@@ -57,7 +57,7 @@ export default class RepoListItem extends React.Component {
 
     render () {
         console.log('renderer')
-        const klass = classNames('repoListItem', styles.repoListItem, {[styles.repoSelected]: this.state.selected})
+        const klass = classNames('repoListItem fadeIn', styles.repoListItem, {[styles.repoSelected]: this.state.selected})
         return (
             <div className={klass} onClick={this.selectRepo}>
                 <header>
