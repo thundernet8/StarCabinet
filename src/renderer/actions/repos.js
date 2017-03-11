@@ -6,15 +6,6 @@ import { updateLanguagesList }       from './languages'
 
 export const updateReposList = () => {
     return (dispatch, getState) => {
-        // TODO get search/order/filter/category to filter repos
-
-        // dispatch({
-        //     type: CONSTANTS.UPDATE_REPOS_LIST_SUCCESS,
-        //     repos
-        // })
-        // dispatch({
-        //     type: CONSTANTS.UPDATE_REPOS_LIST_FAIL
-        // })
         dispatch({
             type: CONSTANTS.QUERY_REPOS_LIST
         })
@@ -60,10 +51,11 @@ export const fetchRemoteReposList = () => {
             const dbHandler = new DBHandler(state.db)
             return dbHandler.initDB()
             .then(() => {
-                return Promise.all([dbHandler.upsertRepos(repos), dbHandler.upsertLanguages(repos)])
+                return Promise.all([dbHandler.upsertRepos(repos), dbHandler.upsertLanguages(repos), dbHandler.upsertOwners(repos), dbHandler.recordReposCount(repos.length)])
                 .then((ret) => {
                     dispatch({
-                        type: CONSTANTS.FETCH_REPOS_LIST_SUCCESS
+                        type: CONSTANTS.FETCH_REPOS_LIST_SUCCESS,
+                        increase: ret[3]
                     })
 
                     // update languages state meanwhile
@@ -98,5 +90,11 @@ export const fetchRemoteReposList = () => {
 
             return err
         })
+    }
+}
+
+export const clearReposChangeNum = () => {
+    return {
+        type: CONSTANTS.CLEAR_INCREASE_PROP
     }
 }

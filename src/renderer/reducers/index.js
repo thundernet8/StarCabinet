@@ -5,7 +5,8 @@ import { offlineReducer }                                 from './network'
 import { dbConnectReducer }                               from './db'
 import {
     reposListReducer,
-    fetchingReposStatusReducer
+    fetchingReposStatusReducer,
+    reposIncreaseReducer
 }                                                         from './repos'
 import {
     searchConditionReducer,
@@ -33,6 +34,7 @@ export default combineReducers({
     filter: filterConditionReducer,
     group: groupConditionReducer,
     repos: reposListReducer,
+    increase: reposIncreaseReducer,
     languages: languagesReducer,
     categories: categoriesReducer,
     fetchStatus: fetchingReposStatusReducer,

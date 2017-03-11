@@ -10,6 +10,17 @@ export const reposListReducer = (state = [], action) => {
     }
 }
 
+export const reposIncreaseReducer = (state = 0, action) => {
+    switch (action.type) {
+        case CONSTANTS.FETCH_REPOS_LIST_SUCCESS:
+            return action.increase
+        case CONSTANTS.CLEAR_INCREASE_PROP:
+            return 0
+        default:
+            return state
+    }
+}
+
 const initialFetchState = {
     fetching: false,
     success: null

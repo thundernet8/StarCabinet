@@ -1,7 +1,9 @@
 import React                        from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main'
-import { Icon, Tooltip }            from 'antd'
+import {
+    Icon, Tooltip, notification
+}                                   from 'antd'
 
 export default class MainGroupTopIndicator extends React.Component {
     refresh = () => {
@@ -9,6 +11,21 @@ export default class MainGroupTopIndicator extends React.Component {
             return
         }
         this.props.onRefresh() // fetch real-time data from server and update repos list
+    }
+
+    openFetchResultsNotification = (increase) => {
+        notification.success({
+            message: 'Starred Repos Fetched',
+            description: increase < 0 ? `Decreased ${Math.abs(increase)} starred repositories.` : `${increase} starred repositories were added.`,
+            duration: 5
+        })
+    }
+
+    componentWillReceiveProps (nextProps) {
+        if (nextProps.increase) {
+            this.openFetchResultsNotification(nextProps.increase)
+            this.props.onClearIncreaseProp()
+        }
     }
 
     render () {

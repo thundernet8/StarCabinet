@@ -6,7 +6,8 @@ import Actions                      from '../actions'
 const mapStateToProps = (state) => {
     return {
         fetchStatus: state.fetchStatus,
-        offline: state.offline.value
+        offline: state.offline.value,
+        increase: state.increase
     }
 }
 
@@ -14,6 +15,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onRefresh: () => {
             return dispatch(Actions.fetchRemoteReposList())
+        },
+        onClearIncreaseProp: () => {
+            dispatch(Actions.clearReposChangeNum())
         }
     }
 }

@@ -56,6 +56,9 @@ export const FETCH_REPOS_LIST = 'FETCH_REPOS_LIST'
 export const FETCH_REPOS_LIST_SUCCESS = 'FETCH_REPOS_LIST_SUCCESS'
 export const FETCH_REPOS_LIST_FAIL = 'FETCH_REPOS_LIST_FAIL'
 
+// clear repos increase num after using it
+export const CLEAR_INCREASE_PROP = 'CLEAR_INCREASE_PROP'
+
 // get languages for group menu
 export const QUERY_LANGUAGES_LIST = 'QUERY_LANGUAGES_LIST'
 export const QUERY_LANGUAGES_LIST_SUCCESS = 'QUERY_LANGUAGES_LIST_SUCCESS'
