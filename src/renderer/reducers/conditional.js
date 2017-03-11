@@ -17,11 +17,15 @@ export const searchConditionReducer = (state = initialSearchCondition, action) =
     }
 }
 
-const initialFilterCondition = CONSTANTS.FILTER_TYPE_NONE
+const initialFilterCondition = {
+    hasFlag: false,
+    hasRemark: false,
+    unread: false
+}
 
 export const filterConditionReducer = (state = initialFilterCondition, action) => {
     switch (action.type) {
-        case CONSTANTS.UPDATE_SEARCH_CONDITION:
+        case CONSTANTS.UPDATE_FILTER_CONDITION:
             return action.filter ? action.filter : initialFilterCondition // TODO validation
         default:
             return state

@@ -87,10 +87,10 @@ export const SEARCH_FIELD_REPO_DESCRIPTION = 'SEARCH_FIELD_REPO_DESCRIPTION'
 export const SEARCH_FIELD_REPO_REMARK = 'SEARCH_FIELD_REPO_REMARK'
 
 // filter types
-export const FILTER_TYPE_NONE = 'FILTER_TYPE_NONE'
-export const FILTER_TYPE_FLAG = 'FILTER_TYPE_FLAG'
-export const FILTER_TYPE_REMAKR = 'FILTER_TYPE_REMAKR'
-export const FILTER_TYPE_UNREAD = 'FILTER_TYPE_UNREAD'
+export const FILTER_OPTION_NONE = 'FILTER_OPTION_NONE'
+export const FILTER_OPTION_HAS_FLAG = 'FILTER_OPTION_HAS_FLAG'
+export const FILTER_OPTION_HAS_REMAKR = 'FILTER_OPTION_HAS_REMAKR'
+export const FILTER_OPTION_UNREAD = 'FILTER_OPTION_UNREAD'
 
 // order types
 export const ORDER_BY_DEFAULT = 'defaultOrder' // TODO change to starred time, need change github api npm package

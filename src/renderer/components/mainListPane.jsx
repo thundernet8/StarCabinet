@@ -4,6 +4,7 @@ import styles                       from '../styles/main.scss'
 import MainSearchBox                from '../containers/mainSearchBox'
 import SortBar                      from '../containers/sortBar'
 import ReposList                    from '../containers/reposList'
+import FilterBar                    from '../containers/filterBar'
 
 // middle part of the main window
 export default class MainListPane extends React.Component {
@@ -14,6 +15,7 @@ export default class MainListPane extends React.Component {
                 <MainSearchBox/>
                 <SortBar/>
                 <ReposList/>
+                <FilterBar/>
             </div>
         )
     }
