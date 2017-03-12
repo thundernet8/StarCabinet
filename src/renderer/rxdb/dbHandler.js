@@ -305,9 +305,19 @@ export default class DBHandler {
         this.checkInstance()
 
         const ownersCollection = this.RxDB.owners
-        let inserts = []
+
+        let owners = {}
         repos.forEach((repo) => {
-            const owner = repo.owner
+            // we need this step to remove duplicatives
+            // otherwise it will cause Document update conflict
+            owners['_' + repo.owner.id] = repo.owner
+        })
+        let inserts = []
+        for (let key in owners) {
+            if (!owners.hasOwnProperty(key)) {
+                continue
+            }
+            let owner = owners[key]
             inserts.push(ownersCollection.upsert({
                 key: owner.id.toString(),
                 id: owner.id,
@@ -328,7 +338,7 @@ export default class DBHandler {
                 type: owner.type,
                 siteAdmin: owner.site_admin
             }))
-        })
+        }
 
         return Promise.all(inserts)
     }
@@ -440,7 +450,7 @@ export default class DBHandler {
             throw new Error('Duplicative category name')
         }
 
-        let docs = await catsCollection.find().sort({key: -1}).limit(1).exec()
+        let docs = await catsCollection.find().sort({id: -1}).limit(1).exec()
         const start = docs instanceof Array && docs.length > 0 ? docs[0].id + 1 : 1
         const date = new Date()
 
@@ -471,6 +481,44 @@ export default class DBHandler {
         }
     }
 
+    _upsertTag = async (name) => { // private, return RxDoc
+        this.checkInstance()
+
+        let tagsCollection = this.RxDB.tags
+
+        const regKey = '^' + name + '$'
+        let exist = await tagsCollection.findOne({name: {$regex: new RegExp(regKey, 'i')}}).exec()
+
+        if (exist) {
+            return exist
+        }
+
+        let docs = await tagsCollection.find().sort({id: -1}).limit(1).exec()
+        const start = docs instanceof Array && docs.length > 0 ? docs[0].id + 1 : 1
+        const date = new Date()
+
+        const tag = {
+            key: start.toString(),
+            id: start,
+            name: name,
+            repos: [],
+            createdAt: date.toISOString(),
+            createdTime: parseInt(date.getTime() / 1000)
+        }
+
+        let upsert = await tagsCollection.upsert(tag)
+
+        return upsert
+    }
+
+    getTags = async (tagIds) => {
+        this.checkInstance()
+
+        const tagsCollection = this.RxDB.tags
+        const docs = await tagsCollection.find({id: {$in: tagIds}}).sort({id: 1}).exec()
+        return docs.map((doc) => doc.toJSON())
+    }
+
     updateRepo = async (obj) => {
         this.checkInstance()
 
@@ -491,4 +539,64 @@ export default class DBHandler {
 
         return repo.toJSON()
     }
+
+    addRepoTag = async (id, tagName) => {
+        this.checkInstance()
+
+        const reposCollection = this.RxDB.repos
+        let repo = await reposCollection.findOne({id: {$eq: id}}).exec()
+        if (!repo) {
+            throw new Error('The specified repo is not exist')
+        }
+
+        // fisrt upsert this tag into tags collection
+        let tag = await this._upsertTag(tagName)
+        let repoIds = tag.repos
+
+        repoIds.indexOf(id) < 0 && repoIds.push(id)
+        tag.repos = repoIds
+        await tag.save()
+
+        let tagIds = repo.SCTags
+        if (tagIds.indexOf(tag.id) < 0) {
+            tagIds.push(tag.id)
+        }
+        repo.SCTags = tagIds
+
+        await repo.save()
+
+        return repo.toJSON()
+    }
+
+    removeRepoTag = async (id, tagName) => {
+        this.checkInstance()
+
+        const reposCollection = this.RxDB.repos
+        let repo = await reposCollection.findOne({id: {$eq: id}}).exec()
+        if (!repo) {
+            throw new Error('The specified repo is not exist')
+        }
+
+        // fisrt get the tag
+        const tag = await this._upsertTag(tagName)
+        let repoIds = tag.repos
+        if (repoIds instanceof Array) {
+            const repoIdIndex = repoIds.indexOf(id)
+            repoIdIndex > -1 && repoIds.splice(repoIdIndex, 1)
+        }
+        tag.repos = repoIds
+        await tag.save()
+
+        let tagIds = repo.SCTags
+        const tagIdIndex = tagIds.indexOf(tag.id)
+        if (tagIdIndex > -1) {
+            tagIds.splice(tagIdIndex, 1)
+        }
+        repo.SCTags = tagIds
+
+        await repo.save()
+
+        return repo.toJSON()
+    }
+
 }

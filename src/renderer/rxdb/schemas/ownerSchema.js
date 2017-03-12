@@ -62,7 +62,7 @@ const ownerSchema = {
             'type': 'boolen'
         }
     },
-    'required': ['id']
+    'required': ['id', 'login']
 }
 
 export default ownerSchema

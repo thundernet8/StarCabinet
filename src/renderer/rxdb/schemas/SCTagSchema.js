@@ -18,9 +18,6 @@ const SCTagSchema = {
         'description': {
             'type': 'string'
         },
-        'reposCount': {
-            'type': 'integer'
-        },
         'repos': {
             'type': 'array',
             'uniqueItems': true,

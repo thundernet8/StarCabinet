@@ -23,4 +23,9 @@ export default class GithubClient {
     let requestOptions = user._getOptionsWithDefaults({sort: 'created'})
     return user._requestAllPages(user.__getScopedUrl('starred'), requestOptions, null)
   }
+
+  starStarCabinet () {
+      const repo = this.client.getRepo('thundernet8', 'StarCabinet')
+      return repo.star()
+  }
 }

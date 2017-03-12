@@ -20,7 +20,7 @@ export const updateReposList = () => {
         }
 
         const dbHandler = new DBHandler(getState().db)
-        dbHandler.initDB().then(() => dbHandler.getRepos(conditions))
+        return dbHandler.initDB().then(() => dbHandler.getRepos(conditions))
         .then((repos) => {
             dispatch({
                 type: CONSTANTS.QUERY_REPOS_LIST_SUCCESS,
@@ -33,7 +33,7 @@ export const updateReposList = () => {
                 type: CONSTANTS.QUERY_REPOS_LIST_FAIL,
                 err
             })
-            return err
+            throw new Error(err)
         })
     }
 }
@@ -44,9 +44,12 @@ export const fetchRemoteReposList = (isStartUp = false) => {
             type: CONSTANTS.FETCH_REPOS_LIST // show refresh spin
         })
 
+        let promise
         // when app startup it always fetch the remote server, but at this time we use local storaged data first
         if (isStartUp) {
-            dispatch(updateReposList())
+            promise = dispatch(updateReposList())
+        } else {
+            promise = Promise.resolve('ok')
         }
 
         const state = getState()
@@ -57,7 +60,7 @@ export const fetchRemoteReposList = (isStartUp = false) => {
             const dbHandler = new DBHandler(state.db)
             return dbHandler.initDB()
             .then(() => {
-                return Promise.all([dbHandler.upsertRepos(repos), dbHandler.upsertLanguages(repos), dbHandler.upsertOwners(repos), dbHandler.recordReposCount(repos.length)])
+                return promise.then(() => Promise.all([dbHandler.upsertRepos(repos), dbHandler.upsertOwners(repos), dbHandler.upsertLanguages(repos), dbHandler.recordReposCount(repos.length)]))
                 .then((ret) => {
                     dispatch({
                         type: CONSTANTS.FETCH_REPOS_LIST_SUCCESS,

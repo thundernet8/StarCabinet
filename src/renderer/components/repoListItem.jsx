@@ -41,11 +41,11 @@ export default class RepoListItem extends React.Component {
                 selected: this.props.repo.id === nextProps.selectedRepo.id
             })
         }
-        if (nextProps.repo) {
-            this.setState({
-                score: nextProps.repo.score
-            })
-        }
+        // if (nextProps.repo) {
+        //     this.setState({
+        //         score: nextProps.repo.score
+        //     })
+        // }
     }
 
     shouldComponentUpdate (nextProps, nextState) {

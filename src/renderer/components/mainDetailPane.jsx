@@ -2,6 +2,7 @@ import React, { PropTypes }         from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main.scss'
 import RepoDetailToolbar            from '../containers/repoDetailToolbar'
+import RepoDetail                   from '../containers/repoDetail'
 
 // right part of the main window - for displaying selected repo detail
 export default class MainDetailPane extends React.Component {
@@ -15,7 +16,7 @@ export default class MainDetailPane extends React.Component {
                 <section
                     className={classNames('detailContent', styles.detailContent)} id="detailContent"
                     style={{backgroundImage: `url(${require('../assets/images/github-gray.png')})`}}>
-                    detail
+                    <RepoDetail/>
                 </section>
             </div>
         )

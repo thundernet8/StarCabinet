@@ -20,7 +20,10 @@ import {
     categoriesReducer,
     categoryAddingResultReducer
 }                                                         from './categories'
-import { selectedRepoReducer }                            from './repo'
+import {
+    selectedRepoReducer,
+    selectedRepoTagsReducer
+}                                                         from './repo'
 
 export default combineReducers({
     routing: routerReducer,
@@ -40,4 +43,5 @@ export default combineReducers({
     fetchStatus: fetchingReposStatusReducer,
     catAdd: categoryAddingResultReducer,
     selectedRepo: selectedRepoReducer
+    // selectedRepoTags: selectedRepoTagsReducer // use promise instead
 })

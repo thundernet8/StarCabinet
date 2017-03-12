@@ -1,22 +1,17 @@
 import { connect }                  from 'react-redux'
-import RepoDetailToolbar            from '../components/repoDetailToolbar'
+import RepoDetail                   from '../components/repoDetail'
 import Actions                      from '../actions'
 
 // Redux connection
 const mapStateToProps = (state) => {
     return {
-        categories: state.categories,
         selectedRepo: state.selectedRepo
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        onStarStarCabinet: () => {
-            return dispatch(Actions.starStarCabinet())
-        }
-    }
+    return {}
 }
 
 // Which props to inject from the global atomic state
-export default connect(mapStateToProps, mapDispatchToProps)(RepoDetailToolbar)
+export default connect(mapStateToProps, mapDispatchToProps)(RepoDetail)
