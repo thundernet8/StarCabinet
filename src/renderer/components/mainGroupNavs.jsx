@@ -80,7 +80,7 @@ export default class MainGroupNavs extends React.Component {
                 <Menu mode="inline" theme="dark" openKeys={this.state.openKeys} selectedKeys={[this.state.current]}
                     onOpenChange={this.onOpenChange} onClick={this.handleClick}>
                     <Menu.Item key={CONSTANTS.GROUP_TYPE_ALL}>
-                        <Icon type="bars" /><span>ALL</span>
+                        <Icon type="inbox" /><span>ALL</span>
                     </Menu.Item>
                     <SubMenu key={CONSTANTS.GROUP_TYPE_LANGUAGE} title={<span><Icon type="book" /><span>LANGUAGES</span></span>}>
                         {langItems}

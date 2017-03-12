@@ -9,8 +9,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSelectRepo: (id) => {
-            dispatch(Actions.selectOneRepo(id))
+        onSelectRepo: (repo) => {
+            dispatch(Actions.selectOneRepo(repo))
         },
         onRateRepo: (id, score) => {
             dispatch(Actions.rateOneRepo(id, score))

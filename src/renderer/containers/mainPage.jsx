@@ -34,7 +34,7 @@ const mapDispatchToProps = (dispatch) => {
             return dispatch(Actions.updateCategoriesList())
         },
         onFetchStarredRepos: () => {
-            return dispatch(Actions.fetchRemoteReposList())
+            return dispatch(Actions.fetchRemoteReposList(true))
         }
     }
 }

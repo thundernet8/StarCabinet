@@ -5,6 +5,7 @@ import Promise                       from 'bluebird'
 import { updateLanguagesList }       from './languages'
 
 export const updateReposList = () => {
+    // this action only query local data, never fetch the remote server
     return (dispatch, getState) => {
         dispatch({
             type: CONSTANTS.QUERY_REPOS_LIST
@@ -37,11 +38,16 @@ export const updateReposList = () => {
     }
 }
 
-export const fetchRemoteReposList = () => {
+export const fetchRemoteReposList = (isStartUp = false) => {
     return (dispatch, getState) => {
         dispatch({
             type: CONSTANTS.FETCH_REPOS_LIST // show refresh spin
         })
+
+        // when app startup it always fetch the remote server, but at this time we use local storaged data first
+        if (isStartUp) {
+            dispatch(updateReposList())
+        }
 
         const state = getState()
         const client = new GithubClient(state.credentials)

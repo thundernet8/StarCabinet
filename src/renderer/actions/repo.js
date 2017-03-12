@@ -1,11 +1,11 @@
 import * as CONSTANTS                from '../constants'
 import DBHandler                     from '../rxdb/dbHandler'
 
-export const selectOneRepo = (id) => {
+export const selectOneRepo = (repo) => {
     return (dispatch) => {
         dispatch({
             type: CONSTANTS.SELECT_ONE_REPO,
-            id: id
+            repo
         })
     }
 }

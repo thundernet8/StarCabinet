@@ -20,7 +20,7 @@ import {
     categoriesReducer,
     categoryAddingResultReducer
 }                                                         from './categories'
-import { selectedRepoIdReducer }                          from './repo'
+import { selectedRepoReducer }                            from './repo'
 
 export default combineReducers({
     routing: routerReducer,
@@ -39,5 +39,5 @@ export default combineReducers({
     categories: categoriesReducer,
     fetchStatus: fetchingReposStatusReducer,
     catAdd: categoryAddingResultReducer,
-    selectedRepoId: selectedRepoIdReducer
+    selectedRepo: selectedRepoReducer
 })
