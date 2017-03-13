@@ -257,7 +257,18 @@ export default class DBHandler {
                     }
                     // query = query.find(searchArgs)
                     break
-                case CONSTANTS.SEARCH_FIELD_ALL:
+                case CONSTANTS.SEARCH_FIELD_REPO_TAGS:
+                    const tag = await this.RxDB.tags.findOne({name: {$regex: new RegExp('^' + key + '$', 'i')}}).exec()
+                    const tagRepoIds = (tag && tag.repos instanceof Array) ? tag.repos : []
+                    if (args.id) {
+                        const prevRepoIds = args.id.$in
+                        const postRepoIds = tagRepoIds.filter((item) => prevRepoIds.indexOf(item) > -1)
+                        args.id = {$in: postRepoIds}
+                    } else {
+                        args.id = {$in: tagRepoIds}
+                    }
+                    break
+                case CONSTANTS.SEARCH_FIELD_ALL: // currently not include tags
                 default:
                     // query = query.find({$or: [{name: {$regex: new RegExp(key, 'i')}}, {description: {$regex: new RegExp(key, 'i')}}, {remark: {$regex: new RegExp(key, 'i')}}]}) // TODO this does not work but no error
 
