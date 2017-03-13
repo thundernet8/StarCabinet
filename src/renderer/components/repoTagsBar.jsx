@@ -81,11 +81,11 @@ export default class RepoTagsBar extends React.Component {
         const { tags, inputVisible, inputValue } = this.state
         return (
             <div className={styles.repoTags}>
-                <Icon type="tags"/>
+                {/* <Icon type="tags"/> */}
                 {tags.map((tag, index) => {
                 const isLongTag = tag.length > 20
                 const tagElem = (
-                    <Tag key={tag} closable={true} afterClose={() => this.handleClose(tag)}>
+                    <Tag key={tag} color="#87d068" closable={true} afterClose={() => this.handleClose(tag)}>
                     {isLongTag ? `${tag.slice(0, 20)}...` : tag}
                     </Tag>
                 )

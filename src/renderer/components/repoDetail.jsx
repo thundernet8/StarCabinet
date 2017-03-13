@@ -15,6 +15,9 @@ export default class RepoDetail extends React.Component {
         }
         const fullName = this.props.selectedRepo.fullName
         const namePieces = fullName.split('/')
+        let pushTime = new Date(this.props.selectedRepo.pushedAt)
+        pushTime = pushTime.toLocaleDateString() + ' ' + pushTime.toLocaleTimeString()
+
         return (
             <div className={classNames('repoDetailInner', styles.repoDetailInner)}>
                 <header>
@@ -25,7 +28,7 @@ export default class RepoDetail extends React.Component {
                         <a href={this.props.selectedRepo.htmlUrl} target="_blank">{namePieces[1]}</a>
                     </div>
                     <div className={styles.repoMeta}>
-                        Latest Push: {this.props.selectedRepo.pushedAt.replace('T', ' ').replace('Z', '')}
+                        Latest Push: {pushTime}
                     </div>
                     <RepoTagsBar/>
                 </header>

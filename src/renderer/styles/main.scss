@@ -269,7 +269,7 @@
                 font-weight: 500;
                 line-height: 20px;
                 overflow: hidden;
-                color: #56a07b;
+                color: #87d068; // #56a07b;
             }
             >span {
                 position: absolute;
@@ -377,7 +377,7 @@
             display: inline-block;
             margin: 10px;
             cursor: pointer;
-            color: #007aff;
+            color: #87d068; // #007aff;
             &:last-child {
                 float: right;
             }
@@ -387,9 +387,9 @@
         }
         &.disabled {
             >i {
-                opacity: 0.5;
+                display: none;
                 &:last-child {
-                    opacity: 1;
+                    display: inline-block
                 }
             }
         }
@@ -428,7 +428,7 @@
         }
         >.repoTags {
             position: relative;
-            padding: 15px 0;
+            padding: 15px 0 0;
             line-height: 30px;
             >i {
                 font-size: 20px;
@@ -442,6 +442,8 @@
         padding: 10px;
         >.repoReadme {
             position: relative;
+            font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+            font-size: 100%;
         }
     }
 }
