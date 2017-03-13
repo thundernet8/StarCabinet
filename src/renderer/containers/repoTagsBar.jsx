@@ -17,8 +17,8 @@ const mapDispatchToProps = (dispatch) => {
         onRemoveTagForRepo: (id, tagName) => {
             return dispatch(Actions.removeTagForRepo(id, tagName))
         },
-        onGetTagsForRepo: (tagIds) => {
-            return dispatch(Actions.getSelectedRepoTags(tagIds))
+        onGetTagsForRepo: (repoId) => {
+            return dispatch(Actions.getSelectedRepoTags(repoId))
         }
     }
 }

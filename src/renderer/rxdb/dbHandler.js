@@ -519,6 +519,15 @@ export default class DBHandler {
         return docs.map((doc) => doc.toJSON())
     }
 
+    getRepoTags = async (repoId) => {
+        this.checkInstance()
+
+        const tagsCollection = this.RxDB.tags
+        const docs = await tagsCollection.find({repos: {$elemMatch: {$eq: repoId}}}).sort({id: 1}).exec()
+
+        return docs.map((doc) => doc.toJSON())
+    }
+
     updateRepo = async (obj) => {
         this.checkInstance()
 
@@ -555,6 +564,7 @@ export default class DBHandler {
 
         repoIds.indexOf(id) < 0 && repoIds.push(id)
         tag.repos = repoIds
+        tag.updatedTime = parseInt((new Date()).getTime() / 1000)
         await tag.save()
 
         let tagIds = repo.SCTags
@@ -562,6 +572,7 @@ export default class DBHandler {
             tagIds.push(tag.id)
         }
         repo.SCTags = tagIds
+        repo.rxChange = parseInt((new Date()).getTime() / 1000)
 
         await repo.save()
 
@@ -585,6 +596,7 @@ export default class DBHandler {
             repoIdIndex > -1 && repoIds.splice(repoIdIndex, 1)
         }
         tag.repos = repoIds
+        tag.updatedTime = parseInt((new Date()).getTime() / 1000)
         await tag.save()
 
         let tagIds = repo.SCTags
@@ -593,6 +605,7 @@ export default class DBHandler {
             tagIds.splice(tagIdIndex, 1)
         }
         repo.SCTags = tagIds
+        repo.rxChange = parseInt((new Date()).getTime() / 1000)
 
         await repo.save()
 

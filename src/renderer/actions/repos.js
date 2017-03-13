@@ -47,7 +47,7 @@ export const fetchRemoteReposList = (isStartUp = false) => {
         let promise
         // when app startup it always fetch the remote server, but at this time we use local storaged data first
         if (isStartUp) {
-            promise = dispatch(updateReposList())
+            promise = Promise.all([dispatch(updateReposList()), dispatch(updateLanguagesList())])
         } else {
             promise = Promise.resolve('ok')
         }

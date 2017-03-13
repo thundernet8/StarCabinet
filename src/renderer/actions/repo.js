@@ -124,7 +124,7 @@ export const removeTagForRepo = (id, tagName) => {
     }
 }
 
-export const getSelectedRepoTags = (tagIds) => {
+export const getSelectedRepoTags = (repoId) => {
     return (dispatch, getState) => {
         dispatch({
             type: CONSTANTS.QUERY_REPO_TAGS,
@@ -132,7 +132,7 @@ export const getSelectedRepoTags = (tagIds) => {
         })
 
         const dbHandler = new DBHandler(getState().db)
-        return dbHandler.initDB().then(() => dbHandler.getTags(tagIds))
+        return dbHandler.initDB().then(() => dbHandler.getRepoTags(repoId))
         .then((tags) => {
             dispatch({
                 type: CONSTANTS.QUERY_REPO_TAGS_SUCCESS,

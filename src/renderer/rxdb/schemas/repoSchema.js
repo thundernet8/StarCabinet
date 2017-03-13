@@ -275,6 +275,9 @@ const repoSchema = {
       'defaultOrder': {
           'type': 'integer',
           'index': true
+      },
+      'rxChange': { // when update one field with a reference obj, rxdb doc's save method will deepEqual new doc and old one, but not works well, so we need this field with a absolute new value to speed up `doc.save()`
+          'type': 'integer'
       }
   },
   'required': ['id', 'name', 'owner', 'htmlUrl', 'createdAt', 'createdTime', 'updatedAt', 'updatedTime', 'pushedAt', 'pushedTime', 'forks', 'watchers', 'stars', 'defaultBranch', 'openIssues']

@@ -1,7 +1,7 @@
 import { default as clone }          from 'clone'
 
 export const extendRxDB = ($this) => {
-    // only update specified fields
+    // only update specified fields, other fields use old data if existed
     const upsertWithFields = async (json, fields = []) => {
         json = clone(json)
         const primary = json[$this.schema.primaryPath]
@@ -13,6 +13,8 @@ export const extendRxDB = ($this) => {
                 json.hasOwnProperty(prop) && fields.indexOf(prop) < 0 && delete json[prop]
             }
 
+            const data = existing._data
+            json = Object.assign({}, data, json)
             json._rev = existing._rev
             existing._data = json
             await existing.save()
