@@ -181,13 +181,11 @@ export default class DBHandler {
                 defaultBranch: repo.default_branch,
                 permissions: repo.permissions,
                 score: 0,
-                SCCategories: [],
-                SCTags: [],
                 flag: false,
                 read: false,
                 remark: '',
                 defaultOrder: index
-            }, ['score', 'indexedScore', 'flag', 'read', 'remark', 'SCCategories', 'SCTags']))
+            }, ['score', 'indexedScore', 'flag', 'read', 'remark']))
         })
 
         // now remove some repos in db but not in fetched data(they were unstarred)
@@ -218,7 +216,14 @@ export default class DBHandler {
                     // query = reposCollection.find(args)
                     break
                 case CONSTANTS.GROUP_TYPE_UNKNOWN:
-                    args = {SCCategories: {$eq: []}}
+                    const catsCollection2 = this.RxDB.categories
+                    const categories = await catsCollection.find().exec()
+                    let nrepoIds = []
+                    categories.forEach((category) => {
+                        nrepoIds.concat(category.repos)
+                    })
+                    nrepoIds = Array.from(new Set(nrepoIds))
+                    args = {id: {$nin: nrepoIds}}
                     // query = reposCollection.find(args)
                     break
                 default:
@@ -567,15 +572,6 @@ export default class DBHandler {
         tag.updatedTime = parseInt((new Date()).getTime() / 1000)
         await tag.save()
 
-        let tagIds = repo.SCTags
-        if (tagIds.indexOf(tag.id) < 0) {
-            tagIds.push(tag.id)
-        }
-        repo.SCTags = tagIds
-        repo.rxChange = parseInt((new Date()).getTime() / 1000)
-
-        await repo.save()
-
         return repo.toJSON()
     }
 
@@ -598,16 +594,6 @@ export default class DBHandler {
         tag.repos = repoIds
         tag.updatedTime = parseInt((new Date()).getTime() / 1000)
         await tag.save()
-
-        let tagIds = repo.SCTags
-        const tagIdIndex = tagIds.indexOf(tag.id)
-        if (tagIdIndex > -1) {
-            tagIds.splice(tagIdIndex, 1)
-        }
-        repo.SCTags = tagIds
-        repo.rxChange = parseInt((new Date()).getTime() / 1000)
-
-        await repo.save()
 
         return repo.toJSON()
     }

@@ -247,18 +247,6 @@ const repoSchema = {
           }
         }
       },
-      'SCTags': {
-        'type': 'array',
-        'maxItems': 100,
-        'uniqueItems': true,
-        'item': 'number'
-      },
-      'SCCategories': {
-        'type': 'array',
-        'maxItems': 10,
-        'uniqueItems': true,
-        'item': 'number'
-      },
       'score': {
           'type': 'integer', // 0~5
           'index': true
