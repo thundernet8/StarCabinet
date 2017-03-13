@@ -111,7 +111,7 @@ export default class LoginPage extends React.Component {
         const btnDisabled = !username || !password || username.length < 2 || password.length < 5
         const avatar = this.props.loginResult.profile ? this.props.loginResult.profile.avatar_url : require('../assets/images/icon.png')
         return (
-            <div className={styles.wrapper}>
+            <div className={classNames('loginWrapper', styles.wrapper)}>
                 <header>
                     <div>{SHAREDCONSTANTS.APP}</div>
                     <span id="closeLogin" className={styles.close} onClick={this.closeLoginWindow}><i></i><i></i></span>

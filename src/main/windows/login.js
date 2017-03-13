@@ -9,9 +9,9 @@ function createLoginWindow (wins) {
     let win = new BrowserWindow({
         width: 288,
         height: 400,
-        // titleBarStyle: 'hidden-inset',
+        titleBarStyle: 'hidden-inset',
         resizable: false,
-        frame: false, // Specify false to create a Frameless Window. Default is true.
+        frame: process.platform === 'darwin', // Specify false to create a Frameless Window. Default is true.
         transparent: true
     })
 

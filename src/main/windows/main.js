@@ -39,7 +39,7 @@ function createMainWindow (wins) {
 
     // Insert platform body class
     win.webContents.on('dom-ready', () => {
-        // win.webContents.executeJavaScript(`document.body.className="platform_${process.platform}"`, false)
+        win.webContents.executeJavaScript(`document.body.className="platform_${process.platform}"`, false)
     })
 
     // Open links external
