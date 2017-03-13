@@ -1,6 +1,7 @@
 import * as CONSTANTS                from '../constants'
 import DBHandler                     from '../rxdb/dbHandler'
 import GithubClient                  from '../utils/githubClient'
+import { replaceReposListItem }      from './repos'
 
 export const selectOneRepo = (repo) => {
     return (dispatch) => {
@@ -30,6 +31,9 @@ export const rateOneRepo = (id, score) => {
                 type: CONSTANTS.RATE_ONE_REPO_SUCCESS,
                 repo
             })
+
+            // also replace the repo in repos list
+            dispatch(replaceReposListItem(repo))
 
             return repo
         })
@@ -84,6 +88,9 @@ export const addTagForRepo = (id, tagName) => {
                 repo
             })
 
+            // also replace the repo in repos list
+            dispatch(replaceReposListItem(repo))
+
             return repo
         })
         .catch((err) => {
@@ -111,6 +118,9 @@ export const removeTagForRepo = (id, tagName) => {
                 repo
             })
 
+            // also replace the repo in repos list
+            dispatch(replaceReposListItem(repo))
+
             return repo
         })
         .catch((err) => {
@@ -131,13 +141,22 @@ export const getSelectedRepoTags = (repoId) => {
             tags: []
         })
 
-        const dbHandler = new DBHandler(getState().db)
+        const state = getState()
+
+        const dbHandler = new DBHandler(state.db)
         return dbHandler.initDB().then(() => dbHandler.getRepoTags(repoId))
         .then((tags) => {
             dispatch({
                 type: CONSTANTS.QUERY_REPO_TAGS_SUCCESS,
                 tags
             })
+
+            // also add tags to the repo and replace the repo in repos list
+            let repo = state.repos['_' + repoId]
+            if (repo) {
+                repo._tags = tags
+                dispatch(replaceReposListItem(repo))
+            }
 
             return tags
         })
@@ -167,7 +186,7 @@ export const fetchRepoReadMe = (repo) => {
                 readme
             })
 
-            // if selected repo, update the state
+            // if it's selected repo, update the state
             dispatch(updateSelectedRepo(repo.id, {readme}))
 
             return readme
@@ -183,6 +202,7 @@ export const fetchRepoReadMe = (repo) => {
     }
 }
 
+// currently used after fetch the selected repo's readme data
 export const updateSelectedRepo = (id, obj) => {
     return (dispatch, getState) => {
         const state = getState()
@@ -203,6 +223,9 @@ export const updateSelectedRepo = (id, obj) => {
                 type: CONSTANTS.UPDATE_SELECTED_REPO_SUCCESS,
                 repo
             })
+
+            // also replace the repo in repos list
+            dispatch(replaceReposListItem(repo))
 
             return repo
         })

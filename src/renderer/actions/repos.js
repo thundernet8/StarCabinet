@@ -22,9 +22,16 @@ export const updateReposList = () => {
         const dbHandler = new DBHandler(getState().db)
         return dbHandler.initDB().then(() => dbHandler.getRepos(conditions))
         .then((repos) => {
+            // for easily replace one specified item of list
+            // we need convert the array to key-value pairs
+            let keyedRepos = {}
+            repos.forEach((repo) => {
+                keyedRepos['_' + repo.id] = repo
+            })
+
             dispatch({
                 type: CONSTANTS.QUERY_REPOS_LIST_SUCCESS,
-                repos
+                repos: keyedRepos
             })
             return repos
         })
@@ -102,6 +109,25 @@ export const fetchRemoteReposList = (isStartUp = false) => {
     }
 }
 
+// after view one repo, more detail info fetched from server and saved to current selected repo object
+// we need also update the repos list
+// but actually we only need replace one item of list rather than refresh all repos in memory
+export const replaceReposListItem = (repo) => {
+    return (dispatch, getState) => {
+        const state = getState()
+        let repos = state.repos
+        repos['_' + repo.id] = repo
+
+        dispatch({
+            type: CONSTANTS.REPLACE_REPOS_LIST_ITEM,
+            repos
+        })
+    }
+}
+
+// after fetched repos from server and compare the num of repos between new and old
+// a notification popup to remind you how many new starred repos
+// after that we need reset the change num to 0 to prevent more notifications
 export const clearReposChangeNum = () => {
     return {
         type: CONSTANTS.CLEAR_INCREASE_PROP

@@ -55,8 +55,8 @@ export default class RepoTagsBar extends React.Component {
 
     saveInputRef = (input) => { this.input = input }
 
-    queryTags = (tagIds) => {
-        this.props.onGetTagsForRepo(tagIds)
+    queryTags = (repoId) => {
+        this.props.onGetTagsForRepo(repoId)
         .then((tags) => {
             this.setState({
                 tags: tags.map(tag => tag.name)
@@ -65,14 +65,19 @@ export default class RepoTagsBar extends React.Component {
     }
 
     componentWillReceiveProps (nextProps) {
-        console.log(nextProps)
-        if (nextProps.selectedRepo && (!this.props.selectedRepo || this.props.selectedRepo.id !== nextProps.selectedRepo.id)) {
+        if (nextProps.selectedRepo && (!this.props.selectedRepo || !nextProps.selectedRepo._tags)) {
             this.queryTags(nextProps.selectedRepo.id)
+        }
+        if (nextProps.selectedRepo._tags) {
+            this.setState({
+                tags: nextProps.selectedRepo._tags.map(tag => tag.name)
+            })
         }
     }
 
     componentWillMount () {
-        if (this.props.selectedRepo) {
+        const repo = this.props.selectedRepo
+        if (repo || (repo && !repo._tags)) {
             this.queryTags(this.props.selectedRepo.id)
         }
     }

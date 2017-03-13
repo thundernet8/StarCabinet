@@ -574,7 +574,11 @@ export default class DBHandler {
         tag.updatedTime = parseInt((new Date()).getTime() / 1000)
         await tag.save()
 
-        return repo.toJSON()
+        const repoTags = await this.getRepoTags(id)
+        let repoObj = repo.toJSON()
+        repoObj._tags = repoTags
+
+        return repoObj
     }
 
     removeRepoTag = async (id, tagName) => {
@@ -597,7 +601,11 @@ export default class DBHandler {
         tag.updatedTime = parseInt((new Date()).getTime() / 1000)
         await tag.save()
 
-        return repo.toJSON()
+        const repoTags = await this.getRepoTags(id)
+        let repoObj = repo.toJSON()
+        repoObj._tags = repoTags
+
+        return repoObj
     }
 
 }

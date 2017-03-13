@@ -75,7 +75,7 @@ export default class MainSearchBox extends React.Component {
 
     componentWillReceiveProps (nextProps) {
         if (this.state.searching && nextProps.search.key === this.props.search.key) {
-            message.success(`Searched ${nextProps.repos.length} results`)
+            message.success(`Searched ${Object.keys(nextProps.repos).length} results`)
             this.setState({
                 searching: false
             })

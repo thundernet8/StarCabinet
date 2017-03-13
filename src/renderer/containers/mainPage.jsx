@@ -5,14 +5,10 @@ import Actions                      from '../actions'
 // Redux connection
 const mapStateToProps = (state) => {
     return {
-        credentials: state.credentials,
-        profile: state.profile,
-        db: state.db,
         search: state.search,
         order: state.order,
         filter: state.filter,
-        group: state.group,
-        repos: state.repos
+        group: state.group
     }
 }
 
