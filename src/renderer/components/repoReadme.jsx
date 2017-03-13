@@ -1,9 +1,7 @@
 import React                        from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main'
-import {
-    Icon, Tooltip
-}                                   from 'antd'
+import { Spin }                     from 'antd'
 import ReactMarkdown                from 'react-markdown'
 import 'github-markdown-css'
 
@@ -24,10 +22,18 @@ export default class RepoReadme extends React.Component {
     render () {
         if (!this.props.selectedRepo) {
             return null
+        } else if (!this.props.selectedRepo.readme) {
+            return (
+                <div className={classNames('repoReadMeWrap', styles.repoReadMeWrap)}>
+                    <div className={classNames(styles.repoReadmeLoading)}>
+                        <Spin />
+                    </div>
+                </div>
+            )
         }
         return (
             <div className={classNames('repoReadMeWrap', styles.repoReadMeWrap)}>
-                <div className={classNames('repoReadme markdown-body', styles.repoReadme)}>
+                 <div className={classNames('repoReadme markdown-body animated fadeInUp', styles.repoReadme)}>
                     <ReactMarkdown source={this.props.selectedRepo.readme} />
                 </div>
             </div>

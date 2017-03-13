@@ -397,6 +397,8 @@
 }
 
 .repoDetailInner {
+    display: flex;
+    flex-direction: column;
     position: relative;
     height: 100%;
     background-color: #fff;
@@ -438,8 +440,24 @@
         }
     }
     >.repoReadMeWrap {
+        flex: 1;
         position: relative;
         padding: 10px;
+        >.repoReadmeLoading {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            top: 40%;
+            left: 50%;
+            margin-top: -15px;
+            margin-left: -15px;
+            >i {
+                font-size: 30px;
+            }
+            >div {
+                transform: scale(1.5);
+            }
+        }
         >.repoReadme {
             position: relative;
             font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
