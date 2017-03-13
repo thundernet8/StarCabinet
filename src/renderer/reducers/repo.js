@@ -4,6 +4,7 @@ export const selectedRepoReducer = (state = null, action) => {
     switch (action.type) {
         case CONSTANTS.SELECT_ONE_REPO:
         case CONSTANTS.ADD_TAG_FOR_REPO_SUCCESS:
+        case CONSTANTS.UPDATE_SELECTED_REPO_SUCCESS:
             return action.repo
         default:
             return state

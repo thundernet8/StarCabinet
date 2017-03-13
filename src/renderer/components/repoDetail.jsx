@@ -2,10 +2,10 @@ import React                        from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main'
 import {
-    Icon, Tooltip, notification, message,
-    Tag, Input, Button
+    Icon, Tooltip
 }                                   from 'antd'
 import RepoTagsBar                  from '../containers/repoTagsBar'
+import RepoReadme                   from '../containers/repoReadme'
 
 export default class RepoDetail extends React.Component {
 
@@ -29,6 +29,7 @@ export default class RepoDetail extends React.Component {
                     </div>
                     <RepoTagsBar/>
                 </header>
+                <RepoReadme/>
             </div>
         )
     }

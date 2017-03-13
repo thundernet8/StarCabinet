@@ -42,6 +42,8 @@
 }
 
 .right {
+    display: flex;
+    flex-direction: column;
     position: absolute;
     top: 0;
     right: 0;
@@ -51,9 +53,11 @@
 }
 
 .detailContent {
-    height: 100%;
+    height: auto;
     background-repeat: no-repeat;
     background-position: 50% 40%;
+    flex: 1;
+    overflow: auto;
 }
 
 .indicatorWrap {
@@ -394,6 +398,9 @@
 
 .repoDetailInner {
     position: relative;
+    height: 100%;
+    background-color: #fff;
+    overflow-y: auto;
     >header {
         padding: 5px 10px;
         >.headtitle {
@@ -428,6 +435,13 @@
                 margin-right: 5px;
                 vertical-align: -4px;
             }
+        }
+    }
+    >.repoReadMeWrap {
+        position: relative;
+        padding: 10px;
+        >.repoReadme {
+            position: relative;
         }
     }
 }

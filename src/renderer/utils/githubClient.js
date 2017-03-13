@@ -11,11 +11,11 @@ export default class GithubClient {
     this.me = this.client.getUser()
   }
 
-  getMyProfile () {
+  getMyProfile = () => {
     return this.me.getProfile().then((ret) => ret.data)
   }
 
-  getStarredRepos () {
+  getStarredRepos = () => {
     // return this.me.listStarredRepos() // this method only fetch repos sorted by 'updated', but we need the order of starred time desc
 
     // ugly hack
@@ -24,8 +24,14 @@ export default class GithubClient {
     return user._requestAllPages(user.__getScopedUrl('starred'), requestOptions, null)
   }
 
-  starStarCabinet () {
+  starStarCabinet = () => {
       const repo = this.client.getRepo('thundernet8', 'StarCabinet')
       return repo.star()
+  }
+
+  getRepoReadMe = (fullName, defaultBranch = 'master') => {
+      const namePieces = fullName.split('/')
+      const repo = this.client.getRepo(namePieces[0], namePieces[1])
+      return repo.getReadme(defaultBranch, true).then((ret) => ret.data)
   }
 }

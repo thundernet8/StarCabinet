@@ -184,8 +184,9 @@ export default class DBHandler {
                 flag: false,
                 read: false,
                 remark: '',
+                readme: '',
                 defaultOrder: index
-            }, ['score', 'indexedScore', 'flag', 'read', 'remark']))
+            }, ['score', 'indexedScore', 'flag', 'read', 'remark', 'readme']))
         })
 
         // now remove some repos in db but not in fetched data(they were unstarred)
@@ -549,6 +550,7 @@ export default class DBHandler {
             }
         }
 
+        repo.rxChange = parseInt((new Date()).getTime() / 1000)
         await repo.save()
 
         return repo.toJSON()
