@@ -113,3 +113,17 @@ input {
 .ant-rate-star-full:hover .ant-rate-star-second {
     color: #f78986 !important;
 }
+
+.repoLinksToolInputWrap {
+    width: 275px;
+    padding: 5px 0;
+    .ant-input-group {
+        margin-bottom: 10px;
+        .ant-input-group-addon:first-child {
+            width: 56px;
+        }
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

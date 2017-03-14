@@ -2,8 +2,9 @@ import React                        from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main'
 import {
-    Icon, Tooltip, notification, message
+    Icon, Tooltip, Popover, Button, message
 }                                   from 'antd'
+import RepoLinksTool                from './repoLinksTool'
 
 export default class RepoDetailToolbar extends React.Component {
 
@@ -42,7 +43,7 @@ export default class RepoDetailToolbar extends React.Component {
                 {flagIcon}
                 <Icon type="folder" title="Classify it"/>
                 <Icon type="edit" title="Add your notes"/>
-                <Icon type="link" title="Repository links"/>
+                <RepoLinksTool repo={this.props.selectedRepo}/>
                 <Icon type="github" title="Star StarCabinet" onClick={this.starStarCabinet}/>
             </div>
         )
