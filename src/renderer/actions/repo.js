@@ -43,7 +43,7 @@ export const rateOneRepo = (id, score) => {
                 err
             })
 
-            return err
+            throw new Error(err)
         })
     }
 }
@@ -69,7 +69,7 @@ export const starStarCabinet = () => {
             dispatch({
                 type: CONSTANTS.STAR_STARCABINET_FAIL
             })
-            throw err
+            throw new Error(err)
         })
     }
 }
@@ -238,7 +238,43 @@ export const updateSelectedRepo = (id, obj) => {
                 err
             })
 
-            return err
+            throw new Error(err)
+        })
+    }
+}
+
+export const updateRepoNote = (id, note) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: CONSTANTS.UPDATE_REPO_NOTE,
+            id,
+            note
+        })
+
+        const updateObj = {
+            id,
+            note
+        }
+        const dbHandler = new DBHandler(getState().db)
+        return dbHandler.initDB().then(() => dbHandler.updateRepo(updateObj))
+        .then((repo) => {
+            dispatch({
+                type: CONSTANTS.UPDATE_REPO_NOTE_SUCCESS,
+                repo
+            })
+
+            // also replace the repo in repos list
+            dispatch(replaceReposListItem(repo))
+
+            return repo
+        })
+        .catch((err) => {
+            dispatch({
+                type: CONSTANTS.UPDATE_REPO_NOTE_FAIL,
+                err
+            })
+
+            throw new Error(err)
         })
     }
 }

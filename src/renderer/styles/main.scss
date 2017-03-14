@@ -400,6 +400,16 @@
 
 // }
 
+.notePaneTitle {
+    >a {
+        float: right;
+    }
+}
+
+.repoNoteToolInputWrap {
+    width: 240px;
+}
+
 .repoDetailInner {
     display: flex;
     flex-direction: column;

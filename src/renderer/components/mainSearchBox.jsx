@@ -93,7 +93,7 @@ export default class MainSearchBox extends React.Component {
                         <RadioButton value={CONSTANTS.SEARCH_FIELD_ALL}>All</RadioButton>
                         <RadioButton value={CONSTANTS.SEARCH_FIELD_REPO_NAME}>Name</RadioButton>
                         <RadioButton value={CONSTANTS.SEARCH_FIELD_REPO_DESCRIPTION}>Intro</RadioButton>
-                        <RadioButton value={CONSTANTS.SEARCH_FIELD_REPO_REMARK}>Note</RadioButton>
+                        <RadioButton value={CONSTANTS.SEARCH_FIELD_REPO_NOTE}>Note</RadioButton>
                         <RadioButton value={CONSTANTS.SEARCH_FIELD_REPO_TAGS}>Tags</RadioButton>
                     </RadioGroup>
                 </div>

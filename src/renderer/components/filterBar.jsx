@@ -38,7 +38,7 @@ export default class FilterBar extends React.Component {
 
         const filterCondition = {
             hasFlag: filters.indexOf(CONSTANTS.FILTER_OPTION_HAS_FLAG) > -1,
-            hasRemark: filters.indexOf(CONSTANTS.FILTER_OPTION_HAS_REMAKR) > -1,
+            hasNote: filters.indexOf(CONSTANTS.FILTER_OPTION_HAS_NOTE) > -1,
             unread: filters.indexOf(CONSTANTS.FILTER_OPTION_UNREAD) > -1
         }
 
@@ -49,7 +49,7 @@ export default class FilterBar extends React.Component {
         const filterDict = {
             [CONSTANTS.FILTER_OPTION_UNREAD]: 'UNREAD',
             [CONSTANTS.FILTER_OPTION_HAS_FLAG]: 'HAS FLAG',
-            [CONSTANTS.FILTER_OPTION_HAS_REMAKR]: 'HAS REMARK'
+            [CONSTANTS.FILTER_OPTION_HAS_REMAKR]: 'HAS NOTE'
         }
 
         const upMenuItems = Object.keys(filterDict).map((key) => {

@@ -257,7 +257,7 @@ const repoSchema = {
       'read': {
           'type': 'boolen'
       },
-      'remark': {
+      'note': {
           'type': 'string'
       },
       'defaultOrder': {

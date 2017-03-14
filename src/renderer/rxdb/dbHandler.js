@@ -183,10 +183,10 @@ export default class DBHandler {
                 score: 0,
                 flag: false,
                 read: false,
-                remark: '',
+                note: '',
                 readme: '',
                 defaultOrder: index
-            }, ['score', 'indexedScore', 'flag', 'read', 'remark', 'readme']))
+            }, ['score', 'indexedScore', 'flag', 'read', 'note', 'readme']))
         })
 
         // now remove some repos in db but not in fetched data(they were unstarred)
@@ -234,7 +234,7 @@ export default class DBHandler {
 
         if (conditions.filter) {
             conditions.filter.hasFlag && (args.flag = {$eq: true})
-            conditions.filter.hasRemark && (args.remark = {$ne: ''})
+            conditions.filter.hasNote && (args.note = {$ne: ''})
             conditions.filter.unread && (args.read = {$eq: false})
         }
 
@@ -249,11 +249,11 @@ export default class DBHandler {
                     args.description = {$regex: new RegExp(key, 'i')}
                     // query = query.find(searchArgs)
                     break
-                case CONSTANTS.SEARCH_FIELD_REPO_REMARK:
-                    if (!args.remark) {
-                        args.remark = {$regex: new RegExp(key, 'i')}
+                case CONSTANTS.SEARCH_FIELD_REPO_NOTE:
+                    if (!args.note) {
+                        args.note = {$regex: new RegExp(key, 'i')}
                     } else {
-                        args.remark = Object.assign({}, args.remark, {$regex: new RegExp(key, 'i')})
+                        args.note = Object.assign({}, args.note, {$regex: new RegExp(key, 'i')})
                     }
                     // query = query.find(searchArgs)
                     break
@@ -270,7 +270,7 @@ export default class DBHandler {
                     break
                 case CONSTANTS.SEARCH_FIELD_ALL: // currently not include tags
                 default:
-                    // query = query.find({$or: [{name: {$regex: new RegExp(key, 'i')}}, {description: {$regex: new RegExp(key, 'i')}}, {remark: {$regex: new RegExp(key, 'i')}}]}) // TODO this does not work but no error
+                    // query = query.find({$or: [{name: {$regex: new RegExp(key, 'i')}}, {description: {$regex: new RegExp(key, 'i')}}, {note: {$regex: new RegExp(key, 'i')}}]}) // TODO this does not work but no error
 
                     // so use the bad way
                     let tempRepoIds = []
@@ -284,9 +284,9 @@ export default class DBHandler {
                         tempRepoIds.push(introSearchDoc.id)
                     })
 
-                    const remarkSearchDocs = await reposCollection.find(Object.assign({}, args, {remark: {$regex: new RegExp(key, 'i')}})).exec()
-                    remarkSearchDocs.forEach((remarkSearchDoc) => {
-                        tempRepoIds.push(remarkSearchDoc.id)
+                    const noteSearchDocs = await reposCollection.find(Object.assign({}, args, {note: {$regex: new RegExp(key, 'i')}})).exec()
+                    noteSearchDocs.forEach((noteSearchDoc) => {
+                        tempRepoIds.push(noteSearchDoc.id)
                     })
 
                     tempRepoIds = Array.from(new Set(tempRepoIds))

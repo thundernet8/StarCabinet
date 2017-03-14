@@ -19,6 +19,7 @@ export default class MainPage extends React.Component {
             this.props.onGetMyProfile()
             this.props.onGetCategories()
             this.props.onFetchStarredRepos()
+            // this.props.onNeedUpdateReposList()
             // .then((repos) => console.dir(repos))
         })
     }

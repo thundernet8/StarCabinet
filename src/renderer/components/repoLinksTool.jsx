@@ -1,4 +1,4 @@
-import React                        from 'react'
+import React, { PropTypes }         from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main'
 import {
@@ -8,14 +8,12 @@ import CopyToClipboard              from 'react-copy-to-clipboard'
 
 export default class RepoLinksTool extends React.Component {
 
-    state = {
-        visible: false
+    static propTypes = {
+        visible: PropTypes.bool
     }
 
-    hide = () => {
-        this.setState({
-            visible: false
-        })
+    state = {
+        visible: false
     }
 
     handleVisibleChange = (visible) => {
@@ -47,7 +45,9 @@ export default class RepoLinksTool extends React.Component {
                 visible={this.state.visible}
                 onVisibleChange={this.handleVisibleChange}
             >
-                <Icon type="link" title="Repository links"/>
+                <Tooltip placement="bottom" title="Repository links">
+                    <Icon type="link"/>
+                </Tooltip>
             </Popover>
         )
     }

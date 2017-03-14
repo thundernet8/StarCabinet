@@ -5,6 +5,7 @@ import {
     Icon, Tooltip, Popover, Button, message
 }                                   from 'antd'
 import RepoLinksTool                from './repoLinksTool'
+import RepoNoteTool                 from './repoNoteTool'
 
 export default class RepoDetailToolbar extends React.Component {
 
@@ -30,21 +31,27 @@ export default class RepoDetailToolbar extends React.Component {
     render () {
         let readIcon, flagIcon
         if (this.props.selectedRepo) {
-            readIcon = <Icon type={this.props.selectedRepo.read ? 'eye' : 'eye-o'} title={this.props.selectedRepo.read ? 'Mark as unread' : 'Mark as read'} data-read={this.props.selectedRepo.read}/>
-            flagIcon = <Icon type="flag" title={this.props.selectedRepo.flag ? 'Remove flag' : 'Add flag'} data-flag={this.props.selectedRepo.flag}/>
+            readIcon = <Tooltip placement="bottom" title={this.props.selectedRepo.read ? 'Mark as unread' : 'Mark as read'}><Icon type={this.props.selectedRepo.read ? 'eye' : 'eye-o'} data-read={this.props.selectedRepo.read}/></Tooltip>
+            flagIcon = <Tooltip placement="bottom" title={this.props.selectedRepo.flag ? 'Remove flag' : 'Add flag'}><Icon type="flag" data-flag={this.props.selectedRepo.flag}/></Tooltip>
         } else {
             readIcon = <Icon type="eye-o"/>
             flagIcon = <Icon type="flag"/>
         }
         return (
             <div className={classNames('detailToolbar', styles.detailToolbar, {[styles.disabled]: !this.props.selectedRepo})}>
-                <Icon type="select" title="View in Github" onClick={this.viewInGithub}/>
+                <Tooltip placement="bottom" title="View in Github">
+                    <Icon type="select" onClick={this.viewInGithub}/>
+                </Tooltip>
                 {readIcon}
                 {flagIcon}
-                <Icon type="folder" title="Classify it"/>
-                <Icon type="edit" title="Add your notes"/>
+                <Tooltip placement="bottom" title="Classify it">
+                    <Icon type="folder"/>
+                </Tooltip>
+                <RepoNoteTool repo={this.props.selectedRepo} updateNote={this.props.onUpdateRepoNote}/>
                 <RepoLinksTool repo={this.props.selectedRepo}/>
-                <Icon type="github" title="Star StarCabinet" onClick={this.starStarCabinet}/>
+                <Tooltip placement="bottomRight" title="Star StarCabinet">
+                    <Icon type="github" onClick={this.starStarCabinet}/>
+                </Tooltip>
             </div>
         )
     }

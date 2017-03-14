@@ -19,7 +19,7 @@ export const searchConditionReducer = (state = initialSearchCondition, action) =
 
 const initialFilterCondition = {
     hasFlag: false,
-    hasRemark: false,
+    hasNote: false,
     unread: false
 }
 
