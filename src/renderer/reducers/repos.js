@@ -1,6 +1,6 @@
 import * as CONSTANTS     from '../constants'
 
-export const reposListReducer = (state = [], action) => {
+export const reposListReducer = (state = {}, action) => {
     switch (action.type) {
         case CONSTANTS.QUERY_REPOS_LIST_SUCCESS:
         case CONSTANTS.REPLACE_REPOS_LIST_ITEM:

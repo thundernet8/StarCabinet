@@ -6,7 +6,8 @@ import Actions                      from '../actions'
 const mapStateToProps = (state) => {
     return {
         order: state.order,
-        fetchStatus: state.fetchStatus
+        fetchStatus: state.fetchStatus,
+        repos: state.repos
     }
 }
 

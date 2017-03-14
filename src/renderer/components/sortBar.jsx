@@ -89,6 +89,9 @@ export default class SortBar extends React.Component {
         )
         return (
             <div className={classNames('sortBarWrap', styles.sortBarWrap)}>
+                <div className={classNames('reposCount', styles.reposCount)}>
+                    {`${Object.keys(this.props.repos).length} Records`}
+                </div>
                 <Dropdown overlay={menu} trigger={['click']}>
                     <a className="ant-dropdown-link" href="javascript:;">{`SORT BY ${bys[this.state.by]}`}<Icon type="down" /></a>
                 </Dropdown>
