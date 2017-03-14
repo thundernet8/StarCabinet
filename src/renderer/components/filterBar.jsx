@@ -49,7 +49,7 @@ export default class FilterBar extends React.Component {
         const filterDict = {
             [CONSTANTS.FILTER_OPTION_UNREAD]: 'UNREAD',
             [CONSTANTS.FILTER_OPTION_HAS_FLAG]: 'HAS FLAG',
-            [CONSTANTS.FILTER_OPTION_HAS_REMAKR]: 'HAS NOTE'
+            [CONSTANTS.FILTER_OPTION_HAS_NOTE]: 'HAS NOTE'
         }
 
         const upMenuItems = Object.keys(filterDict).map((key) => {
