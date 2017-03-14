@@ -22,7 +22,7 @@ export default class RepoReadme extends React.Component {
     replaceImageSrc = (content) => {
         const repo = this.props.selectedRepo
         let prefix = 'https://raw.githubusercontent.com/' + repo.fullName + '/' + repo.defaultBranch + '/'
-        return content.replace(/(<img(.*?)src=")(?!http:\/\/)(.*?)"/, '$1' + prefix + '$3"')
+        return content.replace(/(<img(.*?)src=")(?!http:\/\/)(.*?)"/g, '$1' + prefix + '$3"').replace(/!\[(.*?)\]\((?!http:\/\/)(.*?)\)/g, '![$1](' + prefix + '$2)')
     }
 
     componentWillMount () {

@@ -400,13 +400,19 @@
 
 // }
 
-.notePaneTitle {
+.linksPaneTitle,
+.notePaneTitle,
+.classifyPaneTitle {
+    >span {
+        font-weight: 500;
+    }
     >a {
         float: right;
     }
 }
 
-.repoNoteToolInputWrap {
+.repoNoteToolInputWrap,
+.repoClassifyToolInputWrap {
     width: 240px;
 }
 

@@ -2,22 +2,36 @@ import React, { PropTypes }         from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main'
 import {
-    Icon, Tooltip, Popover, Button, message, Input
+    Icon, Tooltip, Popover, Input
 }                                   from 'antd'
 import CopyToClipboard              from 'react-copy-to-clipboard'
 
 export default class RepoLinksTool extends React.Component {
 
     static propTypes = {
-        visible: PropTypes.bool
+        visible: PropTypes.bool,
+        copied: PropTypes.bool
     }
 
     state = {
-        visible: false
+        visible: false,
+        copied: false
     }
 
     handleVisibleChange = (visible) => {
         this.setState({ visible })
+    }
+
+    notifyCopied = () => {
+        this.setState({
+            copied: true
+        })
+
+        setTimeout(() => {
+            this.setState({
+                copied: false
+            })
+        }, 1500)
     }
 
     render () {
@@ -26,10 +40,19 @@ export default class RepoLinksTool extends React.Component {
         }
         const clipboard = (value) => (
             <CopyToClipboard text={value}
-                onCopy={() => { message.success('Copied!') }}>
+                onCopy={this.notifyCopied}>
                 <Icon type="copy" />
             </CopyToClipboard>
         )
+
+        const titleNode = (
+            <div className={classNames('linksPaneTitle', styles.linksPaneTitle)}>
+                <span>Repo Clone Links</span>
+                {this.state.copied &&
+                <a>Copied !</a>}
+            </div>
+        )
+
         const content = (
             <div className={classNames('repoLinksToolInputWrap', styles.repoLinksToolInputWrap)}>
                 <Input addonBefore="SSH" addonAfter={clipboard(this.props.repo.sshUrl)} value={this.props.repo.sshUrl} readOnly/>
@@ -40,7 +63,7 @@ export default class RepoLinksTool extends React.Component {
         return (
             <Popover
                 content={content}
-                title="Clone Links"
+                title={titleNode}
                 trigger="click"
                 visible={this.state.visible}
                 onVisibleChange={this.handleVisibleChange}

@@ -70,7 +70,7 @@ export default class RepoClassifyTool extends React.Component {
         }
 
         const titleNode = (
-            <div className={classNames('notePaneTitle', styles.notePaneTitle)}>
+            <div className={classNames('classifyPaneTitle', styles.classifyPaneTitle)}>
                 <span>Choose Repo Categoires</span>
                 {this.props.categories && this.props.categories.length > 0 &&
                 <a onClick={this.submit}>SAVE</a>}
@@ -82,7 +82,7 @@ export default class RepoClassifyTool extends React.Component {
         })
 
         const content = (
-            <div className={classNames('repoNoteToolInputWrap', styles.repoNoteToolInputWrap)}>
+            <div className={classNames('repoClassifyToolInputWrap', styles.repoClassifyToolInputWrap)}>
                 {(!this.props.categories || this.props.categories.length === 0)
                 ? <div>Please add some categories before choosing ones</div>
                 : <CheckboxGroup options={catsSelectionOptions} value={this.state.categorySelection} onChange={this.onSelectionChange} />}
