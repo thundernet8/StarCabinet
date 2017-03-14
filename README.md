@@ -33,4 +33,4 @@
 ![Main](screenshots/StarCabinet-main.png)
 
 ## LICENSE
-###MIT
+### MIT
