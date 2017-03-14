@@ -98,7 +98,6 @@
     "express": "^4.14.0",
     "extract-text-webpack-plugin": "^2.0.0",
     "file-loader": "^0.10.0",
-    "fontawesome": "^4.7.0",
     "github-api": "^3.0.0",
     "github-markdown-css": "^2.4.1",
     "html-webpack-plugin": "^2.24.1",

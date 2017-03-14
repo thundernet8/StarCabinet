@@ -22,7 +22,8 @@ import {
 }                                                         from './categories'
 import {
     selectedRepoReducer,
-    selectedRepoTagsReducer
+    selectedRepoTagsReducer,
+    selectedRepoCatsReducer
 }                                                         from './repo'
 
 export default combineReducers({
@@ -44,4 +45,5 @@ export default combineReducers({
     catAdd: categoryAddingResultReducer,
     selectedRepo: selectedRepoReducer
     // selectedRepoTags: selectedRepoTagsReducer // use promise instead
+    // selectedRepoCats: selectedRepoCatsReducer
 })

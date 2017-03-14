@@ -7,6 +7,24 @@ import 'github-markdown-css'
 
 export default class RepoReadme extends React.Component {
 
+    transformImageUri = (url) => {
+        const regex = /http(s?):\/\//i
+        if (!regex.test(url)) {
+            const repo = this.props.selectedRepo
+            let prefix = 'https://raw.githubusercontent.com/' + repo.fullName + '/' + repo.defaultBranch
+            url.indexOf('.') !== 0 && (prefix += '/')
+
+            return prefix
+        }
+        return url
+    }
+
+    replaceImageSrc = (content) => {
+        const repo = this.props.selectedRepo
+        let prefix = 'https://raw.githubusercontent.com/' + repo.fullName + '/' + repo.defaultBranch + '/'
+        return content.replace(/(<img(.*?)src=")(?!http:\/\/)(.*?)"/, '$1' + prefix + '$3"')
+    }
+
     componentWillMount () {
         if (this.props.selectedRepo/* && this.props.selectedRepo.readme === '' */) {
             this.props.onFetchRepoReadMe(this.props.selectedRepo)
@@ -34,7 +52,7 @@ export default class RepoReadme extends React.Component {
         return (
             <div className={classNames('repoReadMeWrap', styles.repoReadMeWrap)}>
                  <div className={classNames('repoReadme markdown-body animated fadeInUp', styles.repoReadme)}>
-                    <ReactMarkdown source={this.props.selectedRepo.readme} />
+                    <ReactMarkdown source={this.replaceImageSrc(this.props.selectedRepo.readme)} /* transformImageUri={this.transformImageUri} */ />
                 </div>
             </div>
         )

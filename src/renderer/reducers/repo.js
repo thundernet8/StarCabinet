@@ -16,9 +16,17 @@ export const selectedRepoReducer = (state = null, action) => {
 
 export const selectedRepoTagsReducer = (state = [], action) => {
     switch (action.type) {
-        case CONSTANTS.QUERY_REPO_TAGS:
         case CONSTANTS.QUERY_REPO_TAGS_SUCCESS:
             return action.tags
+        default:
+            return state
+    }
+}
+
+export const selectedRepoCatsReducer = (state = [], action) => {
+    switch (action.type) {
+        case CONSTANTS.QUERY_REPO_CATEGORIES_SUCCESS:
+            return action.categories
         default:
             return state
     }

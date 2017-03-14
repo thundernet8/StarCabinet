@@ -81,16 +81,23 @@ export const addTagForRepo = (id, tagName) => {
             type: CONSTANTS.ADD_TAG_FOR_REPO
         })
 
-        const dbHandler = new DBHandler(getState().db)
+        const state = getState()
+
+        const dbHandler = new DBHandler(state.db)
         return dbHandler.initDB().then(() => dbHandler.addRepoTag(id, tagName))
         .then((repo) => {
+            // also replace the repo in repos list
+            let repoInList = state.repos['_' + id]
+            if (repoInList) {
+                repo._categories = repoInList._categories
+                repo._contributors = repoInList._contributors
+                dispatch(replaceReposListItem(repo))
+            }
+
             dispatch({
                 type: CONSTANTS.ADD_TAG_FOR_REPO_SUCCESS,
                 repo
             })
-
-            // also replace the repo in repos list
-            dispatch(replaceReposListItem(repo))
 
             return repo
         })
@@ -111,16 +118,23 @@ export const removeTagForRepo = (id, tagName) => {
             type: CONSTANTS.REMOVE_TAG_FOR_REPO
         })
 
-        const dbHandler = new DBHandler(getState().db)
+        const state = getState()
+
+        const dbHandler = new DBHandler(state.db)
         return dbHandler.initDB().then(() => dbHandler.removeRepoTag(id, tagName))
         .then((repo) => {
+            // also replace the repo in repos list
+            let repoInList = state.repos['_' + id]
+            if (repoInList) {
+                repo._categories = repoInList._categories
+                repo._contributors = repoInList._contributors
+                dispatch(replaceReposListItem(repo))
+            }
+
             dispatch({
                 type: CONSTANTS.REMOVE_TAG_FOR_REPO_SUCCESS,
                 repo
             })
-
-            // also replace the repo in repos list
-            dispatch(replaceReposListItem(repo))
 
             return repo
         })
@@ -289,20 +303,28 @@ export const updateRepoNote = (id, note) => {
             note
         })
 
+        const state = getState()
+
         const updateObj = {
             id,
             note
         }
-        const dbHandler = new DBHandler(getState().db)
+        const dbHandler = new DBHandler(state.db)
         return dbHandler.initDB().then(() => dbHandler.updateRepo(updateObj))
         .then((repo) => {
+            // also replace the repo in repos list
+            let repoInList = state.repos['_' + id]
+            if (repoInList) {
+                repo._tags = repoInList._tags
+                repo._categories = repoInList._categories
+                repo._contributors = repoInList._contributors
+                dispatch(replaceReposListItem(repo))
+            }
+
             dispatch({
                 type: CONSTANTS.UPDATE_REPO_NOTE_SUCCESS,
                 repo
             })
-
-            // also replace the repo in repos list
-            dispatch(replaceReposListItem(repo))
 
             return repo
         })
@@ -323,16 +345,23 @@ export const updateRepoCategories = (id, catIds) => {
             type: CONSTANTS.UPDATE_REPO_CATEGORIES
         })
 
-        const dbHandler = new DBHandler(getState().db)
+        const state = getState()
+
+        const dbHandler = new DBHandler(state.db)
         return dbHandler.initDB().then(() => dbHandler.updateRepoCategories(id, catIds))
         .then((repo) => {
+            // also replace the repo in repos list
+            let repoInList = state.repos['_' + id]
+            if (repoInList) {
+                repo._tags = repoInList._tags
+                repo._contributors = repoInList._contributors
+                dispatch(replaceReposListItem(repo))
+            }
+
             dispatch({
                 type: CONSTANTS.UPDATE_REPO_CATEGORIES_SUCCESS,
                 repo
             })
-
-            // also replace the repo in repos list
-            dispatch(replaceReposListItem(repo))
 
             // update all categories list, for updating the nav category node
             dispatch(updateCategoriesList())
