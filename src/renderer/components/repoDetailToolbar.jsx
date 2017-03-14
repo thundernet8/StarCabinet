@@ -6,6 +6,7 @@ import {
 }                                   from 'antd'
 import RepoLinksTool                from './repoLinksTool'
 import RepoNoteTool                 from './repoNoteTool'
+import RepoClassifyTool             from '../containers/repoClassifyTool'
 
 export default class RepoDetailToolbar extends React.Component {
 
@@ -34,8 +35,8 @@ export default class RepoDetailToolbar extends React.Component {
             readIcon = <Tooltip placement="bottom" title={this.props.selectedRepo.read ? 'Mark as unread' : 'Mark as read'}><Icon type={this.props.selectedRepo.read ? 'eye' : 'eye-o'} data-read={this.props.selectedRepo.read}/></Tooltip>
             flagIcon = <Tooltip placement="bottom" title={this.props.selectedRepo.flag ? 'Remove flag' : 'Add flag'}><Icon type="flag" data-flag={this.props.selectedRepo.flag}/></Tooltip>
         } else {
-            readIcon = <Icon type="eye-o"/>
-            flagIcon = <Icon type="flag"/>
+            readIcon = null
+            flagIcon = null
         }
         return (
             <div className={classNames('detailToolbar', styles.detailToolbar, {[styles.disabled]: !this.props.selectedRepo})}>
@@ -44,9 +45,7 @@ export default class RepoDetailToolbar extends React.Component {
                 </Tooltip>
                 {readIcon}
                 {flagIcon}
-                <Tooltip placement="bottom" title="Classify it">
-                    <Icon type="folder"/>
-                </Tooltip>
+                <RepoClassifyTool repo={this.props.selectedRepo}/>
                 <RepoNoteTool repo={this.props.selectedRepo} updateNote={this.props.onUpdateRepoNote}/>
                 <RepoLinksTool repo={this.props.selectedRepo}/>
                 <Tooltip placement="bottomRight" title="Star StarCabinet">

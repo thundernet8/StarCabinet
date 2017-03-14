@@ -76,8 +76,8 @@ export default class RepoTagsBar extends React.Component {
 
     componentWillMount () {
         const repo = this.props.selectedRepo
-        if (repo || (repo && !repo._tags)) {
-            this.queryTags(this.props.selectedRepo.id)
+        if (repo && !repo._tags) {
+            this.queryTags(repo.id)
         }
     }
 

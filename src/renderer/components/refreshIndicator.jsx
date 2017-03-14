@@ -5,7 +5,7 @@ import {
     Icon, Tooltip, notification
 }                                   from 'antd'
 
-export default class MainGroupTopIndicator extends React.Component {
+export default class RefreshIndicator extends React.Component {
     refresh = () => {
         if (this.props.offline || !this.props.fetchStatus || this.props.fetchStatus.fetching) {
             return

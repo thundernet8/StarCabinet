@@ -1,5 +1,5 @@
 import { connect }                  from 'react-redux'
-import MainGroupTopIndicator        from '../components/mainGroupTopIndicator'
+import RefreshIndicator             from '../components/refreshIndicator'
 import Actions                      from '../actions'
 
 // Redux connection
@@ -23,4 +23,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 // Which props to inject from the global atomic state
-export default connect(mapStateToProps, mapDispatchToProps)(MainGroupTopIndicator)
+export default connect(mapStateToProps, mapDispatchToProps)(RefreshIndicator)

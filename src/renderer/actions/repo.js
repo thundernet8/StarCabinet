@@ -2,6 +2,7 @@ import * as CONSTANTS                from '../constants'
 import DBHandler                     from '../rxdb/dbHandler'
 import GithubClient                  from '../utils/githubClient'
 import { replaceReposListItem }      from './repos'
+import { updateCategoriesList }      from './categories'
 
 export const selectOneRepo = (repo) => {
     return (dispatch) => {
@@ -171,6 +172,43 @@ export const getSelectedRepoTags = (repoId) => {
     }
 }
 
+export const getSelectedRepoCategories = (repoId) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: CONSTANTS.QUERY_REPO_CATEGORIES,
+            categories: []
+        })
+
+        const state = getState()
+
+        const dbHandler = new DBHandler(state.db)
+        return dbHandler.initDB().then(() => dbHandler.getRepoCategories(repoId))
+        .then((categories) => {
+            dispatch({
+                type: CONSTANTS.QUERY_REPO_CATEGORIES_SUCCESS,
+                categories
+            })
+
+            // also add categories to the repo and replace the repo in repos list
+            let repo = state.repos['_' + repoId]
+            if (repo) {
+                repo._categories = categories
+                dispatch(replaceReposListItem(repo))
+            }
+
+            return categories
+        })
+        .catch((err) => {
+            dispatch({
+                type: CONSTANTS.QUERY_REPO_CATEGORIES_FAIL,
+                err
+            })
+
+            throw new Error(err)
+        })
+    }
+}
+
 export const fetchRepoReadMe = (repo) => {
     return (dispatch, getState) => {
         dispatch({
@@ -271,6 +309,39 @@ export const updateRepoNote = (id, note) => {
         .catch((err) => {
             dispatch({
                 type: CONSTANTS.UPDATE_REPO_NOTE_FAIL,
+                err
+            })
+
+            throw new Error(err)
+        })
+    }
+}
+
+export const updateRepoCategories = (id, catIds) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: CONSTANTS.UPDATE_REPO_CATEGORIES
+        })
+
+        const dbHandler = new DBHandler(getState().db)
+        return dbHandler.initDB().then(() => dbHandler.updateRepoCategories(id, catIds))
+        .then((repo) => {
+            dispatch({
+                type: CONSTANTS.UPDATE_REPO_CATEGORIES_SUCCESS,
+                repo
+            })
+
+            // also replace the repo in repos list
+            dispatch(replaceReposListItem(repo))
+
+            // update all categories list, for updating the nav category node
+            dispatch(updateCategoriesList())
+
+            return repo
+        })
+        .catch((err) => {
+            dispatch({
+                type: CONSTANTS.UPDATE_REPO_CATEGORIES_FAIL,
                 err
             })
 

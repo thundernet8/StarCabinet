@@ -50,7 +50,7 @@ export default class RepoNoteTool extends React.Component {
         const titleNode = (
             <div className={classNames('notePaneTitle', styles.notePaneTitle)}>
                 <span>Add Your Notes</span>
-                <a onClick={this.submit}>DONE</a>
+                <a onClick={this.submit}>SAVE</a>
             </div>
         )
         const content = (

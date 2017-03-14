@@ -1,7 +1,7 @@
 import React                        from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main.scss'
-import MainGroupTopIndicator        from '../containers/mainGroupTopIndicator'
+import RefreshIndicator             from '../containers/refreshIndicator'
 import MainGroupAvatar              from '../containers/mainGroupAvatar'
 import MainGroupNavs                from '../containers/mainGroupNavs'
 import MainGroupFooter              from '../containers/mainGroupFooter'
@@ -13,7 +13,7 @@ export default class MainGroupPane extends React.Component {
         return (
             <div className={classNames('left', styles.left)}>
                 <header id="titleBar">
-                    <MainGroupTopIndicator/>
+                    <RefreshIndicator/>
                 </header>
                 <MainGroupAvatar/>
                 <MainGroupNavs/>

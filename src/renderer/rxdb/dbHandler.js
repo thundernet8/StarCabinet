@@ -545,6 +545,15 @@ export default class DBHandler {
         return docs.map((doc) => doc.toJSON())
     }
 
+    getRepoCategories = async (repoId) => {
+        this.checkInstance()
+
+        const catsCollection = this.RxDB.categories
+        const docs = await catsCollection.find({repos: {$elemMatch: {$eq: repoId}}}).sort({id: 1}).exec()
+
+        return docs.map((doc) => doc.toJSON())
+    }
+
     updateRepo = async (obj) => {
         this.checkInstance()
 
@@ -569,6 +578,34 @@ export default class DBHandler {
         await repo.save()
 
         return repo.toJSON()
+    }
+
+    updateRepoCategories = async (id, catIds) => {
+        this.checkInstance()
+
+        const catsCollection = this.RxDB.categories
+        const categoryDocs = await catsCollection.find({id: {$in: catIds}}).sort({id: 1}).exec()
+
+        let updates = []
+        let categories = []
+        categoryDocs.forEach((categoryDoc) => {
+            if (categoryDoc.repos.indexOf(id) < 0) {
+                let repoIds = categoryDoc.repos
+                repoIds.push(id)
+                categoryDoc.repos = repoIds
+                categoryDoc.updatedTime = parseInt((new Date()).getTime() / 1000)
+                updates.push(categoryDoc.save())
+            }
+            categories.push(categoryDoc.toJSON())
+        })
+
+        await Promise.all(updates)
+        const repo = await this.RxDB.repos.findOne({id: {$eq: id}}).exec()
+
+        let repoObj = repo.toJSON()
+        repoObj._categories = categories
+
+        return repoObj
     }
 
     addRepoTag = async (id, tagName) => {
