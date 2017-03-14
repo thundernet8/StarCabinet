@@ -29,11 +29,21 @@ export default class RepoDetailToolbar extends React.Component {
         })
     }
 
+    changeReadStatus = () => {
+        const repo = this.props.selectedRepo
+        this.props.onChangeRepoReadStatus(repo.id, !repo.read)
+    }
+
+    changeRepoFlag = () => {
+        const repo = this.props.selectedRepo
+        this.props.onChangeRepoFlag(repo.id, !repo.flag)
+    }
+
     render () {
         let readIcon, flagIcon
         if (this.props.selectedRepo) {
-            readIcon = <Tooltip placement="bottom" title={this.props.selectedRepo.read ? 'Mark as unread' : 'Mark as read'}><Icon type={this.props.selectedRepo.read ? 'eye' : 'eye-o'} data-read={this.props.selectedRepo.read}/></Tooltip>
-            flagIcon = <Tooltip placement="bottom" title={this.props.selectedRepo.flag ? 'Remove flag' : 'Add flag'}><Icon type="flag" data-flag={this.props.selectedRepo.flag}/></Tooltip>
+            readIcon = <Tooltip placement="bottom" title={this.props.selectedRepo.read ? 'Mark as unread' : 'Mark as read'}><Icon type={this.props.selectedRepo.read ? 'eye' : 'eye-o'} data-read={this.props.selectedRepo.read} onClick={this.changeReadStatus}/></Tooltip>
+            flagIcon = <Tooltip placement="bottom" title={this.props.selectedRepo.flag ? 'Remove flag' : 'Add flag'}><Icon type="flag" data-flag={this.props.selectedRepo.flag} onClick={this.changeRepoFlag}/></Tooltip>
         } else {
             readIcon = null
             flagIcon = null

@@ -17,6 +17,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         onUpdateRepoNote: (id, note) => {
             return dispatch(Actions.updateRepoNote(id, note))
+        },
+        onChangeRepoFlag: (id, hasFlag) => {
+            return dispatch(Actions.updateSelectedRepo(id, {flag: hasFlag}))
+        },
+        onChangeRepoReadStatus: (id, read) => {
+            return dispatch(Actions.updateSelectedRepo(id, {read}))
         }
     }
 }

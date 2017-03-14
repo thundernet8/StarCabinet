@@ -10,6 +10,9 @@ export const selectOneRepo = (repo) => {
             type: CONSTANTS.SELECT_ONE_REPO,
             repo
         })
+
+        // when selected, the repo mark as read
+        dispatch(updateSelectedRepo(repo.id, {read: true}))
     }
 }
 
@@ -274,13 +277,20 @@ export const updateSelectedRepo = (id, obj) => {
         return dbHandler.initDB().then(() => dbHandler.updateRepo(obj))
         .then((repo) => {
             repo._hotChange = true // mark the repo that its readme etc.. has fetched, do not fetch again
+
+            // also replace the repo in repos list
+            let repoInList = state.repos['_' + id]
+            if (repoInList) {
+                repo._categories = repoInList._categories
+                repo._tags = repoInList._tags
+                repo._contributors = repoInList._contributors
+                dispatch(replaceReposListItem(repo))
+            }
+
             dispatch({
                 type: CONSTANTS.UPDATE_SELECTED_REPO_SUCCESS,
                 repo
             })
-
-            // also replace the repo in repos list
-            dispatch(replaceReposListItem(repo))
 
             return repo
         })
