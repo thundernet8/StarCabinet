@@ -42,15 +42,14 @@ export default class RepoTagsBar extends React.Component {
         let tags = state.tags
         if (inputValue && tags.indexOf(inputValue) === -1) {
             tags = [...tags, inputValue]
+            // save new tag in db
+            this.props.onAddTagForRepo(this.props.selectedRepo.id, inputValue)
         }
         this.setState({
             tags,
             inputVisible: false,
             inputValue: ''
         })
-
-        // save new tag in db
-        this.props.onAddTagForRepo(this.props.selectedRepo.id, inputValue)
     }
 
     saveInputRef = (input) => { this.input = input }
