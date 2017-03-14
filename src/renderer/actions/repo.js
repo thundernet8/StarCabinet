@@ -187,7 +187,9 @@ export const fetchRepoReadMe = (repo) => {
             })
 
             // if it's selected repo, update the state
-            dispatch(updateSelectedRepo(repo.id, {readme}))
+            if (repo.readme !== readme) {
+                dispatch(updateSelectedRepo(repo.id, {readme}))
+            }
 
             return readme
         })
@@ -215,10 +217,11 @@ export const updateSelectedRepo = (id, obj) => {
             type: CONSTANTS.UPDATE_SELECTED_REPO
         })
 
-        const dbHandler = new DBHandler(getState().db)
+        const dbHandler = new DBHandler(state.db)
         obj.id = id
         return dbHandler.initDB().then(() => dbHandler.updateRepo(obj))
         .then((repo) => {
+            repo._hotChange = true // mark the repo that its readme etc.. has fetched, do not fetch again
             dispatch({
                 type: CONSTANTS.UPDATE_SELECTED_REPO_SUCCESS,
                 repo

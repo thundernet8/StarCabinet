@@ -218,7 +218,7 @@ export default class DBHandler {
                     break
                 case CONSTANTS.GROUP_TYPE_UNKNOWN:
                     const catsCollection2 = this.RxDB.categories
-                    const categories = await catsCollection.find().exec()
+                    const categories = await catsCollection2.find().exec()
                     let nrepoIds = []
                     categories.forEach((category) => {
                         nrepoIds.concat(category.repos)
@@ -547,6 +547,10 @@ export default class DBHandler {
 
     updateRepo = async (obj) => {
         this.checkInstance()
+
+        if (!obj.id) {
+            return false
+        }
 
         const reposCollection = this.RxDB.repos
         const id = obj.id

@@ -2,6 +2,7 @@ import React, { PropTypes }         from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main.scss'
 import { Rate, Icon, Row, Col }     from 'antd'
+import SCLogger                     from '../utils/logHelper'
 
 // a single item of repos list
 export default class RepoListItem extends React.Component {
@@ -56,7 +57,7 @@ export default class RepoListItem extends React.Component {
     }
 
     render () {
-        console.log('renderer')
+        SCLogger('render repo item')
         const klass = classNames('repoListItem animated slideInUp', styles.repoListItem, {[styles.repoSelected]: this.state.selected})
         return (
             <div className={klass} onClick={this.selectRepo}>
