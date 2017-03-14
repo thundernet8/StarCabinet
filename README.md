@@ -32,6 +32,9 @@
 
 ![Main](screenshots/StarCabinet-main.png)
 
+## Demo
+[StarCabinet Demo](https://webapproach.net/starcabinet/)
+
 ## Debug
 直接使用源码的用户，按如下操作:
 
