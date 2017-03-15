@@ -3,11 +3,11 @@ import * as CONSTANTS     from '../constants'
 export const selectedRepoReducer = (state = null, action) => {
     switch (action.type) {
         case CONSTANTS.SELECT_ONE_REPO:
-        case CONSTANTS.ADD_TAG_FOR_REPO_SUCCESS:
-        case CONSTANTS.REMOVE_TAG_FOR_REPO_SUCCESS:
+        // case CONSTANTS.ADD_TAG_FOR_REPO_SUCCESS:
+        // case CONSTANTS.REMOVE_TAG_FOR_REPO_SUCCESS:
         case CONSTANTS.UPDATE_SELECTED_REPO_SUCCESS:
-        case CONSTANTS.UPDATE_REPO_NOTE_SUCCESS:
-        case CONSTANTS.UPDATE_REPO_CATEGORIES_SUCCESS:
+        // case CONSTANTS.UPDATE_REPO_CATEGORIES_SUCCESS:
+        // case CONSTANTS.UPDATE_REPO_CONTRIBUTORS_SUCCESS:
             return action.repo
         default:
             return state

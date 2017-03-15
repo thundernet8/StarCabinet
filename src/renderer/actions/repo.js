@@ -36,7 +36,7 @@ export const rateOneRepo = (id, score) => {
                 repo
             })
 
-            // also replace the repo in repos list
+            // also replace new repo into repos list
             dispatch(replaceReposListItem(repo))
 
             return repo
@@ -90,12 +90,10 @@ export const addTagForRepo = (id, tagName) => {
         return dbHandler.initDB().then(() => dbHandler.addRepoTag(id, tagName))
         .then((repo) => {
             // also replace the repo in repos list
-            let repoInList = state.repos['_' + id]
-            if (repoInList) {
-                repo._categories = repoInList._categories
-                repo._contributors = repoInList._contributors
-                dispatch(replaceReposListItem(repo))
-            }
+            dispatch(replaceReposListItem(repo))
+
+            // if it has same id with selectedRepo, also replace selectedRepo
+            dispatch(updateSelectedRepo(id, {rxChange: parseInt((new Date()).getTime() / 1000)}))
 
             dispatch({
                 type: CONSTANTS.ADD_TAG_FOR_REPO_SUCCESS,
@@ -127,12 +125,10 @@ export const removeTagForRepo = (id, tagName) => {
         return dbHandler.initDB().then(() => dbHandler.removeRepoTag(id, tagName))
         .then((repo) => {
             // also replace the repo in repos list
-            let repoInList = state.repos['_' + id]
-            if (repoInList) {
-                repo._categories = repoInList._categories
-                repo._contributors = repoInList._contributors
-                dispatch(replaceReposListItem(repo))
-            }
+            dispatch(replaceReposListItem(repo))
+
+            // if it has same id with selectedRepo, also replace selectedRepo
+            dispatch(updateSelectedRepo(id, {rxChange: parseInt((new Date()).getTime() / 1000)}))
 
             dispatch({
                 type: CONSTANTS.REMOVE_TAG_FOR_REPO_SUCCESS,
@@ -241,7 +237,7 @@ export const fetchRepoReadMe = (repo) => {
                 readme
             })
 
-            // if it's selected repo, update the state
+            // if it's selected repo, save it to db and update the state
             if (repo.readme !== readme) {
                 dispatch(updateSelectedRepo(repo.id, {readme}))
             }
@@ -259,7 +255,39 @@ export const fetchRepoReadMe = (repo) => {
     }
 }
 
+export const fetchRepoContributors = (repo) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: CONSTANTS.FETCH_REPO_CONTRIBUTORS
+        })
+
+        const state = getState()
+        const client = new GithubClient(state.credentials)
+        return client.getRepoContributors(repo.fullName)
+        .then((contributors) => {
+            dispatch({
+                type: CONSTANTS.FETCH_REPO_CONTRIBUTORS_SUCCESS,
+                contributors
+            })
+
+            // save contributors to db
+            dispatch(updateRepoContributors(repo.id, contributors))
+
+            return contributors
+        })
+        .catch((err) => {
+            dispatch({
+                type: CONSTANTS.FETCH_REPO_CONTRIBUTORS_FAIL,
+                err
+            })
+
+            throw new Error(err)
+        })
+    }
+}
+
 // currently used after fetch the selected repo's readme data
+// alse repo note (simple fields)
 export const updateSelectedRepo = (id, obj) => {
     return (dispatch, getState) => {
         const state = getState()
@@ -276,16 +304,9 @@ export const updateSelectedRepo = (id, obj) => {
         obj.id = id
         return dbHandler.initDB().then(() => dbHandler.updateRepo(obj))
         .then((repo) => {
-            repo._hotChange = true // mark the repo that its readme etc.. has fetched, do not fetch again
-
             // also replace the repo in repos list
-            let repoInList = state.repos['_' + id]
-            if (repoInList) {
-                repo._categories = repoInList._categories
-                repo._tags = repoInList._tags
-                repo._contributors = repoInList._contributors
-                dispatch(replaceReposListItem(repo))
-            }
+            repo._hotChange = Object.keys(obj) // mark the repo that its readme etc.. has fetched, do not fetch again
+            dispatch(replaceReposListItem(repo))
 
             dispatch({
                 type: CONSTANTS.UPDATE_SELECTED_REPO_SUCCESS,
@@ -305,54 +326,11 @@ export const updateSelectedRepo = (id, obj) => {
     }
 }
 
-export const updateRepoNote = (id, note) => {
-    return (dispatch, getState) => {
-        dispatch({
-            type: CONSTANTS.UPDATE_REPO_NOTE,
-            id,
-            note
-        })
-
-        const state = getState()
-
-        const updateObj = {
-            id,
-            note
-        }
-        const dbHandler = new DBHandler(state.db)
-        return dbHandler.initDB().then(() => dbHandler.updateRepo(updateObj))
-        .then((repo) => {
-            // also replace the repo in repos list
-            let repoInList = state.repos['_' + id]
-            if (repoInList) {
-                repo._tags = repoInList._tags
-                repo._categories = repoInList._categories
-                repo._contributors = repoInList._contributors
-                dispatch(replaceReposListItem(repo))
-            }
-
-            dispatch({
-                type: CONSTANTS.UPDATE_REPO_NOTE_SUCCESS,
-                repo
-            })
-
-            return repo
-        })
-        .catch((err) => {
-            dispatch({
-                type: CONSTANTS.UPDATE_REPO_NOTE_FAIL,
-                err
-            })
-
-            throw new Error(err)
-        })
-    }
-}
-
 export const updateRepoCategories = (id, catIds) => {
     return (dispatch, getState) => {
         dispatch({
-            type: CONSTANTS.UPDATE_REPO_CATEGORIES
+            type: CONSTANTS.UPDATE_REPO_CATEGORIES,
+            id
         })
 
         const state = getState()
@@ -361,12 +339,10 @@ export const updateRepoCategories = (id, catIds) => {
         return dbHandler.initDB().then(() => dbHandler.updateRepoCategories(id, catIds))
         .then((repo) => {
             // also replace the repo in repos list
-            let repoInList = state.repos['_' + id]
-            if (repoInList) {
-                repo._tags = repoInList._tags
-                repo._contributors = repoInList._contributors
-                dispatch(replaceReposListItem(repo))
-            }
+            dispatch(replaceReposListItem(repo))
+
+            // if it has same id with selectedRepo, also replace selectedRepo
+            dispatch(updateSelectedRepo(id, {rxChange: parseInt((new Date()).getTime() / 1000)}))
 
             dispatch({
                 type: CONSTANTS.UPDATE_REPO_CATEGORIES_SUCCESS,
@@ -381,6 +357,47 @@ export const updateRepoCategories = (id, catIds) => {
         .catch((err) => {
             dispatch({
                 type: CONSTANTS.UPDATE_REPO_CATEGORIES_FAIL,
+                err
+            })
+
+            throw new Error(err)
+        })
+    }
+}
+
+export const updateRepoContributors = (id, contributors) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: CONSTANTS.UPDATE_REPO_CONTRIBUTORS,
+            id
+        })
+
+        const state = getState()
+
+        const dbHandler = new DBHandler(state.db)
+        return dbHandler.initDB().then(() => dbHandler.upsertContributors(id, contributors))
+        .then((contributors) => {
+            // also replace the repo in repos list
+            let repo = state.repos['_' + id]
+            if (repo) {
+                repo._contributors = contributors
+                repo._hotChange = ['contributors']
+                dispatch(replaceReposListItem(repo))
+            }
+
+            // if it has same id with selectedRepo, also replace selectedRepo
+            dispatch(updateSelectedRepo(id, {rxChange: parseInt((new Date()).getTime() / 1000)}))
+
+            dispatch({
+                type: CONSTANTS.UPDATE_REPO_CONTRIBUTORS_SUCCESS,
+                repo
+            })
+
+            return repoInList
+        })
+        .catch((err) => {
+            dispatch({
+                type: CONSTANTS.UPDATE_REPO_CONTRIBUTORS_FAIL,
                 err
             })
 

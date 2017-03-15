@@ -116,6 +116,16 @@ export const replaceReposListItem = (repo) => {
     return (dispatch, getState) => {
         const state = getState()
         let repos = state.repos
+
+        const repoInList = repos['_' + repo.id]
+        if (!repoInList) {
+            return
+        }
+        repo._categories = repo._categories || repoInList._categories
+        repo._tags = repo._tags || repoInList._tags
+        repo._contributors = repo._contributors || repoInList._contributors
+        repo._hotChange = [].concat((repo._hotChange || []), (repoInList._hotChange || []))
+
         repos['_' + repo.id] = repo
 
         dispatch({

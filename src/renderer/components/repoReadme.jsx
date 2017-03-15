@@ -22,7 +22,7 @@ export default class RepoReadme extends React.Component {
     replaceImageSrc = (content) => {
         const repo = this.props.selectedRepo
         let prefix = 'https://raw.githubusercontent.com/' + repo.fullName + '/' + repo.defaultBranch + '/'
-        return content.replace(/(<img(.*?)src=")(?!http:\/\/)(.*?)"/g, '$1' + prefix + '$3"').replace(/!\[(.*?)\]\((?!http:\/\/)(.*?)\)/g, '![$1](' + prefix + '$2)')
+        return content.replace(/(<img(.*?)src=")(?!http:\/\/)(.*?)"/g, '$1' + prefix + '$3"') // .replace(/!\[(.*?)\]\((?!http:\/\/)(.*?)\)/g, '![$1](' + prefix + '$2)')
     }
 
     componentWillMount () {
@@ -52,7 +52,7 @@ export default class RepoReadme extends React.Component {
         return (
             <div className={classNames('repoReadMeWrap', styles.repoReadMeWrap)}>
                  <div className={classNames('repoReadme markdown-body animated fadeInUp', styles.repoReadme)}>
-                    <ReactMarkdown source={this.replaceImageSrc(this.props.selectedRepo.readme)} /* transformImageUri={this.transformImageUri} */ />
+                    <ReactMarkdown source={this.replaceImageSrc(this.props.selectedRepo.readme)} transformImageUri={this.transformImageUri} />
                 </div>
             </div>
         )

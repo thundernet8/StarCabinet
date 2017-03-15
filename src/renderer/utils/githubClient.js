@@ -11,6 +11,11 @@ export default class GithubClient {
     this.me = this.client.getUser()
   }
 
+  _getRepoInstance = (fullName) => {
+      const namePieces = fullName.split('/')
+      return this.client.getRepo(namePieces[0], namePieces[1])
+  }
+
   getMyProfile = () => {
     return this.me.getProfile().then((ret) => ret.data)
   }
@@ -30,8 +35,12 @@ export default class GithubClient {
   }
 
   getRepoReadMe = (fullName, defaultBranch = 'master') => {
-      const namePieces = fullName.split('/')
-      const repo = this.client.getRepo(namePieces[0], namePieces[1])
+      const repo = this._getRepoInstance(fullName)
       return repo.getReadme(defaultBranch, true).then((ret) => ret.data)
+  }
+
+  getRepoContributors = (fullName) => {
+      const repo = this._getRepoInstance(fullName)
+      return repo.getContributors().then((ret) => ret.data)
   }
 }

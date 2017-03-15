@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch) => {
             return dispatch(Actions.starStarCabinet())
         },
         onUpdateRepoNote: (id, note) => {
-            return dispatch(Actions.updateRepoNote(id, note))
+            return dispatch(Actions.updateSelectedRepo(id, {note}))
         },
         onChangeRepoFlag: (id, hasFlag) => {
             return dispatch(Actions.updateSelectedRepo(id, {flag: hasFlag}))

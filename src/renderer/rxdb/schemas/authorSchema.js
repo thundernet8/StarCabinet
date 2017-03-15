@@ -1,6 +1,6 @@
-const ownerSchema = {
-    'title': 'owner schema',
-    'description': 'describes a single repository owner',
+const authorSchema = {
+    'title': 'author schema',
+    'description': 'describes a single repository owner/contributors',
     'version': 0,
     'type': 'object',
     'properties': {
@@ -15,6 +15,12 @@ const ownerSchema = {
         'login': {
             'type': 'string',
             'index': true
+        },
+        'isOwner': {
+            'type': 'bool' // owner / contributor
+        },
+        'repoId': {
+            'type': 'integer'
         },
         'avatarUrl': {
             'type': 'string'
@@ -65,4 +71,4 @@ const ownerSchema = {
     'required': ['id', 'login']
 }
 
-export default ownerSchema
+export default authorSchema

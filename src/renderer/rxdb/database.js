@@ -12,8 +12,8 @@ const collections = [
     sync: false
   },
   {
-    name: 'owners',
-    schema: require('./schemas/ownerSchema.js').default,
+    name: 'authors',
+    schema: require('./schemas/authorSchema.js').default,
     sync: false
   },
   {

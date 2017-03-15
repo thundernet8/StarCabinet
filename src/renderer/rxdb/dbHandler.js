@@ -97,14 +97,12 @@ export default class DBHandler {
         let reposCollection = this.RxDB.repos
         let inserts = []
         let index = 0
-        let owners = []
         let repoIds = []
 
         repos.reverse()
         repos.forEach((repo) => {
             index++
             repoIds.push(repo.id)
-            owners.push(repo.owner)
             inserts.push(reposCollection.upsertExcludeFields({
                 key: repo.id.toString(),
                 id: repo.id,
@@ -192,7 +190,9 @@ export default class DBHandler {
         // now remove some repos in db but not in fetched data(they were unstarred)
         await reposCollection.find({id: {$nin: repoIds}}).remove()
 
-        return Promise.all(inserts)
+        const results = await Promise.all(inserts)
+
+        return results.map(result => result.toJSON())
     }
 
     getRepos = async (conditions) => {
@@ -321,21 +321,25 @@ export default class DBHandler {
     upsertOwners = async (repos) => {
         this.checkInstance()
 
-        const ownersCollection = this.RxDB.owners
+        const authorsCollection = this.RxDB.authors
 
         let owners = {}
         repos.forEach((repo) => {
             // we need this step to remove duplicatives
             // otherwise it will cause Document update conflict
+            repo.owner.repoId = repo.id
             owners['_' + repo.owner.id] = repo.owner
         })
+
+        let ownerIds = []
         let inserts = []
         for (let key in owners) {
             if (!owners.hasOwnProperty(key)) {
                 continue
             }
             let owner = owners[key]
-            inserts.push(ownersCollection.upsert({
+            ownerIds.push(owner.id)
+            inserts.push(authorsCollection.upsert({
                 key: owner.id.toString(),
                 id: owner.id,
                 login: owner.login,
@@ -353,11 +357,58 @@ export default class DBHandler {
                 eventsUrl: owner.events_url,
                 receivedEventsUrl: owner.received_events_url,
                 type: owner.type,
-                siteAdmin: owner.site_admin
+                siteAdmin: owner.site_admin,
+                isOwner: true,
+                repoId: owner.repoId
             }))
         }
 
-        return Promise.all(inserts)
+        // now remove some owners in db but not in fetched data
+        await authorsCollection.find({isOwner: {$eq: true}, id: {$nin: ownerIds}}).remove()
+
+        const results = await Promise.all(inserts)
+
+        return results.map(result => result.toJSON())
+    }
+
+    upsertContributors = async (repoId, contributors) => {
+        this.checkInstance()
+
+        const authorsCollection = this.RxDB.authors
+
+        let inserts = []
+        contributors.forEach((contributor) => {
+            inserts.push(authorsCollection.upsert({
+                key: contributor.id.toString(),
+                id: contributor.id,
+                login: contributor.login,
+                avatarUrl: contributor.avatar_url,
+                gravatarId: contributor.gravatar_id,
+                url: contributor.url,
+                htmlUrl: contributor.html_url,
+                followersUrl: contributor.followers_url,
+                followingUrl: contributor.following_url,
+                gistsUrl: contributor.gists_url,
+                starredUrl: contributor.starred_url,
+                subscriptionsUrl: contributor.subscriptions_url,
+                organizationsUrl: contributor.organizations_url,
+                reposUrl: contributor.repos_url,
+                eventsUrl: contributor.events_url,
+                receivedEventsUrl: contributor.received_events_url,
+                type: contributor.type,
+                siteAdmin: contributor.site_admin,
+                isOwner: false,
+                repoId
+                // contributions
+            }))
+        })
+
+        // now remove some contributors in db but not in fetched data
+        await authorsCollection.find({repoId: {$eq: repoId}, isOwner: {$eq: false}, id: {$nin: ownerIds}}).remove()
+
+        const results = await Promise.all(inserts)
+
+        return results.map(result => result.toJSON())
     }
 
     recordReposCount = async (count) => {
