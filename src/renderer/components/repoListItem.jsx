@@ -58,7 +58,7 @@ export default class RepoListItem extends React.Component {
 
     render () {
         SCLogger('render repo item')
-        const klass = classNames('repoListItem animated slideInUp', styles.repoListItem, {[styles.repoSelected]: this.state.selected})
+        const klass = classNames('repoListItem animated fadeIn', styles.repoListItem, {[styles.repoSelected]: this.state.selected})
         return (
             <div className={klass} onClick={this.selectRepo}>
                 <div className={styles.repoItemInner}>
