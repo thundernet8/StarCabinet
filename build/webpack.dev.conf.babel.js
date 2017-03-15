@@ -33,7 +33,7 @@ let devConfig = {
       {
         test: /\.jsx$/,
         exclude: /node_modules/,
-        loaders: ['react-hot-loader', 'babel-loader?presets[]=react&presets[]=es2015&presets[]=stage-2']
+        loaders: ['react-hot-loader', 'babel-loader?presets[]=react&presets[]=es2015&presets[]=es2017&presets[]=stage-2']
       }
     ]
   },

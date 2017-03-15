@@ -13,7 +13,10 @@ let appProdConfig = {
   devtool: false, // '#source-map',
 
   entry: {
-    app: './src/renderer/index.jsx'
+    app: [
+        'babel-polyfill',
+        './src/renderer/index.jsx'
+    ]
   },
 
   output: {
@@ -27,7 +30,7 @@ let appProdConfig = {
     rules: [
       {
         test: /\.jsx$/,
-        loader: 'babel-loader?presets[]=react&presets[]=es2015&presets[]=stage-2',
+        loader: 'babel-loader?presets[]=react&presets[]=es2015&presets[]=es2017&presets[]=stage-2',
         exclude: /node_modules/
       }
     ]
@@ -39,11 +42,11 @@ let appProdConfig = {
         NODE_ENV: JSON.stringify('production')
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: {
+    //     warnings: false
+    //   }
+    // }),
     new OptimizeCssAssetsPlugin({
       assetNameRegExp: /\.min\.css$/g,
       cssProcessor: require('cssnano'),
@@ -73,7 +76,10 @@ let electronProdConfig = {
   devtool: false, // '#source-map',
 
   entry: {
-    electron: './src/main/index.js'
+    electron: [
+        'babel-polyfill',
+        './src/main/index.js'
+    ]
   },
 
   output: {
