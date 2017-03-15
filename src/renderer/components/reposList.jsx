@@ -1,7 +1,7 @@
 import React                        from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main.scss'
-import RepoItem                     from '../containers/repoListItem'
+import RepoItem                     from '../components/repoListItem'
 
 // repos list wrapper
 export default class ReposList extends React.Component {

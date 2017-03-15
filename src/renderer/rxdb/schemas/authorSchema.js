@@ -1,12 +1,12 @@
 const authorSchema = {
     'title': 'author schema',
-    'description': 'describes a single repository owner/contributors',
+    'description': 'describes a single repository owner/other contributors',
     'version': 0,
     'type': 'object',
     'properties': {
         'key': {
             'type': 'string',
-            'primary': true // juse string of id
+            'primary': true
         },
         'id': {
             'type': 'integer',
@@ -17,7 +17,7 @@ const authorSchema = {
             'index': true
         },
         'isOwner': {
-            'type': 'bool' // owner / contributor
+            'type': 'bool' // owner / other contributor
         },
         'repoId': {
             'type': 'integer'

@@ -1,6 +1,5 @@
 import * as RxDB                    from 'rxdb'
 import Logger                       from '../utils/logHelper'
-import { dbCollectionChange }       from '../actions/dbHooks'
 import { extendRxDB }               from './dbExtension'
 
 RxDB.plugin(require('pouchdb-adapter-idb'))

@@ -4,6 +4,7 @@ import styles                       from '../styles/main'
 import {
     Icon, Tooltip
 }                                   from 'antd'
+import RepoContributorsBar          from '../containers/repoContributorsBar'
 import RepoTagsBar                  from '../containers/repoTagsBar'
 import RepoReadme                   from '../containers/repoReadme'
 
@@ -30,6 +31,7 @@ export default class RepoDetail extends React.Component {
                     <div className={styles.repoMeta}>
                         Latest Push: {pushTime}
                     </div>
+                    <RepoContributorsBar/>
                     <RepoTagsBar/>
                 </header>
                 <RepoReadme/>

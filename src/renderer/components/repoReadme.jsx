@@ -14,11 +14,13 @@ export default class RepoReadme extends React.Component {
             let prefix = 'https://raw.githubusercontent.com/' + repo.fullName + '/' + repo.defaultBranch
             url.indexOf('.') !== 0 && (prefix += '/')
 
-            return prefix
+            return prefix + url
         }
         return url
     }
 
+    // some readme markdown files includes html img tags
+    // and also for relative src should be replaced
     replaceImageSrc = (content) => {
         const repo = this.props.selectedRepo
         let prefix = 'https://raw.githubusercontent.com/' + repo.fullName + '/' + repo.defaultBranch + '/'

@@ -340,7 +340,7 @@ export default class DBHandler {
             let owner = owners[key]
             ownerIds.push(owner.id)
             inserts.push(authorsCollection.upsert({
-                key: owner.id.toString(),
+                key: owner.repoId + '_' + owner.id,
                 id: owner.id,
                 login: owner.login,
                 avatarUrl: owner.avatar_url,
@@ -374,41 +374,59 @@ export default class DBHandler {
     upsertContributors = async (repoId, contributors) => {
         this.checkInstance()
 
+        const repo = await this.RxDB.repos.findOne({id: {$eq: repoId}}).exec()
+        if (!repo) {
+            return false
+        }
+
         const authorsCollection = this.RxDB.authors
 
+        let contributorIds = []
         let inserts = []
         contributors.forEach((contributor) => {
-            inserts.push(authorsCollection.upsert({
-                key: contributor.id.toString(),
-                id: contributor.id,
-                login: contributor.login,
-                avatarUrl: contributor.avatar_url,
-                gravatarId: contributor.gravatar_id,
-                url: contributor.url,
-                htmlUrl: contributor.html_url,
-                followersUrl: contributor.followers_url,
-                followingUrl: contributor.following_url,
-                gistsUrl: contributor.gists_url,
-                starredUrl: contributor.starred_url,
-                subscriptionsUrl: contributor.subscriptions_url,
-                organizationsUrl: contributor.organizations_url,
-                reposUrl: contributor.repos_url,
-                eventsUrl: contributor.events_url,
-                receivedEventsUrl: contributor.received_events_url,
-                type: contributor.type,
-                siteAdmin: contributor.site_admin,
-                isOwner: false,
-                repoId
-                // contributions
-            }))
+            if (contributor.id !== repo.owner) {
+                contributorIds.push(contributor.id)
+                inserts.push(authorsCollection.upsert({
+                    key: repoId + '_' + contributor.id,
+                    id: contributor.id,
+                    login: contributor.login,
+                    avatarUrl: contributor.avatar_url,
+                    gravatarId: contributor.gravatar_id,
+                    url: contributor.url,
+                    htmlUrl: contributor.html_url,
+                    followersUrl: contributor.followers_url,
+                    followingUrl: contributor.following_url,
+                    gistsUrl: contributor.gists_url,
+                    starredUrl: contributor.starred_url,
+                    subscriptionsUrl: contributor.subscriptions_url,
+                    organizationsUrl: contributor.organizations_url,
+                    reposUrl: contributor.repos_url,
+                    eventsUrl: contributor.events_url,
+                    receivedEventsUrl: contributor.received_events_url,
+                    type: contributor.type,
+                    siteAdmin: contributor.site_admin,
+                    isOwner: false,
+                    repoId
+                    // contributions
+                }))
+            }
         })
 
         // now remove some contributors in db but not in fetched data
-        await authorsCollection.find({repoId: {$eq: repoId}, isOwner: {$eq: false}, id: {$nin: ownerIds}}).remove()
+        await authorsCollection.find({repoId: {$eq: repoId}, isOwner: {$eq: false}, id: {$nin: contributorIds}}).remove()
 
-        const results = await Promise.all(inserts)
+        await Promise.all(inserts)
 
-        return results.map(result => result.toJSON())
+        return await this.getRepoContributors(repoId)
+    }
+
+    getRepoContributors = async (repoId) => {
+        this.checkInstance()
+
+        const authorsCollection = this.RxDB.authors
+        const docs = await authorsCollection.find({repoId: {$eq: repoId}}).exec()
+
+        return docs.map(doc => doc.toJSON())
     }
 
     recordReposCount = async (count) => {

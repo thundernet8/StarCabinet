@@ -423,6 +423,21 @@
     width: 240px;
 }
 
+.contributorsBar {
+    margin-top: 10px;
+    line-height: 100%;
+    >a {
+        display: inline-block;
+        img {
+            display: block;
+            width: 24px;
+            height: 24px;
+            margin: 2px;
+            border-radius: 3px;
+        }
+    }
+}
+
 .repoDetailInner {
     display: flex;
     flex-direction: column;
@@ -457,7 +472,7 @@
         }
         >.repoTags {
             position: relative;
-            padding: 15px 0 0;
+            padding: 10px 0 0;
             line-height: 30px;
             >i {
                 font-size: 20px;

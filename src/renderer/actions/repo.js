@@ -148,17 +148,17 @@ export const removeTagForRepo = (id, tagName) => {
     }
 }
 
-export const getSelectedRepoTags = (repoId) => {
+export const getSelectedRepoTags = (id) => {
     return (dispatch, getState) => {
         dispatch({
             type: CONSTANTS.QUERY_REPO_TAGS,
-            tags: []
+            id
         })
 
         const state = getState()
 
         const dbHandler = new DBHandler(state.db)
-        return dbHandler.initDB().then(() => dbHandler.getRepoTags(repoId))
+        return dbHandler.initDB().then(() => dbHandler.getRepoTags(id))
         .then((tags) => {
             dispatch({
                 type: CONSTANTS.QUERY_REPO_TAGS_SUCCESS,
@@ -166,7 +166,7 @@ export const getSelectedRepoTags = (repoId) => {
             })
 
             // also add tags to the repo and replace the repo in repos list
-            let repo = state.repos['_' + repoId]
+            let repo = state.repos['_' + id]
             if (repo) {
                 repo._tags = tags
                 dispatch(replaceReposListItem(repo))
@@ -185,17 +185,17 @@ export const getSelectedRepoTags = (repoId) => {
     }
 }
 
-export const getSelectedRepoCategories = (repoId) => {
+export const getSelectedRepoCategories = (id) => {
     return (dispatch, getState) => {
         dispatch({
             type: CONSTANTS.QUERY_REPO_CATEGORIES,
-            categories: []
+            id
         })
 
         const state = getState()
 
         const dbHandler = new DBHandler(state.db)
-        return dbHandler.initDB().then(() => dbHandler.getRepoCategories(repoId))
+        return dbHandler.initDB().then(() => dbHandler.getRepoCategories(id))
         .then((categories) => {
             dispatch({
                 type: CONSTANTS.QUERY_REPO_CATEGORIES_SUCCESS,
@@ -203,7 +203,7 @@ export const getSelectedRepoCategories = (repoId) => {
             })
 
             // also add categories to the repo and replace the repo in repos list
-            let repo = state.repos['_' + repoId]
+            let repo = state.repos['_' + id]
             if (repo) {
                 repo._categories = categories
                 dispatch(replaceReposListItem(repo))
@@ -214,6 +214,47 @@ export const getSelectedRepoCategories = (repoId) => {
         .catch((err) => {
             dispatch({
                 type: CONSTANTS.QUERY_REPO_CATEGORIES_FAIL,
+                err
+            })
+
+            throw new Error(err)
+        })
+    }
+}
+
+export const getSelectedRepoContributors = (id) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: CONSTANTS.QUERY_REPO_CONTRIBUTORS,
+            id
+        })
+
+        const state = getState()
+
+        const dbHandler = new DBHandler(state.db)
+        return dbHandler.initDB().then(() => dbHandler.getRepoContributors(id))
+        .then((contributors) => {
+            dispatch({
+                type: CONSTANTS.QUERY_REPO_CONTRIBUTORS_SUCCESS,
+                contributors
+            })
+
+            // also add contributors to the repo and replace the repo in repos list
+            let repo = state.repos['_' + id]
+            if (repo) {
+                repo._contributors = contributors
+                repo._hotChange = ['contributors']
+                dispatch(replaceReposListItem(repo))
+            }
+
+            // if it has same id with selectedRepo, also replace selectedRepo
+            dispatch(updateSelectedRepo(id, {rxChange: parseInt((new Date()).getTime() / 1000)}))
+
+            return contributors
+        })
+        .catch((err) => {
+            dispatch({
+                type: CONSTANTS.QUERY_REPO_CONTRIBUTORS_FAIL,
                 err
             })
 
@@ -393,7 +434,7 @@ export const updateRepoContributors = (id, contributors) => {
                 repo
             })
 
-            return repoInList
+            return repo
         })
         .catch((err) => {
             dispatch({
