@@ -2,6 +2,8 @@ import React, { PropTypes }                 from 'react'
 import classNames                           from 'classnames'
 import styles                               from '../styles/main'
 import { Icon, Modal, Input, Alert }        from 'antd'
+import * as EVENTS                          from '../../shared/events'
+import { ipcRenderer }                      from 'electron'
 
 export default class MainGroupFooter extends React.Component {
     static propTypes = {
@@ -54,6 +56,10 @@ export default class MainGroupFooter extends React.Component {
         })
     }
 
+    openSettingWindow = () => {
+        ipcRenderer.send(EVENTS.OPEN_SETTING_WIN, '')
+    }
+
     componentWillReceiveProps (nextProps) {
         if (nextProps.catAdd) {
             const catAddResult = nextProps.catAdd
@@ -75,7 +81,7 @@ export default class MainGroupFooter extends React.Component {
     render () {
         return (
             <div className={classNames('groupFooter', styles.groupFooter)}>
-                <Icon className={classNames('settingBtn', styles.settingBtn)} type="setting"/>
+                <Icon className={classNames('settingBtn', styles.settingBtn)} type="setting" onClick={this.openSettingWindow}/>
                 <Icon className={classNames('addCatBtn', styles.addCatBtn)} type="plus" onClick={this.showAddCatDialog}/>
                 <Modal title = "Add a new category" wrapClassName = "vertical-center-modal" width = {275} visible = {this.state.modalVisible} closable = {false} okText = "OK"
                 cancelText = "Cancel" confirmLoading = {this.state.submitting} maskClosable = {false} onOk = {this.submitCatName} onCancel = {this.closeAddCatDialog}>

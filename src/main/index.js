@@ -9,7 +9,8 @@ import services                       from './services'
 // be closed automatically when the JavaScript object is garbage collected.
 let win = {
   login: null,
-  main: null
+  main: null,
+  setting: null
 }
 
 function createWindow () {

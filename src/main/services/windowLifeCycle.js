@@ -1,12 +1,23 @@
 import { ipcMain, BrowserWindow }      from 'electron'
 import * as EVENTS                     from '../../shared/events'
 import createMainWindow                from '../windows/main'
+import createSettingWindow             from '../windows/setting'
 
 const windowLifeCycle = (globalWin) => {
-  // handle close window events
+  // handle open/close window events
   ipcMain.on(EVENTS.CLOSE_LOGIN, (event, arg) => {
     let window = BrowserWindow.getFocusedWindow()
     window.close()
+  })
+
+  ipcMain.on(EVENTS.OPEN_SETTING_WIN, (event, arg) => {
+      if (globalWin.setting) return
+      createSettingWindow(globalWin)
+  })
+
+  ipcMain.on(EVENTS.CLOSE_SETTING_WIN, (event, arg) => {
+      if (!globalWin.setting) return
+      globalWin.setting.close()
   })
 
   // user logged in -> close login window and open main window
