@@ -45,7 +45,11 @@ let appProdConfig = {
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
-      }
+      },
+      mangle: {
+        except: ['exports', 'require', 'RxSchema', 'RxDatabase']
+      },
+      sourceMap: false
     }),
     new OptimizeCssAssetsPlugin({
       assetNameRegExp: /\.min\.css$/g,
