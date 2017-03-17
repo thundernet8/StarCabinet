@@ -5,7 +5,8 @@ import Actions                      from '../actions'
 // Redux connection
 const mapStateToProps = (state) => {
     return {
-        profile: state.profile
+        profile: state.profile,
+        db: state.db
     }
 }
 

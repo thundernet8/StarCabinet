@@ -1,9 +1,10 @@
-import {electron, app, BrowserWindow} from 'electron'
-import path                           from 'path'
-import fs                             from 'fs'
-import url                            from 'url'
-import createLoginWindow              from './windows/login'
-import services                       from './services'
+import {electron, app, BrowserWindow, Menu} from 'electron'
+import path                                 from 'path'
+import fs                                   from 'fs'
+import url                                  from 'url'
+import createLoginWindow                    from './windows/login'
+import services                             from './services'
+import {setAppMenu}                         from './configs/menu'
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -25,6 +26,7 @@ function createWindow () {
   }
 
   services.register(win)
+  setAppMenu()
 }
 
 // Make app single instance

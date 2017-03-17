@@ -75,7 +75,7 @@ export default class LoginPage extends React.Component {
         if (success) {
             message.success(msg)
         } else {
-            message.error(msg)
+            message.info(msg)
         }
     }
 
@@ -83,13 +83,13 @@ export default class LoginPage extends React.Component {
         ipcRenderer.sendSync(EVENTS.CLOSE_LOGIN, '')
     }
 
-    componentDidMount () {
+    componentWillMount () {
         this.props.onGetLocalCredentials(true)
         .then((msg) => {
             this.showLoginMsg(true, msg)
         })
-        .catch((err) => {
-            this.showLoginMsg(false, err.message)
+        .catch(() => {
+            // this.showLoginMsg(false, err.message)
         })
     }
 

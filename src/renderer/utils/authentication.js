@@ -49,7 +49,7 @@ export default class Authentication {
 
   static saveProfileToLocal (profile) {
     let promise = new Promise((resolve, reject) => {
-      localStorage.setItem(CONSTANTS.LOCAL_STORAGE_USER_PROFILE, JSON.stringify(profile))
+      // localStorage.setItem(CONSTANTS.LOCAL_STORAGE_USER_PROFILE, JSON.stringify(profile))
       resolve(profile)
     })
 

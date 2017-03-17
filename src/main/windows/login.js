@@ -15,7 +15,7 @@ function createLoginWindow (wins) {
         transparent: true
     })
 
-    win.setMenu(null)
+    // win.setMenu(null)
 
     win.loadURL(url.format({
         pathname: path.resolve(__dirname, 'index.html'),

@@ -25,8 +25,8 @@
     "build-dev": "rimraf dist && mkdirp dist && cross-env NODE_ENV=development PORT=3000 webpack --progress --hide-modules --config build/webpack.dev.conf.babel.js",
     "dev": "npm run build-dev && npm run dev-server",
     "start": "electron .",
-    "pack": "build --dir",
-    "dist": "build",
+    "pack": "npm run build && build --dir",
+    "dist": "npm run build && build",
     "rebuild": "electron-rebuild"
   },
   "repository": {
