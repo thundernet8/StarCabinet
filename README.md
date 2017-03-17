@@ -27,6 +27,9 @@
     * 支持离线查看仓库并支持上述所有功能操作，包括readme文件的查看
     * 高效的数据条件化呈现(不用频繁请求服务器)
 
+* 数据
+    支持Stars和自定义数据的导出备份和导入恢复
+
 ## Screenshots
 ![Login](screenshots/StarCabinet-login.png)
 
