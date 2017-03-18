@@ -1,35 +1,28 @@
-os: unstable
+version: 0.1.{build}
+
+platform:
+  - x64
+
 cache:
   - node_modules
-  - app/node_modules
-environment:
-  matrix:
-    - nodejs_version: 6
+  - app\node_modules
+  - '%APPDATA%\npm-cache'
+  - '%USERPROFILE%\.electron'
+
+init:
+  - git config --global core.autocrlf input
+
 install:
-  - ps: Install-Product node $env:nodejs_version
-  - set CI=true
-  - npm install -g npm@latest
-  - npm install -g windows-build-tools
-  - set PATH=%APPDATA%\npm;%PATH%
+  - ps: Install-Product node 6 x64
+  - git reset --hard HEAD
+  - npm install npm -g
+  - npm install electron-builder@next # force install next version to test electron-builder
   - npm install
-matrix:
-  fast_finish: true
-build:
-  verbosity: minimal
-version: '0.0.1 build {build}'
-shallow_clone: true
-clone_depth: 1
-test_script:
+  - npm prune
+
+build_script:
+  - node --version
+  - npm --version
   - npm run dist
-deploy:
-  release: StarCabinet-v$(appveyor_build_version)
-  description: ''
-  provider: GitHub
-  auth_token:
-    secure: N07TjAsN/mIZZOu/6w6CxLU7LOSSKXGcdQhjNznHqG4lN15eyBmWkxaApycOEhkW # your encrypted token from GitHub
-  artifact: /.*\.nupkg/            # upload all NuGet packages to release assets
-  draft: true
-  prerelease: false
-  on:
-    branch: master                 # release from master branch only
-    appveyor_repo_tag: true        # deploy on tag push only
+
+test: off
