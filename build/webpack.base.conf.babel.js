@@ -11,7 +11,8 @@ export default {
   output: {
     path: path.resolve(__dirname, '../dist'),
     publicPath: '../dist/',
-    filename: '[name].js'
+    filename: '[name].js',
+    libraryTarget: 'commonjs'
   },
   resolve: {
     extensions: ['.js', '.jsx', '.css', '.scss'],
@@ -24,6 +25,9 @@ export default {
       'src': path.resolve(__dirname, '../src')
     }
   },
+  externals: [
+      "keytar"
+  ],
   target: 'electron-renderer',  // important
   module: {
     rules: [
