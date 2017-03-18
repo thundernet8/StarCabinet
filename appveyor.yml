@@ -1,4 +1,4 @@
-version: 0.1.{build}
+version: 0.0.{build}
 
 platform:
   - x64
@@ -19,10 +19,14 @@ install:
   - npm install electron-builder@next # force install next version to test electron-builder
   - npm install
   - npm prune
+  - cd app
+  - npm install
+  - cd ..
 
 build_script:
   - node --version
   - npm --version
+  - npm run rebuild
   - npm run dist
 
 test: off

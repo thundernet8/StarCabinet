@@ -38,4 +38,3 @@ script:
 branches:
   only:
   - master
-  - test
