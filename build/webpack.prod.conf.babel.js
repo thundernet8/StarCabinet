@@ -47,7 +47,7 @@ let appProdConfig = {
         warnings: false
       },
       mangle: {
-        except: ['exports', 'require', 'RxSchema', 'RxDatabase']
+        except: ['exports', 'require', 'RxSchema', 'RxDatabase', 'boolen']
       },
       sourceMap: false
     }),
