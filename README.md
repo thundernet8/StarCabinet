@@ -41,7 +41,7 @@
 ![Setting](screenshots/StarCabinet-setting.png)
 
 ## Demo
-[StarCabinet Demo](https://webapproach.net/starcabinet/)
+[StarCabinet Demo](http://7xrp00.com1.z0.glb.clouddn.com/starcabinet/StarCabinet.mp4)
 
 ## Debug
 直接使用源码的用户，按如下操作:
