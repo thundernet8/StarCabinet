@@ -22,14 +22,14 @@ clone_depth: 1
 test_script:
   - npm run dist
 deploy:
-release: starcabinet-v$(appveyor_build_version)
-description: ''
-provider: GitHub
-auth_token:
-  secure: N07TjAsN/mIZZOu/6w6CxLU7LOSSKXGcdQhjNznHqG4lN15eyBmWkxaApycOEhkW # your encrypted token from GitHub
-artifact: /.*\.nupkg/            # upload all NuGet packages to release assets
-draft: true
-prerelease: false
-on:
-  branch: master                 # release from master branch only
-  appveyor_repo_tag: true        # deploy on tag push only
+  release: StarCabinet-v$(appveyor_build_version)
+  description: ''
+  provider: GitHub
+  auth_token:
+    secure: N07TjAsN/mIZZOu/6w6CxLU7LOSSKXGcdQhjNznHqG4lN15eyBmWkxaApycOEhkW # your encrypted token from GitHub
+  artifact: /.*\.nupkg/            # upload all NuGet packages to release assets
+  draft: true
+  prerelease: false
+  on:
+    branch: master                 # release from master branch only
+    appveyor_repo_tag: true        # deploy on tag push only
