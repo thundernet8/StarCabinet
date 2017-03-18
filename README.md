@@ -1,3 +1,5 @@
+![Travis-build](https://travis-ci.org/thundernet8/StarCabinet.svg?branch=master)
+
 ## StarCabinet
 
 基于React/Electron/Ant Design打造的开源Github Stars管理的跨平台工具

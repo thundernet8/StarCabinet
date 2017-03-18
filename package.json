@@ -9,7 +9,13 @@
       "category": "com.fedepot.starcabinet"
     },
     "win": {
-      "iconUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Atom_editor_logo.svg/1118px-Atom_editor_logo.svg.png"
+      "target": "nsis"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
     },
     "directories": {
       "app": "app",

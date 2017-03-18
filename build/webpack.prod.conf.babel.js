@@ -90,8 +90,13 @@ let electronProdConfig = {
     filename: '[name].js', // for Electron, the main entry name is fixed in package.json, hash should removed
     chunkFilename: '[id].js',
     path: path.resolve(__dirname, '../app/dist'),
-    publicPath: './'
+    publicPath: './',
+    libraryTarget: "commonjs" // important for set externals // http://webpack.github.io/docs/configuration.html#externals
   },
+
+  externals: [
+      "keytar"
+  ],
 
   plugins: [
     new webpack.DefinePlugin({

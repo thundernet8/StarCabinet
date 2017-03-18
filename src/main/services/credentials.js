@@ -1,7 +1,7 @@
 import { ipcMain }          from 'electron'
 import * as EVENTS          from '../../shared/events'
 import * as CONSTANTS       from '../../shared/constants'
-import keytar               from 'keytar'
+const keytar = require('keytar')
 
 const mainGetLocalCredentials = (username) => {
   let password = keytar.getPassword(CONSTANTS.APP, username)

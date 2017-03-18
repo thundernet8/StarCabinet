@@ -65,7 +65,7 @@ const authorSchema = {
             'type': 'string'
         },
         'siteAdmin': {
-            'type': 'boolen'
+            'type': 'bool'
         }
     },
     'required': ['id', 'login']
