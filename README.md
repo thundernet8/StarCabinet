@@ -1,4 +1,5 @@
-![Travis-build](https://travis-ci.org/thundernet8/StarCabinet.svg?branch=master)
+![Travis Build status](https://travis-ci.org/thundernet8/StarCabinet.svg?branch=master)
+[![Appveyor Build status](https://ci.appveyor.com/api/projects/status/2hpsvxeamqegjkn1?svg=true)](https://ci.appveyor.com/project/thundernet8/starcabinet)
 
 ## StarCabinet
 
@@ -36,6 +37,8 @@
 ![Login](screenshots/StarCabinet-login.png)
 
 ![Main](screenshots/StarCabinet-main.png)
+
+![Setting](screenshots/StarCabinet-setting.png)
 
 ## Demo
 [StarCabinet Demo](https://webapproach.net/starcabinet/)
