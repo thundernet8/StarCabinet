@@ -1,4 +1,4 @@
-import {app, Menu} from 'electron'
+import {app, Menu, BrowserWindow} from 'electron'
 
 const menuTemplate = [{
     label: 'Application',
@@ -18,7 +18,12 @@ const menuTemplate = [{
         { label: 'Copy', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
         { label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:' },
         { label: 'Select All', accelerator: 'CmdOrCtrl+A', selector: 'selectAll:' }
-    ]}
+    ]},
+    {label: 'View',
+    submenu: [
+        {label: 'Open DevTools', accelerator: 'Command+D', click: function () { BrowserWindow.getFocusedWindow().webContents.openDevTools() }}
+    ]
+    },
 ]
 
 export const setAppMenu = () => {

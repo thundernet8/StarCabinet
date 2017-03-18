@@ -4,7 +4,8 @@
   "description": "",
   "main": "dist/electron.js",
   "build": {
-    "appId": "StarCabinet",
+    "appId": "com.fedepot.starcabinet",
+    "productName": "StarCabinet",
     "mac": {
       "category": "com.fedepot.starcabinet"
     },
