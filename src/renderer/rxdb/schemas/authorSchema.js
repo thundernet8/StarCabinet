@@ -17,7 +17,7 @@ const authorSchema = {
             'index': true
         },
         'isOwner': {
-            'type': 'boolen' // owner / other contributor
+            'type': 'boolean' // owner / other contributor
         },
         'repoId': {
             'type': 'integer'
@@ -65,7 +65,7 @@ const authorSchema = {
             'type': 'string'
         },
         'siteAdmin': {
-            'type': 'boolen'
+            'type': 'boolean'
         }
     },
     'required': ['id', 'login']
