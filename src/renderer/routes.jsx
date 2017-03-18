@@ -4,7 +4,7 @@ import { IndexRoute, Route, Link, IndexRedirect, Redirect } from 'react-router'
 /* containers */
 import App from './containers/app'
 import MainPage from './containers/mainPage'
-import LoginPage from './containers/loginpage'
+import LoginPage from './containers/loginPage'
 import SettingPage from './containers/settingPage'
 
 const routes = (
