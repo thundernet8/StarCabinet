@@ -23,7 +23,7 @@ const menuTemplate = [{
     submenu: [
         {label: 'Open DevTools', accelerator: 'Command+D', click: function () { BrowserWindow.getFocusedWindow().webContents.openDevTools() }}
     ]
-    },
+    }
 ]
 
 export const setAppMenu = () => {

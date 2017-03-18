@@ -6,6 +6,7 @@
   "build": {
     "appId": "com.fedepot.starcabinet",
     "productName": "StarCabinet",
+    "compression": "maximum",
     "mac": {
       "category": "com.fedepot.starcabinet"
     },
