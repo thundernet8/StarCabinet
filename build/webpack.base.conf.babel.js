@@ -67,7 +67,7 @@ export default {
       {
         test: /\.less$/,
         include: [/global/, /node_modules/],
-        loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader?sourceMap!postcss-loader!less-loader'})
+        loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader?sourceMap!postcss-loader!less-loader?{"modifyVars": {"primary-color": "#87d068"}}'})
       },
       {
         test: /\.less$/,

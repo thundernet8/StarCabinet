@@ -29,8 +29,13 @@ install:
 - npm install electron-builder@next
 - npm install
 - npm prune
+- cd app
+- npm install
+- cd ..
 script:
+- npm run rebuild
 - npm run dist
 branches:
   only:
   - master
+  - test

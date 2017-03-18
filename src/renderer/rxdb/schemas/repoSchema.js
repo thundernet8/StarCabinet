@@ -22,7 +22,7 @@ const repoSchema = {
         'type': 'integer'
       },
       'private': {
-        'type': 'bool'
+        'type': 'boolean'
       },
       'htmlUrl': {
         'type': 'string'
@@ -31,7 +31,7 @@ const repoSchema = {
         'type': 'string'
       },
       'fork': {
-        'type': 'bool'
+        'type': 'boolean'
       },
       'url': {
         'type': 'string'
@@ -198,16 +198,16 @@ const repoSchema = {
         'type': 'string'
       },
       'hasIssues': {
-        'type': 'bool'
+        'type': 'boolean'
       },
       'hasDownloads': {
-        'type': 'bool'
+        'type': 'boolean'
       },
       'hasWiki': {
-        'type': 'bool'
+        'type': 'boolean'
       },
       'hasPages': {
-        'type': 'bool'
+        'type': 'boolean'
       },
       'forksCount': {
         'type': 'integer'
@@ -237,13 +237,13 @@ const repoSchema = {
         'type': 'object',
         'properties': {
           'admin': {
-            'type': 'bool'
+            'type': 'boolean'
           },
           'push': {
-            'type': 'bool'
+            'type': 'boolean'
           },
           'pull': {
-            'type': 'bool'
+            'type': 'boolean'
           }
         }
       },
@@ -252,10 +252,10 @@ const repoSchema = {
           'index': true
       },
       'flag': {
-          'type': 'bool'
+          'type': 'boolean'
       },
       'read': {
-          'type': 'bool'
+          'type': 'boolean'
       },
       'note': {
           'type': 'string'
