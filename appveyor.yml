@@ -22,7 +22,7 @@ clone_depth: 1
 test_script:
   - npm run dist
 deploy:
-release: StarCabinet-v$(appveyor_build_version)
+release: starcabinet-v$(appveyor_build_version)
 description: ''
 provider: GitHub
 auth_token:
