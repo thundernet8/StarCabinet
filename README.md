@@ -1,5 +1,8 @@
 ![Travis Build status](https://travis-ci.org/thundernet8/StarCabinet.svg?branch=master)
 [![Appveyor Build status](https://ci.appveyor.com/api/projects/status/2hpsvxeamqegjkn1?svg=true)](https://ci.appveyor.com/project/thundernet8/starcabinet)
+![React](https://camo.githubusercontent.com/aa1a90473e82b96ff3b11559cd4b55d50714f06c/68747470733a2f2f7261776769742e636f6d2f616c65656e34322f6261646765732f6d61737465722f7372632f72656163742e737667)
+![Redux](https://camo.githubusercontent.com/f763782a28d7a14ce28f8721367002b824be4540/68747470733a2f2f7261776769742e636f6d2f616c65656e34322f6261646765732f6d61737465722f7372632f72656475782e737667)
+![Github](https://camo.githubusercontent.com/2cdddb4559067bfe3723a7c97804f3dfda8fee4b/68747470733a2f2f7261776769742e636f6d2f616c65656e34322f6261646765732f6d61737465722f7372632f6769746875622e737667)
 
 ## StarCabinet
 
