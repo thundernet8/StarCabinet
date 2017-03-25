@@ -1,6 +1,6 @@
 {
   "name": "starcabinet",
-  "version": "0.0.1",
+  "version": "1.0",
   "description": "",
   "main": "dist/electron.js",
   "build": {
