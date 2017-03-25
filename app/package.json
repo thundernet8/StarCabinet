@@ -1,6 +1,6 @@
 {
   "name": "starcabinet",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "productName": "StarCabinet",
   "description": "Github Stars Management Tool",
   "main": "dist/electron.js",
