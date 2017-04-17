@@ -1,4 +1,4 @@
-import React, { PropTypes }                 from 'react'
+import React                                from 'react'
 import classNames                           from 'classnames'
 import styles                               from '../styles/main'
 import { Icon, Modal, Input, Alert }        from 'antd'
@@ -6,12 +6,6 @@ import * as EVENTS                          from '../../shared/events'
 import { ipcRenderer }                      from 'electron'
 
 export default class MainGroupFooter extends React.Component {
-    static propTypes = {
-        modalVisible: PropTypes.bool,
-        submitting: PropTypes.bool,
-        error: PropTypes.any
-    }
-
     state = {
         modalVisible: false,
         submitting: false,

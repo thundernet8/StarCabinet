@@ -1,4 +1,4 @@
-import React, { PropTypes }         from 'react'
+import React                        from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main'
 import {
@@ -8,12 +8,6 @@ import SCLogger                     from '../utils/logHelper'
 const CheckboxGroup = Checkbox.Group
 
 export default class RepoClassifyTool extends React.Component {
-
-    static propTypes = {
-        visible: PropTypes.bool,
-        categorySelection: PropTypes.array
-    }
-
     state = {
         visible: false,
         categorySelection: []

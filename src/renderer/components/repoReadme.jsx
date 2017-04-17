@@ -6,7 +6,6 @@ import ReactMarkdown                from 'react-markdown'
 import 'github-markdown-css'
 
 export default class RepoReadme extends React.Component {
-
     transformImageUri = (url) => {
         const regex = /http(s?):\/\//i
         if (!regex.test(url)) {

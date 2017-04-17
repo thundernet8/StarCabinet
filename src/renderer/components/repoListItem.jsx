@@ -1,4 +1,4 @@
-import React, { PropTypes }         from 'react'
+import React                        from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main.scss'
 import { Rate, Icon, Row, Col }     from 'antd'
@@ -6,12 +6,6 @@ import SCLogger                     from '../utils/logHelper'
 
 // a single item of repos list
 export default class RepoListItem extends React.Component {
-
-    static propTypes = {
-        selected: PropTypes.bool,
-        score: PropTypes.number
-    }
-
     state = {
         selected: false,
         score: this.props.repo.score

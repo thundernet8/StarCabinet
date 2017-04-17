@@ -9,7 +9,6 @@ import RepoNoteTool                 from './repoNoteTool'
 import RepoClassifyTool             from '../containers/repoClassifyTool'
 
 export default class RepoDetailToolbar extends React.Component {
-
     viewInGithub = () => {
         console.log(this.props.selectedRepo)
         if (this.props.selectedRepo) {

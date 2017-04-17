@@ -8,7 +8,6 @@ import MainGroupFooter              from '../containers/mainGroupFooter'
 
 // left part of the main window
 export default class MainGroupPane extends React.Component {
-
     render () {
         return (
             <div className={classNames('left', styles.left)}>

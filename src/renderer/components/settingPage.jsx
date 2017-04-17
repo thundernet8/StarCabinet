@@ -1,4 +1,4 @@
-import React, { PropTypes }                         from 'react'
+import React                                        from 'react'
 import { Link }                                     from 'react-router'
 import styles                                       from '../styles/setting.scss'
 import * as EVENTS                                  from '../../shared/events'
@@ -16,13 +16,6 @@ import { quitElectronApp, restartElectronApp }      from '../utils/electronApp'
 const defaultAvatar = require('../assets/images/avatar-default.png')
 
 export default class SettingPage extends React.Component {
-    static propTypes = {
-        importing: PropTypes.bool,
-        exporting: PropTypes.bool,
-        restarModalVisible: PropTypes.bool,
-        quitModalVisible: PropTypes.bool
-    }
-
     state = {
         importing: false,
         exporting: false,

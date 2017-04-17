@@ -1,11 +1,10 @@
-import React, { PropTypes }         from 'react'
+import React                        from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main'
 import { Tooltip }                  from 'antd'
 import SCLogger                     from '../utils/logHelper'
 
 export default class RepoContributorsBar extends React.Component {
-
     componentWillReceiveProps (nextProps) {
         if (nextProps.selectedRepo && !nextProps.selectedRepo._contributors) {
             this.props.onFetchRepoContributors(nextProps.selectedRepo)

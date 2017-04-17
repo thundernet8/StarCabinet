@@ -1,4 +1,4 @@
-import React, { PropTypes }         from 'react'
+import React                        from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main'
 import {
@@ -7,13 +7,6 @@ import {
 }                                   from 'antd'
 
 export default class RepoTagsBar extends React.Component {
-
-    static propTypes = {
-        tags: PropTypes.array,
-        inputVisible: PropTypes.bool,
-        inputValue: PropTypes.string
-    }
-
     state = {
         tags: [],
         inputVisible: false,

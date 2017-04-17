@@ -1,4 +1,4 @@
-import React, { PropTypes }         from 'react'
+import React                        from 'react'
 import { Link }                     from 'react-router'
 import offlineTitle                 from '../utils/offlineTitle'
 import { message }                  from 'antd'

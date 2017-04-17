@@ -9,7 +9,6 @@ import RepoTagsBar                  from '../containers/repoTagsBar'
 import RepoReadme                   from '../containers/repoReadme'
 
 export default class RepoDetail extends React.Component {
-
     render () {
         if (!this.props.selectedRepo) {
             return null

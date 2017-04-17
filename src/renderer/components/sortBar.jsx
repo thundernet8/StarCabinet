@@ -1,4 +1,4 @@
-import React, { PropTypes }         from 'react'
+import React                        from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main'
 import {
@@ -7,11 +7,6 @@ import {
 import * as CONSTANTS               from '../constants'
 
 export default class SortBar extends React.Component {
-    static propTypes = {
-        desc: PropTypes.bool,
-        by: PropTypes.string
-    }
-
     state = {
         desc: true,
         by: CONSTANTS.ORDER_BY_DEFAULT

@@ -1,4 +1,4 @@
-import React, { PropTypes }         from 'react'
+import React                        from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main'
 import {
@@ -7,12 +7,6 @@ import {
 import CopyToClipboard              from 'react-copy-to-clipboard'
 
 export default class RepoLinksTool extends React.Component {
-
-    static propTypes = {
-        visible: PropTypes.bool,
-        copied: PropTypes.bool
-    }
-
     state = {
         visible: false,
         copied: false

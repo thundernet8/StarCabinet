@@ -1,4 +1,4 @@
-import React, { PropTypes }         from 'react'
+import React                        from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main'
 import {
@@ -7,10 +7,6 @@ import {
 import * as CONSTANTS               from '../constants'
 
 export default class FilterBar extends React.Component {
-    static propTypes = {
-        filters: PropTypes.array
-    }
-
     state = {
         filters: []
     }

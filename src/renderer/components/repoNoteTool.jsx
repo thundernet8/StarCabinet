@@ -1,4 +1,4 @@
-import React, { PropTypes }         from 'react'
+import React                        from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main'
 import {
@@ -6,12 +6,6 @@ import {
 }                                   from 'antd'
 
 export default class RepoNoteTool extends React.Component {
-
-    static propTypes = {
-        visible: PropTypes.bool,
-        note: PropTypes.string
-    }
-
     state = {
         visible: false,
         note: ''

@@ -1,4 +1,4 @@
-import React, { PropTypes }         from 'react'
+import React                        from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main'
 import { Menu, Icon }               from 'antd'
@@ -9,11 +9,6 @@ const noSubsCatKeys = [CONSTANTS.GROUP_TYPE_ALL, CONSTANTS.GROUP_TYPE_UNKNOWN]
 const hasSubsCatKeys = [CONSTANTS.GROUP_TYPE_LANGUAGE, CONSTANTS.GROUP_TYPE_CATEGORY]
 
 export default class MainGroupNavs extends React.Component {
-    static propTypes = {
-        current: PropTypes.string,
-        openKeys: PropTypes.array
-    }
-
     state = {
         current: CONSTANTS.GROUP_TYPE_ALL,
         openKeys: [CONSTANTS.GROUP_TYPE_ALL]

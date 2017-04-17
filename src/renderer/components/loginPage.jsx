@@ -1,4 +1,4 @@
-import React, { PropTypes }                         from 'react'
+import React                                        from 'react'
 import { Link }                                     from 'react-router'
 import styles                                       from '../styles/login.scss'
 import * as EVENTS                                  from '../../shared/events'
@@ -13,12 +13,6 @@ message.config({
 })
 
 export default class LoginPage extends React.Component {
-    static propTypes = {
-        submitting: PropTypes.bool,
-        username: PropTypes.string,
-        password: PropTypes.string
-    }
-
     constructor (props) {
         super(props)
         this.state = {

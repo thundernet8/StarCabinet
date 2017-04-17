@@ -1,4 +1,4 @@
-import React, { PropTypes }         from 'react'
+import React                        from 'react'
 import classNames                   from 'classnames'
 import styles                       from '../styles/main.scss'
 import RepoDetailToolbar            from '../containers/repoDetailToolbar'
@@ -6,7 +6,6 @@ import RepoDetail                   from '../containers/repoDetail'
 
 // right part of the main window - for displaying selected repo detail
 export default class MainDetailPane extends React.Component {
-
     render () {
         return (
             <div className={classNames('right', styles.right)}>
