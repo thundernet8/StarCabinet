@@ -3,7 +3,6 @@ import classNames from "classnames";
 import styles from "../styles/main";
 import { Menu, Icon } from "antd";
 import * as CONSTANTS from "../constants";
-import indexOf from "lodash/indexOf";
 const SubMenu = Menu.SubMenu;
 const noSubsCatKeys = [CONSTANTS.GROUP_TYPE_ALL, CONSTANTS.GROUP_TYPE_UNKNOWN];
 const hasSubsCatKeys = [
