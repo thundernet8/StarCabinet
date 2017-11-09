@@ -1,86 +1,92 @@
-import * as RxDB                    from 'rxdb'
-import Logger                       from '../utils/logHelper'
-import { extendRxDB }               from './dbExtension'
+import * as RxDB from "rxdb";
+import Logger from "../utils/logHelper";
+import { extendRxDB } from "./dbExtension";
 
-RxDB.plugin(require('pouchdb-adapter-idb'))
+RxDB.plugin(require("pouchdb-adapter-idb"));
 
 const collections = [
-  {
-    name: 'repos',
-    schema: require('./schemas/repoSchema.js').default,
-    sync: false
-  },
-  {
-    name: 'authors',
-    schema: require('./schemas/authorSchema.js').default,
-    sync: false
-  },
-  {
-    name: 'me',
-    schema: require('./schemas/meSchema.js').default,
-    sync: false
-  },
-  {
-    name: 'tags',
-    schema: require('./schemas/SCTagSchema.js').default,
-    methods: {
-        countRepos () {
-            return this.repos.length
+    {
+        name: "repos",
+        schema: require("./schemas/repoSchema.js").default,
+        sync: false
+    },
+    {
+        name: "authors",
+        schema: require("./schemas/authorSchema.js").default,
+        sync: false
+    },
+    {
+        name: "me",
+        schema: require("./schemas/meSchema.js").default,
+        sync: false
+    },
+    {
+        name: "tags",
+        schema: require("./schemas/SCTagSchema.js").default,
+        methods: {
+            countRepos() {
+                return this.repos.length;
+            }
+        },
+        sync: false
+    },
+    {
+        name: "categories",
+        schema: require("./schemas/SCCategorySchema.js").default,
+        methods: {
+            countRepos() {
+                return this.repos.length;
+            }
+        },
+        sync: false
+    },
+    {
+        name: "languages",
+        schema: require("./schemas/languageSchema.js").default,
+        methods: {
+            countRepos() {
+                return this.repos.length;
+            }
         }
     },
-    sync: false
-  },
-  {
-    name: 'categories',
-    schema: require('./schemas/SCCategorySchema.js').default,
-    methods: {
-        countRepos () {
-            return this.repos.length
-        }
-    },
-    sync: false
-  },
-  {
-    name: 'languages',
-    schema: require('./schemas/languageSchema.js').default,
-    methods: {
-        countRepos () {
-            return this.repos.length
-        }
+    {
+        name: "settings",
+        schema: require("./schemas/settingSchema.js").default,
+        sync: false
     }
-  },
-  {
-      name: 'settings',
-      schema: require('./schemas/settingSchema.js').default,
-      sync: false
-  }
-]
+];
 
-let dbPromise = null
+let dbPromise = null;
 
 const _create = async function(dbName, dispatch) {
-    Logger(`DatabaseService: creating database ${dbName}..`)
+    Logger(`DatabaseService: creating database ${dbName}..`);
 
-    const db = await RxDB.create({name: dbName, adapter: 'idb', password: ''})
+    const db = await RxDB.create({
+        name: dbName,
+        adapter: "idb",
+        password: ""
+    });
 
-    Logger('DatabaseService: created database')
+    Logger("DatabaseService: created database");
     // debug
     if (window._DEBUG_) {
-      window['sc_db'] = db
-      // db.$.subscribe(changeEvent => Logger(changeEvent))
+        window["sc_db"] = db;
+        // db.$.subscribe(changeEvent => Logger(changeEvent))
     }
 
     // create collections
-    Logger('DatabaseService: create collections')
+    Logger("DatabaseService: create collections");
 
-    const cols = await Promise.all(collections.map(colData => db.collection(colData)))
+    const cols = await Promise.all(
+        collections.map(colData => db.collection(colData))
+    );
 
-    cols.forEach((col) => {
-        extendRxDB(col)
-    })
+    cols.forEach(col => {
+        extendRxDB(col);
+    });
 
     // hooks
-    Logger('DatabaseService: add hooks')
+    Logger("DatabaseService: add hooks");
 
     // TODO
 
@@ -100,12 +106,12 @@ const _create = async function(dbName, dispatch) {
 
     // collections.filter(col => col.sync).map(col => col.name).map(colName => db[colName].sync(syncURL + colName + '/'))
 
-    return db
-}
+    return db;
+};
 
-export function get (dbName, dispatch = null) {
+export function get(dbName, dispatch = null) {
     if (!dbPromise) {
-      dbPromise = _create(dbName, dispatch)
+        dbPromise = _create(dbName, dispatch);
     }
-    return dbPromise
+    return dbPromise;
 }

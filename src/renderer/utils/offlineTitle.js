@@ -1,10 +1,10 @@
-const offlineTitle = (offline) => {
+const offlineTitle = offline => {
     if (offline) {
-        document.title += ' (offline)'
+        document.title += " (offline)";
     } else {
-        let title = document.title
-        document.title = title.replace(' (offline)', '')
+        let title = document.title;
+        document.title = title.replace(" (offline)", "");
     }
-}
+};
 
-export default offlineTitle
+export default offlineTitle;

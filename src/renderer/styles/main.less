@@ -6,12 +6,14 @@
     bottom: 0;
     left: 0;
     right: 0;
-    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+        "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 1.5;
 }
 
 .container {
+    display: flex;
     position: relative;
     width: 100%;
     height: 100%;
@@ -19,9 +21,7 @@
 }
 
 .left {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
     width: 200px;
     height: 100%;
     background-color: rgba(39, 49, 67, 1);
@@ -30,34 +30,29 @@
 }
 
 .mid {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 0;
-    left: 200px;
-    width: 280px;
+    position: relative;
+    width: 300px;
     height: 100%;
     background-color: #fbfbfb;
     border-right: 1px solid rgba(229, 229, 229, 1);
+    display: flex;
+    flex-direction: column;
 }
 
 .right {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: calc(100% - 480px);
+    position: relative;
+    flex: 1;
     height: 100%;
     background-color: #fff; // rgba(246, 246, 247, 1);
 }
 
 .detailContent {
-    height: auto;
+    height: 100%;
     background-repeat: no-repeat;
     background-position: 50% 40%;
     flex: 1;
     overflow: auto;
+    padding-bottom: 40px;
 }
 
 .indicatorWrap {
@@ -153,6 +148,7 @@
     position: absolute;
     top: 5px;
     left: 16px;
+    cursor: pointer;
     &:hover {
         color: #eee;
     }
@@ -165,7 +161,8 @@
     position: absolute;
     top: 5px;
     right: 16px;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
+    cursor: pointer;
     &:hover {
         color: #eee;
         transform: rotate(90deg);
@@ -174,8 +171,9 @@
 
 .searchBox {
     padding: 12px 10px;
-    >span {
+    > span {
         border: 0;
+        z-index: 999;
         &:hover {
             input {
                 border-color: #d9d9d9 !important;
@@ -183,7 +181,7 @@
         }
     }
     input {
-        background: rgb(225,225,225);
+        background: rgb(225, 225, 225);
         text-align: center;
         &:focus {
             box-shadow: none;
@@ -201,7 +199,7 @@
 }
 
 .searchBoxFocused {
-    >.searchFields {
+    > .searchFields {
         margin-top: 0px;
     }
 }
@@ -209,7 +207,7 @@
 .searchFields {
     position: relative;
     padding: 10px 0;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
     margin-top: -36px;
     text-align: center;
 }
@@ -224,15 +222,15 @@
 
 .repoListItem {
     position: relative;
-    padding: 0;;
+    padding: 0;
     border-bottom: 1px solid rgb(230, 235, 239); // 1px solid #f5f5f5;
     // background-color: #fff;
     &.repoSelected {
         background-color: #e5e5e5;
         header {
-            >span {
-                >ul {
-                    >li {
+            > span {
+                > ul {
+                    > li {
                         color: #fff;
                         transition: none;
                     }
@@ -243,9 +241,9 @@
     &:hover {
         background: #eaeaea;
         header {
-            >span {
-                >ul {
-                    >li {
+            > span {
+                > ul {
+                    > li {
                         color: #fff;
                         transition: none;
                     }
@@ -256,11 +254,11 @@
     &:last-child {
         border-bottom: 0;
     }
-    >.repoItemInner {
+    > .repoItemInner {
         padding: 10px;
-        >header {
+        > header {
             position: relative;
-            >h2 {
+            > h2 {
                 // white-space: nowrap;
                 word-break: break-all;
                 text-overflow: ellipsis;
@@ -269,17 +267,17 @@
                 font-weight: 500;
                 line-height: 20px;
                 overflow: hidden;
-                color: #87d068; // #56a07b;
+                color: #3498db; // #56a07b;
             }
-            >span {
+            > span {
                 position: absolute;
                 top: 0;
                 right: 0;
-                >ul {
+                > ul {
                     text-align: right;
                     font-size: 12px;
                     line-height: 20px;
-                    >li {
+                    > li {
                         margin-right: 3px;
                         &:last-child {
                             margin-right: 0;
@@ -288,8 +286,8 @@
                 }
             }
         }
-        >div {
-            >p {
+        > div {
+            > p {
                 font-size: 13px;
                 line-height: 1.5;
                 padding: 8px 0;
@@ -299,7 +297,7 @@
                 margin-bottom: 10px;
             }
         }
-        >footer {
+        > footer {
             font-size: 13px;
             color: #658399;
             i {
@@ -319,14 +317,14 @@
     padding-right: 10px;
     margin-bottom: 5px;
     border-bottom: 1px solid #eaeaea;
-    >.reposCount {
+    > .reposCount {
         float: left;
         padding-left: 10px;
         color: #9b9ea6;
         font-size: 12px;
         line-height: 20px;
     }
-    >a {
+    > a {
         color: #9b9ea6;
     }
 }
@@ -350,18 +348,18 @@
     text-align: center;
     padding: 5px 10px 0;
     border-top: 1px solid #eaeaea;
-    >i {
+    > i {
         position: absolute;
         left: 10px;
         top: 0;
         font-size: 20px;
         line-height: 40px;
     }
-    >a {
+    > a {
         padding-top: 3px;
         color: #9b9ea6;
     }
-    >p {
+    > p {
         padding-right: 5px;
         font-size: 10px;
         line-height: 12px;
@@ -376,7 +374,7 @@
         height: 40px;
         background-color: #fbfbfb;
         border-bottom: 1px solid #e5e5e5;
-        >i {
+        > i {
             font-size: 20px;
             width: 20px;
             height: 20px;
@@ -384,19 +382,19 @@
             display: inline-block;
             margin: 10px;
             cursor: pointer;
-            color: #87d068; // #007aff;
+            color: #3498db; // #007aff;
             &:last-child {
                 float: right;
             }
         }
-        >i[data-flag=true] {
-            color: rgb(255,150,0);
+        > i[data-flag="true"] {
+            color: rgb(255, 150, 0);
         }
         &.disabled {
-            >i {
+            > i {
                 display: none;
                 &:last-child {
-                    display: inline-block
+                    display: inline-block;
                 }
             }
         }
@@ -410,10 +408,10 @@
 .linksPaneTitle,
 .notePaneTitle,
 .classifyPaneTitle {
-    >span {
+    > span {
         font-weight: 500;
     }
-    >a {
+    > a {
         float: right;
     }
 }
@@ -426,7 +424,7 @@
 .contributorsBar {
     margin-top: 10px;
     line-height: 100%;
-    >a {
+    > a {
         display: inline-block;
         img {
             display: block;
@@ -445,47 +443,47 @@
     height: 100%;
     background-color: #fff;
     overflow-y: auto;
-    >header {
+    > header {
         padding: 5px 10px;
-        >.headtitle {
+        > .headtitle {
             font-size: 20px;
             line-height: 36px;
             color: #28353d;
-            >i {
+            > i {
                 margin-right: 5px;
                 font-size: 20px;
                 line-height: 36px;
             }
-            >span {
+            > span {
                 padding: 0 3px;
             }
-            >a {
+            > a {
                 color: #28353d;
                 &:hover {
                     text-decoration: underline;
                 }
             }
         }
-        >.repoMeta {
+        > .repoMeta {
             font-size: 12px;
             color: #666;
         }
-        >.repoTags {
+        > .repoTags {
             position: relative;
             padding: 10px 0 0;
             line-height: 30px;
-            >i {
+            > i {
                 font-size: 20px;
                 margin-right: 5px;
                 vertical-align: -4px;
             }
         }
     }
-    >.repoReadMeWrap {
+    > .repoReadMeWrap {
         flex: 1;
         position: relative;
         padding: 10px;
-        >.repoReadmeLoading {
+        > .repoReadmeLoading {
             position: absolute;
             width: 30px;
             height: 30px;
@@ -493,16 +491,17 @@
             left: 50%;
             margin-top: -15px;
             margin-left: -15px;
-            >i {
+            > i {
                 font-size: 30px;
             }
-            >div {
+            > div {
                 transform: scale(1.5);
             }
         }
-        >.repoReadme {
+        > .repoReadme {
             position: relative;
-            font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+            font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+                "Helvetica Neue", Helvetica, Arial, sans-serif !important;
             font-size: 100%;
         }
     }

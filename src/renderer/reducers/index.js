@@ -1,30 +1,27 @@
-import { combineReducers }                                from 'redux'
-import { routerReducer }                                  from 'react-router-redux'
-import { credentialsReducer, loginResultReducer }         from './accounts'
-import { offlineReducer }                                 from './network'
-import { dbConnectReducer }                               from './db'
+import { combineReducers } from "redux";
+import { routerReducer } from "react-router-redux";
+import { credentialsReducer, loginResultReducer } from "./accounts";
+import { offlineReducer } from "./network";
+import { dbConnectReducer } from "./db";
 import {
     reposListReducer,
     fetchingReposStatusReducer,
     reposIncreaseReducer
-}                                                         from './repos'
+} from "./repos";
 import {
     searchConditionReducer,
     orderConditionReducer,
     groupConditionReducer,
     filterConditionReducer
-}                                                         from './conditional'
-import { profileReducer }                                 from './profile'
-import { languagesReducer }                               from './languages'
-import {
-    categoriesReducer,
-    categoryAddingResultReducer
-}                                                         from './categories'
+} from "./conditional";
+import { profileReducer } from "./profile";
+import { languagesReducer } from "./languages";
+import { categoriesReducer, categoryAddingResultReducer } from "./categories";
 import {
     selectedRepoReducer,
     selectedRepoTagsReducer,
     selectedRepoCatsReducer
-}                                                         from './repo'
+} from "./repo";
 
 export default combineReducers({
     routing: routerReducer,
@@ -46,4 +43,4 @@ export default combineReducers({
     selectedRepo: selectedRepoReducer
     // selectedRepoTags: selectedRepoTagsReducer // use promise instead
     // selectedRepoCats: selectedRepoCatsReducer
-})
+});

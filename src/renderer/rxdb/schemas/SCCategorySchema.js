@@ -1,42 +1,42 @@
 const SCCategorySchema = {
-    'title': 'SC Category schema',
-    'description': 'describes a single SC category',
-    'version': 0,
-    'type': 'object',
-    'properties': {
-        'key': {
-            'type': 'string',
-            'primary': true // just string of id
+    title: "SC Category schema",
+    description: "describes a single SC category",
+    version: 0,
+    type: "object",
+    properties: {
+        key: {
+            type: "string",
+            primary: true // just string of id
         },
-        'id': {
-            'type': 'integer',
-            'index': true
+        id: {
+            type: "integer",
+            index: true
         },
-        'name': {
-            'type': 'string'
+        name: {
+            type: "string"
         },
-        'description': {
-            'type': 'string'
+        description: {
+            type: "string"
         },
-        'repos': {
-            'type': 'array',
-            'uniqueItems': true,
-            'item': 'integer'
+        repos: {
+            type: "array",
+            uniqueItems: true,
+            item: "integer"
         },
-        'createdAt': {
-            'type': 'string'
+        createdAt: {
+            type: "string"
         },
-        'createdTime': {
-            'type': 'integer'
+        createdTime: {
+            type: "integer"
         },
-        'updatedAt': {
-            'type': 'string'
+        updatedAt: {
+            type: "string"
         },
-        'updatedTime': {
-            'type': 'integer'
+        updatedTime: {
+            type: "integer"
         }
     },
-    'required': ['id', 'name']
-}
+    required: ["id", "name"]
+};
 
-export default SCCategorySchema
+export default SCCategorySchema;

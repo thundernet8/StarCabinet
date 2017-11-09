@@ -5,7 +5,7 @@
 // @import "font/font-awesome";
 
 /* IconFont */
-@import "iconfont";
+@import "iconfont.css";
 
 /* Antd Theme */
 @import "antd-theme";
@@ -68,8 +68,10 @@
 
 /* Elements */
 
-html, body {
-    font-family: "Helvetica Neue", Helvetica, Tahoma, Arial, STXihei, "Microsoft YaHei", 微软雅黑, sans-serif;
+html,
+body {
+    font-family: "Helvetica Neue", Helvetica, Tahoma, Arial, STXihei,
+        "Microsoft YaHei", sans-serif;
 }
 
 img {
@@ -82,19 +84,19 @@ img {
 
 /* Transition */
 .trans {
-    transition: all .3s ease;
+    transition: all 0.3s ease;
 }
 
 .trans-ease-out {
-    transition: all .3s ease-out;
+    transition: all 0.3s ease-out;
 }
 
 .trans-ease-in {
-    transition: all .3s ease-in;
+    transition: all 0.3s ease-in;
 }
 
 .trans-ease-in-out {
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 .animated {
@@ -105,21 +107,21 @@ img {
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
+    from {
+        opacity: 0;
+    }
 
-  to {
-    opacity: 1;
-  }
+    to {
+        opacity: 1;
+    }
 }
 
 .fadeIn {
-  animation-name: fadeIn;
+    animation-name: fadeIn;
 }
 
 .fadeInDelay {
-    animation: fadeIn .8s .5s forwards;
+    animation: fadeIn 0.8s 0.5s forwards;
 }
 
 @keyframes fadeInUp {
@@ -142,19 +144,19 @@ img {
 }
 
 @keyframes slideInUp {
-  from {
-    -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100%, 0);
-    visibility: visible;
-  }
+    from {
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 100%, 0);
+        visibility: visible;
+    }
 
-  to {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
+    to {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
 }
 
 .slideInUp {
-  -webkit-animation-name: slideInUp;
-  animation-name: slideInUp;
+    -webkit-animation-name: slideInUp;
+    animation-name: slideInUp;
 }
