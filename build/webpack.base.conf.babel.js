@@ -57,7 +57,7 @@ export default {
                 include: [/global/, /node_modules/],
                 loader: ExtractTextPlugin.extract({
                     fallback: "style-loader",
-                    use: "css-loader?sourceMap!postcss-loader"
+                    use: "css-loader?sourceMap"
                 })
             },
             {
@@ -66,7 +66,7 @@ export default {
                 loader: ExtractTextPlugin.extract({
                     fallback: "style-loader",
                     use:
-                        "css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader"
+                        "css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]"
                 })
             },
             {
@@ -75,7 +75,7 @@ export default {
                 loader: ExtractTextPlugin.extract({
                     fallback: "style-loader",
                     use:
-                        'css-loader?sourceMap!postcss-loader!less-loader?{"modifyVars": {"primary-color": "#3498db"}}'
+                        'css-loader?sourceMap!less-loader?{"modifyVars": {"primary-color": "#3498db"}}'
                 })
             },
             {
@@ -84,7 +84,7 @@ export default {
                 loader: ExtractTextPlugin.extract({
                     fallback: "style-loader",
                     use:
-                        "css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader!less-loader"
+                        "css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!less-loader"
                 })
             },
             {
