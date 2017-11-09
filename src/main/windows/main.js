@@ -1,60 +1,65 @@
-import {shell, BrowserWindow}           from 'electron'
-import path                             from 'path'
-import url                              from 'url'
+import { shell, BrowserWindow } from "electron";
+import path from "path";
+import url from "url";
 
-function createMainWindow (wins) {
+function createMainWindow(wins) {
     let win = new BrowserWindow({
         width: 1020,
         height: 640,
-        titleBarStyle: 'hidden-inset',
+        titleBarStyle: "hidden-inset",
         resizable: true,
         frame: true // Specify false to create a Frameless Window. Default is true.
-    })
+    });
 
-    win.setMenu(null)
+    win.setMenu(null);
 
-    win.loadURL(url.format({
-        pathname: path.resolve(__dirname, 'index.html'),
-        protocol: 'file:',
-        slashes: true
-    }))
+    win.loadURL(
+        url.format({
+            pathname: path.resolve(__dirname, "index.html"),
+            protocol: "file:",
+            slashes: true
+        })
+    );
 
     // Open the DevTools.
-    if (process.env.NODE_ENV === 'development') {
-        win.webContents.on('devtools-opened', () => {
-          setImmediate(() => {
-            win.focus()
-          })
-        })
-        win.webContents.openDevTools()
+    if (process.env.NODE_ENV === "development") {
+        win.webContents.on("devtools-opened", () => {
+            setImmediate(() => {
+                win.focus();
+            });
+        });
+        win.webContents.openDevTools();
     }
 
     // Emitted when the window is closed.
-    win.on('closed', () => {
+    win.on("closed", () => {
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
         if (wins.setting) {
-            wins.setting.close()
+            wins.setting.close();
         }
-        wins.main = null
-        wins.setting = null
-    })
+        wins.main = null;
+        wins.setting = null;
+    });
 
     // Insert platform body class
-    win.webContents.on('dom-ready', () => {
-        win.webContents.executeJavaScript(`document.body.className="platform_${process.platform}"`, false)
-    })
+    win.webContents.on("dom-ready", () => {
+        win.webContents.executeJavaScript(
+            `document.body.className="platform_${process.platform}"`,
+            false
+        );
+    });
 
     // Open links external
-    win.webContents.on('new-window', (e, url) => {
-        e.preventDefault()
-        shell.openExternal(url)
-    })
+    win.webContents.on("new-window", (e, url) => {
+        e.preventDefault();
+        shell.openExternal(url);
+    });
 
-    wins.main = win
+    wins.main = win;
 
-    return win
+    return win;
 }
 
-export default createMainWindow
+export default createMainWindow;

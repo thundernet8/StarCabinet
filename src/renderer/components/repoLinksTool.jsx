@@ -1,59 +1,77 @@
-import React                        from 'react'
-import classNames                   from 'classnames'
-import styles                       from '../styles/main'
-import {
-    Icon, Tooltip, Popover, Input
-}                                   from 'antd'
-import CopyToClipboard              from 'react-copy-to-clipboard'
+import React from "react";
+import classNames from "classnames";
+import styles from "../styles/main";
+import { Icon, Tooltip, Popover, Input } from "antd";
+import CopyToClipboard from "react-copy-to-clipboard";
 
 export default class RepoLinksTool extends React.Component {
     state = {
         visible: false,
         copied: false
-    }
+    };
 
-    handleVisibleChange = (visible) => {
-        this.setState({ visible })
-    }
+    handleVisibleChange = visible => {
+        this.setState({ visible });
+    };
 
     notifyCopied = () => {
         this.setState({
             copied: true
-        })
+        });
 
         setTimeout(() => {
             this.setState({
                 copied: false
-            })
-        }, 1500)
-    }
+            });
+        }, 1500);
+    };
 
-    render () {
+    render() {
         if (!this.props.repo) {
-            return null
+            return null;
         }
-        const clipboard = (value) => (
-            <CopyToClipboard text={value}
-                onCopy={this.notifyCopied}>
+        const clipboard = value => (
+            <CopyToClipboard text={value} onCopy={this.notifyCopied}>
                 <Icon type="copy" />
             </CopyToClipboard>
-        )
+        );
 
         const titleNode = (
-            <div className={classNames('linksPaneTitle', styles.linksPaneTitle)}>
+            <div
+                className={classNames("linksPaneTitle", styles.linksPaneTitle)}
+            >
                 <span>Repo Clone Links</span>
-                {this.state.copied &&
-                <a>Copied !</a>}
+                {this.state.copied && <a>Copied !</a>}
             </div>
-        )
+        );
 
         const content = (
-            <div className={classNames('repoLinksToolInputWrap', styles.repoLinksToolInputWrap)}>
-                <Input addonBefore="SSH" addonAfter={clipboard(this.props.repo.sshUrl)} value={this.props.repo.sshUrl} readOnly/>
-                <Input addonBefore="HTTPS" addonAfter={clipboard(this.props.repo.cloneUrl)} value={this.props.repo.cloneUrl} readOnly/>
-                <Input addonBefore="SVN" addonAfter={clipboard(this.props.repo.svnUrl)} value={this.props.repo.svnUrl} readOnly/>
+            <div
+                className={classNames(
+                    "repoLinksToolInputWrap",
+                    styles.repoLinksToolInputWrap
+                )}
+            >
+                <Input
+                    addonBefore="SSH"
+                    addonAfter={clipboard(this.props.repo.sshUrl)}
+                    value={this.props.repo.sshUrl}
+                    readOnly
+                />
+                <Input
+                    addonBefore="HTTPS"
+                    addonAfter={clipboard(this.props.repo.cloneUrl)}
+                    value={this.props.repo.cloneUrl}
+                    readOnly
+                />
+                <Input
+                    addonBefore="SVN"
+                    addonAfter={clipboard(this.props.repo.svnUrl)}
+                    value={this.props.repo.svnUrl}
+                    readOnly
+                />
             </div>
-        )
+        );
         return (
             <Popover
                 content={content}
@@ -63,9 +81,9 @@ export default class RepoLinksTool extends React.Component {
                 onVisibleChange={this.handleVisibleChange}
             >
                 <Tooltip placement="bottom" title="Repository links">
-                    <Icon type="link"/>
+                    <Icon type="link" />
                 </Tooltip>
             </Popover>
-        )
+        );
     }
 }

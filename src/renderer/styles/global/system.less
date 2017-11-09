@@ -3,24 +3,32 @@
 .platform_win32 {
     .main {
         border-top: 1px solid #eaeaea;
-        >#titleBar {
+        > #titleBar {
             display: none;
         }
     }
 
     /* Scrollbar */
-    ::-webkit-scrollbar {width: 5px; height:6px; background-color: transparent;}
-    ::-webkit-scrollbar-track-piece{background-color: transparent;}
+    ::-webkit-scrollbar {
+        width: 5px;
+        height: 6px;
+        background-color: transparent;
+    }
+    ::-webkit-scrollbar-track-piece {
+        background-color: transparent;
+    }
     ::-webkit-scrollbar-thumb:window-inactive,
-    ::-webkit-scrollbar-thumb {background-color: rgba(0, 0, 0, .8); border-radius: 5px;}
+    ::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.8);
+        border-radius: 5px;
+    }
 }
-
 
 /* MacOS */
 
 .platform_darwin {
     .loginWrapper {
-        >header {
+        > header {
             width: 100%;
             padding: 5px 10px;
             text-align: center;
@@ -32,10 +40,10 @@
     }
 
     .main {
-        >.container {
+        > .container {
             border-top: 0;
-            >.left {
-                >#titleBar {
+            > .left {
+                > #titleBar {
                     display: block;
                     height: 36px;
                     -webkit-app-region: drag;

@@ -1,42 +1,42 @@
 const SCTagSchema = {
-    'title': 'SC Tag schema',
-    'description': 'describes a single SC tag',
-    'version': 0,
-    'type': 'object',
-    'properties': {
-        'key': {
-            'type': 'string',
-            'primary': true // juse string of id
+    title: "SC Tag schema",
+    description: "describes a single SC tag",
+    version: 0,
+    type: "object",
+    properties: {
+        key: {
+            type: "string",
+            primary: true // juse string of id
         },
-        'id': {
-            'type': 'integer',
-            'index': true
+        id: {
+            type: "integer",
+            index: true
         },
-        'name': {
-            'type': 'string'
+        name: {
+            type: "string"
         },
-        'description': {
-            'type': 'string'
+        description: {
+            type: "string"
         },
-        'repos': {
-            'type': 'array',
-            'uniqueItems': true,
-            'item': 'integer'
+        repos: {
+            type: "array",
+            uniqueItems: true,
+            item: "integer"
         },
-        'createdAt': {
-            'type': 'string'
+        createdAt: {
+            type: "string"
         },
-        'createdTime': {
-            'type': 'integer'
+        createdTime: {
+            type: "integer"
         },
-        'updatedAt': {
-            'type': 'string'
+        updatedAt: {
+            type: "string"
         },
-        'updatedTime': {
-            'type': 'integer'
+        updatedTime: {
+            type: "integer"
         }
     },
-    'required': ['id']
-}
+    required: ["id"]
+};
 
-export default SCTagSchema
+export default SCTagSchema;

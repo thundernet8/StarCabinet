@@ -1,2 +1,2 @@
 // APP
-export const APP = 'StarCabinet'
+export const APP = "StarCabinet";

@@ -1,43 +1,57 @@
-import React                        from 'react'
-import classNames                   from 'classnames'
-import styles                       from '../styles/main'
-import { Tooltip }                  from 'antd'
-import SCLogger                     from '../utils/logHelper'
+import React from "react";
+import classNames from "classnames";
+import styles from "../styles/main";
+import { Tooltip } from "antd";
+import SCLogger from "../utils/logHelper";
 
 export default class RepoContributorsBar extends React.Component {
-    componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
         if (nextProps.selectedRepo && !nextProps.selectedRepo._contributors) {
-            this.props.onFetchRepoContributors(nextProps.selectedRepo)
-            this.props.onGetRepoContributors(nextProps.selectedRepo.id)
+            this.props.onFetchRepoContributors(nextProps.selectedRepo);
+            this.props.onGetRepoContributors(nextProps.selectedRepo.id);
         }
     }
 
-    componentWillMount () {
+    componentWillMount() {
         if (this.props.selectedRepo) {
-            this.props.onFetchRepoContributors(this.props.selectedRepo)
-            this.props.onGetRepoContributors(this.props.selectedRepo.id)
+            this.props.onFetchRepoContributors(this.props.selectedRepo);
+            this.props.onGetRepoContributors(this.props.selectedRepo.id);
         }
     }
 
-    render () {
-        if (!this.props.selectedRepo || !this.props.selectedRepo._contributors) {
-            return null
+    render() {
+        if (
+            !this.props.selectedRepo ||
+            !this.props.selectedRepo._contributors
+        ) {
+            return null;
         }
 
-        const avatars = this.props.selectedRepo._contributors.map((contributor) => {
-            return (
-                <a key={contributor.id} href={contributor.htmlUrl} target="_blank">
-                    <Tooltip placement="top" title={contributor.login}>
-                        <img src={contributor.avatarUrl}/>
-                    </Tooltip>
-                </a>
-            )
-        })
+        const avatars = this.props.selectedRepo._contributors.map(
+            contributor => {
+                return (
+                    <a
+                        key={contributor.id}
+                        href={contributor.htmlUrl}
+                        target="_blank"
+                    >
+                        <Tooltip placement="top" title={contributor.login}>
+                            <img src={contributor.avatarUrl} />
+                        </Tooltip>
+                    </a>
+                );
+            }
+        );
 
         return (
-            <div className={classNames('contributorsBar', styles.contributorsBar)}>
+            <div
+                className={classNames(
+                    "contributorsBar",
+                    styles.contributorsBar
+                )}
+            >
                 {avatars}
             </div>
-        )
+        );
     }
 }

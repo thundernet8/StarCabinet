@@ -1,18 +1,18 @@
 const settingSchema = {
-  'title': 'setting schema',
-  'description': 'describes a app setting',
-  'version': 0,
-  'type': 'object',
-  'properties': {
-    'id': {
-      'type': 'string',
-      'primary': true
+    title: "setting schema",
+    description: "describes a app setting",
+    version: 0,
+    type: "object",
+    properties: {
+        id: {
+            type: "string",
+            primary: true
+        },
+        value: {
+            type: "string"
+        }
     },
-    'value': {
-      'type': 'string'
-    }
-  },
-  'required': ['value']
-}
+    required: ["value"]
+};
 
-export default settingSchema
+export default settingSchema;

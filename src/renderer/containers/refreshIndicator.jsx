@@ -1,26 +1,26 @@
-import { connect }                  from 'react-redux'
-import RefreshIndicator             from '../components/refreshIndicator'
-import Actions                      from '../actions'
+import { connect } from "react-redux";
+import RefreshIndicator from "../components/refreshIndicator";
+import Actions from "../actions";
 
 // Redux connection
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
         fetchStatus: state.fetchStatus,
         offline: state.offline.value,
         increase: state.increase
-    }
-}
+    };
+};
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
     return {
         onRefresh: () => {
-            return dispatch(Actions.fetchRemoteReposList())
+            return dispatch(Actions.fetchRemoteReposList());
         },
         onClearIncreaseProp: () => {
-            dispatch(Actions.clearReposChangeNum())
+            dispatch(Actions.clearReposChangeNum());
         }
-    }
-}
+    };
+};
 
 // Which props to inject from the global atomic state
-export default connect(mapStateToProps, mapDispatchToProps)(RefreshIndicator)
+export default connect(mapStateToProps, mapDispatchToProps)(RefreshIndicator);

@@ -1,14 +1,14 @@
-import * as CONSTANTS     from '../constants'
+import * as CONSTANTS from "../constants";
 
-let initialState = null
+let initialState = null;
 
 export const dbConnectReducer = (state = initialState, action) => {
     switch (action.type) {
         case CONSTANTS.DB_CONNECTED:
-            return action.db
+            return action.db;
         case CONSTANTS.DB_DISCONNECTED:
-            return null
+            return null;
         default:
-            return state
+            return state;
     }
-}
+};
