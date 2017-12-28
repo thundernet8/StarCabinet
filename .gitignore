@@ -7,4 +7,4 @@ dist/
 release/
 .idea/
 .vscode/
-debug.log
+*.log
