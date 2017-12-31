@@ -33,16 +33,16 @@ export const updateReposList = () => {
 
                 dispatch({
                     type: CONSTANTS.QUERY_REPOS_LIST_SUCCESS,
-                    repos: keyedRepos
+                    payload: { repos: keyedRepos }
                 });
                 return repos;
             })
-            .catch(err => {
+            .catch(error => {
                 dispatch({
                     type: CONSTANTS.QUERY_REPOS_LIST_FAIL,
-                    err
+                    error
                 });
-                throw new Error(err);
+                throw new Error(error);
             });
     };
 };
@@ -56,12 +56,9 @@ export const fetchRemoteReposList = (isStartUp = false) => {
         let promise;
         // when app startup it always fetch the remote server, but at this time we use local storaged data first
         if (isStartUp) {
-            promise = Promise.all([
-                dispatch(updateReposList()),
-                dispatch(updateLanguagesList())
-            ]);
+            promise = Promise.all([dispatch(updateReposList()), dispatch(updateLanguagesList())]);
         } else {
-            promise = Promise.resolve("ok");
+            promise = Promise.resolve(true);
         }
 
         const state = getState();
@@ -86,7 +83,7 @@ export const fetchRemoteReposList = (isStartUp = false) => {
                             .then(ret => {
                                 dispatch({
                                     type: CONSTANTS.FETCH_REPOS_LIST_SUCCESS,
-                                    increase: ret[3]
+                                    payload: { increase: ret[3] }
                                 });
 
                                 // update languages state meanwhile
@@ -96,30 +93,28 @@ export const fetchRemoteReposList = (isStartUp = false) => {
 
                                 return repos;
                             })
-                            .catch(err => {
-                                console.error(err);
+                            .catch(error => {
                                 dispatch({
                                     type: CONSTANTS.FETCH_REPOS_LIST_FAIL,
-                                    err
+                                    error
                                 });
-                                return err;
+                                return error;
                             });
                     })
-                    .catch(err => {
-                        console.error(err);
-                        return err;
+                    .catch(error => {
+                        return error;
                     });
             })
-            .catch(err => {
-                console.error(err);
+            .catch(error => {
                 dispatch({
-                    type: CONSTANTS.FETCH_REPOS_LIST_FAIL
+                    type: CONSTANTS.FETCH_REPOS_LIST_FAIL,
+                    error
                 });
 
                 // now update the repos list from indexed db
                 dispatch(updateReposList());
 
-                return err;
+                return error;
             });
     };
 };
@@ -139,16 +134,13 @@ export const replaceReposListItem = repo => {
         repo._categories = repo._categories || repoInList._categories;
         repo._tags = repo._tags || repoInList._tags;
         repo._contributors = repo._contributors || repoInList._contributors;
-        repo._hotChange = [].concat(
-            repo._hotChange || [],
-            repoInList._hotChange || []
-        );
+        repo._hotChange = [].concat(repo._hotChange || [], repoInList._hotChange || []);
 
         repos["_" + repo.id] = repo;
 
         dispatch({
             type: CONSTANTS.REPLACE_REPOS_LIST_ITEM,
-            repos
+            payload: { repos }
         });
     };
 };

@@ -1,11 +1,10 @@
 import * as CONSTANTS from "../constants";
+import IAction from "../interface/IAction";
 
-let initialState = null;
-
-export const dbConnectReducer = (state = initialState, action) => {
+export const dbConnectReducer = (state = null, action: IAction) => {
     switch (action.type) {
         case CONSTANTS.DB_CONNECTED:
-            return action.db;
+            return action.payload.db;
         case CONSTANTS.DB_DISCONNECTED:
             return null;
         default:

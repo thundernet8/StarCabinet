@@ -8,7 +8,7 @@ export const selectOneRepo = repo => {
     return dispatch => {
         dispatch({
             type: CONSTANTS.SELECT_ONE_REPO,
-            repo
+            payload: { repo }
         });
 
         // when selected, the repo mark as read
@@ -20,8 +20,10 @@ export const rateOneRepo = (id, score) => {
     return (dispatch, getState) => {
         dispatch({
             type: CONSTANTS.RATE_ONE_REPO,
-            id,
-            score
+            payload: {
+                id,
+                score
+            }
         });
 
         const updateObj = {
@@ -35,7 +37,7 @@ export const rateOneRepo = (id, score) => {
             .then(repo => {
                 dispatch({
                     type: CONSTANTS.RATE_ONE_REPO_SUCCESS,
-                    repo
+                    payload: { repo }
                 });
 
                 // also replace new repo into repos list
@@ -43,13 +45,13 @@ export const rateOneRepo = (id, score) => {
 
                 return repo;
             })
-            .catch(err => {
+            .catch(error => {
                 dispatch({
                     type: CONSTANTS.RATE_ONE_REPO_FAIL,
-                    err
+                    error
                 });
 
-                throw new Error(err);
+                throw new Error(error);
             });
     };
 };
@@ -65,18 +67,17 @@ export const starStarCabinet = () => {
         return client
             .starStarCabinet()
             .then(ret => {
-                console.log(ret);
                 dispatch({
                     type: CONSTANTS.STAR_STARCABINET_SUCCESS
                 });
                 return ret;
             })
-            .catch(err => {
-                console.log(err);
+            .catch(error => {
                 dispatch({
-                    type: CONSTANTS.STAR_STARCABINET_FAIL
+                    type: CONSTANTS.STAR_STARCABINET_FAIL,
+                    error
                 });
-                throw new Error(err);
+                throw new Error(error);
             });
     };
 };
@@ -100,24 +101,24 @@ export const addTagForRepo = (id, tagName) => {
                 // if it has same id with selectedRepo, also replace selectedRepo
                 dispatch(
                     updateSelectedRepo(id, {
-                        rxChange: parseInt(new Date().getTime() / 1000)
+                        rxChange: Math.floor(new Date().getTime() / 1000)
                     })
                 );
 
                 dispatch({
                     type: CONSTANTS.ADD_TAG_FOR_REPO_SUCCESS,
-                    repo
+                    payload: { repo }
                 });
 
                 return repo;
             })
-            .catch(err => {
+            .catch(error => {
                 dispatch({
                     type: CONSTANTS.ADD_TAG_FOR_REPO_FAIL,
-                    err
+                    error
                 });
 
-                throw new Error(err);
+                throw new Error(error);
             });
     };
 };
@@ -141,24 +142,24 @@ export const removeTagForRepo = (id, tagName) => {
                 // if it has same id with selectedRepo, also replace selectedRepo
                 dispatch(
                     updateSelectedRepo(id, {
-                        rxChange: parseInt(new Date().getTime() / 1000)
+                        rxChange: Math.floor(new Date().getTime() / 1000)
                     })
                 );
 
                 dispatch({
                     type: CONSTANTS.REMOVE_TAG_FOR_REPO_SUCCESS,
-                    repo
+                    payload: { repo }
                 });
 
                 return repo;
             })
-            .catch(err => {
+            .catch(error => {
                 dispatch({
                     type: CONSTANTS.REMOVE_TAG_FOR_REPO_FAIL,
-                    err
+                    error
                 });
 
-                throw new Error(err);
+                throw new Error(error);
             });
     };
 };
@@ -167,7 +168,7 @@ export const getSelectedRepoTags = id => {
     return (dispatch, getState) => {
         dispatch({
             type: CONSTANTS.QUERY_REPO_TAGS,
-            id
+            payload: { id }
         });
 
         const state = getState();
@@ -179,7 +180,7 @@ export const getSelectedRepoTags = id => {
             .then(tags => {
                 dispatch({
                     type: CONSTANTS.QUERY_REPO_TAGS_SUCCESS,
-                    tags
+                    payload: { tags }
                 });
 
                 // also add tags to the repo and replace the repo in repos list
@@ -191,13 +192,13 @@ export const getSelectedRepoTags = id => {
 
                 return tags;
             })
-            .catch(err => {
+            .catch(error => {
                 dispatch({
                     type: CONSTANTS.QUERY_REPO_TAGS_FAIL,
-                    err
+                    error
                 });
 
-                throw new Error(err);
+                throw new Error(error);
             });
     };
 };
@@ -206,7 +207,7 @@ export const getSelectedRepoCategories = id => {
     return (dispatch, getState) => {
         dispatch({
             type: CONSTANTS.QUERY_REPO_CATEGORIES,
-            id
+            payload: { id }
         });
 
         const state = getState();
@@ -218,7 +219,7 @@ export const getSelectedRepoCategories = id => {
             .then(categories => {
                 dispatch({
                     type: CONSTANTS.QUERY_REPO_CATEGORIES_SUCCESS,
-                    categories
+                    payload: { categories }
                 });
 
                 // also add categories to the repo and replace the repo in repos list
@@ -230,13 +231,13 @@ export const getSelectedRepoCategories = id => {
 
                 return categories;
             })
-            .catch(err => {
+            .catch(error => {
                 dispatch({
                     type: CONSTANTS.QUERY_REPO_CATEGORIES_FAIL,
-                    err
+                    error
                 });
 
-                throw new Error(err);
+                throw new Error(error);
             });
     };
 };
@@ -245,7 +246,7 @@ export const getSelectedRepoContributors = id => {
     return (dispatch, getState) => {
         dispatch({
             type: CONSTANTS.QUERY_REPO_CONTRIBUTORS,
-            id
+            payload: { id }
         });
 
         const state = getState();
@@ -257,7 +258,7 @@ export const getSelectedRepoContributors = id => {
             .then(contributors => {
                 dispatch({
                     type: CONSTANTS.QUERY_REPO_CONTRIBUTORS_SUCCESS,
-                    contributors
+                    payload: { contributors }
                 });
 
                 // also add contributors to the repo and replace the repo in repos list
@@ -271,19 +272,19 @@ export const getSelectedRepoContributors = id => {
                 // if it has same id with selectedRepo, also replace selectedRepo
                 dispatch(
                     updateSelectedRepo(id, {
-                        rxChange: parseInt(new Date().getTime() / 1000)
+                        rxChange: Math.floor(new Date().getTime() / 1000)
                     })
                 );
 
                 return contributors;
             })
-            .catch(err => {
+            .catch(error => {
                 dispatch({
                     type: CONSTANTS.QUERY_REPO_CONTRIBUTORS_FAIL,
-                    err
+                    error
                 });
 
-                throw new Error(err);
+                throw new Error(error);
             });
     };
 };
@@ -301,7 +302,7 @@ export const fetchRepoReadMe = repo => {
             .then(readme => {
                 dispatch({
                     type: CONSTANTS.FETCH_REPO_README_SUCCESS,
-                    readme
+                    payload: { readme }
                 });
 
                 // if it's selected repo, save it to db and update the state
@@ -311,13 +312,13 @@ export const fetchRepoReadMe = repo => {
 
                 return readme;
             })
-            .catch(err => {
+            .catch(error => {
                 dispatch({
                     type: CONSTANTS.FETCH_REPO_README_FAIL,
-                    err
+                    error
                 });
 
-                throw new Error(err);
+                throw new Error(error);
             });
     };
 };
@@ -335,7 +336,7 @@ export const fetchRepoContributors = repo => {
             .then(contributors => {
                 dispatch({
                     type: CONSTANTS.FETCH_REPO_CONTRIBUTORS_SUCCESS,
-                    contributors
+                    payload: { contributors }
                 });
 
                 // save contributors to db
@@ -343,13 +344,13 @@ export const fetchRepoContributors = repo => {
 
                 return contributors;
             })
-            .catch(err => {
+            .catch(error => {
                 dispatch({
                     type: CONSTANTS.FETCH_REPO_CONTRIBUTORS_FAIL,
-                    err
+                    error
                 });
 
-                throw new Error(err);
+                throw new Error(error);
             });
     };
 };
@@ -380,18 +381,18 @@ export const updateSelectedRepo = (id, obj) => {
 
                 dispatch({
                     type: CONSTANTS.UPDATE_SELECTED_REPO_SUCCESS,
-                    repo
+                    payload: { repo }
                 });
 
                 return repo;
             })
-            .catch(err => {
+            .catch(error => {
                 dispatch({
                     type: CONSTANTS.UPDATE_SELECTED_REPO_FAIL,
-                    err
+                    error
                 });
 
-                throw new Error(err);
+                throw new Error(error);
             });
     };
 };
@@ -400,7 +401,7 @@ export const updateRepoCategories = (id, catIds) => {
     return (dispatch, getState) => {
         dispatch({
             type: CONSTANTS.UPDATE_REPO_CATEGORIES,
-            id
+            payload: { id }
         });
 
         const state = getState();
@@ -416,13 +417,13 @@ export const updateRepoCategories = (id, catIds) => {
                 // if it has same id with selectedRepo, also replace selectedRepo
                 dispatch(
                     updateSelectedRepo(id, {
-                        rxChange: parseInt(new Date().getTime() / 1000)
+                        rxChange: Math.floor(new Date().getTime() / 1000)
                     })
                 );
 
                 dispatch({
                     type: CONSTANTS.UPDATE_REPO_CATEGORIES_SUCCESS,
-                    repo
+                    payload: { repo }
                 });
 
                 // update all categories list, for updating the nav category node
@@ -430,13 +431,13 @@ export const updateRepoCategories = (id, catIds) => {
 
                 return repo;
             })
-            .catch(err => {
+            .catch(error => {
                 dispatch({
                     type: CONSTANTS.UPDATE_REPO_CATEGORIES_FAIL,
-                    err
+                    error
                 });
 
-                throw new Error(err);
+                throw new Error(error);
             });
     };
 };
@@ -445,7 +446,7 @@ export const updateRepoContributors = (id, contributors) => {
     return (dispatch, getState) => {
         dispatch({
             type: CONSTANTS.UPDATE_REPO_CONTRIBUTORS,
-            id
+            payload: { id }
         });
 
         const state = getState();
@@ -454,11 +455,11 @@ export const updateRepoContributors = (id, contributors) => {
         return dbHandler
             .initDB()
             .then(() => dbHandler.upsertContributors(id, contributors))
-            .then(contributors => {
+            .then(_contributors => {
                 // also replace the repo in repos list
                 let repo = state.repos["_" + id];
                 if (repo) {
-                    repo._contributors = contributors;
+                    repo._contributors = _contributors;
                     repo._hotChange = ["contributors"];
                     dispatch(replaceReposListItem(repo));
                 }
@@ -466,24 +467,24 @@ export const updateRepoContributors = (id, contributors) => {
                 // if it has same id with selectedRepo, also replace selectedRepo
                 dispatch(
                     updateSelectedRepo(id, {
-                        rxChange: parseInt(new Date().getTime() / 1000)
+                        rxChange: Math.floor(new Date().getTime() / 1000)
                     })
                 );
 
                 dispatch({
                     type: CONSTANTS.UPDATE_REPO_CONTRIBUTORS_SUCCESS,
-                    repo
+                    payload: { repo }
                 });
 
                 return repo;
             })
-            .catch(err => {
+            .catch(error => {
                 dispatch({
                     type: CONSTANTS.UPDATE_REPO_CONTRIBUTORS_FAIL,
-                    err
+                    error
                 });
 
-                throw new Error(err);
+                throw new Error(error);
             });
     };
 };

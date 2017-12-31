@@ -1,5 +1,6 @@
 import * as Database from "./database";
 import * as CONSTANTS from "../constants";
+import IRepo from "../interface/IRepo";
 
 export default class DBHandler {
     private dbName: string;
@@ -349,7 +350,7 @@ export default class DBHandler {
 
         let docs = await query.exec();
 
-        let repos: string[] = [];
+        let repos: IRepo[] = [];
 
         docs.forEach(doc => {
             let repo = doc.toJSON();
@@ -525,15 +526,17 @@ export default class DBHandler {
         let inserts: any[] = [];
         let index = 1;
         for (let key in langs) {
-            inserts.push(
-                langsCollection.upsert({
-                    key: key.substr(1).toLowerCase(),
-                    id: index,
-                    name: key.substr(1),
-                    repos: langs[key]
-                })
-            );
-            index++;
+            if (langs.hasOwnProperty(key)) {
+                inserts.push(
+                    langsCollection.upsert({
+                        key: key.substr(1).toLowerCase(),
+                        id: index,
+                        name: key.substr(1),
+                        repos: langs[key]
+                    })
+                );
+                index++;
+            }
         }
 
         return Promise.all(inserts);
@@ -801,7 +804,9 @@ export default class DBHandler {
         let repoIds = tag.repos;
         if (repoIds instanceof Array) {
             const repoIdIndex = repoIds.indexOf(id);
-            repoIdIndex > -1 && repoIds.splice(repoIdIndex, 1);
+            if (repoIdIndex > -1) {
+                repoIds.splice(repoIdIndex, 1);
+            }
         }
         tag.repos = repoIds;
         tag.updatedTime = Math.floor(new Date().getTime() / 1000);

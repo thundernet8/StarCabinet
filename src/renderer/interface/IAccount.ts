@@ -1,10 +1,8 @@
+import IProfile from "./IProfile";
+
 export interface ICredentialsState {
     username: string;
     password: string;
-}
-
-export interface IProfile {
-    login: string;
 }
 
 export interface ILoginResultState {

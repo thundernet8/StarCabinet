@@ -25,19 +25,13 @@ let _updateNetworkStatus = dispatch => {
 
 export const listenNetworkChange = () => {
     return dispatch => {
-        window.addEventListener(
-            "online",
-            _updateNetworkStatus.bind(null, dispatch)
-        );
-        window.addEventListener(
-            "offline",
-            _updateNetworkStatus.bind(null, dispatch)
-        );
+        window.addEventListener("online", _updateNetworkStatus.bind(null, dispatch));
+        window.addEventListener("offline", _updateNetworkStatus.bind(null, dispatch));
     };
 };
 
 export const diListenNetworkChange = () => {
-    return dispatch => {
+    return () => {
         window.removeEventListener("online", _updateNetworkStatus);
         window.removeEventListener("offline", _updateNetworkStatus);
     };

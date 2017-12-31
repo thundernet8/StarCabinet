@@ -14,16 +14,16 @@ export const getMyProfile = (username = "") => {
             .then(profile => {
                 dispatch({
                     type: CONSTANTS.QUERY_MY_PROFILE_SUCCESS,
-                    profile
+                    payload: { profile }
                 });
                 return profile;
             })
-            .catch(err => {
+            .catch(error => {
                 dispatch({
                     type: CONSTANTS.QUERY_MY_PROFILE_FAIL,
-                    err
+                    error
                 });
-                return err;
+                return error;
             });
     };
 };

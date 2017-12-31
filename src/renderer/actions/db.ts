@@ -1,11 +1,12 @@
 import * as CONSTANTS from "../constants";
 import * as Database from "../rxdb/database";
+import IAction from "../interface/IAction";
 
-export const dbConnectionChange = (connected, db = null) => {
+export const dbConnectionChange = (connected, db = null): IAction => {
     if (connected) {
         return {
             type: CONSTANTS.DB_CONNECTED,
-            db: db
+            payload: { db }
         };
     }
     return {

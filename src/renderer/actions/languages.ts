@@ -14,16 +14,16 @@ export const updateLanguagesList = () => {
             .then(languages => {
                 dispatch({
                     type: CONSTANTS.QUERY_LANGUAGES_LIST_SUCCESS,
-                    languages
+                    payload: { languages }
                 });
                 return languages;
             })
-            .catch(err => {
+            .catch(error => {
                 dispatch({
                     type: CONSTANTS.QUERY_LANGUAGES_LIST_FAIL,
-                    err
+                    error
                 });
-                return err;
+                return error;
             });
     };
 };
