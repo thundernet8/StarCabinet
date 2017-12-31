@@ -30,4 +30,4 @@ export default interface IState {
     fetchStatus: IRepoFetchingStatus;
     catAdd: ICategoryCreateResult;
     selectedRepo: IRepo | null;
-};
+}

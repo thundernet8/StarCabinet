@@ -7,7 +7,7 @@ export default interface ICategory {
     createdTime: string;
     updatedAt: string;
     updatedTime: number;
-};
+}
 
 export interface ICategoryCreateResult {
     category?: ICategory;
