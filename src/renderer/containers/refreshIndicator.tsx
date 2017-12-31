@@ -1,9 +1,20 @@
 import { connect } from "react-redux";
 import RefreshIndicator from "../components/refreshIndicator";
 import Actions from "../actions";
+import IState from "../interface/IState";
+import { IRepoFetchingStatus } from "../interface/IRepo";
+import IOfflineState from "../interface/IOffline";
+
+export interface RefreshIndicatorProps {
+    fetchStatus: IRepoFetchingStatus;
+    offline: IOfflineState;
+    increase: number;
+    onRefresh: () => void;
+    onClearIncreaseProp: () => void;
+}
 
 // Redux connection
-const mapStateToProps = state => {
+const mapStateToProps = (state: IState) => {
     return {
         fetchStatus: state.fetchStatus,
         offline: state.offline.value,

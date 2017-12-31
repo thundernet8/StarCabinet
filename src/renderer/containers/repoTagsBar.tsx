@@ -1,9 +1,18 @@
 import { connect } from "react-redux";
 import RepoTagsBar from "../components/repoTagsBar";
 import Actions from "../actions";
+import IState from "../interface/IState";
+import IRepo from "../interface/IRepo";
+
+export interface RepoTagsBarProps {
+    selectedRepo: IRepo | null;
+    onAddTagForRepo: (id: number, tagName: string) => void;
+    onRemoveTagForRepo: (id: number, tagName: string) => void;
+    onGetTagsForRepo: (id: number) => void;
+}
 
 // Redux connection
-const mapStateToProps = state => {
+const mapStateToProps = (state: IState) => {
     return {
         selectedRepo: state.selectedRepo
     };

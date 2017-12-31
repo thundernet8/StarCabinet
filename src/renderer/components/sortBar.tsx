@@ -1,10 +1,12 @@
 import React from "react";
 import classNames from "classnames";
-import styles from "../styles/main";
 import { Icon, Menu, Dropdown, Checkbox } from "antd";
 import * as CONSTANTS from "../constants";
+import { SortBarProps } from "../containers/sortBar";
 
-export default class SortBar extends React.Component {
+const styles = require("../styles/main.less");
+
+export default class SortBar extends React.Component<SortBarProps> {
     state = {
         desc: true,
         by: CONSTANTS.ORDER_BY_DEFAULT

@@ -2,6 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import { Icon, Menu, Dropdown, Checkbox } from "antd";
 import * as CONSTANTS from "../constants";
+import { FilterBarProps } from "../containers/filterBar";
 
 const styles = require("../assets/styles/main.less");
 
@@ -9,13 +10,6 @@ interface FilterCondition {
     hasFlag: boolean;
     hasNote: boolean;
     unread: boolean;
-}
-
-interface FilterBarProps {
-    fetchStatus: {
-        fetching: boolean;
-    };
-    onUpdateFilterCondition: (condition: FilterCondition) => void;
 }
 
 interface FilterBarState {

@@ -1,4 +1,4 @@
-export interface ICategory {
+export default interface ICategory {
     id: number;
     name: string;
     description: string;
@@ -7,7 +7,7 @@ export interface ICategory {
     createdTime: string;
     updatedAt: string;
     updatedTime: number;
-}
+};
 
 export interface ICategoryCreateResult {
     category?: ICategory;

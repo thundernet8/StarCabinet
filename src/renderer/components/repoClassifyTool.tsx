@@ -1,11 +1,14 @@
 import React from "react";
 import classNames from "classnames";
-import styles from "../styles/main";
 import { Icon, Tooltip, Popover, Button, Input, Checkbox } from "antd";
 import SCLogger from "../utils/logHelper";
+import { RepoClassifyToolProps } from "../containers/RepoClassifyTool";
+
+const styles = require("../styles/main.less");
+
 const CheckboxGroup = Checkbox.Group;
 
-export default class RepoClassifyTool extends React.Component {
+export default class RepoClassifyTool extends React.Component<RepoClassifyToolProps> {
     state = {
         visible: false,
         categorySelection: []
@@ -35,18 +38,13 @@ export default class RepoClassifyTool extends React.Component {
     queryCategories = repoId => {
         this.props.onGetCategoriesForRepo(repoId).then(categories => {
             this.setState({
-                categorySelection: categories.map(category =>
-                    category.id.toString()
-                )
+                categorySelection: categories.map(category => category.id.toString())
             });
         });
     };
 
     componentWillReceiveProps(nextProps) {
-        if (
-            nextProps.repo &&
-            (!this.props.repo || !nextProps.repo._categories)
-        ) {
+        if (nextProps.repo && (!this.props.repo || !nextProps.repo._categories)) {
             this.queryCategories(nextProps.repo.id);
         }
         if (nextProps.repo && nextProps.repo._categories) {
@@ -71,17 +69,10 @@ export default class RepoClassifyTool extends React.Component {
         }
 
         const titleNode = (
-            <div
-                className={classNames(
-                    "classifyPaneTitle",
-                    styles.classifyPaneTitle
-                )}
-            >
+            <div className={classNames("classifyPaneTitle", styles.classifyPaneTitle)}>
                 <span>Choose Repo Categoires</span>
                 {this.props.categories &&
-                    this.props.categories.length > 0 && (
-                        <a onClick={this.submit}>SAVE</a>
-                    )}
+                    this.props.categories.length > 0 && <a onClick={this.submit}>SAVE</a>}
             </div>
         );
 
@@ -96,8 +87,7 @@ export default class RepoClassifyTool extends React.Component {
                     styles.repoClassifyToolInputWrap
                 )}
             >
-                {!this.props.categories ||
-                this.props.categories.length === 0 ? (
+                {!this.props.categories || this.props.categories.length === 0 ? (
                     <div>Please add some categories before choosing ones</div>
                 ) : (
                     <CheckboxGroup

@@ -1,12 +1,14 @@
 import React from "react";
 import classNames from "classnames";
-import styles from "../styles/main";
 import { Icon, Tooltip, Popover, Button, message } from "antd";
 import RepoLinksTool from "./repoLinksTool";
 import RepoNoteTool from "./repoNoteTool";
 import RepoClassifyTool from "../containers/repoClassifyTool";
+import { RepoDetailToolbarProps } from "../containers/repoDetailToolbar";
 
-export default class RepoDetailToolbar extends React.Component {
+const styles = require("../styles/main.less");
+
+export default class RepoDetailToolbar extends React.Component<RepoDetailToolbarProps> {
     viewInGithub = () => {
         console.log(this.props.selectedRepo);
         if (this.props.selectedRepo) {
@@ -22,13 +24,8 @@ export default class RepoDetailToolbar extends React.Component {
                 message.success("Thank you for starring me");
             })
             .catch(() => {
-                message.info(
-                    "Failed but thank you, maybe you have starred already"
-                );
-                window.open(
-                    "https://github.com/thundernet8/StarCabinet",
-                    "_blank"
-                );
+                message.info("Failed but thank you, maybe you have starred already");
+                window.open("https://github.com/thundernet8/StarCabinet", "_blank");
             });
     };
 
@@ -48,11 +45,7 @@ export default class RepoDetailToolbar extends React.Component {
             readIcon = (
                 <Tooltip
                     placement="bottom"
-                    title={
-                        this.props.selectedRepo.read
-                            ? "Mark as unread"
-                            : "Mark as read"
-                    }
+                    title={this.props.selectedRepo.read ? "Mark as unread" : "Mark as read"}
                 >
                     <Icon
                         type={this.props.selectedRepo.read ? "eye" : "eye-o"}
@@ -64,11 +57,7 @@ export default class RepoDetailToolbar extends React.Component {
             flagIcon = (
                 <Tooltip
                     placement="bottom"
-                    title={
-                        this.props.selectedRepo.flag
-                            ? "Remove flag"
-                            : "Add flag"
-                    }
+                    title={this.props.selectedRepo.flag ? "Remove flag" : "Add flag"}
                 >
                     <Icon
                         type="flag"

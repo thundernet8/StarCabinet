@@ -1,9 +1,16 @@
 import React from "react";
 import classNames from "classnames";
-import styles from "../styles/main";
 import { Icon, Tooltip, Popover, Button, message, Input } from "antd";
+import IRepo from "../interface/IRepo";
 
-export default class RepoNoteTool extends React.Component {
+const styles = require("../styles/main.less");
+
+interface RepoNoteToolProps {
+    repo: IRepo | null;
+    updateNote: (id: number, note: string) => void;
+}
+
+export default class RepoNoteTool extends React.Component<RepoNoteToolProps> {
     state = {
         visible: false,
         note: ""
@@ -46,12 +53,7 @@ export default class RepoNoteTool extends React.Component {
             </div>
         );
         const content = (
-            <div
-                className={classNames(
-                    "repoNoteToolInputWrap",
-                    styles.repoNoteToolInputWrap
-                )}
-            >
+            <div className={classNames("repoNoteToolInputWrap", styles.repoNoteToolInputWrap)}>
                 <Input
                     type="textarea"
                     rows={5}

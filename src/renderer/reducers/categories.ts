@@ -1,6 +1,6 @@
 import * as CONSTANTS from "../constants";
 import IAction from "../interface/IAction";
-import { ICategory, ICategoryCreateResult } from "../interface/ICategory";
+import ICategory, { ICategoryCreateResult } from "../interface/ICategory";
 
 const categoriesDefaultState: ICategory[] = [];
 

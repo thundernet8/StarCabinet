@@ -4,6 +4,7 @@ import * as SHAREDCONSTANTS from "../../shared/constants";
 import { ipcRenderer } from "electron";
 import { Input, Icon, Button, message } from "antd";
 import classNames from "classnames";
+import { LoginPageProps } from "../containers/loginPage";
 
 const styles = require("./assets/styles/login.less");
 
@@ -11,24 +12,6 @@ message.config({
     top: 60,
     duration: 5
 });
-
-interface Credentials {
-    username: string;
-    password: string;
-}
-
-interface LoginPageProps {
-    credentials: Credentials;
-    loginResult: {
-        success: boolean;
-        profile: {
-            name: string;
-            avatar_url: string;
-        };
-    };
-    onRequestLogin: (credentials: Credentials, cb: (success: boolean, msg: string) => void) => void;
-    onGetLocalCredentials: (local: boolean) => Promise<string>;
-}
 
 interface LoginPageState {
     submitting: boolean;

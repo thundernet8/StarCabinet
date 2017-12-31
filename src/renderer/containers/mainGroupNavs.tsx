@@ -1,9 +1,23 @@
 import { connect } from "react-redux";
 import MainGroupNavs from "../components/mainGroupNavs";
 import Actions from "../actions";
+import IState from "../interface/IState";
+import { IGroupConditionState } from "../interface/IConditional";
+import ILanguage from "../interface/ILanguage";
+import ICategory from "../interface/ICategory";
+import { IRepoFetchingStatus } from "../interface/IRepo";
+
+export interface MainGroupNavsProps {
+    group: IGroupConditionState;
+    languages: ILanguage[];
+    categories: ICategory[];
+    fetchStatus: IRepoFetchingStatus;
+    onUpdateGroupCondition: (group: IGroupConditionState) => void;
+    onDeleteCategory: (id: number) => void;
+}
 
 // Redux connection
-const mapStateToProps = state => {
+const mapStateToProps = (state: IState) => {
     return {
         group: state.group,
         languages: state.languages,

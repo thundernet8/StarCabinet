@@ -1,8 +1,14 @@
 import { connect } from "react-redux";
 import MainGroupAvatar from "../components/mainGroupAvatar";
+import IState from "../interface/IState";
+import IProfile from "../interface/IProfile";
+
+export interface MainGroupAvatarProps {
+    profile: IProfile;
+}
 
 // Redux connection
-const mapStateToProps = state => {
+const mapStateToProps = (state: IState) => {
     return {
         profile: state.profile
     };

@@ -1,11 +1,20 @@
 import React from "react";
 import classNames from "classnames";
-import styles from "../styles/main.less";
 import { Rate, Icon, Row, Col } from "antd";
 import SCLogger from "../utils/logHelper";
+import IRepo from "../interface/IRepo";
+
+const styles = require("../styles/main.less");
+
+interface RepoListItemProps {
+    repo: IRepo;
+    selectedRepo: IRepo | null;
+    onSelectRepo: (repo: IRepo) => void;
+    onRateRepo: (id: number, score: number) => void;
+}
 
 // a single item of repos list
-export default class RepoListItem extends React.Component {
+export default class RepoListItem extends React.Component<RepoListItemProps> {
     state = {
         selected: false,
         score: this.props.repo.score
@@ -25,10 +34,7 @@ export default class RepoListItem extends React.Component {
     selectRepo = e => {
         e.stopPropagation();
 
-        if (
-            !this.props.selectedRepo ||
-            this.props.repo.id !== this.props.selectedRepo.id
-        ) {
+        if (!this.props.selectedRepo || this.props.repo.id !== this.props.selectedRepo.id) {
             this.props.onSelectRepo(this.props.repo);
         }
     };
@@ -47,10 +53,7 @@ export default class RepoListItem extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        if (
-            nextState.selected !== this.state.selected ||
-            nextState.score !== this.state.score
-        ) {
+        if (nextState.selected !== this.state.selected || nextState.score !== this.state.score) {
             return true;
         }
         return false;
@@ -58,11 +61,9 @@ export default class RepoListItem extends React.Component {
 
     render() {
         SCLogger("render repo item");
-        const klass = classNames(
-            "repoListItem animated fadeIn",
-            styles.repoListItem,
-            { [styles.repoSelected]: this.state.selected }
-        );
+        const klass = classNames("repoListItem animated fadeIn", styles.repoListItem, {
+            [styles.repoSelected]: this.state.selected
+        });
         return (
             <div className={klass} onClick={this.selectRepo}>
                 <div className={styles.repoItemInner}>

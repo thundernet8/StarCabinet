@@ -1,9 +1,16 @@
 import { connect } from "react-redux";
 import LoginPage from "../components/loginPage";
 import Actions from "../actions";
+import IState from "../interface/IState";
+import { ICredentialsState, ILoginResultState } from "../interface/IAccount";
+
+export interface LoginPageProps {
+    credentials: ICredentialsState;
+    loginResult: ILoginResultState;
+}
 
 // Redux connection
-const mapStateToProps = state => {
+const mapStateToProps = (state: IState) => {
     return {
         credentials: state.credentials,
         loginResult: state.loginResult

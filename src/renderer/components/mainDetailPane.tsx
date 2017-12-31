@@ -1,24 +1,20 @@
 import React from "react";
 import classNames from "classnames";
-import styles from "../styles/main.less";
 import RepoDetailToolbar from "../containers/repoDetailToolbar";
 import RepoDetail from "../containers/repoDetail";
 
+const styles = require("../styles/main.less");
+
 // right part of the main window - for displaying selected repo detail
-export default class MainDetailPane extends React.Component {
+export default class MainDetailPane extends React.Component<{}> {
     render() {
         return (
             <div className={classNames("right", styles.right)}>
-                <header
-                    className={classNames("detailHeader", styles.detailHeader)}
-                >
+                <header className={classNames("detailHeader", styles.detailHeader)}>
                     <RepoDetailToolbar />
                 </header>
                 <section
-                    className={classNames(
-                        "detailContent",
-                        styles.detailContent
-                    )}
+                    className={classNames("detailContent", styles.detailContent)}
                     id="detailContent"
                     style={{
                         backgroundImage: `url(${require("../assets/images/github-gray.png")})`

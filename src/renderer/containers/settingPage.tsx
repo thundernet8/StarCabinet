@@ -1,9 +1,20 @@
 import { connect } from "react-redux";
 import SettingPage from "../components/settingPage";
 import Actions from "../actions";
+import IState from "../interface/IState";
+import IProfile from "../interface/IProfile";
+import { RxDatabase } from "rxdb";
+
+export interface SettingPageProps {
+    profile: IProfile;
+    db: RxDatabase;
+    onGetLocalCredentials: () => void;
+    onGetMyProfile: () => void;
+    onGetRxDB: (dbName: string) => void;
+}
 
 // Redux connection
-const mapStateToProps = state => {
+const mapStateToProps = (state: IState) => {
     return {
         profile: state.profile,
         db: state.db

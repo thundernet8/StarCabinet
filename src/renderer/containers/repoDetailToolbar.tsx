@@ -1,9 +1,21 @@
 import { connect } from "react-redux";
 import RepoDetailToolbar from "../components/repoDetailToolbar";
 import Actions from "../actions";
+import IState from "../interface/IState";
+import IRepo from "../interface/IRepo";
+import ICategory from "../interface/ICategory";
+
+export interface RepoDetailToolbarProps {
+    categories: ICategory[];
+    selectedRepo: IRepo | null;
+    onStarStarCabinet: () => void;
+    onUpdateRepoNote: (id: number, note: string) => void;
+    onChangeRepoFlag: (id: number, hasFlag: boolean) => void;
+    onChangeRepoReadStatus: (id: number, read: boolean) => void;
+}
 
 // Redux connection
-const mapStateToProps = state => {
+const mapStateToProps = (state: IState) => {
     return {
         categories: state.categories,
         selectedRepo: state.selectedRepo

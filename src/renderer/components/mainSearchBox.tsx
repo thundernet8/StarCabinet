@@ -1,13 +1,16 @@
 import React from "react";
 import classNames from "classnames";
-import styles from "../styles/main";
 import * as CONSTANTS from "../constants";
 import { Input, Radio, message } from "antd";
+import { MainSearchBoxProps } from "../containers/mainSearchBox";
+
+const styles = require("../styles/main.less");
+
 const Search = Input.Search;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 
-export default class MainSearchBox extends React.Component {
+export default class MainSearchBox extends React.Component<MainSearchBoxProps> {
     state = {
         focus: false,
         focusLock: false,
@@ -70,13 +73,8 @@ export default class MainSearchBox extends React.Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        if (
-            this.state.searching &&
-            nextProps.search.key === this.props.search.key
-        ) {
-            message.success(
-                `Searched ${Object.keys(nextProps.repos).length} results`
-            );
+        if (this.state.searching && nextProps.search.key === this.props.search.key) {
+            message.success(`Searched ${Object.keys(nextProps.repos).length} results`);
             this.setState({
                 searching: false
             });
@@ -100,31 +98,19 @@ export default class MainSearchBox extends React.Component {
                     placeholder="Search"
                     onSearch={this.onSearch}
                 />
-                <div
-                    className={classNames("searchFields", styles.searchFields)}
-                >
+                <div className={classNames("searchFields", styles.searchFields)}>
                     <RadioGroup
                         defaultValue={CONSTANTS.SEARCH_FIELD_ALL}
                         size="medium"
                         onChange={this.onRadioChange}
                     >
-                        <RadioButton value={CONSTANTS.SEARCH_FIELD_ALL}>
-                            All
-                        </RadioButton>
-                        <RadioButton value={CONSTANTS.SEARCH_FIELD_REPO_NAME}>
-                            Name
-                        </RadioButton>
-                        <RadioButton
-                            value={CONSTANTS.SEARCH_FIELD_REPO_DESCRIPTION}
-                        >
+                        <RadioButton value={CONSTANTS.SEARCH_FIELD_ALL}>All</RadioButton>
+                        <RadioButton value={CONSTANTS.SEARCH_FIELD_REPO_NAME}>Name</RadioButton>
+                        <RadioButton value={CONSTANTS.SEARCH_FIELD_REPO_DESCRIPTION}>
                             Intro
                         </RadioButton>
-                        <RadioButton value={CONSTANTS.SEARCH_FIELD_REPO_NOTE}>
-                            Note
-                        </RadioButton>
-                        <RadioButton value={CONSTANTS.SEARCH_FIELD_REPO_TAGS}>
-                            Tags
-                        </RadioButton>
+                        <RadioButton value={CONSTANTS.SEARCH_FIELD_REPO_NOTE}>Note</RadioButton>
+                        <RadioButton value={CONSTANTS.SEARCH_FIELD_REPO_TAGS}>Tags</RadioButton>
                     </RadioGroup>
                 </div>
             </div>

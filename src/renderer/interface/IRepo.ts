@@ -77,4 +77,9 @@ export default interface IRepo {
     note: string;
     defaultOrder: number;
     readme: string;
+};
+
+export interface IRepoFetchingStatus {
+    fetching: boolean;
+    success: boolean | null;
 }

@@ -1,6 +1,15 @@
 import { connect } from "react-redux";
 import FilterBar from "../components/filterBar";
 import Actions from "../actions";
+import IState from "../interface/IState";
+import { IFilterConditionState } from "../interface/IConditional";
+import { IRepoFetchingStatus } from "../interface/IRepo";
+
+export interface FilterBarProps {
+    filter: IFilterConditionState;
+    fetchStatus: IRepoFetchingStatus;
+    onUpdateFilterCondition: (filter: IFilterConditionState) => void;
+}
 
 // Redux connection
 const mapStateToProps = state => {

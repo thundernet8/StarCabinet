@@ -1,14 +1,20 @@
 import { connect } from "react-redux";
 import RepoDetail from "../components/repoDetail";
+import IState from "../interface/IState";
+import IRepo from "../interface/IRepo";
+
+export interface RepoDetailProps {
+    selectedRepo: IRepo | null;
+}
 
 // Redux connection
-const mapStateToProps = state => {
+const mapStateToProps = (state: IState) => {
     return {
         selectedRepo: state.selectedRepo
     };
 };
 
-const mapDispatchToProps = _dispatch => {
+const mapDispatchToProps = () => {
     return {};
 };
 

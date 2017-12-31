@@ -1,9 +1,30 @@
 import { connect } from "react-redux";
 import MainPage from "../components/mainPage";
 import Actions from "../actions";
+import IState from "../interface/IState";
+import {
+    ISearchConditionState,
+    IFilterConditionState,
+    IOrderConditionState,
+    IGroupConditionState
+} from "../interface/IConditional";
+import { ICredentialsState } from "../interface/IAccount";
+
+export interface MainPageProps {
+    search: ISearchConditionState;
+    order: IOrderConditionState;
+    filter: IFilterConditionState;
+    group: IGroupConditionState;
+    onGetLocalCredentials: () => Promise<ICredentialsState>;
+    onGetRxDB: (dbName: string) => void;
+    onNeedUpdateReposList: () => void;
+    onGetMyProfile: () => void;
+    onGetCategories: () => void;
+    onFetchStarredRepos: () => void;
+}
 
 // Redux connection
-const mapStateToProps = state => {
+const mapStateToProps = (state: IState) => {
     return {
         search: state.search,
         order: state.order,

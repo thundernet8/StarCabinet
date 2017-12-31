@@ -1,16 +1,21 @@
 import React from "react";
 import classNames from "classnames";
-import styles from "../styles/main";
 import { Icon, Modal, Input, Alert } from "antd";
 import * as EVENTS from "../../shared/events";
 import { ipcRenderer } from "electron";
+import { MainGroupFooterProps } from "../containers/mainGroupFooter";
 
-export default class MainGroupFooter extends React.Component {
-    state = {
-        modalVisible: false,
-        submitting: false,
-        error: null
-    };
+const styles = require("../styles/main.less");
+
+export default class MainGroupFooter extends React.Component<MainGroupFooterProps> {
+    constructor(props) {
+        super(props);
+        this.state = {
+            modalVisible: false,
+            submitting: false,
+            error: null
+        };
+    }
 
     showAddCatDialog = () => {
         if (this.state.modalVisible) {

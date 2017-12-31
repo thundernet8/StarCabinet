@@ -2,11 +2,11 @@ import { connect } from "react-redux";
 import MainGroupPane from "../components/mainGroupPane";
 
 // Redux connection
-const mapStateToProps = _state => {
+const mapStateToProps = () => {
     return {};
 };
 
-const mapDispatchToProps = _dispatch => {
+const mapDispatchToProps = () => {
     return {};
 };
 

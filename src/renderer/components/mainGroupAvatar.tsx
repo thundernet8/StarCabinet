@@ -1,9 +1,11 @@
 import React from "react";
-import classNames from "classnames";
-import styles from "../styles/main";
+import { MainGroupAvatarProps } from "../containers/mainGroupAvatar";
+
+const styles = require("../styles/main.less");
+
 const defaultAvatar = require("../assets/images/avatar-default.png");
 
-export default class MainGroupAvatar extends React.Component {
+export default class MainGroupAvatar extends React.Component<MainGroupAvatarProps> {
     getAvatarUrl = () => {
         if (!this.props.profile || !this.props.profile.avatarUrl) {
             return defaultAvatar;
@@ -22,15 +24,10 @@ export default class MainGroupAvatar extends React.Component {
         return (
             <div className={styles.profileCard}>
                 <a href={this.getHomepageUrl()} target="_blank">
-                    <img
-                        className={styles.profileAvatar}
-                        src={this.getAvatarUrl()}
-                    />
+                    <img className={styles.profileAvatar} src={this.getAvatarUrl()} />
                 </a>
                 {this.props.profile && (
-                    <p className={styles.profileName}>
-                        {this.props.profile.name}
-                    </p>
+                    <p className={styles.profileName}>{this.props.profile.name}</p>
                 )}
             </div>
         );

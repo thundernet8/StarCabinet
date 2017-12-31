@@ -1,14 +1,15 @@
 import React from "react";
 import classNames from "classnames";
-import styles from "../styles/main";
-import GithubClient from "../utils/githubClient";
 import MainGroupPane from "../containers/mainGroupPane";
 import MainListPane from "../containers/mainListPane";
 import MainDetailPane from "../containers/mainDetailPane";
 import deepEqual from "deep-equal";
 import dbName from "../utils/dbName";
+import { MainPageProps } from "../containers/mainPage";
 
-export default class MainPage extends React.Component {
+const styles = require("../styles/main.less");
+
+export default class MainPage extends React.Component<MainPageProps> {
     componentWillMount() {
         this.props
             .onGetLocalCredentials()

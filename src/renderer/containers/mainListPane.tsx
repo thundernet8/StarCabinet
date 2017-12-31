@@ -1,13 +1,12 @@
 import { connect } from "react-redux";
 import MainListPane from "../components/mainListPane";
-import Actions from "../actions";
 
 // Redux connection
-const mapStateToProps = state => {
+const mapStateToProps = () => {
     return {};
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = () => {
     return {};
 };
 

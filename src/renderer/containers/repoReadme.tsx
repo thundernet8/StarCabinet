@@ -1,9 +1,16 @@
 import { connect } from "react-redux";
 import RepoReadme from "../components/repoReadme";
 import Actions from "../actions";
+import IState from "../interface/IState";
+import IRepo from "../interface/IRepo";
+
+export interface RepoReadmeProps {
+    selectedRepo: IRepo | null;
+    onFetchRepoReadMe: (repo: IRepo) => void;
+}
 
 // Redux connection
-const mapStateToProps = state => {
+const mapStateToProps = (state: IState) => {
     return {
         selectedRepo: state.selectedRepo
     };

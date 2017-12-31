@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router";
-import styles from "../styles/setting.less";
 import * as EVENTS from "../../shared/events";
 import * as SHAREDCONSTANTS from "../../shared/constants";
 import { ipcRenderer } from "electron";
@@ -10,9 +9,13 @@ import dbName from "../utils/dbName";
 import { starsDataExportHandler, starsDataImportHandler } from "../utils/data";
 import Authentication from "../utils/authentication";
 import { quitElectronApp, restartElectronApp } from "../utils/electronApp";
+import { SettingPageProps } from "../containers/settingPage";
+
 const defaultAvatar = require("../assets/images/avatar-default.png");
 
-export default class SettingPage extends React.Component {
+const styles = require("../styles/setting.less");
+
+export default class SettingPage extends React.Component<SettingPageProps> {
     state = {
         importing: false,
         exporting: false,
@@ -96,10 +99,7 @@ export default class SettingPage extends React.Component {
     };
 
     openFeedback = () => {
-        window.open(
-            "https://github.com/thundernet8/StarCabinet/issues",
-            "_blank"
-        );
+        window.open("https://github.com/thundernet8/StarCabinet/issues", "_blank");
     };
 
     componentWillMount() {
@@ -117,15 +117,11 @@ export default class SettingPage extends React.Component {
 
     render() {
         return (
-            <div
-                className={classNames("settingWrapper", styles.settingWrapper)}
-            >
+            <div className={classNames("settingWrapper", styles.settingWrapper)}>
                 <header>
                     <div>SETTING</div>
                 </header>
-                <section
-                    className={classNames("settingBody", styles.settingBody)}
-                >
+                <section className={classNames("settingBody", styles.settingBody)}>
                     <div
                         className={classNames(
                             "settingRow",
@@ -133,67 +129,34 @@ export default class SettingPage extends React.Component {
                             styles.accountSetting
                         )}
                     >
-                        <img
-                            className={styles.accountAvatar}
-                            src={this.getAvatarUrl()}
-                        />
+                        <img className={styles.accountAvatar} src={this.getAvatarUrl()} />
                         {this.props.profile && (
-                            <span className={styles.accountName}>
-                                {this.props.profile.name}
-                            </span>
+                            <span className={styles.accountName}>{this.props.profile.name}</span>
                         )}
-                        <Button
-                            type="default"
-                            size="default"
-                            onClick={this.showQuitWarning}
-                        >
+                        <Button type="default" size="default" onClick={this.showQuitWarning}>
                             SignOut
                         </Button>
                     </div>
-                    <div
-                        className={classNames(
-                            "settingRow",
-                            styles.settingRow,
-                            styles.contact
-                        )}
-                    >
+                    <div className={classNames("settingRow", styles.settingRow, styles.contact)}>
                         <span>Backup: </span>
                         <Button onClick={this.exportData}>
                             <Icon type="upload" /> Click to Export
                         </Button>
                     </div>
-                    <div
-                        className={classNames(
-                            "settingRow",
-                            styles.settingRow,
-                            styles.contact
-                        )}
-                    >
+                    <div className={classNames("settingRow", styles.settingRow, styles.contact)}>
                         <span>Restore: </span>
                         <Button onClick={this.importData}>
                             <Icon type="download" /> Click to Import
                         </Button>
                     </div>
-                    <div
-                        className={classNames(
-                            "settingRow",
-                            styles.settingRow,
-                            styles.contact
-                        )}
-                    >
+                    <div className={classNames("settingRow", styles.settingRow, styles.contact)}>
                         <span>Feedback: </span>
-                        <Button
-                            type="default"
-                            size="default"
-                            onClick={this.openFeedback}
-                        >
+                        <Button type="default" size="default" onClick={this.openFeedback}>
                             Submit Feedback
                         </Button>
                     </div>
                 </section>
-                <footer>
-                    &copy; 2017-{`${new Date().getFullYear()} StarCabinet`}
-                </footer>
+                <footer>&copy; 2017-{`${new Date().getFullYear()} StarCabinet`}</footer>
                 <Modal
                     title="Remind"
                     visible={this.state.quitModalVisible}

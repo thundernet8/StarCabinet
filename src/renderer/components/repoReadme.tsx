@@ -1,20 +1,19 @@
 import React from "react";
 import classNames from "classnames";
-import styles from "../styles/main";
 import { Spin } from "antd";
 import ReactMarkdown from "react-markdown";
+import { RepoReadmeProps } from "../containers/repoReadme";
 import "github-markdown-css";
 
-export default class RepoReadme extends React.Component {
+const styles = require("../styles/main.less");
+
+export default class RepoReadme extends React.Component<RepoReadmeProps> {
     transformImageUri = url => {
         const regex = /http(s?):\/\//i;
         if (!regex.test(url)) {
             const repo = this.props.selectedRepo;
             let prefix =
-                "https://raw.githubusercontent.com/" +
-                repo.fullName +
-                "/" +
-                repo.defaultBranch;
+                "https://raw.githubusercontent.com/" + repo.fullName + "/" + repo.defaultBranch;
             url.indexOf(".") !== 0 && (prefix += "/");
 
             return prefix + url;
@@ -27,22 +26,12 @@ export default class RepoReadme extends React.Component {
     replaceImageSrc = content => {
         const repo = this.props.selectedRepo;
         let prefix =
-            "https://raw.githubusercontent.com/" +
-            repo.fullName +
-            "/" +
-            repo.defaultBranch +
-            "/";
-        return content.replace(
-            /(<img(.*?)src=")(?!http:\/\/)(.*?)"/g,
-            `$1${prefix}$3"`
-        ); // .replace(/!\[(.*?)\]\((?!http:\/\/)(.*?)\)/g, '![$1](' + prefix + '$2)')
+            "https://raw.githubusercontent.com/" + repo.fullName + "/" + repo.defaultBranch + "/";
+        return content.replace(/(<img(.*?)src=")(?!http:\/\/)(.*?)"/g, `$1${prefix}$3"`); // .replace(/!\[(.*?)\]\((?!http:\/\/)(.*?)\)/g, '![$1](' + prefix + '$2)')
     };
 
     componentWillMount() {
-        if (
-            this.props
-                .selectedRepo /* && this.props.selectedRepo.readme === '' */
-        ) {
+        if (this.props.selectedRepo /* && this.props.selectedRepo.readme === '' */) {
             this.props.onFetchRepoReadMe(this.props.selectedRepo);
         }
     }
@@ -64,12 +53,7 @@ export default class RepoReadme extends React.Component {
             return null;
         } else if (!this.props.selectedRepo.readme) {
             return (
-                <div
-                    className={classNames(
-                        "repoReadMeWrap",
-                        styles.repoReadMeWrap
-                    )}
-                >
+                <div className={classNames("repoReadMeWrap", styles.repoReadMeWrap)}>
                     <div className={classNames(styles.repoReadmeLoading)}>
                         <Spin />
                     </div>
@@ -77,9 +61,7 @@ export default class RepoReadme extends React.Component {
             );
         }
         return (
-            <div
-                className={classNames("repoReadMeWrap", styles.repoReadMeWrap)}
-            >
+            <div className={classNames("repoReadMeWrap", styles.repoReadMeWrap)}>
                 <div
                     className={classNames(
                         "repoReadme markdown-body animated fadeInUp",
@@ -87,9 +69,7 @@ export default class RepoReadme extends React.Component {
                     )}
                 >
                     <ReactMarkdown
-                        source={this.replaceImageSrc(
-                            this.props.selectedRepo.readme
-                        )}
+                        source={this.replaceImageSrc(this.props.selectedRepo.readme)}
                         transformImageUri={this.transformImageUri}
                     />
                 </div>

@@ -1,27 +1,23 @@
 import React from "react";
 import classNames from "classnames";
-import styles from "../styles/main";
 import { Menu, Icon } from "antd";
 import * as CONSTANTS from "../constants";
+import { MainGroupNavsProps } from "../containers/mainGroupNavs";
+
+const styles = require("../styles/main.less");
+
 const SubMenu = Menu.SubMenu;
 const noSubsCatKeys = [CONSTANTS.GROUP_TYPE_ALL, CONSTANTS.GROUP_TYPE_UNKNOWN];
-const hasSubsCatKeys = [
-    CONSTANTS.GROUP_TYPE_LANGUAGE,
-    CONSTANTS.GROUP_TYPE_CATEGORY
-];
+const hasSubsCatKeys = [CONSTANTS.GROUP_TYPE_LANGUAGE, CONSTANTS.GROUP_TYPE_CATEGORY];
 
-export default class MainGroupNavs extends React.Component {
+export default class MainGroupNavs extends React.Component<MainGroupNavsProps> {
     state = {
         current: CONSTANTS.GROUP_TYPE_ALL,
         openKeys: [CONSTANTS.GROUP_TYPE_ALL]
     };
 
     handleClick = e => {
-        if (
-            this.state.stopBubble ||
-            !this.props.fetchStatus ||
-            this.props.fetchStatus.fetching
-        ) {
+        if (this.state.stopBubble || !this.props.fetchStatus || this.props.fetchStatus.fetching) {
             return; // not available when fetching data
         }
         let group;
@@ -47,9 +43,7 @@ export default class MainGroupNavs extends React.Component {
 
     onOpenChange = openKeys => {
         const state = this.state;
-        const latestOpenKey = openKeys.find(
-            key => !(state.openKeys.indexOf(key) > -1)
-        );
+        const latestOpenKey = openKeys.find(key => !(state.openKeys.indexOf(key) > -1));
 
         let nextOpenKeys = [];
         if (latestOpenKey) {

@@ -1,9 +1,11 @@
 import React from "react";
 import classNames from "classnames";
-import styles from "../styles/main";
 import { Icon, Tooltip, notification, message, Tag, Input, Button } from "antd";
+import { RepoTagsBarProps } from "../containers/repoTagsBar";
 
-export default class RepoTagsBar extends React.Component {
+const styles = require("../styles/main.less");
+
+export default class RepoTagsBar extends React.Component<RepoTagsBarProps> {
     state = {
         tags: [],
         inputVisible: false,
@@ -55,10 +57,7 @@ export default class RepoTagsBar extends React.Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        if (
-            nextProps.selectedRepo &&
-            (!this.props.selectedRepo || !nextProps.selectedRepo._tags)
-        ) {
+        if (nextProps.selectedRepo && (!this.props.selectedRepo || !nextProps.selectedRepo._tags)) {
             this.queryTags(nextProps.selectedRepo.id);
         }
         if (nextProps.selectedRepo._tags) {
@@ -92,11 +91,7 @@ export default class RepoTagsBar extends React.Component {
                             {isLongTag ? `${tag.slice(0, 20)}...` : tag}
                         </Tag>
                     );
-                    return isLongTag ? (
-                        <Tooltip title={tag}>{tagElem}</Tooltip>
-                    ) : (
-                        tagElem
-                    );
+                    return isLongTag ? <Tooltip title={tag}>{tagElem}</Tooltip> : tagElem;
                 })}
                 {inputVisible && (
                     <Input

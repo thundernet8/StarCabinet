@@ -1,9 +1,18 @@
 import { connect } from "react-redux";
 import ReposList from "../components/reposList";
 import Actions from "../actions";
+import IState from "../interface/IState";
+import IRepo from "../interface/IRepo";
+
+export interface ReposListProps {
+    repos: { [key: string]: IRepo };
+    selectedRepo: IRepo | null;
+    onSelectRepo: (repo: IRepo) => void;
+    onRateRepo: (id: number, score: number) => void;
+}
 
 // Redux connection
-const mapStateToProps = state => {
+const mapStateToProps = (state: IState) => {
     return {
         repos: state.repos,
         selectedRepo: state.selectedRepo

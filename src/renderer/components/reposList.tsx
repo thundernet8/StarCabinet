@@ -1,10 +1,12 @@
 import React from "react";
 import classNames from "classnames";
-import styles from "../styles/main.less";
 import RepoItem from "../components/repoListItem";
+import { ReposListProps } from "../containers/reposList";
+
+const styles = require("../styles/main.less");
 
 // repos list wrapper
-export default class ReposList extends React.Component {
+export default class ReposList extends React.Component<ReposListProps> {
     render() {
         const repoItems = Object.values(this.props.repos).map(repo => (
             <RepoItem
@@ -16,12 +18,7 @@ export default class ReposList extends React.Component {
             />
         ));
         return (
-            <div
-                className={classNames(
-                    "reposListWrapper",
-                    styles.reposListWrapper
-                )}
-            >
+            <div className={classNames("reposListWrapper", styles.reposListWrapper)}>
                 {repoItems}
             </div>
         );

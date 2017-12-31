@@ -1,15 +1,13 @@
 import React from "react";
 import classNames from "classnames";
-import styles from "../styles/main";
 import { Icon, Tooltip, notification } from "antd";
+import { RefreshIndicatorProps } from "../containers/refreshIndicator";
 
-export default class RefreshIndicator extends React.Component {
+const styles = require("../styles/main.less");
+
+export default class RefreshIndicator extends React.Component<RefreshIndicatorProps> {
     refresh = () => {
-        if (
-            this.props.offline ||
-            !this.props.fetchStatus ||
-            this.props.fetchStatus.fetching
-        ) {
+        if (this.props.offline || !this.props.fetchStatus || this.props.fetchStatus.fetching) {
             return;
         }
         this.props.onRefresh(); // fetch real-time data from server and update repos list
@@ -41,10 +39,7 @@ export default class RefreshIndicator extends React.Component {
                     <Icon
                         className={classNames("indicator", styles.indicator)}
                         type="sync"
-                        spin={
-                            this.props.fetchStatus &&
-                            this.props.fetchStatus.fetching
-                        }
+                        spin={this.props.fetchStatus && this.props.fetchStatus.fetching}
                         onClick={this.refresh}
                     />
                 </Tooltip>
@@ -54,18 +49,11 @@ export default class RefreshIndicator extends React.Component {
                 <Icon
                     className={classNames("indicator", styles.indicator)}
                     type="sync"
-                    spin={
-                        this.props.fetchStatus &&
-                        this.props.fetchStatus.fetching
-                    }
+                    spin={this.props.fetchStatus && this.props.fetchStatus.fetching}
                     onClick={this.refresh}
                 />
             );
         }
-        return (
-            <div className={classNames("indicatorWrap", styles.indicatorWrap)}>
-                {indicator}
-            </div>
-        );
+        return <div className={classNames("indicatorWrap", styles.indicatorWrap)}>{indicator}</div>;
     }
 }

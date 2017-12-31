@@ -1,10 +1,16 @@
 import React from "react";
 import classNames from "classnames";
-import styles from "../styles/main";
 import { Icon, Tooltip, Popover, Input } from "antd";
 import CopyToClipboard from "react-copy-to-clipboard";
+import IRepo, { IRepoFetchingStatus } from "../interface/IRepo";
 
-export default class RepoLinksTool extends React.Component {
+const styles = require("../styles/main.less");
+
+interface RepoLinksToolProps {
+    repo: IRepo;
+}
+
+export default class RepoLinksTool extends React.Component<RepoLinksToolProps> {
     state = {
         visible: false,
         copied: false
@@ -37,21 +43,14 @@ export default class RepoLinksTool extends React.Component {
         );
 
         const titleNode = (
-            <div
-                className={classNames("linksPaneTitle", styles.linksPaneTitle)}
-            >
+            <div className={classNames("linksPaneTitle", styles.linksPaneTitle)}>
                 <span>Repo Clone Links</span>
                 {this.state.copied && <a>Copied !</a>}
             </div>
         );
 
         const content = (
-            <div
-                className={classNames(
-                    "repoLinksToolInputWrap",
-                    styles.repoLinksToolInputWrap
-                )}
-            >
+            <div className={classNames("repoLinksToolInputWrap", styles.repoLinksToolInputWrap)}>
                 <Input
                     addonBefore="SSH"
                     addonAfter={clipboard(this.props.repo.sshUrl)}

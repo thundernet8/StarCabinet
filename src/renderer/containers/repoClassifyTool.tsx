@@ -1,9 +1,19 @@
 import { connect } from "react-redux";
 import RepoClassifyTool from "../components/repoClassifyTool";
 import Actions from "../actions";
+import IState from "../interface/IState";
+import ICategory from "../interface/ICategory";
+import IRepo from "../interface/IRepo";
+
+export interface RepoClassifyToolProps {
+    repo: IRepo;
+    categories: ICategory[];
+    onGetCategoriesForRepo: (id: number) => void;
+    onUpdateRepoCategories: (id: number, catIds: number[]) => void;
+}
 
 // Redux connection
-const mapStateToProps = state => {
+const mapStateToProps = (state: IState) => {
     return {
         categories: state.categories
     };
