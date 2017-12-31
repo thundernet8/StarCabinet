@@ -8,7 +8,7 @@ end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[*.{js,jsx,css,less,scss}]
+[*.{ts,tsx,js,jsx,css,less,scss}]
 indent_size = 4
 
 # Markdown files

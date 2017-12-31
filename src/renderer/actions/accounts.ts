@@ -11,7 +11,7 @@ export const getLocalCredentials = (autoSignin = false) => {
             .then(credentials => {
                 dispatch({
                     type: CONSTANTS.GET_LOCAL_CREDENTIALS_SUCCESS,
-                    credentials
+                    payload: { credentials }
                 });
 
                 // auto signin
@@ -20,15 +20,17 @@ export const getLocalCredentials = (autoSignin = false) => {
                         .then(profile => {
                             dispatch({
                                 type: CONSTANTS.REQUEST_LOGIN_SUCCESS,
-                                profile
+                                payload: { profile }
                             });
                             return "login successfully";
                         })
                         .catch(err => {
                             dispatch({
                                 type: CONSTANTS.REQUEST_LOGIN_FAIL,
-                                profile: null,
-                                msg: err.message
+                                payload: {
+                                    profile: null,
+                                    msg: err.message
+                                }
                             });
                             return err;
                         });
@@ -38,7 +40,7 @@ export const getLocalCredentials = (autoSignin = false) => {
             .catch(err => {
                 dispatch({
                     type: CONSTANTS.GET_LOCAL_CREDENTIALS_FAIL,
-                    credentials: null
+                    payload: { credentials: null }
                 });
                 return err;
             });
@@ -55,16 +57,20 @@ export const requestLogin = credentials => {
             .then(profile => {
                 dispatch({
                     type: CONSTANTS.REQUEST_LOGIN_SUCCESS,
-                    profile,
-                    msg: ""
+                    payload: {
+                        profile,
+                        msg: ""
+                    }
                 });
                 return profile;
             })
             .catch(err => {
                 dispatch({
                     type: CONSTANTS.REQUEST_LOGIN_FAIL,
-                    profile: null,
-                    msg: err.message
+                    payload: {
+                        profile: null,
+                        msg: err.message
+                    }
                 });
                 return err;
             });

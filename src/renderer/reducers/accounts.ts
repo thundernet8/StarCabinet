@@ -1,11 +1,22 @@
 import * as CONSTANTS from "../constants";
+import IAction from "../interface/IAction";
+import { ICredentialsState, ILoginResultState } from "../interface/IAccount";
 
-export const credentialsReducer = (state = { username: "", password: "" }, action) => {
+const credentialsDefaultState: ICredentialsState = {
+    username: "",
+    password: ""
+};
+
+export const credentialsReducer = (
+    state = credentialsDefaultState,
+    action: IAction
+): ICredentialsState => {
     switch (action.type) {
         case CONSTANTS.GET_LOCAL_CREDENTIALS_SUCCESS:
+            const { username, password } = action.payload.credentials;
             return {
-                username: action.credentials.username,
-                password: action.credentials.password
+                username,
+                password
             };
         case CONSTANTS.GET_LOCAL_CREDENTIALS_FAIL:
         default:
@@ -13,12 +24,20 @@ export const credentialsReducer = (state = { username: "", password: "" }, actio
     }
 };
 
-export const loginResultReducer = (state = { success: null, profile: null }, action) => {
+const loginResultDefaultState: ILoginResultState = {
+    success: null,
+    profile: null
+};
+
+export const loginResultReducer = (
+    state = loginResultDefaultState,
+    action: IAction
+): ILoginResultState => {
     switch (action.type) {
         case CONSTANTS.REQUEST_LOGIN_SUCCESS:
             return {
                 success: true,
-                profile: action.profile
+                profile: action.payload.profile
             };
         case CONSTANTS.REQUEST_LOGIN_FAIL:
             return {
