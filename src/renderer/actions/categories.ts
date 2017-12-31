@@ -14,16 +14,16 @@ export const updateCategoriesList = () => {
             .then(categories => {
                 dispatch({
                     type: CONSTANTS.QUERY_CATEGORIES_LIST_SUCCESS,
-                    categories
+                    payload: { categories }
                 });
                 return categories;
             })
-            .catch(err => {
+            .catch(error => {
                 dispatch({
                     type: CONSTANTS.QUERY_CATEGORIES_LIST_FAIL,
-                    err
+                    error
                 });
-                return err;
+                return error;
             });
     };
 };
@@ -41,19 +41,19 @@ export const addNewCategory = name => {
             .then(categoryDoc => {
                 dispatch({
                     type: CONSTANTS.ADD_CUSTOM_CATEGORY_SUCCESS,
-                    category: categoryDoc.toJSON()
+                    payload: { category: categoryDoc.toJSON() }
                 });
                 // refresh the categories list
                 dispatch(updateCategoriesList());
 
                 return categoryDoc;
             })
-            .catch(err => {
+            .catch(error => {
                 dispatch({
                     type: CONSTANTS.ADD_CUSTOM_CATEGORY_FAIL,
-                    err
+                    error
                 });
-                return err;
+                return error;
             });
     };
 };
@@ -77,12 +77,12 @@ export const deleteCategory = id => {
 
                 return id;
             })
-            .catch(err => {
+            .catch(error => {
                 dispatch({
                     type: CONSTANTS.DELETE_CUSTOM_CATEGORY_FAIL,
-                    err
+                    error
                 });
-                return err;
+                return error;
             });
     };
 };
