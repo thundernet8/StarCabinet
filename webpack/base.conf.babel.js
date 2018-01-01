@@ -7,6 +7,7 @@ import pkg from "../package.json";
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 const vendersConfig = require("../venders-config.json");
+const isDev = process.env.NODE_ENV !== "production";
 
 const getPlugins = function(morePlugins) {
     let plugins = [
@@ -25,7 +26,9 @@ const getPlugins = function(morePlugins) {
             name: "app"
         }),
         new HtmlWebpackPlugin({
-            filename: "../../app/dist/index.html",
+            filename: isDev
+                ? path.resolve(__dirname, "../dist/index.html")
+                : path.resolve(__dirname, "../app/dist/index.html"),
             template: "src/renderer/index.html",
             inject: true,
             minify: {

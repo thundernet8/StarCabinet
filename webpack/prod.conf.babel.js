@@ -74,8 +74,39 @@ const output = {
     chunkFilename: "js/[name].[chunkhash:8].chunk.js"
 };
 
-let config = baseConf(plugins, loaders);
-config.entry = entry;
-config.output = output;
+let appConfig = baseConf(plugins, loaders);
+appConfig.entry = entry;
+appConfig.output = output;
 
-export default config;
+let electronProdConfig = {
+    node: {
+        __filename: false,
+        __dirname: false
+    },
+    target: "electron-renderer",
+    entry: {
+        electron: ["babel-polyfill", "./src/main/index.js"]
+    },
+    output: {
+        filename: "[name].js", // for Electron, the main entry name is fixed in package.json, hash should removed
+        chunkFilename: "[id].js",
+        path: path.resolve(__dirname, "../app/dist"),
+        publicPath: "./",
+        libraryTarget: "commonjs" // important for set externals // http://webpack.github.io/docs/configuration.html#externals
+    },
+    resolve: {
+        extensions: [".js"]
+    },
+    externals: ["keytar"],
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                loader: "babel-loader?presets[]=es2015",
+                exclude: /node_modules/
+            }
+        ]
+    }
+};
+
+export default [appConfig, electronProdConfig];

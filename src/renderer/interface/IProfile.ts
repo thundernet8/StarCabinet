@@ -1,7 +1,4 @@
 export default interface IProfile {
-    name: string;
-    avatar_url: string;
-
     id: number;
     login: string;
     avatarUrl: string;
@@ -19,7 +16,7 @@ export default interface IProfile {
     receivedEventsUrl: string;
     type: string;
     siteAdmin: boolean;
-    // name: string;
+    name: string;
     company: string;
     blog: string;
     location: string;
@@ -38,4 +35,5 @@ export default interface IProfile {
     diskUsage: number;
     collaborators: number;
     twoFactorAuthentication: boolean;
-}
+    avatar_url: string;
+};
