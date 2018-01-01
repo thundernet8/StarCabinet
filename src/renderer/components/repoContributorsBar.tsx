@@ -1,10 +1,9 @@
 import React from "react";
 import classNames from "classnames";
 import { Tooltip } from "antd";
-import SCLogger from "../utils/logHelper";
 import { RepoContributorsBarProps } from "../containers/repoContributorsBar";
 
-const styles = require("../styles/main.less");
+const styles = require("../assets/styles/main.less");
 
 export default class RepoContributorsBar extends React.Component<RepoContributorsBarProps> {
     componentWillReceiveProps(nextProps) {

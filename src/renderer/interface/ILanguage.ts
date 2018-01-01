@@ -3,4 +3,5 @@ export default interface ILanguage {
     name: string;
     description: string;
     repos: number[];
+    reposCount: number;
 }

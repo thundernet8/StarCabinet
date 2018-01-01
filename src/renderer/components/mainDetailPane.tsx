@@ -3,7 +3,7 @@ import classNames from "classnames";
 import RepoDetailToolbar from "../containers/repoDetailToolbar";
 import RepoDetail from "../containers/repoDetail";
 
-const styles = require("../styles/main.less");
+const styles = require("../assets/styles/main.less");
 
 // right part of the main window - for displaying selected repo detail
 export default class MainDetailPane extends React.Component<{}> {

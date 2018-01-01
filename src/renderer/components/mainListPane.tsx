@@ -5,9 +5,8 @@ import SortBar from "../containers/sortBar";
 import ReposList from "../containers/reposList";
 import FilterBar from "../containers/filterBar";
 
-const styles = require("../styles/main.less");
+const styles = require("../assets/styles/main.less");
 
-// middle part of the main window
 export default class MainListPane extends React.Component<{}> {
     render() {
         return (

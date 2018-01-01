@@ -2,9 +2,9 @@ import React from "react";
 import classNames from "classnames";
 import { Icon, Tooltip, Popover, Input } from "antd";
 import CopyToClipboard from "react-copy-to-clipboard";
-import IRepo, { IRepoFetchingStatus } from "../interface/IRepo";
+import IRepo from "../interface/IRepo";
 
-const styles = require("../styles/main.less");
+const styles = require("../assets/styles/main.less");
 
 interface RepoLinksToolProps {
     repo: IRepo;

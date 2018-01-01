@@ -1,7 +1,6 @@
 import path from "path";
 import webpack from "webpack";
 import SimpleProgressWebpackPlugin from "customized-progress-webpack-plugin";
-import CopyWebpackPlugin from "copy-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import pkg from "../package.json";
 
@@ -18,10 +17,6 @@ const getPlugins = function(morePlugins) {
         ),
         new webpack.HashedModuleIdsPlugin(),
         new SimpleProgressWebpackPlugin({ format: "compact" }),
-        new CopyWebpackPlugin([
-            { from: "src/favicon.ico", to: path.resolve(__dirname, "../dist") },
-            { from: "src/robots.txt", to: path.resolve(__dirname, "../dist") }
-        ]),
         new webpack.DllReferencePlugin({
             context: __dirname,
             manifest: require("../manifest.json")
@@ -30,22 +25,17 @@ const getPlugins = function(morePlugins) {
             name: "app"
         }),
         new HtmlWebpackPlugin({
-            filename: path.resolve(__dirname, "../dist/index.html"),
-            template: "src/index.html",
+            filename: "../../app/dist/index.html",
+            template: "src/renderer/index.html",
             inject: true,
-            vendersName: vendersConfig.venders.js,
-            meta: "",
-            htmlDom: "",
-            state: ""
-        }),
-        new HtmlWebpackPlugin({
-            filename: path.resolve(__dirname, "../dist/index.ejs"),
-            template: "src/index.html",
-            inject: true,
-            vendersName: vendersConfig.venders.js,
-            meta: "<%- meta %>",
-            htmlDom: "<%- markup %>",
-            state: "<script>window.__INITIAL_STATE__ = <%- initialState %></script>"
+            minify: {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeAttributeQuotes: true
+                // more options:
+                // https://github.com/kangax/html-minifier#options-quick-reference
+            },
+            bodyClass: `platform_${process.platform}`
         })
     ];
 

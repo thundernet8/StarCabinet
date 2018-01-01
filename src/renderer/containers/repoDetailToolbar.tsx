@@ -8,7 +8,7 @@ import ICategory from "../interface/ICategory";
 export interface RepoDetailToolbarProps {
     categories: ICategory[];
     selectedRepo: IRepo | null;
-    onStarStarCabinet: () => void;
+    onStarStarCabinet: () => Promise<void>;
     onUpdateRepoNote: (id: number, note: string) => void;
     onChangeRepoFlag: (id: number, hasFlag: boolean) => void;
     onChangeRepoReadStatus: (id: number, read: boolean) => void;

@@ -1,7 +1,7 @@
 import React from "react";
 import { MainGroupAvatarProps } from "../containers/mainGroupAvatar";
 
-const styles = require("../styles/main.less");
+const styles = require("../assets/styles/main.less");
 
 const defaultAvatar = require("../assets/images/avatar-default.png");
 

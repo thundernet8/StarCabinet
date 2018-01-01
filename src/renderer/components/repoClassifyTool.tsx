@@ -1,10 +1,10 @@
 import React from "react";
 import classNames from "classnames";
-import { Icon, Tooltip, Popover, Button, Input, Checkbox } from "antd";
+import { Icon, Tooltip, Popover, Checkbox } from "antd";
 import SCLogger from "../utils/logHelper";
 import { RepoClassifyToolProps } from "../containers/RepoClassifyTool";
 
-const styles = require("../styles/main.less");
+const styles = require("../assets/styles/main.less");
 
 const CheckboxGroup = Checkbox.Group;
 
@@ -20,7 +20,7 @@ export default class RepoClassifyTool extends React.Component<RepoClassifyToolPr
         });
         this.props.onUpdateRepoCategories(
             this.props.repo.id,
-            this.state.categorySelection.map(item => parseInt(item))
+            this.state.categorySelection.map(item => parseInt(item, 10))
         );
     };
 

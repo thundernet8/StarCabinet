@@ -3,6 +3,7 @@ export default interface ICategory {
     name: string;
     description: string;
     repos: number[];
+    reposCount: number;
     createdAt: string;
     createdTime: string;
     updatedAt: string;

@@ -1,12 +1,13 @@
 import React from "react";
 import classNames from "classnames";
-import { Icon, Tooltip } from "antd";
+import { Icon } from "antd";
+import * as moment from "moment";
 import RepoContributorsBar from "../containers/repoContributorsBar";
 import RepoTagsBar from "../containers/repoTagsBar";
 import RepoReadme from "../containers/repoReadme";
 import { RepoDetailProps } from "../containers/repoDetail";
 
-const styles = require("../styles/main.less");
+const styles = require("../assets/styles/main.less");
 
 export default class RepoDetail extends React.Component<RepoDetailProps> {
     render() {
@@ -15,8 +16,7 @@ export default class RepoDetail extends React.Component<RepoDetailProps> {
         }
         const fullName = this.props.selectedRepo.fullName;
         const namePieces = fullName.split("/");
-        let pushTime = new Date(this.props.selectedRepo.pushedAt);
-        pushTime = pushTime.toLocaleDateString() + " " + pushTime.toLocaleTimeString();
+        const pushTime = moment(this.props.selectedRepo.pushedAt).format("YYYY-MM-DD HH:mm");
 
         return (
             <div className={classNames("repoDetailInner", styles.repoDetailInner)}>

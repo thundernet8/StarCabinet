@@ -5,15 +5,26 @@ import * as EVENTS from "../../shared/events";
 import { ipcRenderer } from "electron";
 import { MainGroupFooterProps } from "../containers/mainGroupFooter";
 
-const styles = require("../styles/main.less");
+const styles = require("../assets/styles/main.less");
 
-export default class MainGroupFooter extends React.Component<MainGroupFooterProps> {
+interface MainGroupFooterState {
+    modalVisible: boolean;
+    submitting: boolean;
+    error: string | null;
+    categoryName: string;
+}
+
+export default class MainGroupFooter extends React.Component<
+    MainGroupFooterProps,
+    MainGroupFooterState
+> {
     constructor(props) {
         super(props);
         this.state = {
             modalVisible: false,
             submitting: false,
-            error: null
+            error: null,
+            categoryName: ""
         };
     }
 
@@ -33,9 +44,15 @@ export default class MainGroupFooter extends React.Component<MainGroupFooterProp
         });
     };
 
+    onInputCategoryName = (e: any) => {
+        this.setState({
+            categoryName: e.target.value.trim()
+        });
+    };
+
     submitCatName = () => {
-        const catName = this.catNameInput.refs.input.value; // TODO validate cat name
-        if (!catName) {
+        const { categoryName } = this.state;
+        if (!categoryName) {
             this.setState({
                 error: "Please input category name"
             });
@@ -45,7 +62,7 @@ export default class MainGroupFooter extends React.Component<MainGroupFooterProp
             submitting: true
         });
         setTimeout(() => {
-            this.props.onAddNewCategory(catName);
+            this.props.onAddNewCategory(categoryName);
         }, 2000);
     };
 
@@ -63,10 +80,10 @@ export default class MainGroupFooter extends React.Component<MainGroupFooterProp
         if (nextProps.catAdd) {
             const catAddResult = nextProps.catAdd;
             if (catAddResult.success) {
-                this.catNameInput.refs.input.value = "";
                 this.setState({
                     modalVisible: false,
-                    submitting: false
+                    submitting: false,
+                    categoryName: ""
                 });
             } else if (catAddResult.error) {
                 this.setState({
@@ -115,9 +132,7 @@ export default class MainGroupFooter extends React.Component<MainGroupFooterProp
                         placeholder="category name"
                         size="large"
                         disabled={this.state.submitting}
-                        ref={node => {
-                            this.catNameInput = node;
-                        }}
+                        onChange={this.onInputCategoryName}
                     />
                 </Modal>
             </div>

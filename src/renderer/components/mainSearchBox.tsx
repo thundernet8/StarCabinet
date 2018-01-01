@@ -4,7 +4,7 @@ import * as CONSTANTS from "../constants";
 import { Input, Radio, message } from "antd";
 import { MainSearchBoxProps } from "../containers/mainSearchBox";
 
-const styles = require("../styles/main.less");
+const styles = require("../assets/styles/main.less");
 
 const Search = Input.Search;
 const RadioButton = Radio.Button;
@@ -101,7 +101,7 @@ export default class MainSearchBox extends React.Component<MainSearchBoxProps> {
                 <div className={classNames("searchFields", styles.searchFields)}>
                     <RadioGroup
                         defaultValue={CONSTANTS.SEARCH_FIELD_ALL}
-                        size="medium"
+                        size="default"
                         onChange={this.onRadioChange}
                     >
                         <RadioButton value={CONSTANTS.SEARCH_FIELD_ALL}>All</RadioButton>

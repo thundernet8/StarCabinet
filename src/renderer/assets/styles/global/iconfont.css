@@ -1,13 +1,10 @@
 @font-face {
     font-family: "anticon";
-    src: url("../../assets/fonts/iconfont.eot?t=1479642802629"); /* IE9*/
-    src: url("../../assets/fonts/iconfont.eot?t=1479642802629#iefix")
-            format("embedded-opentype"),
-        url("../../assets/fonts/iconfont.woff?t=1479642802629") format("woff"),
-        url("../../assets/fonts/iconfont.ttf?t=1479642802629")
-            format("truetype"),
-        url("../../assets/fonts/iconfont.svg?t=1479642802629#anticon")
-            format("svg"); /* iOS 4.1- */
+    src: url("../../fonts/iconfont.eot?t=1479642802629"); /* IE9*/
+    src: url("../../fonts/iconfont.eot?t=1479642802629#iefix") format("embedded-opentype"),
+        url("../../fonts/iconfont.woff?t=1479642802629") format("woff"),
+        url("../../fonts/iconfont.ttf?t=1479642802629") format("truetype"),
+        url("../../fonts/iconfont.svg?t=1479642802629#anticon") format("svg"); /* iOS 4.1- */
 }
 
 .anticon {

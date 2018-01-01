@@ -4,17 +4,27 @@ import { Menu, Icon } from "antd";
 import * as CONSTANTS from "../constants";
 import { MainGroupNavsProps } from "../containers/mainGroupNavs";
 
-const styles = require("../styles/main.less");
+const styles = require("../assets/styles/main.less");
 
 const SubMenu = Menu.SubMenu;
-const noSubsCatKeys = [CONSTANTS.GROUP_TYPE_ALL, CONSTANTS.GROUP_TYPE_UNKNOWN];
-const hasSubsCatKeys = [CONSTANTS.GROUP_TYPE_LANGUAGE, CONSTANTS.GROUP_TYPE_CATEGORY];
+// const noSubsCatKeys = [CONSTANTS.GROUP_TYPE_ALL, CONSTANTS.GROUP_TYPE_UNKNOWN];
+// const hasSubsCatKeys = [CONSTANTS.GROUP_TYPE_LANGUAGE, CONSTANTS.GROUP_TYPE_CATEGORY];
 
-export default class MainGroupNavs extends React.Component<MainGroupNavsProps> {
-    state = {
-        current: CONSTANTS.GROUP_TYPE_ALL,
-        openKeys: [CONSTANTS.GROUP_TYPE_ALL]
-    };
+interface MainGroupNavsState {
+    current: string;
+    openKeys: string[];
+    stopBubble: boolean;
+}
+
+export default class MainGroupNavs extends React.Component<MainGroupNavsProps, MainGroupNavsState> {
+    constructor(props) {
+        super(props);
+        this.state = {
+            current: CONSTANTS.GROUP_TYPE_ALL,
+            openKeys: [CONSTANTS.GROUP_TYPE_ALL],
+            stopBubble: false
+        };
+    }
 
     handleClick = e => {
         if (this.state.stopBubble || !this.props.fetchStatus || this.props.fetchStatus.fetching) {

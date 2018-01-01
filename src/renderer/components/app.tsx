@@ -1,9 +1,9 @@
 import React from "react";
-import offlineTitle from "../utils/offlineTitle";
 import { message } from "antd";
+import offlineTitle from "../utils/offlineTitle";
 import { AppProps } from "../containers/app";
 
-require("../styles/global/global.less");
+require("../assets/styles/global/global.less");
 
 interface AppState {}
 

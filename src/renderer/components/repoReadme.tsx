@@ -5,18 +5,21 @@ import ReactMarkdown from "react-markdown";
 import { RepoReadmeProps } from "../containers/repoReadme";
 import "github-markdown-css";
 
-const styles = require("../styles/main.less");
+const styles = require("../assets/styles/main.less");
 
 export default class RepoReadme extends React.Component<RepoReadmeProps> {
     transformImageUri = url => {
         const regex = /http(s?):\/\//i;
         if (!regex.test(url)) {
             const repo = this.props.selectedRepo;
-            let prefix =
-                "https://raw.githubusercontent.com/" + repo.fullName + "/" + repo.defaultBranch;
-            url.indexOf(".") !== 0 && (prefix += "/");
-
-            return prefix + url;
+            if (repo) {
+                let prefix =
+                    "https://raw.githubusercontent.com/" + repo.fullName + "/" + repo.defaultBranch;
+                if (url.indexOf(".") !== 0) {
+                    prefix += "/";
+                }
+                return prefix + url;
+            }
         }
         return url;
     };
@@ -25,14 +28,21 @@ export default class RepoReadme extends React.Component<RepoReadmeProps> {
     // and also for relative src should be replaced
     replaceImageSrc = content => {
         const repo = this.props.selectedRepo;
-        let prefix =
-            "https://raw.githubusercontent.com/" + repo.fullName + "/" + repo.defaultBranch + "/";
-        return content.replace(/(<img(.*?)src=")(?!http:\/\/)(.*?)"/g, `$1${prefix}$3"`); // .replace(/!\[(.*?)\]\((?!http:\/\/)(.*?)\)/g, '![$1](' + prefix + '$2)')
+        if (repo) {
+            let prefix =
+                "https://raw.githubusercontent.com/" +
+                repo.fullName +
+                "/" +
+                repo.defaultBranch +
+                "/";
+            return content.replace(/(<img(.*?)src=")(?!http:\/\/)(.*?)"/g, `$1${prefix}$3"`);
+        }
     };
 
     componentWillMount() {
-        if (this.props.selectedRepo /* && this.props.selectedRepo.readme === '' */) {
-            this.props.onFetchRepoReadMe(this.props.selectedRepo);
+        const { selectedRepo } = this.props;
+        if (selectedRepo) {
+            this.props.onFetchRepoReadMe(selectedRepo);
         }
     }
 

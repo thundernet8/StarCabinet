@@ -1,9 +1,9 @@
 import React from "react";
 import classNames from "classnames";
-import { Icon, Tooltip, Popover, Button, message, Input } from "antd";
+import { Icon, Tooltip, Popover, Input } from "antd";
 import IRepo from "../interface/IRepo";
 
-const styles = require("../styles/main.less");
+const styles = require("../assets/styles/main.less");
 
 interface RepoNoteToolProps {
     repo: IRepo | null;
@@ -20,7 +20,10 @@ export default class RepoNoteTool extends React.Component<RepoNoteToolProps> {
         this.setState({
             visible: false
         });
-        this.props.updateNote(this.props.repo.id, this.state.note);
+        const { repo } = this.props;
+        if (repo) {
+            this.props.updateNote(repo.id, this.state.note);
+        }
     };
 
     handleVisibleChange = visible => {
@@ -54,12 +57,7 @@ export default class RepoNoteTool extends React.Component<RepoNoteToolProps> {
         );
         const content = (
             <div className={classNames("repoNoteToolInputWrap", styles.repoNoteToolInputWrap)}>
-                <Input
-                    type="textarea"
-                    rows={5}
-                    value={this.state.note}
-                    onChange={this.inputValueChange}
-                />
+                <Input.TextArea rows={5} value={this.state.note} onChange={this.inputValueChange} />
             </div>
         );
 

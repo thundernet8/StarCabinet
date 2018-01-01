@@ -8,7 +8,7 @@ import IRepo from "../interface/IRepo";
 export interface RepoClassifyToolProps {
     repo: IRepo;
     categories: ICategory[];
-    onGetCategoriesForRepo: (id: number) => void;
+    onGetCategoriesForRepo: (id: number) => Promise<ICategory[]>;
     onUpdateRepoCategories: (id: number, catIds: number[]) => void;
 }
 

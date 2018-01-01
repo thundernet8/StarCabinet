@@ -1,17 +1,5 @@
 {
-    "presets": ["react", "es2015", "es2017", "stage-2"],
-    "plugins": [
-        "transform-runtime",
-        "transform-decorators-legacy",
-        "transform-object-rest-spread",
-        [
-            "transform-async-to-module-method",
-            {
-                "module": "bluebird",
-                "method": "coroutine"
-            }
-        ],
-        ["import", { "libraryName": "antd", "style": true }]
-    ],
+    "presets": ["react", "es2015", "es2017"],
+    "plugins": [["import", { "libraryName": "antd", "style": true }]],
     "comments": false
 }

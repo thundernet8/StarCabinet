@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Router, hashHistory, applyRouterMiddleware } from "react-router";
+import { Router, hashHistory } from "react-router";
 import { Provider } from "react-redux";
 import { syncHistoryWithStore } from "react-router-redux";
-import { useScroll } from "react-router-scroll";
-import configureStore from "./store/configureStore";
 import routes from "./routes";
+
+const configureStore = require("./store/configureStore");
 
 declare var window;
 
@@ -23,7 +23,7 @@ if (module.hot) {
 
 ReactDOM.render(
     <Provider store={store}>
-        <Router history={history} routes={routes} render={applyRouterMiddleware(useScroll())} />
+        <Router history={history} routes={routes} />
     </Provider>,
     document.getElementById("app")
 );

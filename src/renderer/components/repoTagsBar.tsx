@@ -1,23 +1,36 @@
 import React from "react";
-import classNames from "classnames";
-import { Icon, Tooltip, notification, message, Tag, Input, Button } from "antd";
+import { Tooltip, Tag, Input, Button } from "antd";
 import { RepoTagsBarProps } from "../containers/repoTagsBar";
 
-const styles = require("../styles/main.less");
+const styles = require("../assets/styles/main.less");
 
-export default class RepoTagsBar extends React.Component<RepoTagsBarProps> {
-    state = {
-        tags: [],
-        inputVisible: false,
-        inputValue: ""
-    };
+interface RepoTagsBarState {
+    tags: string[];
+    inputVisible: boolean;
+    inputValue: string;
+}
+
+export default class RepoTagsBar extends React.Component<RepoTagsBarProps, RepoTagsBarState> {
+    private input: HTMLInputElement;
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            tags: [],
+            inputVisible: false,
+            inputValue: ""
+        };
+    }
 
     handleClose = removedTag => {
         const tags = this.state.tags.filter(tag => tag !== removedTag);
         this.setState({ tags });
 
-        // remove tag in db
-        this.props.onRemoveTagForRepo(this.props.selectedRepo.id, removedTag);
+        const { selectedRepo } = this.props;
+        if (selectedRepo) {
+            // remove tag in db
+            this.props.onRemoveTagForRepo(selectedRepo.id, removedTag);
+        }
     };
 
     showInput = () => {
@@ -29,13 +42,15 @@ export default class RepoTagsBar extends React.Component<RepoTagsBarProps> {
     };
 
     handleInputConfirm = () => {
-        const state = this.state;
-        const inputValue = state.inputValue;
-        let tags = state.tags;
+        const { inputValue } = this.state;
+        const { selectedRepo } = this.props;
+        let tags: string[] = this.state.tags;
         if (inputValue && tags.indexOf(inputValue) === -1) {
             tags = [...tags, inputValue];
             // save new tag in db
-            this.props.onAddTagForRepo(this.props.selectedRepo.id, inputValue);
+            if (selectedRepo) {
+                this.props.onAddTagForRepo(selectedRepo.id, inputValue);
+            }
         }
         this.setState({
             tags,
@@ -79,13 +94,13 @@ export default class RepoTagsBar extends React.Component<RepoTagsBarProps> {
         return (
             <div className={styles.repoTags}>
                 {/* <Icon type="tags"/> */}
-                {tags.map((tag, index) => {
+                {tags.map(tag => {
                     const isLongTag = tag.length > 20;
                     const tagElem = (
                         <Tag
                             key={tag}
                             color="#3498db"
-                            closable={true}
+                            closable
                             afterClose={() => this.handleClose(tag)}
                         >
                             {isLongTag ? `${tag.slice(0, 20)}...` : tag}

@@ -3,7 +3,6 @@ import webpack from "webpack";
 import ExtractTextPlugin from "extract-text-webpack-plugin";
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin";
 import baseConf from "./base.conf.babel";
-import { PUBLIC_ASSETS_URL } from "../env";
 
 const plugins = [
     new webpack.DefinePlugin({
@@ -34,7 +33,7 @@ const loaders = [
         include: [/global/, /node_modules/],
         loader: ExtractTextPlugin.extract({
             fallback: "style-loader",
-            use: "css-loader?sourceMap!postcss-loader"
+            use: "css-loader?sourceMap"
         })
     },
     {
@@ -42,8 +41,7 @@ const loaders = [
         exclude: [/global/, /node_modules/],
         loader: ExtractTextPlugin.extract({
             fallback: "style-loader",
-            use:
-                "css-loader?modules&sourceMap&importLoaders=1&localIdentName=__[hash:base64:5]!postcss-loader"
+            use: "css-loader?modules&sourceMap&importLoaders=1&localIdentName=__[hash:base64:5]"
         })
     },
     {
@@ -51,7 +49,7 @@ const loaders = [
         include: [/global/, /node_modules/],
         loader: ExtractTextPlugin.extract({
             fallback: "style-loader",
-            use: "css-loader?sourceMap!postcss-loader!less-loader"
+            use: "css-loader?sourceMap!less-loader"
         })
     },
     {
@@ -60,7 +58,7 @@ const loaders = [
         loader: ExtractTextPlugin.extract({
             fallback: "style-loader",
             use:
-                "css-loader?modules&sourceMap&importLoaders=1&localIdentName=__[hash:base64:5]!postcss-loader!less-loader"
+                "css-loader?modules&sourceMap&importLoaders=1&localIdentName=__[hash:base64:5]!less-loader"
         })
     }
 ];
@@ -71,7 +69,7 @@ const entry = {
 
 const output = {
     path: path.resolve(__dirname, "../app/dist/assets"),
-    publicPath: PUBLIC_ASSETS_URL,
+    publicPath: "/assets/",
     filename: "js/[name].[chunkhash:8].js",
     chunkFilename: "js/[name].[chunkhash:8].chunk.js"
 };

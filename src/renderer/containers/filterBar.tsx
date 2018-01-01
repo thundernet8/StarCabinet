@@ -1,7 +1,6 @@
 import { connect } from "react-redux";
 import FilterBar from "../components/filterBar";
 import Actions from "../actions";
-import IState from "../interface/IState";
 import { IFilterConditionState } from "../interface/IConditional";
 import { IRepoFetchingStatus } from "../interface/IRepo";
 

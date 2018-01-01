@@ -3,14 +3,9 @@ import classNames from "classnames";
 import { Icon, Menu, Dropdown, Checkbox } from "antd";
 import * as CONSTANTS from "../constants";
 import { FilterBarProps } from "../containers/filterBar";
+import { IFilterConditionState } from "../interface/IConditional";
 
 const styles = require("../assets/styles/main.less");
-
-interface FilterCondition {
-    hasFlag: boolean;
-    hasNote: boolean;
-    unread: boolean;
-}
 
 interface FilterBarState {
     filters: string[];
@@ -45,7 +40,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
             filters
         });
 
-        const filterCondition: FilterCondition = {
+        const filterCondition: IFilterConditionState = {
             hasFlag: filters.indexOf(CONSTANTS.FILTER_OPTION_HAS_FLAG) > -1,
             hasNote: filters.indexOf(CONSTANTS.FILTER_OPTION_HAS_NOTE) > -1,
             unread: filters.indexOf(CONSTANTS.FILTER_OPTION_UNREAD) > -1

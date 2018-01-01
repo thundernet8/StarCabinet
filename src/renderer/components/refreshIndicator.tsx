@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { Icon, Tooltip, notification } from "antd";
 import { RefreshIndicatorProps } from "../containers/refreshIndicator";
 
-const styles = require("../styles/main.less");
+const styles = require("../assets/styles/main.less");
 
 export default class RefreshIndicator extends React.Component<RefreshIndicatorProps> {
     refresh = () => {

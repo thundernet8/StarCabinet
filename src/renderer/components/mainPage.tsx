@@ -7,7 +7,7 @@ import deepEqual from "deep-equal";
 import dbName from "../utils/dbName";
 import { MainPageProps } from "../containers/mainPage";
 
-const styles = require("../styles/main.less");
+const styles = require("../assets/styles/main.less");
 
 export default class MainPage extends React.Component<MainPageProps> {
     componentWillMount() {
@@ -20,8 +20,6 @@ export default class MainPage extends React.Component<MainPageProps> {
                 this.props.onGetMyProfile();
                 this.props.onGetCategories();
                 this.props.onFetchStarredRepos();
-                // this.props.onNeedUpdateReposList()
-                // .then((repos) => console.dir(repos))
             });
     }
 

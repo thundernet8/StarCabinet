@@ -1,9 +1,5 @@
 import React from "react";
-import { Link } from "react-router";
-import * as EVENTS from "../../shared/events";
-import * as SHAREDCONSTANTS from "../../shared/constants";
-import { ipcRenderer } from "electron";
-import { Upload, Icon, Button, message, Modal } from "antd";
+import { Icon, Button, message, Modal } from "antd";
 import classNames from "classnames";
 import dbName from "../utils/dbName";
 import { starsDataExportHandler, starsDataImportHandler } from "../utils/data";
@@ -13,7 +9,7 @@ import { SettingPageProps } from "../containers/settingPage";
 
 const defaultAvatar = require("../assets/images/avatar-default.png");
 
-const styles = require("../styles/setting.less");
+const styles = require("../assets/styles/setting.less");
 
 export default class SettingPage extends React.Component<SettingPageProps> {
     state = {
@@ -113,8 +109,6 @@ export default class SettingPage extends React.Component<SettingPageProps> {
             });
     }
 
-    componentWillReceiveProps(nextProps) {}
-
     render() {
         return (
             <div className={classNames("settingWrapper", styles.settingWrapper)}>
@@ -133,7 +127,7 @@ export default class SettingPage extends React.Component<SettingPageProps> {
                         {this.props.profile && (
                             <span className={styles.accountName}>{this.props.profile.name}</span>
                         )}
-                        <Button type="default" size="default" onClick={this.showQuitWarning}>
+                        <Button type="primary" size="default" onClick={this.showQuitWarning}>
                             SignOut
                         </Button>
                     </div>
@@ -151,7 +145,7 @@ export default class SettingPage extends React.Component<SettingPageProps> {
                     </div>
                     <div className={classNames("settingRow", styles.settingRow, styles.contact)}>
                         <span>Feedback: </span>
-                        <Button type="default" size="default" onClick={this.openFeedback}>
+                        <Button type="primary" size="default" onClick={this.openFeedback}>
                             Submit Feedback
                         </Button>
                     </div>

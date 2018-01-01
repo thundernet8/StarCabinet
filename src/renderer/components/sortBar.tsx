@@ -4,7 +4,7 @@ import { Icon, Menu, Dropdown, Checkbox } from "antd";
 import * as CONSTANTS from "../constants";
 import { SortBarProps } from "../containers/sortBar";
 
-const styles = require("../styles/main.less");
+const styles = require("../assets/styles/main.less");
 
 export default class SortBar extends React.Component<SortBarProps> {
     state = {

@@ -3,12 +3,13 @@ import RepoTagsBar from "../components/repoTagsBar";
 import Actions from "../actions";
 import IState from "../interface/IState";
 import IRepo from "../interface/IRepo";
+import ITag from "../interface/ITag";
 
 export interface RepoTagsBarProps {
     selectedRepo: IRepo | null;
     onAddTagForRepo: (id: number, tagName: string) => void;
     onRemoveTagForRepo: (id: number, tagName: string) => void;
-    onGetTagsForRepo: (id: number) => void;
+    onGetTagsForRepo: (id: number) => Promise<ITag[]>;
 }
 
 // Redux connection

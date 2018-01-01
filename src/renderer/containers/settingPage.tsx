@@ -4,11 +4,12 @@ import Actions from "../actions";
 import IState from "../interface/IState";
 import IProfile from "../interface/IProfile";
 import { RxDatabase } from "rxdb";
+import { ICredentialsState } from "../interface/IAccount";
 
 export interface SettingPageProps {
     profile: IProfile;
     db: RxDatabase;
-    onGetLocalCredentials: () => void;
+    onGetLocalCredentials: () => Promise<ICredentialsState>;
     onGetMyProfile: () => void;
     onGetRxDB: (dbName: string) => void;
 }

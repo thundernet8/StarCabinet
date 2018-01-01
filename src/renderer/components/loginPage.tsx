@@ -1,12 +1,12 @@
 import React from "react";
-import * as EVENTS from "../../shared/events";
-import * as SHAREDCONSTANTS from "../../shared/constants";
+import classNames from "classnames";
 import { ipcRenderer } from "electron";
 import { Input, Icon, Button, message } from "antd";
-import classNames from "classnames";
+import * as EVENTS from "../../shared/events";
+import * as SHAREDCONSTANTS from "../../shared/constants";
 import { LoginPageProps } from "../containers/loginPage";
 
-const styles = require("./assets/styles/login.less");
+const styles = require("../assets/styles/login.less");
 
 message.config({
     top: 60,
@@ -152,11 +152,12 @@ export default class LoginPage extends React.Component<LoginPageProps, LoginPage
                         })}
                         src={avatar}
                     />
-                    {this.props.loginResult.success === true && (
-                        <div className={classNames(styles.name, "name center fadeInDelay")}>
-                            <span>{this.props.loginResult.profile.name}</span>
-                        </div>
-                    )}
+                    {this.props.loginResult.success === true &&
+                        this.props.loginResult.profile && (
+                            <div className={classNames(styles.name, "name center fadeInDelay")}>
+                                <span>{this.props.loginResult.profile.name}</span>
+                            </div>
+                        )}
                 </div>
                 {this.props.loginResult.success !== true && (
                     <div className={styles.loginBox}>

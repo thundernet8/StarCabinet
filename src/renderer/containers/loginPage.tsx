@@ -7,6 +7,11 @@ import { ICredentialsState, ILoginResultState } from "../interface/IAccount";
 export interface LoginPageProps {
     credentials: ICredentialsState;
     loginResult: ILoginResultState;
+    onGetLocalCredentials: (autoSignin: boolean) => Promise<string>;
+    onRequestLogin: (
+        credentials: ICredentialsState,
+        cb: (success: boolean, msg: string) => void
+    ) => void;
 }
 
 // Redux connection

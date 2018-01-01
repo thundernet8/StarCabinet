@@ -1,16 +1,16 @@
 import React from "react";
 import classNames from "classnames";
-import { Icon, Tooltip, Popover, Button, message } from "antd";
+import { Icon, Tooltip, message } from "antd";
 import RepoLinksTool from "./repoLinksTool";
 import RepoNoteTool from "./repoNoteTool";
 import RepoClassifyTool from "../containers/repoClassifyTool";
 import { RepoDetailToolbarProps } from "../containers/repoDetailToolbar";
+import IRepo from "../interface/IRepo";
 
-const styles = require("../styles/main.less");
+const styles = require("../assets/styles/main.less");
 
 export default class RepoDetailToolbar extends React.Component<RepoDetailToolbarProps> {
     viewInGithub = () => {
-        console.log(this.props.selectedRepo);
         if (this.props.selectedRepo) {
             const url = this.props.selectedRepo.htmlUrl;
             window.open(url, "_blank");
@@ -31,16 +31,21 @@ export default class RepoDetailToolbar extends React.Component<RepoDetailToolbar
 
     changeReadStatus = () => {
         const repo = this.props.selectedRepo;
-        this.props.onChangeRepoReadStatus(repo.id, !repo.read);
+        if (repo) {
+            this.props.onChangeRepoReadStatus(repo.id, !repo.read);
+        }
     };
 
     changeRepoFlag = () => {
         const repo = this.props.selectedRepo;
-        this.props.onChangeRepoFlag(repo.id, !repo.flag);
+        if (repo) {
+            this.props.onChangeRepoFlag(repo.id, !repo.flag);
+        }
     };
 
     render() {
-        let readIcon, flagIcon;
+        let readIcon;
+        let flagIcon;
         if (this.props.selectedRepo) {
             readIcon = (
                 <Tooltip
@@ -86,7 +91,7 @@ export default class RepoDetailToolbar extends React.Component<RepoDetailToolbar
                     repo={this.props.selectedRepo}
                     updateNote={this.props.onUpdateRepoNote}
                 />
-                <RepoLinksTool repo={this.props.selectedRepo} />
+                <RepoLinksTool repo={this.props.selectedRepo as IRepo} />
                 <Tooltip placement="bottomRight" title="Star StarCabinet">
                     <Icon type="github" onClick={this.starStarCabinet} />
                 </Tooltip>

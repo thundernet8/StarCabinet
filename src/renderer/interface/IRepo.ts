@@ -1,3 +1,7 @@
+import ICategory from "./ICategory";
+import IAuthor from "./IAuthor";
+import ITag from "./ITag";
+
 export default interface IRepo {
     id: number;
     name: string;
@@ -77,6 +81,9 @@ export default interface IRepo {
     note: string;
     defaultOrder: number;
     readme: string;
+    _categories: ICategory[];
+    _contributors: IAuthor[];
+    _tags: ITag[];
 }
 
 export interface IRepoFetchingStatus {

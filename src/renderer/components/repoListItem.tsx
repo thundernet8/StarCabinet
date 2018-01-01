@@ -4,7 +4,7 @@ import { Rate, Icon, Row, Col } from "antd";
 import SCLogger from "../utils/logHelper";
 import IRepo from "../interface/IRepo";
 
-const styles = require("../styles/main.less");
+const styles = require("../assets/styles/main.less");
 
 interface RepoListItemProps {
     repo: IRepo;
@@ -45,14 +45,9 @@ export default class RepoListItem extends React.Component<RepoListItemProps> {
                 selected: this.props.repo.id === nextProps.selectedRepo.id
             });
         }
-        // if (nextProps.repo) {
-        //     this.setState({
-        //         score: nextProps.repo.score
-        //     })
-        // }
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate(_nextProps, nextState) {
         if (nextState.selected !== this.state.selected || nextState.score !== this.state.score) {
             return true;
         }
