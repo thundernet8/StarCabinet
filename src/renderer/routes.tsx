@@ -1,20 +1,30 @@
-import React from "react";
-import { IndexRoute, Route } from "react-router";
+import * as React from "react";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
-/* containers */
-import App from "./containers/app";
-import MainPage from "./containers/mainPage";
-import LoginPage from "./containers/loginPage";
-import SettingPage from "./containers/settingPage";
+/* Entries */
+import App from "./entries/Index";
+import MainPage from "./entries/Main";
+import LoginPage from "./entries/Login";
+import SettingPage from "./entries/Setting";
+import NotFoundPage from "./entries/NotFound";
 
-const routes = (
-    <Route path="/" component={App}>
-        <IndexRoute component={MainPage} />
-        <Route path="/" component={MainPage} />
-        {/* <Redirect from='*' to='/404'/> */}
-        <Route path="/login" component={LoginPage} />
-        <Route path="/setting" component={SettingPage} />
-    </Route>
+const MainRouter = (
+    <Router>
+        <Route
+            exact={false}
+            path="/"
+            render={props => (
+                <App {...props}>
+                    <Switch>
+                        <Route exact path="/" component={MainPage} />
+                        <Route exact path="/login" component={LoginPage} />
+                        <Route exact path="/setting" component={SettingPage} />
+                        <Route component={NotFoundPage} />
+                    </Switch>
+                </App>
+            )}
+        />
+    </Router>
 );
 
-export default routes;
+export default MainRouter;

@@ -1,5 +1,15 @@
 {
-    "presets": ["react", "es2015", "es2017"],
+    "presets": [
+        "react",
+        [
+            "env",
+            {
+                "targets": {
+                    "browsers": ["chrome >= 58"]
+                }
+            }
+        ]
+    ],
     "plugins": [["import", { "libraryName": "antd", "style": true }]],
     "comments": false
 }

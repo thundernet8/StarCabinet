@@ -16,12 +16,14 @@ function createSettingWindow(wins) {
     win.setMenu(null);
 
     win.loadURL(
-        url.format({
-            pathname: path.resolve(__dirname, "index.html"),
-            protocol: "file:",
-            slashes: true,
-            hash: "setting"
-        })
+        process.env.NODE_ENV === "development"
+            ? "http://localhost:9001/#/setting"
+            : url.format({
+                  pathname: path.resolve(__dirname, "index.html"),
+                  protocol: "file:",
+                  slashes: true,
+                  hash: "/setting"
+              })
     );
 
     // Open the DevTools.
@@ -46,10 +48,7 @@ function createSettingWindow(wins) {
 
     page.on("dom-ready", () => {
         // page.insertCSS(fs.readFileSync(path.join(__dirname, 'browser.css'), 'utf8'))
-        page.executeJavaScript(
-            `document.body.className="platform_${process.platform}"`,
-            false
-        );
+        page.executeJavaScript(`document.body.className="platform_${process.platform}"`, false);
     });
 
     // Open links external

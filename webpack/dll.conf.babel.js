@@ -8,7 +8,7 @@ const getPlugins = function() {
         new webpack.DllPlugin({
             context: __dirname,
             path: "manifest.json",
-            name: "[name]_[chunkhash:8]"
+            name: isDev ? "[name]" : "[name]_[chunkhash:8]"
         }),
         new AssetsPlugin({
             filename: "venders-config.json",
@@ -35,21 +35,23 @@ const config = {
         venders: [
             "react",
             "react-dom",
-            "react-router",
             "react-router-dom",
             "babel-polyfill",
             "classnames",
             "react-document-meta",
             "moment",
-            "bluebird"
+            "bluebird",
+            "mobx",
+            "mobx-react"
         ]
     },
     output: {
-        path: path.resolve(__dirname, "../dist/assets/js"),
-        publicPath: isDev ? "/assets/js/" : "/assets/js/",
-        filename: "[name].[chunkhash:8].js",
-        library: "[name]_[chunkhash:8]"
+        path: path.resolve(__dirname, "../app/dist/assets/js"),
+        publicPath: isDev ? "http://localhost:9001/assets/js/" : "./assets/js/",
+        filename: isDev ? "[name].js" : "[name].[chunkhash:8].js",
+        library: isDev ? "[name]" : "[name]_[chunkhash:8]"
     },
+    // target: "electron-renderer",
     resolve: {
         modules: ["node_modules", path.resolve(__dirname, "../src/renderer")]
     },

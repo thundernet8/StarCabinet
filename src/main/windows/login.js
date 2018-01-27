@@ -7,8 +7,8 @@ let injectStyle = "body{background-color:transparent !important;}";
 
 function createLoginWindow(wins) {
     let win = new BrowserWindow({
-        width: 288,
-        height: 400,
+        width: 600, //288,
+        height: 800, //400,
         titleBarStyle: "hidden-inset",
         resizable: false,
         frame: process.platform === "darwin", // Specify false to create a Frameless Window. Default is true.
@@ -18,12 +18,14 @@ function createLoginWindow(wins) {
     // win.setMenu(null)
 
     win.loadURL(
-        url.format({
-            pathname: path.resolve(__dirname, "index.html"),
-            protocol: "file:",
-            slashes: true,
-            hash: "login"
-        })
+        process.env.NODE_ENV === "development"
+            ? "http://localhost:9001/#/login"
+            : url.format({
+                  pathname: path.resolve(__dirname, "index.html"),
+                  protocol: "file:",
+                  slashes: true,
+                  hash: "/login"
+              })
     );
 
     // Open the DevTools.
@@ -48,10 +50,7 @@ function createLoginWindow(wins) {
 
     page.on("dom-ready", () => {
         // page.insertCSS(fs.readFileSync(path.join(__dirname, 'browser.css'), 'utf8'))
-        page.executeJavaScript(
-            `document.body.className="platform_${process.platform}"`,
-            false
-        );
+        page.executeJavaScript(`document.body.className="platform_${process.platform}"`, false);
         page.insertCSS(injectStyle);
     });
 

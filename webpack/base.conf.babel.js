@@ -26,11 +26,10 @@ const getPlugins = function(morePlugins) {
             name: "app"
         }),
         new HtmlWebpackPlugin({
-            filename: isDev
-                ? path.resolve(__dirname, "../dist/index.html")
-                : path.resolve(__dirname, "../app/dist/index.html"),
+            filename: path.resolve(__dirname, "../app/dist/index.html"),
             template: "src/renderer/index.html",
             inject: true,
+            vendersName: vendersConfig.venders.js,
             minify: {
                 removeComments: true,
                 collapseWhitespace: true,
@@ -112,7 +111,7 @@ export default function(morePlugins, moreRules) {
             },
             modules: ["node_modules", path.resolve(__dirname, "../src/renderer")]
         },
-        target: "electron-renderer",
+        // target: "electron-renderer",
         module: {
             rules: getRules(moreRules)
         },

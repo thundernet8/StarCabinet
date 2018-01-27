@@ -1,6 +1,7 @@
 import path from "path";
 import webpack from "webpack";
 import baseConf from "./base.conf.babel";
+// import electronConfig from "./main.conf.babel";
 
 const plugins = [
     new webpack.DefinePlugin({
@@ -41,8 +42,8 @@ const entry = {
 };
 
 const output = {
-    path: path.resolve(__dirname, "../dist/assets"),
-    publicPath: "/assets/",
+    path: path.resolve(__dirname, "../app/dist/assets"),
+    publicPath: "http://localhost:9001/assets/",
     filename: "js/[name].js",
     chunkFilename: "js/[name].chunk.js"
 };
@@ -52,7 +53,7 @@ config.devtool = "#source-map"; // '#eval-source-map'
 config.entry = entry;
 config.output = output;
 config.devServer = {
-    contentBase: path.resolve(__dirname, "../dist"),
+    contentBase: path.resolve(__dirname, "../app/dist"),
     compress: true,
     host: "localhost",
     port: 9001,
@@ -61,8 +62,6 @@ config.devServer = {
     historyApiFallback: {
         index: "index.html"
     }
-    // openPage: "layout.htm"
-    // publicPath: "http://localhost:9001/"
 };
 
 export default config;

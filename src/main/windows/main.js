@@ -14,11 +14,13 @@ function createMainWindow(wins) {
     win.setMenu(null);
 
     win.loadURL(
-        url.format({
-            pathname: path.resolve(__dirname, "index.html"),
-            protocol: "file:",
-            slashes: true
-        })
+        process.env.NODE_ENV === "development"
+            ? "http://localhost:9001/#/"
+            : url.format({
+                  pathname: path.resolve(__dirname, "index.html"),
+                  protocol: "file:",
+                  slashes: true
+              })
     );
 
     // Open the DevTools.
