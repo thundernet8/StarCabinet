@@ -1,7 +1,7 @@
 {
     "name": "starcabinet",
     "version": "2.0.0",
-    "description": "",
+    "description": "A github stars management tool which built with electron and react",
     "main": "dist/electron.js",
     "build": {
         "appId": "com.fedepot.starcabinet",
@@ -27,7 +27,7 @@
         "type": "git",
         "url": "git+https://github.com/thundernet8/StarCabinet.git"
     },
-    "keywords": ["Github", "Star", "Electron", "React", "Redux", "React-Router", "Webpack", "rxdb"],
+    "keywords": ["Github", "Star", "Electron", "React", "Mobx", "React-Router", "Webpack", "rxdb"],
     "author": {
         "name": "WuXueqian",
         "email": "chinash2010@gmail.com"
