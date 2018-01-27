@@ -1,6 +1,5 @@
 import * as React from "react";
-
-// const styles = require("./index.less")
+import SettingView from "../views/Setting";
 
 interface SettingEntryProps {}
 
@@ -12,6 +11,6 @@ export default class SettingEntry extends React.Component<SettingEntryProps, Set
     }
 
     render() {
-        return <div>SettingEntry</div>;
+        return <SettingView />;
     }
 }

@@ -1,6 +1,5 @@
 import * as React from "react";
-
-// const styles = require("./index.less")
+import MainView from "../views/Main";
 
 interface MainEntryProps {}
 
@@ -12,6 +11,6 @@ export default class MainEntry extends React.Component<MainEntryProps, MainEntry
     }
 
     render() {
-        return <div>MainEntry</div>;
+        return <MainView />;
     }
 }

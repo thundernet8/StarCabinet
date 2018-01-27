@@ -1,6 +1,5 @@
 import * as React from "react";
-
-// const styles = require("./index.less")
+import NotFoundView from "../views/NotFound";
 
 interface NotFoundEntryProps {}
 
@@ -12,6 +11,6 @@ export default class NotFoundEntry extends React.Component<NotFoundEntryProps, N
     }
 
     render() {
-        return <div>NotFoundEntry</div>;
+        return <NotFoundView />;
     }
 }

@@ -1,6 +1,5 @@
 import * as React from "react";
-
-// const styles = require("./index.less")
+import LoginView from "../views/Login";
 
 interface LoginEntryProps {}
 
@@ -12,6 +11,6 @@ export default class LoginEntry extends React.Component<LoginEntryProps, LoginEn
     }
 
     render() {
-        return <div>LoginEntry</div>;
+        return <LoginView />;
     }
 }

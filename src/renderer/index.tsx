@@ -2,14 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "mobx-react";
 import MainRouter from "./routes";
+import getStore from "./store";
 
-// const configureStore = require("./store/configureStore");
+require("./assets/styles/global/global.less");
 
 declare var window;
 
-// const store = configureStore();
+const store = getStore();
 
-ReactDOM.render(<Provider store={{}}>{MainRouter}</Provider>, document.getElementById("app"));
+ReactDOM.render(<Provider store={store}>{MainRouter}</Provider>, document.getElementById("app"));
 
 // global debug mark
 window._DEBUG_ = process.env.NODE_ENV === "development";
