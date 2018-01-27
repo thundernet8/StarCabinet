@@ -1,7 +1,6 @@
 import path from "path";
 import webpack from "webpack";
 import baseConf from "./base.conf.babel";
-// import electronConfig from "./main.conf.babel";
 
 const plugins = [
     new webpack.DefinePlugin({

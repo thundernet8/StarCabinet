@@ -5,7 +5,7 @@ const electronConfig = {
         __filename: false,
         __dirname: false
     },
-    target: "electron-renderer",
+    target: "electron-renderer", // important
     entry: {
         electron: ["babel-polyfill", "./src/main/index.js"]
     },

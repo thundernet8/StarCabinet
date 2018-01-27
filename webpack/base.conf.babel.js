@@ -111,7 +111,6 @@ export default function(morePlugins, moreRules) {
             },
             modules: ["node_modules", path.resolve(__dirname, "../src/renderer")]
         },
-        // target: "electron-renderer",
         module: {
             rules: getRules(moreRules)
         },

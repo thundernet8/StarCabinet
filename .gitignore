@@ -8,3 +8,5 @@ release/
 .idea/
 .vscode/
 *.log
+venders-config.json
+manifest.json
