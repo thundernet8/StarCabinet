@@ -13,5 +13,5 @@
         "baseUrl": "./src",
         "allowJs": false
     },
-    "exclude": ["node_modules", "dist", "**/*.spec.ts?", "**/*.d.ts"]
+    "exclude": ["node_modules", "dist", "**/*.spec.ts?"]
 }

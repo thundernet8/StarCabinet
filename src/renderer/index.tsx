@@ -4,6 +4,7 @@ import { Provider } from "mobx-react";
 import MainRouter from "./routes";
 import getStore from "./store";
 
+require("./common/polyfill");
 require("./assets/styles/global/global.less");
 
 declare var window;

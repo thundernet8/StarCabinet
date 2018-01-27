@@ -2,13 +2,14 @@ import GithubClient from "./githubClient";
 import * as EVENTS from "../../shared/events";
 import * as CONSTANTS from "../constants";
 import { ipcRenderer } from "electron";
-import Promise from "bluebird";
 import DBHandler from "../rxdb/dbHandler";
 import dbName from "./dbName";
+import { ICredentialsState } from "../interface/IAccount";
+import IProfile from "../interface/IProfile";
 
 export default class Authentication {
-    static getLocalCredentials() {
-        let promise = new Promise((resolve, reject) => {
+    static getLocalCredentials(): Promise<ICredentialsState> {
+        return new Promise((resolve, reject) => {
             let username = localStorage.getItem(CONSTANTS.LOCAL_STORAGE_USERNAME_KEY);
             if (!username) {
                 reject(new Error("no local login record"));
@@ -27,12 +28,10 @@ export default class Authentication {
                 });
             }
         });
-
-        return promise;
     }
 
-    static saveCredentialsToSystem(credentials) {
-        let promise = new Promise((resolve, reject) => {
+    static saveCredentialsToSystem(credentials): Promise<ICredentialsState> {
+        return new Promise((resolve, reject) => {
             localStorage.setItem(CONSTANTS.LOCAL_STORAGE_USERNAME_KEY, credentials.username);
             ipcRenderer.send(EVENTS.SAVE_CREDENTIALS_TO_SYSTEM, JSON.stringify(credentials));
             ipcRenderer.once(EVENTS.SAVE_CREDENTIALS_TO_SYSTEM_REPLY, (_event, result) => {
@@ -43,21 +42,17 @@ export default class Authentication {
                 }
             });
         });
-
-        return promise;
     }
 
-    static saveProfileToLocal(profile) {
-        let promise = new Promise(resolve => {
+    static saveProfileToLocal(profile): Promise<IProfile> {
+        return new Promise(resolve => {
             // localStorage.setItem(CONSTANTS.LOCAL_STORAGE_USER_PROFILE, JSON.stringify(profile))
             resolve(profile);
         });
-
-        return promise;
     }
 
-    static deleteLocalCredentials() {
-        let promise = new Promise((resolve, reject) => {
+    static deleteLocalCredentials(): Promise<string> {
+        return new Promise((resolve, reject) => {
             let username = localStorage.getItem(CONSTANTS.LOCAL_STORAGE_USERNAME_KEY);
             if (!username) {
                 resolve("");
@@ -65,22 +60,20 @@ export default class Authentication {
                 ipcRenderer.send(EVENTS.DELETE_LOCAL_CREDENTIALS, username);
                 ipcRenderer.once(EVENTS.DELETE_LOCAL_CREDENTIALS_REPLY, (_event, result) => {
                     result
-                        ? resolve(username)
+                        ? resolve(username || "")
                         : reject(new Error("delete credentials from keychain failed"));
                 });
             }
         });
-
-        return promise;
     }
 
-    static signInApp(credentials) {
+    static signInApp(credentials): Promise<IProfile> {
         let githubClient = new GithubClient(credentials);
         return githubClient
             .getMyProfile()
             .then(profile => {
                 // success stuff
-                if (profile.login === credentials.username) {
+                if (profile && profile.login === credentials.username) {
                     // save credentials to windows credentials
                     let p1 = Authentication.saveCredentialsToSystem(credentials);
                     let p2 = Authentication.saveProfileToLocal(profile);
@@ -101,8 +94,9 @@ export default class Authentication {
                     return new Error("The token you provided does not match this account");
                 }
             })
-            .catch(err => {
-                return err;
+            .catch(error => {
+                console.log(error);
+                throw error;
             });
     }
 

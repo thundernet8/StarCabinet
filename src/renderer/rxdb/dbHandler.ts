@@ -1,3 +1,4 @@
+import moment from "moment";
 import * as Database from "./database";
 import * as CONSTANTS from "../constants";
 import IRepo from "../interface/IRepo";
@@ -52,10 +53,10 @@ export default class DBHandler {
             type: profile.type,
             siteAdmin: profile.site_admin,
             name: profile.name,
-            company: profile.company,
+            company: profile.company || "",
             blog: profile.blog,
             location: profile.location,
-            hireable: profile.hireable,
+            hireable: !!profile.hireable,
             publicRepos: profile.public_repos,
             publicGists: profile.public_gists,
             followers: profile.followers,
@@ -156,11 +157,11 @@ export default class DBHandler {
                         releasesUrl: repo.releases_url,
                         deploymentsUrl: repo.deployments_url,
                         createdAt: repo.created_at,
-                        createdTime: Math.floor(new Date(repo.created_at).getTime() / 1000),
+                        createdTime: Math.floor(moment(repo.created_at).valueOf() / 1000),
                         updatedAt: repo.updated_at,
-                        updatedTime: Math.floor(new Date(repo.updated_at).getTime() / 1000),
+                        updatedTime: Math.floor(moment(repo.updated_at).valueOf() / 1000),
                         pushedAt: repo.pushed_at,
-                        pushedTime: Math.floor(new Date(repo.pushed_at).getTime() / 1000),
+                        pushedTime: Math.floor(moment(repo.pushed_at).valueOf() / 1000),
                         gitUrl: repo.git_url,
                         sshUrl: repo.ssh_url,
                         cloneUrl: repo.clone_url,

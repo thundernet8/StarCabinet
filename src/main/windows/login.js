@@ -7,8 +7,8 @@ let injectStyle = "body{background-color:transparent !important;}";
 
 function createLoginWindow(wins) {
     let win = new BrowserWindow({
-        width: 600, //288,
-        height: 800, //400,
+        width: 288,
+        height: 400,
         titleBarStyle: "hidden-inset",
         resizable: false,
         frame: process.platform === "darwin", // Specify false to create a Frameless Window. Default is true.

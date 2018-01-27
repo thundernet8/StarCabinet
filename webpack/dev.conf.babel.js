@@ -57,7 +57,7 @@ config.devServer = {
     host: "localhost",
     port: 9001,
     hot: true,
-    open: true,
+    open: false,
     historyApiFallback: {
         index: "index.html"
     }
