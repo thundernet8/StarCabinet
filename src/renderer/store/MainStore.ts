@@ -324,4 +324,46 @@ export default class MainStore {
                 // throw error;
             });
     };
+
+    /**
+     * Star StarCabinet
+     */
+    onStarStarCabinet = () => {
+        const client = new GithubClient(this.globalStore.credentials);
+        return client
+            .starStarCabinet()
+            .then(ret => {
+                return ret;
+            })
+            .catch(error => {
+                logger.log(error.message || error.toString());
+                throw new Error(error);
+            });
+    };
+
+    /**
+     * Update select repo(flag, read status, note...)
+     */
+    onUpdateSelectedRepo = (id: number, properties: { [key: string]: any }) => {
+        properties.id = id;
+        return this.getDbHandler()
+            .then(dbHandler => dbHandler.updateRepo(properties))
+            .then(repo => {
+                // also replace the repo in repos list
+                repo._hotChange = Object.keys(properties); // mark the repo that its readme etc.. has fetched, do not fetch again
+                let { repos, reposMap } = this;
+                reposMap[id] = repo;
+                repos = repos.map(repo => reposMap[repo.id]);
+
+                this.repos = Array.from(repos);
+                this.reposMap = Object.assign({}, reposMap);
+                this.selectedRepo = repo;
+
+                return repo;
+            })
+            .catch(error => {
+                logger.log(error.message || error.toString());
+                throw error;
+            });
+    };
 }
