@@ -12,18 +12,18 @@ export default class Authentication {
         return new Promise((resolve, reject) => {
             let username = localStorage.getItem(CONSTANTS.LOCAL_STORAGE_USERNAME_KEY);
             if (!username) {
-                reject(new Error("no local login record"));
+                reject(new Error("No local login record found"));
             } else {
                 ipcRenderer.send(EVENTS.GET_LOCAL_CREDENTIALS, username);
                 ipcRenderer.once(EVENTS.GET_LOCAL_CREDENTIALS_REPLY, (_event, arg) => {
                     if (!arg) {
-                        reject(new Error("retrieve password from keychain failed"));
+                        reject(new Error("Retrieve password from keychain failed"));
                     }
                     let credentials = JSON.parse(arg);
                     if (credentials.username && credentials.password) {
                         resolve(credentials);
                     } else {
-                        reject(new Error("retrieve password from keychain failed"));
+                        reject(new Error("Retrieve password from keychain failed"));
                     }
                 });
             }
@@ -38,7 +38,7 @@ export default class Authentication {
                 if (result) {
                     resolve(credentials);
                 } else {
-                    reject(new Error("save credentials to keychain failed"));
+                    reject(new Error("Save credentials to keychain failed"));
                 }
             });
         });
@@ -61,7 +61,7 @@ export default class Authentication {
                 ipcRenderer.once(EVENTS.DELETE_LOCAL_CREDENTIALS_REPLY, (_event, result) => {
                     result
                         ? resolve(username || "")
-                        : reject(new Error("delete credentials from keychain failed"));
+                        : reject(new Error("Delete credentials from keychain failed"));
                 });
             }
         });

@@ -1,7 +1,8 @@
 import moment from "moment";
 import * as Database from "./database";
-import * as CONSTANTS from "../constants";
 import IRepo from "../interface/IRepo";
+import GroupType from "../enum/GroupType";
+import SearchType from "../enum/SearchType";
 
 export default class DBHandler {
     private dbName: string;
@@ -23,7 +24,7 @@ export default class DBHandler {
 
     initDB = async () => {
         if (!this.RxDB) {
-            this.RxDB = await Database.get(this.dbName, null);
+            this.RxDB = await Database.get(this.dbName);
         }
 
         return this;
@@ -213,11 +214,11 @@ export default class DBHandler {
         if (conditions.group) {
             const id = conditions.group.id; // string
             switch (conditions.group.type) {
-                case CONSTANTS.GROUP_TYPE_LANGUAGE:
+                case GroupType.GROUP_TYPE_LANGUAGE:
                     args = { lang: { $eq: id } };
                     // query = reposCollection.find(args)
                     break;
-                case CONSTANTS.GROUP_TYPE_CATEGORY:
+                case GroupType.GROUP_TYPE_CATEGORY:
                     // we should go to category table to find the repos list
                     const catsCollection = this.RxDB.categories;
                     const category = await catsCollection.findOne({ key: { $eq: id } }).exec();
@@ -225,7 +226,7 @@ export default class DBHandler {
                     args = { id: { $in: repoIds } };
                     // query = reposCollection.find(args)
                     break;
-                case CONSTANTS.GROUP_TYPE_UNKNOWN:
+                case GroupType.GROUP_TYPE_UNKNOWN:
                     const catsCollection2 = this.RxDB.categories;
                     const categories = await catsCollection2.find().exec();
                     let nrepoIds = [];
@@ -256,15 +257,15 @@ export default class DBHandler {
         if (conditions.search && conditions.search.key) {
             const key = conditions.search.key;
             switch (conditions.search.field) {
-                case CONSTANTS.SEARCH_FIELD_REPO_NAME:
+                case SearchType.SEARCH_FIELD_REPO_NAME:
                     args.name = { $regex: new RegExp(key, "i") };
                     // query = query.find(searchArgs)
                     break;
-                case CONSTANTS.SEARCH_FIELD_REPO_DESCRIPTION:
+                case SearchType.SEARCH_FIELD_REPO_DESCRIPTION:
                     args.description = { $regex: new RegExp(key, "i") };
                     // query = query.find(searchArgs)
                     break;
-                case CONSTANTS.SEARCH_FIELD_REPO_NOTE:
+                case SearchType.SEARCH_FIELD_REPO_NOTE:
                     if (!args.note) {
                         args.note = { $regex: new RegExp(key, "i") };
                     } else {
@@ -274,7 +275,7 @@ export default class DBHandler {
                     }
                     // query = query.find(searchArgs)
                     break;
-                case CONSTANTS.SEARCH_FIELD_REPO_TAGS:
+                case SearchType.SEARCH_FIELD_REPO_TAGS:
                     const tag = await this.RxDB.tags
                         .findOne({
                             name: { $regex: new RegExp("^" + key + "$", "i") }
@@ -291,7 +292,7 @@ export default class DBHandler {
                         args.id = { $in: tagRepoIds };
                     }
                     break;
-                case CONSTANTS.SEARCH_FIELD_ALL: // currently not include tags
+                case SearchType.SEARCH_FIELD_ALL: // currently not include tags
                 default:
                     // query = query.find({$or: [{name: {$regex: new RegExp(key, 'i')}}, {description: {$regex: new RegExp(key, 'i')}}, {note: {$regex: new RegExp(key, 'i')}}]}) // TODO this does not work but no error
 

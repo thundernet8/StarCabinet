@@ -21,7 +21,7 @@ export default class GithubClient {
         return this.me.getProfile().then(ret => ret.data);
     };
 
-    getStarredRepos = () => {
+    getStarredRepos = (): Promise<any> => {
         // return this.me.listStarredRepos() // this method only fetch repos sorted by 'updated', but we need the order of starred time desc
 
         // ugly hack

@@ -1,51 +1,3 @@
-.main {
-    height: 100%;
-    overflow: hidden;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
-        "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-.container {
-    display: flex;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    //border-top: 1px solid rgba(186, 208, 223, 0.36);
-}
-
-.left {
-    position: relative;
-    width: 200px;
-    height: 100%;
-    background-color: rgba(39, 49, 67, 1);
-    // border-right: 1px solid rgba(186,208,223,0.72);
-    color: rgba(204, 204, 204, 1);
-}
-
-.mid {
-    position: relative;
-    width: 300px;
-    height: 100%;
-    background-color: #fbfbfb;
-    border-right: 1px solid rgba(229, 229, 229, 1);
-    display: flex;
-    flex-direction: column;
-}
-
-.right {
-    position: relative;
-    flex: 1;
-    height: 100%;
-    background-color: #fff; // rgba(246, 246, 247, 1);
-}
-
 .detailContent {
     height: 100%;
     background-repeat: no-repeat;
@@ -53,120 +5,6 @@
     flex: 1;
     overflow: auto;
     padding-bottom: 40px;
-}
-
-.indicatorWrap {
-    position: relative;
-    width: 100%;
-    height: 36px;
-}
-
-.indicator {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-.profileCard {
-    width: 100%;
-    text-align: center;
-    padding: 15px 0;
-}
-
-.profileAvatar {
-    display: block;
-    margin: 0 auto;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-}
-
-.profileName {
-    color: #eee;
-    font-size: 14px;
-    line-height: 1.5;
-    margin-top: 5px;
-}
-
-.groupNav {
-    position: relative;
-}
-
-.langItem {
-    padding-right: 32px !important;
-}
-
-.catItem {
-    padding-right: 32px !important;
-
-    &:hover {
-        .navDel {
-            opacity: 1;
-        }
-    }
-}
-
-.navDel {
-    position: absolute;
-    top: 0;
-    left: 25px;
-    text-align: left;
-    padding: 0;
-    font-size: 12px;
-    line-height: 42px;
-    opacity: 0;
-}
-
-.navBadge {
-    position: absolute;
-    top: 0;
-    right: 10px;
-    text-align: right;
-    padding: 0 6px;
-    font-size: 14px;
-    line-height: 42px;
-    color: #fafafa;
-}
-
-.groupFooter {
-    position: absolute;
-    width: 100%;
-    height: 36px;
-    left: 0;
-    bottom: 0;
-}
-
-.settingBtn {
-    width: 16px;
-    height: 16px;
-    font-size: 15px;
-    position: absolute;
-    top: 5px;
-    left: 16px;
-    cursor: pointer;
-    &:hover {
-        color: #eee;
-    }
-}
-
-.addCatBtn {
-    width: 16px;
-    height: 16px;
-    font-size: 16px;
-    position: absolute;
-    top: 5px;
-    right: 16px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    &:hover {
-        color: #eee;
-        transform: rotate(90deg);
-    }
 }
 
 .searchBox {
@@ -500,8 +338,8 @@
         }
         > .repoReadme {
             position: relative;
-            font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
-                "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+            font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue",
+                Helvetica, Arial, sans-serif !important;
             font-size: 100%;
         }
     }

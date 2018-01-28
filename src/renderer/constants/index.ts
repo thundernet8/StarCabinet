@@ -82,13 +82,6 @@ export const QUERY_REPOS_LIST_FAIL = "QUERY_REPOS_LIST_FAIL";
 
 export const REPLACE_REPOS_LIST_ITEM = "REPLACE_REPOS_LIST_ITEM";
 
-// search field
-export const SEARCH_FIELD_ALL = "SEARCH_FIELD_ALL";
-export const SEARCH_FIELD_REPO_NAME = "SEARCH_FIELD_REPO_NAME";
-export const SEARCH_FIELD_REPO_DESCRIPTION = "SEARCH_FIELD_REPO_DESCRIPTION";
-export const SEARCH_FIELD_REPO_NOTE = "SEARCH_FIELD_REPO_NOTE";
-export const SEARCH_FIELD_REPO_TAGS = "SEARCH_FIELD_REPO_TAGS";
-
 // filter types
 export const FILTER_OPTION_NONE = "FILTER_OPTION_NONE";
 export const FILTER_OPTION_HAS_FLAG = "FILTER_OPTION_HAS_FLAG";
@@ -96,25 +89,9 @@ export const FILTER_OPTION_HAS_NOTE = "FILTER_OPTION_HAS_NOTE";
 export const FILTER_OPTION_UNREAD = "FILTER_OPTION_UNREAD";
 
 // order types
-export const ORDER_BY_DEFAULT = "defaultOrder"; // TODO change to starred time, need change github api npm package
-export const ORDER_BY_STARS_COUNT = "stars";
-export const ORDER_BY_FORKS_COUNT = "forks";
-export const ORDER_BY_WATCHERS_COUNT = "watchers";
-export const ORDER_BY_OPEN_ISSUES_COUNT = "openIssues";
-export const ORDER_BY_SIZE = "size";
-export const ORDER_BY_CREATE_TIME = "createdTime";
-export const ORDER_BY_UPDATE_TIME = "updatedTime";
-export const ORDER_BY_PUSH_TIME = "pushedTime";
-export const ORDER_BY_SCORE = "score";
 
 export const ORDER_DESC = "ORDER_DESC";
 export const ORDER_ASC = "ORDER_ASC";
-
-// group types
-export const GROUP_TYPE_CATEGORY = "GROUP_TYPE_CATEGORY";
-export const GROUP_TYPE_LANGUAGE = "GROUP_TYPE_LANGUAGE";
-export const GROUP_TYPE_UNKNOWN = "GROUP_TYPE_UNKNOWN"; // repos who do not have a custom category
-export const GROUP_TYPE_ALL = "GROUP_TYPE_ALL"; // means removing category filter
 
 // query profile
 export const QUERY_MY_PROFILE = "QUERY_MY_PROFILE";

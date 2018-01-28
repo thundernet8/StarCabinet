@@ -67,7 +67,7 @@ const collections: RxCollectionCreator[] = [
 
 let dbPromise: Promise<RxDatabase>;
 
-const _create = async function(dbName, _dispatch) {
+const _create = async function(dbName) {
     logger.log(`DatabaseService: creating database ${dbName}..`);
 
     const db = await RxDB.create({
@@ -116,9 +116,9 @@ const _create = async function(dbName, _dispatch) {
     return db;
 };
 
-export function get(dbName, dispatch = null) {
+export function get(dbName) {
     if (!dbPromise) {
-        dbPromise = _create(dbName, dispatch);
+        dbPromise = _create(dbName);
     }
     return dbPromise;
 }
