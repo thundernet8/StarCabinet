@@ -1,5 +1,5 @@
 import * as RxDB from "rxdb";
-import { RxDatabase, RxCollectionCreator } from "rxdb";
+import { RxDatabase } from "rxdb";
 import logger from "../utils/logger";
 import { extendRxDB } from "./dbExtension";
 import repoSchema from "./schemas/repoSchema";
@@ -14,20 +14,20 @@ declare var window;
 
 RxDB.plugin(require("pouchdb-adapter-idb"));
 
-const collections: RxCollectionCreator[] = [
+const collections: any[] = [
     {
         name: "repos",
         schema: repoSchema as any
     },
     {
         name: "authors",
-        schema: authorSchema
-        // sync: false
+        schema: authorSchema,
+        sync: false
     },
     {
         name: "me",
-        schema: meSchema
-        // sync: false
+        schema: meSchema,
+        sync: false
     },
     {
         name: "tags",
@@ -36,8 +36,8 @@ const collections: RxCollectionCreator[] = [
             countRepos() {
                 return this.repos.length;
             }
-        }
-        // sync: false
+        },
+        sync: false
     },
     {
         name: "categories",
@@ -46,8 +46,8 @@ const collections: RxCollectionCreator[] = [
             countRepos() {
                 return this.repos.length;
             }
-        }
-        // sync: false
+        },
+        sync: false
     },
     {
         name: "languages",
@@ -60,8 +60,8 @@ const collections: RxCollectionCreator[] = [
     },
     {
         name: "settings",
-        schema: settingSchema
-        // sync: false
+        schema: settingSchema,
+        sync: false
     }
 ];
 

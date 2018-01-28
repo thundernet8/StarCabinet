@@ -14,10 +14,7 @@
             "target": "nsis"
         },
         "linux": {
-            "target": [
-                "AppImage",
-                "deb"
-            ]
+            "target": ["AppImage", "deb"]
         },
         "directories": {
             "app": "app",
@@ -30,16 +27,7 @@
         "type": "git",
         "url": "git+https://github.com/thundernet8/StarCabinet.git"
     },
-    "keywords": [
-        "Github",
-        "Star",
-        "Electron",
-        "React",
-        "Mobx",
-        "React-Router",
-        "Webpack",
-        "rxdb"
-    ],
+    "keywords": ["Github", "Star", "Electron", "React", "Mobx", "React-Router", "Webpack", "rxdb"],
     "author": {
         "name": "WuXueqian",
         "email": "chinash2010@gmail.com"
@@ -51,10 +39,14 @@
     "homepage": "https://github.com/thundernet8/StarCabinet#readme",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dll": "cross-env NODE_ENV=production webpack -p --hide-modules --config webpack/dll.conf.babel.js",
-        "dll:dev": "cross-env NODE_ENV=development webpack --hide-modules --config webpack/dll.conf.babel.js",
-        "build": "rimraf app/dist && mkdirp app/dist && cross-env NODE_ENV=production npm run dll && cross-env NODE_ENV=production webpack --progress --hide-modules --config webpack/prod.conf.babel.js",
-        "build:dev": "rimraf app/dist && mkdirp app/dist && cross-env NODE_ENV=development npm run dll:dev && cross-env NODE_ENV=development webpack --progress --hide-modules --config webpack/main.conf.babel.js && cross-env NODE_ENV=development webpack --progress --hide-modules --config webpack/dev.conf.babel.js",
+        "dll":
+            "cross-env NODE_ENV=production webpack -p --hide-modules --config webpack/dll.conf.babel.js",
+        "dll:dev":
+            "cross-env NODE_ENV=development webpack --hide-modules --config webpack/dll.conf.babel.js",
+        "build":
+            "rimraf app/dist && mkdirp app/dist && cross-env NODE_ENV=production npm run dll && cross-env NODE_ENV=production webpack --progress --hide-modules --config webpack/prod.conf.babel.js",
+        "build:dev":
+            "rimraf app/dist && mkdirp app/dist && cross-env NODE_ENV=development npm run dll:dev && cross-env NODE_ENV=development webpack --progress --hide-modules --config webpack/main.conf.babel.js && cross-env NODE_ENV=development webpack --progress --hide-modules --config webpack/dev.conf.babel.js",
         "dev": "npm run build:dev && webpack-dev-server --config webpack/dev.conf.babel.js",
         "analyze": "cross-env ANALYZE_ENV=true npm run build",
         "start": "cross-env NODE_ENV=development electron ./app",
@@ -69,12 +61,8 @@
         "lint-staged:style": "stylelint --syntax less"
     },
     "lint-staged": {
-        "src/**/*.{ts,tsx}": [
-            "lint-staged:ts"
-        ],
-        "src/**/*.less": [
-            "lint-staged:style"
-        ]
+        "src/**/*.{ts,tsx}": ["lint-staged:ts"],
+        "src/**/*.less": ["lint-staged:style"]
     },
     "pre-commit": "lint-staged",
     "devDependencies": {
@@ -142,6 +130,6 @@
         "react-dom": "^16.2.0",
         "react-markdown": "^3.1.4",
         "react-router-dom": "^4.2.2",
-        "rxdb": "^6.0.1"
+        "rxdb": "^3.0.0"
     }
 }
