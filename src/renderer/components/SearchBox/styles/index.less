@@ -1,0 +1,42 @@
+.searchBox {
+    padding: 12px 10px;
+    > span {
+        border: 0;
+        z-index: 999;
+        &:hover {
+            input {
+                border-color: #d9d9d9 !important;
+            }
+        }
+    }
+    input {
+        background: rgb(225, 225, 225);
+        text-align: center;
+        &:focus {
+            box-shadow: none;
+            border-color: #d9d9d9;
+            background: #fff;
+        }
+        &:hover {
+            border-color: #d9d9d9;
+            background: #fff;
+        }
+    }
+    &:focus {
+        outline: 0;
+    }
+}
+
+.searchBoxFocused {
+    > .searchFields {
+        margin-top: 0px;
+    }
+}
+
+.searchFields {
+    position: relative;
+    padding: 10px 0;
+    transition: all 0.3s ease;
+    margin-top: -36px;
+    text-align: center;
+}

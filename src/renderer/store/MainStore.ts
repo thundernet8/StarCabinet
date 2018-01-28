@@ -116,6 +116,15 @@ export default class MainStore {
      */
     @observable search: ISearchConditionState = { key: "", field: SearchType.SEARCH_FIELD_ALL };
 
+    @action
+    onUpdateSearchCondition = (key: string, field: SearchType) => {
+        this.search = {
+            key,
+            field
+        };
+        return this.updateRepoList();
+    };
+
     /**
      * Order condition
      */
