@@ -1,6 +1,10 @@
+import OrderBy from "../enum/OrderBy";
+import SearchType from "../enum/SearchType";
+import GroupType from "../enum/GroupType";
+
 export interface ISearchConditionState {
     key: string;
-    field: string;
+    field: SearchType;
 }
 
 export interface IFilterConditionState {
@@ -10,11 +14,11 @@ export interface IFilterConditionState {
 }
 
 export interface IOrderConditionState {
-    by: string;
+    by: OrderBy;
     desc: boolean;
 }
 
 export interface IGroupConditionState {
-    type: string;
+    type: GroupType;
     id: string;
 }

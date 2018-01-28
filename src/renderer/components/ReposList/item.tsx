@@ -28,8 +28,10 @@ export default class RepoListItem extends React.Component<RepoListItemProps, Rep
     };
 
     shouldComponentUpdate(nextProps) {
+        const nextSelectRepo = nextProps.selectedRepo || {};
+        const currentSelectRepo = this.props.selectedRepo || {};
         if (
-            nextProps.selectedRepo.id !== this.props.selectedRepo.id ||
+            nextSelectRepo.id !== currentSelectRepo.id ||
             nextProps.repo.id !== this.props.repo.id ||
             nextProps.repo.score !== this.props.repo.score
         ) {

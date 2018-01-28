@@ -48,7 +48,7 @@ export default class RefreshIndicator extends React.Component<
             description:
                 increase < 0
                     ? `Decreased ${Math.abs(increase)} starred repositories.`
-                    : `${increase} starred repositories were added.`,
+                    : `${increase} new starred repositories.`,
             duration: 10
         });
     };

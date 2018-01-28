@@ -82,16 +82,7 @@ export const QUERY_REPOS_LIST_FAIL = "QUERY_REPOS_LIST_FAIL";
 
 export const REPLACE_REPOS_LIST_ITEM = "REPLACE_REPOS_LIST_ITEM";
 
-// filter types
-export const FILTER_OPTION_NONE = "FILTER_OPTION_NONE";
-export const FILTER_OPTION_HAS_FLAG = "FILTER_OPTION_HAS_FLAG";
-export const FILTER_OPTION_HAS_NOTE = "FILTER_OPTION_HAS_NOTE";
-export const FILTER_OPTION_UNREAD = "FILTER_OPTION_UNREAD";
-
 // order types
-
-export const ORDER_DESC = "ORDER_DESC";
-export const ORDER_ASC = "ORDER_ASC";
 
 // query profile
 export const QUERY_MY_PROFILE = "QUERY_MY_PROFILE";

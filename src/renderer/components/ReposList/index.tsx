@@ -25,17 +25,15 @@ export default class ReposList extends React.Component<ReposListProps, ReposList
 
         return (
             <div className={ClassNames("reposListWrapper", styles.reposListWrapper)}>
-                {Object.keys(repos)
-                    .map(key => repos[key])
-                    .map(repo => (
-                        <RepoListItem
-                            key={repo.id}
-                            repo={repo}
-                            selectedRepo={selectedRepo}
-                            onSelectRepo={mainStore.onSelectRepo}
-                            onRateRepo={mainStore.onRateRepo}
-                        />
-                    ))}
+                {repos.map(repo => (
+                    <RepoListItem
+                        key={repo.id}
+                        repo={repo}
+                        selectedRepo={selectedRepo}
+                        onSelectRepo={mainStore.onSelectRepo}
+                        onRateRepo={mainStore.onRateRepo}
+                    />
+                ))}
             </div>
         );
     }

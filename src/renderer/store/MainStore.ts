@@ -1,4 +1,4 @@
-import { observable, action } from "mobx";
+import { observable, action, toJS } from "mobx";
 import ILanguage from "../interface/ILanguage";
 import ICategory from "../interface/ICategory";
 import GroupType from "../enum/GroupType";
@@ -118,11 +118,15 @@ export default class MainStore {
 
     @action
     onUpdateSearchCondition = (key: string, field: SearchType) => {
-        this.search = {
-            key,
-            field
-        };
-        return this.updateRepoList();
+        const { search, repos } = this;
+        if (key !== search.key || field !== search.field) {
+            this.search = {
+                key,
+                field
+            };
+            return this.updateRepoList();
+        }
+        return Promise.resolve(toJS(repos));
     };
 
     /**
@@ -130,10 +134,39 @@ export default class MainStore {
      */
     @observable order: IOrderConditionState = { by: OrderBy.ORDER_BY_DEFAULT, desc: true };
 
+    @action
+    onUpdateOrderCondition = (desc: boolean, by: OrderBy) => {
+        logger.log(`Sort: ${by} ${desc ? "DESC" : "ASC"}`);
+        const { order, repos } = this;
+        if (order.desc !== desc || order.by !== by) {
+            this.order = {
+                desc,
+                by
+            };
+            return this.updateRepoList();
+        }
+        return Promise.resolve(toJS(repos));
+    };
+
     /**
      * filter condition
      */
     @observable filter: IFilterConditionState = { hasFlag: false, hasNote: false, unread: false };
+
+    @action
+    onUpdateFilterCondition = (newFilter: IFilterConditionState) => {
+        logger.log(`Filter: ${newFilter}`);
+        const { filter, repos } = this;
+        if (
+            filter.hasFlag !== newFilter.hasFlag ||
+            filter.hasNote !== newFilter.hasNote ||
+            filter.unread !== newFilter.unread
+        ) {
+            this.filter = newFilter;
+            return this.updateRepoList();
+        }
+        return Promise.resolve(toJS(repos));
+    };
 
     /**
      * Group condition
@@ -167,6 +200,7 @@ export default class MainStore {
             return;
         }
         this.group = group;
+        this.updateRepoList();
     };
 
     @action
@@ -184,10 +218,13 @@ export default class MainStore {
     /**
      * Repos
      */
-    @observable repos: { [key: string]: IRepo } = {};
+    @observable repos: IRepo[] = [];
+
+    @observable reposMap: { [key: string]: IRepo } = {};
 
     @action
     updateRepoList = () => {
+        logger.log("Update repo list");
         const { group, search, order, filter } = this;
         const conditions = {
             group,
@@ -206,7 +243,8 @@ export default class MainStore {
                     keyedRepos[repo.id] = repo;
                 });
 
-                this.repos = keyedRepos;
+                this.repos = repos;
+                this.reposMap = keyedRepos;
                 return repos;
             })
             .catch(error => {
