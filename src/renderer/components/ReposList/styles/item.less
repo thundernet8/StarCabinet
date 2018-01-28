@@ -1,0 +1,86 @@
+.repoListItem {
+    position: relative;
+    padding: 0;
+    border-bottom: 1px solid rgb(230, 235, 239); // 1px solid #f5f5f5;
+    // background-color: #fff;
+    &.repoSelected {
+        background-color: #e5e5e5;
+        header {
+            > span {
+                > ul {
+                    > li {
+                        color: #fff;
+                        transition: none;
+                    }
+                }
+            }
+        }
+    }
+    &:hover {
+        background: #eaeaea;
+        header {
+            > span {
+                > ul {
+                    > li {
+                        color: #fff;
+                        transition: none;
+                    }
+                }
+            }
+        }
+    }
+    &:last-child {
+        border-bottom: 0;
+    }
+    > .repoItemInner {
+        padding: 10px;
+        > header {
+            position: relative;
+            > h2 {
+                // white-space: nowrap;
+                word-break: break-all;
+                text-overflow: ellipsis;
+                padding-right: 88px;
+                font-size: 18px;
+                font-weight: 500;
+                line-height: 20px;
+                overflow: hidden;
+                color: #3498db; // #56a07b;
+            }
+            > span {
+                position: absolute;
+                top: 0;
+                right: 0;
+                > ul {
+                    text-align: right;
+                    font-size: 12px;
+                    line-height: 20px;
+                    > li {
+                        margin-right: 3px;
+                        &:last-child {
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+        > div {
+            > p {
+                font-size: 13px;
+                line-height: 1.5;
+                padding: 8px 0;
+                color: #28353d;
+                word-wrap: break-word;
+                word-break: break-all;
+                margin-bottom: 10px;
+            }
+        }
+        > footer {
+            font-size: 13px;
+            color: #658399;
+            i {
+                margin-right: 5px;
+            }
+        }
+    }
+}

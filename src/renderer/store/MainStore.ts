@@ -203,7 +203,7 @@ export default class MainStore {
                 // we need convert the array to key-value pairs
                 let keyedRepos: { [key: string]: IRepo } = {};
                 repos.forEach(repo => {
-                    keyedRepos["_" + repo.id] = repo;
+                    keyedRepos[repo.id] = repo;
                 });
 
                 this.repos = keyedRepos;
@@ -250,6 +250,40 @@ export default class MainStore {
             })
             .finally(() => {
                 this.fetching = false;
+            });
+    };
+
+    /**
+     * Selected repo
+     */
+    @observable selectedRepo: IRepo;
+
+    @action
+    onSelectRepo = (id: number) => {
+        const { repos } = this;
+        this.selectedRepo = repos[id];
+    };
+
+    @action
+    onRateRepo = (id: number, score: number) => {
+        const { repos } = this;
+        const updateObj = {
+            id,
+            score
+        };
+
+        return this.getDbHandler()
+            .then(dbHandler => dbHandler.updateRepo(updateObj))
+            .then(repo => {
+                // also replace new repo into repos list
+                repos[repo.id] = repo;
+                this.repos = Object.assign({}, repos);
+
+                return repo;
+            })
+            .catch(error => {
+                logger.log(error.message || error.toString());
+                // throw error;
             });
     };
 }

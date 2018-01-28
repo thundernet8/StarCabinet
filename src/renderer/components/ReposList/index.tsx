@@ -1,17 +1,42 @@
 import * as React from "react";
+import { observer, inject } from "mobx-react";
+import ClassNames from "classnames";
+import IStore from "../../interface/IStore";
+import RepoListItem from "./item";
 
-// const styles = require("./index.less");
+const styles = require("./styles/index.less");
 
-interface ReposListProps {}
+interface ReposListProps {
+    store?: IStore;
+}
 
 interface ReposListState {}
 
+@inject("store")
+@observer
 export default class ReposList extends React.Component<ReposListProps, ReposListState> {
     constructor(props) {
         super(props);
     }
 
     render() {
-        return <div>ReposList</div>;
+        const mainStore = this.props.store!.main;
+        const { repos, selectedRepo } = mainStore;
+
+        return (
+            <div className={ClassNames("reposListWrapper", styles.reposListWrapper)}>
+                {Object.keys(repos)
+                    .map(key => repos[key])
+                    .map(repo => (
+                        <RepoListItem
+                            key={repo.id}
+                            repo={repo}
+                            selectedRepo={selectedRepo}
+                            onSelectRepo={mainStore.onSelectRepo}
+                            onRateRepo={mainStore.onRateRepo}
+                        />
+                    ))}
+            </div>
+        );
     }
 }
