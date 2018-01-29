@@ -1,0 +1,126 @@
+/* Customize Antd */
+
+input {
+    &:focus {
+        box-shadow: none !important;
+    }
+}
+
+.ant-message-notice-content {
+    min-width: 160px;
+}
+
+.groupNav {
+    .ant-menu-dark {
+        background-color: transparent;
+        > li {
+            &:not(.ant-menu-submenu-open) {
+                &:not(.ant-menu-item-selected) {
+                    &:hover {
+                        background-color: rgb(55, 65, 81);
+                    }
+                }
+            }
+
+            > .ant-menu-sub {
+                background-color: transparent;
+                max-height: 210px;
+                overflow-y: auto;
+                > li {
+                    &:not(.ant-menu-item-selected) {
+                        &:hover {
+                            background-color: rgb(55, 65, 81);
+                        }
+                    }
+                }
+            }
+
+            &.ant-menu-item-selected {
+                background-color: rgb(71, 79, 95);
+            }
+        }
+        &.ant-menu-inline {
+            .ant-menu-item-selected {
+                // background-color: rgb(39, 49, 67);
+                background-color: rgb(71, 79, 95);
+            }
+        }
+    }
+}
+
+.searchFields {
+    .ant-radio-button-wrapper {
+        line-height: 24px;
+        height: 26px;
+        padding: 0 12px;
+    }
+}
+
+.sortDropdown,
+.filterDropdown {
+    > .ant-dropdown-menu-item {
+        line-height: 14px;
+        padding: 5px 16px;
+        a {
+            color: #343536;
+        }
+        &:last-child {
+            .ant-checkbox-checked {
+                .ant-checkbox-inner {
+                    &:after {
+                        visibility: hidden;
+                    }
+                }
+            }
+        }
+    }
+    > .ant-dropdown-menu-item-divider {
+        margin: 4px 0;
+    }
+    > .ant-dropdown-menu-item-selected {
+        background-color: transparent;
+    }
+    .ant-dropdown-menu-item:hover {
+        background-color: #f8f8f8;
+    }
+    .ant-checkbox-inner {
+        border-color: transparent;
+    }
+    .ant-checkbox-checked {
+        .ant-checkbox-inner {
+            background-color: transparent;
+            border-color: transparent;
+            &:after {
+                border-color: #343536;
+                visibility: visible;
+            }
+        }
+    }
+    .ant-checkbox {
+        visibility: hidden;
+    }
+}
+
+.ant-rate-star-half .ant-rate-star-first,
+.ant-rate-star-full .ant-rate-star-second {
+    color: #f96358 !important;
+}
+
+.ant-rate-star-half:hover .ant-rate-star-first,
+.ant-rate-star-full:hover .ant-rate-star-second {
+    color: #f78986 !important;
+}
+
+.repoLinksToolInputWrap {
+    width: 275px;
+    padding: 5px 0;
+    .ant-input-group {
+        margin-bottom: 10px;
+        .ant-input-group-addon:first-child {
+            width: 56px;
+        }
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

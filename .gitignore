@@ -7,4 +7,6 @@ dist/
 release/
 .idea/
 .vscode/
-debug.log
+*.log
+venders-config.json
+manifest.json

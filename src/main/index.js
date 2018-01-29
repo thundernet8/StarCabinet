@@ -23,7 +23,7 @@ function createWindow() {
     // Add React dev tools
     if (process.env.NODE_ENV === "development") {
         BrowserWindow.addDevToolsExtension(
-            path.resolve(__dirname, "../chrome/ReactDevTool/2.0.12_0")
+            path.resolve(__dirname, "../../chrome/ReactDevTool/2.5.2_0")
         );
     }
 
@@ -32,10 +32,7 @@ function createWindow() {
 }
 
 // Make app single instance
-let shouldQuit = app.makeSingleInstance(function(
-    commandLine,
-    workingDirectory
-) {
+let shouldQuit = app.makeSingleInstance(function(commandLine, workingDirectory) {
     // Someone tried to run a second instance, we should focus our window.
     if (win.login) {
         win.login.focus();

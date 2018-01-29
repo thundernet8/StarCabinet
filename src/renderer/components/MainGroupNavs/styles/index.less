@@ -1,0 +1,45 @@
+.groupNav {
+    position: relative;
+    & > ul {
+        font-family: inherit;
+    }
+    li + span {
+        font-weight: 300;
+    }
+}
+
+.langItem {
+    padding-right: 32px !important;
+}
+
+.navDel {
+    position: absolute;
+    top: 0;
+    left: 25px;
+    text-align: left;
+    padding: 0;
+    font-size: 12px;
+    line-height: 42px;
+    opacity: 0;
+}
+
+.catItem {
+    padding-right: 32px !important;
+
+    &:hover {
+        .navDel {
+            opacity: 1;
+        }
+    }
+}
+
+.navBadge {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    text-align: right;
+    padding: 0 6px;
+    font-size: 14px;
+    line-height: 42px;
+    color: #fafafa;
+}

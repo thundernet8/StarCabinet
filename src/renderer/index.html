@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no">
-    <meta name="description" content="StarCabinet is a tool of organizing your github stars, with categories, tags support, instant search, and more.">
-    <meta property="application-name" content="StarCabinet">
-    <meta name="apple-mobile-web-app-title" content="StarCabinet">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no">
-    <title>StarCabinet</title>
-    <link rel="shortcut icon" href="<%= require('./assets/images/favicon.png') %>">
-    <!--script async="" src="https://www.google-analytics.com/analytics.js"></script--><!-- Google analysis -->
-  </head>
-  <body class="<%= htmlWebpackPlugin.options.bodyClass %>">
-    <noscript class="_fail">StarCabinet requires JavaScript to run.</noscript>
-    <div id="app"></div>
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no">
+  <meta name="description" content="StarCabinet is a tool of organizing your github stars, with categories, tags support, instant search, and more.">
+  <meta property="application-name" content="StarCabinet">
+  <meta name="apple-mobile-web-app-title" content="StarCabinet">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no">
+  <title>StarCabinet</title>
+  <link rel="shortcut icon" href="<%= require('./assets/images/favicon.png') %>">
+  <!--script async="" src="https://www.google-analytics.com/analytics.js"></script-->
+  <!-- Google analysis -->
+</head>
+
+<body class="<%= htmlWebpackPlugin.options.bodyClass %>">
+  <noscript class="_fail">StarCabinet requires JavaScript to run.</noscript>
+  <div id="app"></div>
+  <script src="<%= htmlWebpackPlugin.options.vendersName %>"></script>
+</body>
+
 </html>

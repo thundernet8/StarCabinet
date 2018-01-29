@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "strictNullChecks": true,
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "jsx": "react",
+        "noUnusedParameters": true,
+        "noUnusedLocals": true,
+        "target": "es2015",
+        "lib": ["dom", "es2015", "es2016"],
+        "typeRoots": ["node_modules/@types", "typings"],
+        "baseUrl": "./src",
+        "allowJs": false
+    },
+    "exclude": ["node_modules", "dist", "**/*.spec.ts?"]
+}

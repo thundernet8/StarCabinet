@@ -11,10 +11,7 @@ export const exportDataHandle = () => {
             properties: ["openDirectory"]
         };
         dialog.showOpenDialog(currentWin, dialogOptions, paths => {
-            event.sender.send(
-                EVENTS.SHOW_CHOOSE_DIRECTORY_DIALOG_REPLG,
-                paths[0]
-            );
+            event.sender.send(EVENTS.SHOW_CHOOSE_DIRECTORY_DIALOG_REPLG, paths[0]);
         });
     });
 
@@ -42,13 +39,14 @@ export const importDataHandle = () => {
             ]
         };
         dialog.showOpenDialog(currentWin, dialogOptions, paths => {
-            fs.readFile(paths[0], "utf8", (err, data) => {
-                if (err) {
-                    event.sender.send(EVENTS.READ_FILE_FAILED);
-                } else {
-                    event.sender.send(EVENTS.SENT_IMPORT_STARS_DATA, data);
-                }
-            });
+            paths &&
+                fs.readFile(paths[0], "utf8", (err, data) => {
+                    if (err) {
+                        event.sender.send(EVENTS.READ_FILE_FAILED);
+                    } else {
+                        event.sender.send(EVENTS.SENT_IMPORT_STARS_DATA, data);
+                    }
+                });
         });
     });
 

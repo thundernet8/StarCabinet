@@ -4,20 +4,11 @@ import * as CONSTANTS from "../../shared/constants";
 const keytar = require("keytar");
 
 const mainGetLocalCredentials = username => {
-    let password = keytar.getPassword(CONSTANTS.APP, username);
-    return {
-        username,
-        password
-    };
+    return keytar.getPassword(CONSTANTS.APP, username).then(password => ({ username, password }));
 };
 
 const mainSaveCredentials = credentials => {
-    // return keytar.addPassword(CONSTANTS.APP, credentials.username, credentials.password)
-    return keytar.replacePassword(
-        CONSTANTS.APP,
-        credentials.username,
-        credentials.password
-    );
+    return keytar.setPassword(CONSTANTS.APP, credentials.username, credentials.password);
 };
 
 const mainDeleteCredentials = username => {
@@ -26,22 +17,22 @@ const mainDeleteCredentials = username => {
 
 const handleCredentialsEvents = () => {
     ipcMain.on(EVENTS.GET_LOCAL_CREDENTIALS, (event, username) => {
-        let credentials = mainGetLocalCredentials(username);
-        event.sender.send(
-            EVENTS.GET_LOCAL_CREDENTIALS_REPLY,
-            JSON.stringify(credentials)
-        );
+        mainGetLocalCredentials(username).then(credentials => {
+            event.sender.send(EVENTS.GET_LOCAL_CREDENTIALS_REPLY, JSON.stringify(credentials));
+        });
     });
 
     ipcMain.on(EVENTS.SAVE_CREDENTIALS_TO_SYSTEM, (event, arg) => {
         let credentials = JSON.parse(arg);
-        let result = mainSaveCredentials(credentials);
-        event.sender.send(EVENTS.SAVE_CREDENTIALS_TO_SYSTEM_REPLY, result);
+        mainSaveCredentials(credentials).then(() => {
+            event.sender.send(EVENTS.SAVE_CREDENTIALS_TO_SYSTEM_REPLY, "ok");
+        });
     });
 
     ipcMain.on(EVENTS.DELETE_LOCAL_CREDENTIALS, (event, username) => {
-        let result = mainDeleteCredentials(username);
-        event.sender.send(EVENTS.DELETE_LOCAL_CREDENTIALS_REPLY, !!result);
+        mainDeleteCredentials(username).then(result => {
+            event.sender.send(EVENTS.DELETE_LOCAL_CREDENTIALS_REPLY, !!result);
+        });
     });
 };
 

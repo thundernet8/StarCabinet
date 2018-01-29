@@ -1,0 +1,94 @@
+// Login Page
+
+.container {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    height: ~"calc(100% - 10px)";
+    background: #f5f5fa;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+
+    > header {
+        -webkit-app-region: drag;
+        width: 260px;
+        height: 36px;
+        padding: 8px 10px;
+        line-height: 20px;
+        color: #343536;
+        font-size: 15px;
+
+        > div {
+            display: inline-block;
+        }
+    }
+}
+
+.close {
+    position: fixed;
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    > i {
+        position: absolute;
+        display: inline-block;
+        width: 14px;
+        height: 1px;
+        background: #bbb;
+        top: 5px;
+        left: 0;
+        transform-origin: center;
+        transform: rotate(45deg);
+        &:last-child {
+            transform: rotate(-45deg);
+        }
+    }
+    &:hover {
+        > i {
+            background: #666;
+        }
+    }
+}
+
+.logoWrapper {
+    position: relative;
+    padding: 30px 0;
+    height: 132px;
+}
+
+.logo {
+    -webkit-user-drag: none;
+    width: 72px;
+    height: 72px;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    margin-left: -36px;
+    border-radius: 50%;
+}
+
+.logoLogged {
+    top: 100px;
+    transform: scale(1.2);
+}
+
+.name {
+    position: absolute;
+    top: 200px;
+    width: 100%;
+    font-size: 16px;
+    opacity: 0;
+}
+
+.loginBox {
+    padding: 10px 20px;
+}
+
+.loginBtn {
+    width: 100%;
+}
