@@ -3,4 +3,4 @@ export default interface IContributor {
     htmlUrl: string;
     login: string;
     avatarUrl: string;
-};
+}

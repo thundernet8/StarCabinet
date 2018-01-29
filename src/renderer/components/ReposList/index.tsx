@@ -21,11 +21,11 @@ export default class ReposList extends React.Component<ReposListProps, ReposList
 
     render() {
         const mainStore = this.props.store!.main;
-        const { repos, selectedRepo } = mainStore;
+        const { pageRepos, selectedRepo } = mainStore;
 
         return (
             <div className={ClassNames("reposListWrapper", styles.reposListWrapper)}>
-                {repos.map(repo => (
+                {pageRepos.map(repo => (
                     <RepoListItem
                         key={repo.id}
                         repo={repo}

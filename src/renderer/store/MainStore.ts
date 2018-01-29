@@ -1,4 +1,4 @@
-import { observable, action, toJS } from "mobx";
+import { observable, action, toJS, computed } from "mobx";
 import moment from "moment";
 import ILanguage from "../interface/ILanguage";
 import ICategory from "../interface/ICategory";
@@ -249,6 +249,14 @@ export default class MainStore {
 
                 this.repos = repos;
                 this.reposMap = keyedRepos;
+
+                const total = repos.length;
+                const maxPage = Math.ceil(total / this.pageSize);
+                this.total = total;
+                if (this.page > maxPage) {
+                    this.page = 1;
+                }
+
                 return repos;
             })
             .catch(error => {
@@ -648,4 +656,30 @@ export default class MainStore {
     @observable selectRepoTags: ITag[] = [];
     @observable selectRepoContributors: IContributor[] = [];
     @observable selectRepoCategories: ICategory[] = [];
+
+    /**
+     * Pagination
+     */
+    @observable page: number = 1;
+    @observable pageSize: number = 20;
+    @observable total: number = 0;
+
+    @computed
+    get pageRepos() {
+        const { page, pageSize, repos } = this;
+        const list = repos.slice((page - 1) * pageSize, page * pageSize);
+        return list;
+    }
+
+    @action
+    onPageChange = (page: number) => {
+        logger.log(`Change page to: ${page}`);
+        this.page = page;
+    };
+
+    @action
+    resetPagination = () => {
+        this.page = 1;
+        this.pageSize = 20;
+    };
 }

@@ -3,6 +3,7 @@ import ClassNames from "classnames";
 import SearchBox from "../SearchBox";
 import SortBar from "../SortBar";
 import ReposList from "../ReposList";
+import ReposListPagination from "../ReposListPagination";
 import FilterBar from "../FilterBar";
 
 const styles = require("./styles/index.less");
@@ -22,6 +23,7 @@ export default class MainListPane extends React.Component<MainListPaneProps, Mai
                 <SearchBox />
                 <SortBar />
                 <ReposList />
+                <ReposListPagination />
                 <FilterBar />
             </div>
         );
