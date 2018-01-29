@@ -8,6 +8,10 @@
 
 基于 React/Electron/Ant Design 打造的开源 Github Stars 管理的跨平台工具
 
+## Update 2018.1
+
+已经基于 TypeScript 重写了整个代码，使用 Mobx 替代 Redux 作为状态管理工具，并优化了开发编译 Webpack 脚本配置。
+
 ## Features
 
 * 归类
@@ -36,8 +40,7 @@
     * 支持离线查看仓库并支持上述所有功能操作，包括 readme 文件的查看
     * 高效的数据条件化呈现(不用频繁请求服务器)
 
-* 数据
-  支持 Stars 和自定义数据的导出备份和导入恢复
+* 数据支持 Stars 和自定义数据的导出备份和导入恢复
 
 ## Screenshots
 
@@ -58,7 +61,7 @@
 ```
 npm install
 npm run dev
-npm start
+npm run start:dev
 ```
 
 如果在 install packages 出错，提示 keytar 错误等信息，特别是 windows 用户，你可能需要安装 windows-build-tools 的 package 之后在进行上述步骤
