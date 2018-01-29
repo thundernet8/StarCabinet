@@ -25,8 +25,8 @@ export default class MainGroupNavs extends React.Component<MainGroupNavsProps, M
 
     deleteCategory = (id: number, e) => {
         e.stopPropagation();
-        // TODO
-        console.log(id);
+        const mainStore = this.props.store!.main;
+        mainStore.delCategory(id);
     };
 
     render() {

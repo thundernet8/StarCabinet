@@ -1,13 +1,19 @@
 import * as React from "react";
+import { observer, inject } from "mobx-react";
 import ClassNames from "classnames";
 import { Tooltip } from "antd";
+import IStore from "../../interface/IStore";
 
 const styles = require("./styles/index.less");
 
-interface RepoContributorsBarProps {}
+interface RepoContributorsBarProps {
+    store?: IStore;
+}
 
 interface RepoContributorsBarState {}
 
+@inject("store")
+@observer
 export default class RepoContributorsBar extends React.Component<
     RepoContributorsBarProps,
     RepoContributorsBarState
@@ -16,26 +22,25 @@ export default class RepoContributorsBar extends React.Component<
         super(props);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.selectedRepo && !nextProps.selectedRepo._contributors) {
-            this.props.onFetchRepoContributors(nextProps.selectedRepo);
-            this.props.onGetRepoContributors(nextProps.selectedRepo.id);
-        }
-    }
-
     componentWillMount() {
-        if (this.props.selectedRepo) {
-            this.props.onFetchRepoContributors(this.props.selectedRepo);
-            this.props.onGetRepoContributors(this.props.selectedRepo.id);
+        const mainStore = this.props.store!.main;
+        const { selectedRepo } = mainStore;
+
+        if (selectedRepo) {
+            mainStore.onFetchRepoContributors(selectedRepo);
+            mainStore.onGetSelectRepoContributors(selectedRepo.id);
         }
     }
 
     render() {
-        if (!this.props.selectedRepo || !this.props.selectedRepo._contributors) {
+        const mainStore = this.props.store!.main;
+        const { selectedRepo } = mainStore;
+
+        if (!selectedRepo || !selectedRepo._contributors) {
             return null;
         }
 
-        const avatars = this.props.selectedRepo._contributors.map(contributor => {
+        const avatars = selectedRepo._contributors.map(contributor => {
             return (
                 <a key={contributor.id} href={contributor.htmlUrl} target="_blank">
                     <Tooltip placement="top" title={contributor.login}>

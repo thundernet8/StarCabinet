@@ -1,19 +1,23 @@
 import * as React from "react";
 import ClassNames from "classnames";
-import { Icon, Tooltip, Popover } from "antd";
+import { Icon, Tooltip, Popover, Checkbox } from "antd";
 import IRepo from "../../interface/IRepo";
+import ICategory from "../../interface/ICategory";
 
-// const CheckboxGroup = Checkbox.Group;
+const CheckboxGroup = Checkbox.Group;
 
 const styles = require("./styles/index.less");
 
 interface RepoGroupToolProps {
     repo: IRepo;
+    categories: ICategory[];
+    getCategories: (id: number) => void;
+    updateRepoCategories: (id: number, categoryIds: number[]) => void;
 }
 
 interface RepoGroupToolState {
     visible: boolean;
-    categorySelection: { label: string; value: string }[];
+    categorySelection: string[];
 }
 
 export default class RepoGroupTool extends React.Component<RepoGroupToolProps, RepoGroupToolState> {
@@ -29,10 +33,10 @@ export default class RepoGroupTool extends React.Component<RepoGroupToolProps, R
         this.setState({
             visible: false
         });
-        // this.props.onUpdateRepoCategories(
-        //     this.props.repo.id,
-        //     this.state.categorySelection.map(item => parseInt(item, 10))
-        // );
+        this.props.updateRepoCategories(
+            this.props.repo.id,
+            this.state.categorySelection.map(item => parseInt(item, 10))
+        );
     };
 
     handleVisibleChange = visible => {
@@ -45,12 +49,8 @@ export default class RepoGroupTool extends React.Component<RepoGroupToolProps, R
         });
     };
 
-    queryCategories = _repoId => {
-        // this.props.onGetCategoriesForRepo(repoId).then(categories => {
-        //     this.setState({
-        //         categorySelection: categories.map(category => category.id.toString())
-        //     });
-        // });
+    queryCategories = (id: number) => {
+        this.props.getCategories(id);
     };
 
     componentWillMount() {
@@ -61,23 +61,24 @@ export default class RepoGroupTool extends React.Component<RepoGroupToolProps, R
     }
 
     render() {
-        if (!this.props.repo) {
+        const { repo, categories } = this.props;
+        if (!repo) {
             return null;
         }
+
+        const repoCategories = repo._categories || [];
+        const categorySelection = repoCategories.map(category => category.id.toString());
 
         const titleNode = (
             <div className={ClassNames("classifyPaneTitle", styles.classifyPaneTitle)}>
                 <span>Choose Repo Categoires</span>
-                {/* {this.props.categories &&
-                    this.props.categories.length > 0 && <a onClick={this.submit}>SAVE</a>} */}
+                {categories && categories.length > 0 && <a onClick={this.submit}>SAVE</a>}
             </div>
         );
 
-        // const catsSelectionOptions = this.props.categories.map(category => {
-        //     return { label: category.name, value: category.id.toString() };
-        // });
-
-        // const catsSelectionOptions = [];
+        const catsSelectionOptions = categories.map(category => {
+            return { label: category.name, value: category.id.toString() };
+        });
 
         const content = (
             <div
@@ -86,15 +87,15 @@ export default class RepoGroupTool extends React.Component<RepoGroupToolProps, R
                     styles.repoClassifyToolInputWrap
                 )}
             >
-                {/* {!this.props.categories || this.props.categories.length === 0 ? (
+                {categories.length === 0 ? (
                     <div>Please add some categories before choosing ones</div>
                 ) : (
                     <CheckboxGroup
                         options={catsSelectionOptions}
-                        value={this.state.categorySelection}
+                        value={categorySelection}
                         onChange={this.onSelectionChange}
                     />
-                )} */}
+                )}
             </div>
         );
 

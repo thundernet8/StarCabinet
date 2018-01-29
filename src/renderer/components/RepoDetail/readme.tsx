@@ -65,20 +65,8 @@ export default class RepoReadme extends React.Component<RepoReadmeProps, RepoRea
         const { selectedRepo } = mainStore;
 
         if (selectedRepo) {
-            // mainStore.onFetchRepoReadMe(selectedRepo);
+            mainStore.onFetchRepoReadMe(selectedRepo);
         }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        // if (
-        //     !nextProps._hotChange &&
-        //     this.props.selectedRepo &&
-        //     nextProps.selectedRepo &&
-        //     nextProps.selectedRepo.readme === "" &&
-        //     nextProps.selectedRepo.id !== this.props.selectedRepo.id
-        // ) {
-        //     this.props.onFetchRepoReadMe(nextProps.selectedRepo);
-        // }
     }
 
     render() {

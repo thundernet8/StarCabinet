@@ -84,6 +84,7 @@ export default interface IRepo {
     _categories: ICategory[];
     _contributors: IAuthor[];
     _tags: ITag[];
+    _hotChange: string[];
 }
 
 export interface IRepoFetchingStatus {

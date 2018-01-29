@@ -1,36 +1,38 @@
 import * as React from "react";
+import { observer, inject } from "mobx-react";
 import { Tooltip, Tag, Input, Button } from "antd";
+import IStore from "../../interface/IStore";
 
 const styles = require("./styles/index.less");
 
-interface RepoTagsBarProps {}
+interface RepoTagsBarProps {
+    store?: IStore;
+}
 
 interface RepoTagsBarState {
-    tags: string[];
     inputVisible: boolean;
     inputValue: string;
 }
 
+@inject("store")
+@observer
 export default class RepoTagsBar extends React.Component<RepoTagsBarProps, RepoTagsBarState> {
     private input: HTMLInputElement;
 
     constructor(props) {
         super(props);
         this.state = {
-            tags: [],
             inputVisible: false,
             inputValue: ""
         };
     }
 
     handleClose = removedTag => {
-        const tags = this.state.tags.filter(tag => tag !== removedTag);
-        this.setState({ tags });
-
-        const { selectedRepo } = this.props;
+        const mainStore = this.props.store!.main;
+        const { selectedRepo } = mainStore;
         if (selectedRepo) {
             // remove tag in db
-            this.props.onRemoveTagForRepo(selectedRepo.id, removedTag);
+            mainStore.onRemoveTagForRepo(selectedRepo.id, removedTag);
         }
     };
 
@@ -44,17 +46,18 @@ export default class RepoTagsBar extends React.Component<RepoTagsBarProps, RepoT
 
     handleInputConfirm = () => {
         const { inputValue } = this.state;
-        const { selectedRepo } = this.props;
-        let tags: string[] = this.state.tags;
-        if (inputValue && tags.indexOf(inputValue) === -1) {
+        const mainStore = this.props.store!.main;
+        const { selectedRepo } = mainStore;
+        let tags =
+            selectedRepo && selectedRepo._tags ? selectedRepo._tags.map(tag => tag.name) : [];
+        if (inputValue && !tags.includes(inputValue)) {
             tags = [...tags, inputValue];
             // save new tag in db
             if (selectedRepo) {
-                this.props.onAddTagForRepo(selectedRepo.id, inputValue);
+                mainStore.onAddTagForRepo(selectedRepo.id, inputValue);
             }
         }
         this.setState({
-            tags,
             inputVisible: false,
             inputValue: ""
         });
@@ -65,33 +68,25 @@ export default class RepoTagsBar extends React.Component<RepoTagsBarProps, RepoT
     };
 
     queryTags = repoId => {
-        this.props.onGetTagsForRepo(repoId).then(tags => {
-            this.setState({
-                tags: tags.map(tag => tag.name)
-            });
-        });
+        const mainStore = this.props.store!.main;
+        mainStore.onGetTagsForRepo(repoId);
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.selectedRepo && (!this.props.selectedRepo || !nextProps.selectedRepo._tags)) {
-            this.queryTags(nextProps.selectedRepo.id);
-        }
-        if (nextProps.selectedRepo._tags) {
-            this.setState({
-                tags: nextProps.selectedRepo._tags.map(tag => tag.name)
-            });
-        }
-    }
-
     componentWillMount() {
-        const repo = this.props.selectedRepo;
-        if (repo && !repo._tags) {
-            this.queryTags(repo.id);
+        const mainStore = this.props.store!.main;
+        const { selectedRepo } = mainStore;
+        if (selectedRepo && !selectedRepo._tags) {
+            this.queryTags(selectedRepo.id);
         }
     }
 
     render() {
-        const { tags, inputVisible, inputValue } = this.state;
+        const mainStore = this.props.store!.main;
+        const { selectedRepo } = mainStore;
+        const tags =
+            selectedRepo && selectedRepo._tags ? selectedRepo._tags.map(tag => tag.name) : [];
+
+        const { inputVisible, inputValue } = this.state;
         return (
             <div className={styles.repoTags}>
                 {/* <Icon type="tags"/> */}
@@ -102,7 +97,7 @@ export default class RepoTagsBar extends React.Component<RepoTagsBarProps, RepoT
                             key={tag}
                             color="#3498db"
                             closable
-                            afterClose={() => this.handleClose(tag)}
+                            afterClose={this.handleClose.bind(this, tag)}
                         >
                             {isLongTag ? `${tag.slice(0, 20)}...` : tag}
                         </Tag>

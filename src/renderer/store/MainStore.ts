@@ -1,4 +1,5 @@
-import { observable, action, toJS } from "mobx";
+import { observable, action, toJS, autorun } from "mobx";
+import moment from "moment";
 import ILanguage from "../interface/ILanguage";
 import ICategory from "../interface/ICategory";
 import GroupType from "../enum/GroupType";
@@ -21,6 +22,16 @@ export default class MainStore {
 
     constructor(globalStore: GlobalStore) {
         this.globalStore = globalStore;
+
+        autorun(() => {
+            logger.log("Mobx autorun");
+            const { selectedRepo } = this;
+            if (selectedRepo && !selectedRepo._contributors) {
+                logger.log("Mobx autorun: Fetch and get repo contributors");
+                this.onFetchRepoContributors(selectedRepo);
+                this.onGetSelectRepoContributors(selectedRepo.id);
+            }
+        });
     }
 
     private getDbHandler = () => {
@@ -342,24 +353,253 @@ export default class MainStore {
     };
 
     /**
+     * Replace one repo in list
+     */
+    @action
+    replaceOneRepoInList = (repo: IRepo) => {
+        let { repos, reposMap } = this;
+        reposMap[repo.id] = repo;
+        repos = repos.map(item => reposMap[item.id]);
+
+        this.repos = Array.from(repos);
+        this.reposMap = Object.assign({}, reposMap);
+    };
+
+    /**
      * Update select repo(flag, read status, note...)
      */
+    @action
     onUpdateSelectedRepo = (id: number, properties: { [key: string]: any }) => {
+        const { selectedRepo } = this;
+        if (!selectedRepo || id !== selectedRepo.id) {
+            return Promise.reject(false);
+        }
+
         properties.id = id;
+
         return this.getDbHandler()
             .then(dbHandler => dbHandler.updateRepo(properties))
             .then(repo => {
                 // also replace the repo in repos list
                 repo._hotChange = Object.keys(properties); // mark the repo that its readme etc.. has fetched, do not fetch again
-                let { repos, reposMap } = this;
-                reposMap[id] = repo;
-                repos = repos.map(repo => reposMap[repo.id]);
+                this.replaceOneRepoInList(repo);
 
-                this.repos = Array.from(repos);
-                this.reposMap = Object.assign({}, reposMap);
                 this.selectedRepo = repo;
 
                 return repo;
+            })
+            .catch(error => {
+                logger.log(error.message || error.toString());
+                throw error;
+            });
+    };
+
+    /**
+     * Update repo categories
+     */
+    @action
+    onUpdateRepoCategories = (id: number, catIds: number[]) => {
+        return this.getDbHandler()
+            .then(dbHandler => dbHandler.updateRepoCategories(id, catIds))
+            .then(repo => {
+                // also replace the repo in repos list
+                this.replaceOneRepoInList(repo);
+
+                // if it has same id with selectedRepo, also replace selectedRepo
+                this.onUpdateSelectedRepo(id, {
+                    rxChange: Math.floor(moment.now().valueOf() / 1000)
+                });
+
+                // update all categories list, for updating the nav category node
+                this.updateCategoryList();
+
+                return repo;
+            })
+            .catch(error => {
+                logger.log(error.message || error.toString());
+                throw error;
+            });
+    };
+
+    /**
+     * Update repo contributors
+     */
+    @action
+    onUpdateRepoContributors = (id: number, contributors) => {
+        return this.getDbHandler()
+            .then(dbHandler => dbHandler.upsertContributors(id, contributors))
+            .then(_contributors => {
+                // also replace the repo in repos list
+                let repo = this.reposMap[id];
+                if (repo) {
+                    repo._contributors = _contributors;
+                    repo._hotChange = ["contributors"];
+                    this.replaceOneRepoInList(repo);
+                }
+
+                // if it has same id with selectedRepo, also replace selectedRepo
+                this.onUpdateSelectedRepo(id, {
+                    rxChange: Math.floor(moment.now().valueOf() / 1000)
+                });
+
+                return repo;
+            })
+            .catch(error => {
+                logger.log(error.message || error.toString());
+                throw error;
+            });
+    };
+
+    @action
+    onAddTagForRepo = (id: number, tagName: string) => {
+        return this.getDbHandler()
+            .then(dbHandler => dbHandler.addRepoTag(id, tagName))
+            .then(repo => {
+                // also replace the repo in repos list
+                this.replaceOneRepoInList(repo);
+
+                // if it has same id with selectedRepo, also replace selectedRepo
+                this.onUpdateSelectedRepo(id, {
+                    rxChange: Math.floor(moment.now().valueOf() / 1000)
+                });
+
+                return repo;
+            })
+            .catch(error => {
+                logger.log(error.message || error.toString());
+                throw error;
+            });
+    };
+
+    @action
+    onRemoveTagForRepo = (id: number, tagName: string) => {
+        return this.getDbHandler()
+            .then(dbHandler => dbHandler.removeRepoTag(id, tagName))
+            .then(repo => {
+                // also replace the repo in repos list
+                this.replaceOneRepoInList(repo);
+
+                // if it has same id with selectedRepo, also replace selectedRepo
+                this.onUpdateSelectedRepo(id, {
+                    rxChange: Math.floor(moment.now().valueOf() / 1000)
+                });
+
+                return repo;
+            })
+            .catch(error => {
+                logger.log(error.message || error.toString());
+                throw error;
+            });
+    };
+
+    @action
+    onGetTagsForRepo = (id: number) => {
+        return this.getDbHandler()
+            .then(dbHandler => dbHandler.getRepoTags(id))
+            .then(tags => {
+                // also add tags to the repo and replace the repo in repos list
+                let repo = this.reposMap[id];
+                if (repo) {
+                    repo._tags = tags;
+                    this.replaceOneRepoInList(repo);
+                }
+
+                return tags;
+            })
+            .catch(error => {
+                logger.log(error.message || error.toString());
+                throw error;
+            });
+    };
+
+    @action
+    onFetchRepoReadMe = (repo: IRepo) => {
+        const client = new GithubClient(this.globalStore.credentials);
+        return client
+            .getRepoReadMe(repo.fullName, repo.defaultBranch)
+            .then(readme => {
+                if (repo.readme !== readme) {
+                    this.onUpdateSelectedRepo(repo.id, { readme });
+                }
+
+                return readme;
+            })
+            .catch(error => {
+                logger.log(error.message || error.toString());
+                throw error;
+            });
+    };
+
+    @action
+    onFetchRepoContributors = (repo: IRepo) => {
+        const client = new GithubClient(this.globalStore.credentials);
+        return client
+            .getRepoContributors(repo.fullName)
+            .then(contributors => {
+                // save contributors to db
+                this.onUpdateRepoContributors(repo.id, contributors);
+
+                return contributors;
+            })
+            .catch(error => {
+                logger.log(error.message || error.toString());
+                throw error;
+            });
+    };
+
+    /**
+     * Get contributors for selected repo
+     */
+    @action
+    onGetSelectRepoContributors = (id: number) => {
+        const { selectedRepo } = this;
+        if (!selectedRepo || selectedRepo.id !== id) {
+            return Promise.reject(false);
+        }
+        return this.getDbHandler()
+            .then(dbHandler => dbHandler.getRepoContributors(id))
+            .then(contributors => {
+                // also add contributors to the repo and replace the repo in repos list
+                let repo = this.reposMap[id];
+                if (repo) {
+                    repo._contributors = contributors;
+                    repo._hotChange = ["contributors"];
+                    this.replaceOneRepoInList(repo);
+                }
+
+                // if it has same id with selectedRepo, also replace selectedRepo
+                this.onUpdateSelectedRepo(id, {
+                    rxChange: Math.floor(moment.now().valueOf() / 1000)
+                });
+
+                return contributors;
+            })
+            .catch(error => {
+                logger.log(error.message || error.toString());
+                throw error;
+            });
+    };
+
+    /**
+     * Get categories for selected repo
+     */
+    @action
+    onGetSelectRepoCategories = (id: number) => {
+        const { selectedRepo } = this;
+        if (!selectedRepo || selectedRepo.id !== id) {
+            return Promise.reject(false);
+        }
+        return this.getDbHandler()
+            .then(dbHandler => dbHandler.getRepoCategories(id))
+            .then(categories => {
+                // also add categories to the repo and replace the repo in repos list
+                let repo = this.reposMap[id];
+                if (repo) {
+                    repo._categories = categories;
+                    this.replaceOneRepoInList(repo);
+                }
+
+                return categories;
             })
             .catch(error => {
                 logger.log(error.message || error.toString());

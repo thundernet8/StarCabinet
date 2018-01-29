@@ -76,12 +76,17 @@ export default class RepoDetailToolbar extends React.Component<
         }
     };
 
+    getRepoCategories = (id: number) => {
+        const mainStore = this.props.store!.main;
+        mainStore.onGetSelectRepoCategories(id);
+    };
+
     render() {
         let readIcon;
         let flagIcon;
 
         const mainStore = this.props.store!.main;
-        const { selectedRepo } = mainStore;
+        const { selectedRepo, categories } = mainStore;
 
         if (selectedRepo) {
             readIcon = (
@@ -116,7 +121,12 @@ export default class RepoDetailToolbar extends React.Component<
                 </Tooltip>
                 {readIcon}
                 {flagIcon}
-                <RepoGroupTool repo={selectedRepo} />
+                <RepoGroupTool
+                    repo={selectedRepo}
+                    categories={categories}
+                    getCategories={this.getRepoCategories}
+                    updateRepoCategories={mainStore.onUpdateRepoCategories}
+                />
                 <RepoNoteTool repo={selectedRepo} updateNote={this.changeRepoNote} />
                 <RepoLinksTool repo={selectedRepo} />
                 <Tooltip placement="bottomRight" title="Star StarCabinet">
