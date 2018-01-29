@@ -13,7 +13,7 @@ init:
   - git config --global core.autocrlf input
 
 install:
-  - ps: Install-Product node 6 x64
+  - ps: Install-Product node 8 x64
   - git reset --hard HEAD
   - npm install npm -g
   - npm install electron-builder@next # force install next version to test electron-builder

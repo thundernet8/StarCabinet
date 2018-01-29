@@ -18,6 +18,7 @@ addons:
   apt:
     packages:
     - libgnome-keyring-dev
+    - libsecret-1-dev
     - icnsutils
 before_install:
 - mkdir -p /tmp/git-lfs && curl -L https://github.com/github/git-lfs/releases/download/v1.2.1/git-lfs-$([
@@ -25,8 +26,8 @@ before_install:
   | tar -xz -C /tmp/git-lfs --strip-components 1 && /tmp/git-lfs/git-lfs pull
 - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install --no-install-recommends -y icnsutils graphicsmagick xz-utils; fi
 install:
-- nvm install 6
-- npm install electron-builder@next
+- nvm install 8
+- nvm use 8
 - npm install
 - npm prune
 - cd app
