@@ -88,7 +88,7 @@ export default class LoginView extends React.Component<LoginViewProps, LoginView
         ipcRenderer.sendSync(EVENTS.CLOSE_LOGIN, "");
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const store = this.props.store!.global;
         store
             .getLocalCredentials()

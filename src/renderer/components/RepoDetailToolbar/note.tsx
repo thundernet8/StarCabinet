@@ -44,10 +44,20 @@ export default class RepoNoteTool extends React.Component<RepoNoteToolProps, Rep
         });
     };
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.repo) {
+            this.setState({
+                note: nextProps.repo.note
+            });
+        }
+    }
+
     render() {
         if (!this.props.repo) {
             return null;
         }
+
+        console.log("Note component repo: ", this.props.repo);
 
         const titleNode = (
             <div className={ClassNames("notePaneTitle", styles.notePaneTitle)}>

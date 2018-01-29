@@ -21,9 +21,7 @@ input {
                     }
                 }
             }
-            &.ant-menu-item-selected {
-                background-color: rgb(71, 79, 95);
-            }
+
             > .ant-menu-sub {
                 background-color: transparent;
                 max-height: 210px;
@@ -35,6 +33,10 @@ input {
                         }
                     }
                 }
+            }
+
+            &.ant-menu-item-selected {
+                background-color: rgb(71, 79, 95);
             }
         }
         &.ant-menu-inline {
@@ -62,6 +64,15 @@ input {
         a {
             color: #343536;
         }
+        &:last-child {
+            .ant-checkbox-checked {
+                .ant-checkbox-inner {
+                    &:after {
+                        visibility: hidden;
+                    }
+                }
+            }
+        }
     }
     > .ant-dropdown-menu-item-divider {
         margin: 4px 0;
@@ -87,20 +98,6 @@ input {
     }
     .ant-checkbox {
         visibility: hidden;
-    }
-}
-
-.filterDropdown {
-    > .ant-dropdown-menu-item {
-        &:last-child {
-            .ant-checkbox-checked {
-                .ant-checkbox-inner {
-                    &:after {
-                        visibility: hidden;
-                    }
-                }
-            }
-        }
     }
 }
 

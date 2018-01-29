@@ -47,9 +47,8 @@ export default class RepoTagsBar extends React.Component<RepoTagsBarProps, RepoT
     handleInputConfirm = () => {
         const { inputValue } = this.state;
         const mainStore = this.props.store!.main;
-        const { selectedRepo } = mainStore;
-        let tags =
-            selectedRepo && selectedRepo._tags ? selectedRepo._tags.map(tag => tag.name) : [];
+        const { selectedRepo, selectRepoTags } = mainStore;
+        let tags = selectedRepo && selectRepoTags ? selectRepoTags.map(tag => tag.name) : [];
         if (inputValue && !tags.includes(inputValue)) {
             tags = [...tags, inputValue];
             // save new tag in db
@@ -67,24 +66,23 @@ export default class RepoTagsBar extends React.Component<RepoTagsBarProps, RepoT
         this.input = input;
     };
 
-    queryTags = repoId => {
-        const mainStore = this.props.store!.main;
-        mainStore.onGetTagsForRepo(repoId);
-    };
+    // queryTags = repoId => {
+    //     const mainStore = this.props.store!.main;
+    //     mainStore.onGetTagsForRepo(repoId);
+    // };
 
-    componentWillMount() {
-        const mainStore = this.props.store!.main;
-        const { selectedRepo } = mainStore;
-        if (selectedRepo && !selectedRepo._tags) {
-            this.queryTags(selectedRepo.id);
-        }
-    }
+    // componentWillMount() {
+    //     const mainStore = this.props.store!.main;
+    //     const { selectedRepo, selectRepoTags } = mainStore;
+    //     if (selectedRepo && (!selectRepoTags || selectRepoTags.length === 0)) {
+    //         this.queryTags(selectedRepo.id);
+    //     }
+    // }
 
     render() {
         const mainStore = this.props.store!.main;
-        const { selectedRepo } = mainStore;
-        const tags =
-            selectedRepo && selectedRepo._tags ? selectedRepo._tags.map(tag => tag.name) : [];
+        const { selectedRepo, selectRepoTags } = mainStore;
+        const tags = selectedRepo && selectRepoTags ? selectRepoTags.map(tag => tag.name) : [];
 
         const { inputVisible, inputValue } = this.state;
         return (

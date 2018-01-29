@@ -51,7 +51,7 @@ export default class RepoDetail extends React.Component<RepoDetailProps, RepoDet
                     <RepoContributorsBar />
                     <RepoTagsBar />
                 </header>
-                <RepoReadme />
+                <RepoReadme repo={selectedRepo} onFetchRepoReadMe={mainStore.onFetchRepoReadMe} />
             </div>
         );
     }

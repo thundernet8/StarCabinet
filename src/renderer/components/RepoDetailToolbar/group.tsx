@@ -11,7 +11,7 @@ const styles = require("./styles/index.less");
 interface RepoGroupToolProps {
     repo: IRepo;
     categories: ICategory[];
-    getCategories: (id: number) => void;
+    repoCategories: ICategory[];
     updateRepoCategories: (id: number, categoryIds: number[]) => void;
 }
 
@@ -49,15 +49,22 @@ export default class RepoGroupTool extends React.Component<RepoGroupToolProps, R
         });
     };
 
-    queryCategories = (id: number) => {
-        this.props.getCategories(id);
-    };
-
     componentWillMount() {
-        const repo = this.props.repo;
-        if (repo && !repo._categories) {
-            this.queryCategories(repo.id);
+        const { repo, repoCategories } = this.props;
+        if (repo) {
+            this.setState({
+                categorySelection: repoCategories.map(item => item.id.toString())
+            });
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const { repoCategories } = nextProps;
+
+        const categorySelection = repoCategories.map(category => category.id.toString());
+        this.setState({
+            categorySelection
+        });
     }
 
     render() {
@@ -66,8 +73,7 @@ export default class RepoGroupTool extends React.Component<RepoGroupToolProps, R
             return null;
         }
 
-        const repoCategories = repo._categories || [];
-        const categorySelection = repoCategories.map(category => category.id.toString());
+        const { categorySelection } = this.state;
 
         const titleNode = (
             <div className={ClassNames("classifyPaneTitle", styles.classifyPaneTitle)}>

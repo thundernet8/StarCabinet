@@ -108,7 +108,7 @@ export default class GlobalStore {
             })
             .catch(error => {
                 logger.log(error.message || error.toString());
-                throw error;
+                return null;
             });
     };
 

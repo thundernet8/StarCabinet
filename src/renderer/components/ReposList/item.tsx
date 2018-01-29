@@ -2,6 +2,7 @@ import * as React from "react";
 import ClassNames from "classnames";
 import { Rate, Icon, Row, Col } from "antd";
 import IRepo from "../../interface/IRepo";
+import logger from "../../utils/logger";
 
 const styles = require("./styles/item.less");
 
@@ -31,7 +32,9 @@ export default class RepoListItem extends React.Component<RepoListItemProps, Rep
         const nextSelectRepo = nextProps.selectedRepo || {};
         const currentSelectRepo = this.props.selectedRepo || {};
         if (
-            nextSelectRepo.id !== currentSelectRepo.id ||
+            (nextSelectRepo.id !== currentSelectRepo.id &&
+                (nextSelectRepo.id === this.props.repo.id ||
+                    currentSelectRepo.id === this.props.repo.id)) ||
             nextProps.repo.id !== this.props.repo.id ||
             nextProps.repo.score !== this.props.repo.score
         ) {
@@ -41,8 +44,9 @@ export default class RepoListItem extends React.Component<RepoListItemProps, Rep
     }
 
     render() {
+        logger.log("Render repo item");
         const { repo, selectedRepo } = this.props;
-        const klass = ClassNames("repoListItem animated fadeIn", styles.repoListItem, {
+        const klass = ClassNames("repoListItem", styles.repoListItem, {
             [styles.repoSelected]: selectedRepo && repo.id === selectedRepo.id
         });
         return (

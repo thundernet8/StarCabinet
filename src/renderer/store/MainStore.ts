@@ -1,4 +1,4 @@
-import { observable, action, toJS, autorun } from "mobx";
+import { observable, action, toJS } from "mobx";
 import moment from "moment";
 import ILanguage from "../interface/ILanguage";
 import ICategory from "../interface/ICategory";
@@ -16,22 +16,14 @@ import DBHandler from "../rxdb/dbHandler";
 import logger from "../utils/logger";
 import IRepo from "../interface/IRepo";
 import GithubClient from "../utils/githubClient";
+import ITag from "renderer/interface/ITag";
+import IContributor from "renderer/interface/IContributor";
 
 export default class MainStore {
     private globalStore: GlobalStore;
 
     constructor(globalStore: GlobalStore) {
         this.globalStore = globalStore;
-
-        autorun(() => {
-            logger.log("Mobx autorun");
-            const { selectedRepo } = this;
-            if (selectedRepo && !selectedRepo._contributors) {
-                logger.log("Mobx autorun: Fetch and get repo contributors");
-                this.onFetchRepoContributors(selectedRepo);
-                this.onGetSelectRepoContributors(selectedRepo.id);
-            }
-        });
     }
 
     private getDbHandler = () => {
@@ -44,6 +36,7 @@ export default class MainStore {
         return this.globalStore.restore().then(() => {
             this.updateCategoryList();
             this.updateLanguageList();
+            this.updateRepoList();
             return this.fetchRemoteRepos();
         });
     };
@@ -309,13 +302,29 @@ export default class MainStore {
 
     @action
     onSelectRepo = (id: number) => {
-        const { repos } = this;
-        this.selectedRepo = repos[id];
+        logger.log(`Select repo: ${id}`);
+        const { reposMap, selectedRepo } = this;
+        if (selectedRepo && selectedRepo.id === id) {
+            return;
+        }
+        const newRepo = reposMap[id];
+        this.selectedRepo = newRepo;
+        this.selectRepoTags = [];
+        this.selectRepoCategories = [];
+        this.selectRepoContributors = [];
+
+        if (newRepo && !newRepo._contributors) {
+            logger.log(`Fetch and get repo contributors for selected repo ${newRepo.id}`);
+            this.onFetchRepoContributors(newRepo);
+            this.onGetSelectRepoContributors(newRepo.id);
+            this.onGetTagsForRepo(newRepo.id);
+            this.onGetSelectRepoCategories(newRepo.id);
+        }
     };
 
     @action
     onRateRepo = (id: number, score: number) => {
-        const { repos } = this;
+        logger.log(`Rate repo: ${id}`);
         const updateObj = {
             id,
             score
@@ -325,8 +334,7 @@ export default class MainStore {
             .then(dbHandler => dbHandler.updateRepo(updateObj))
             .then(repo => {
                 // also replace new repo into repos list
-                repos[repo.id] = repo;
-                this.repos = Object.assign({}, repos);
+                this.replaceOneRepoInList(repo);
 
                 return repo;
             })
@@ -384,7 +392,7 @@ export default class MainStore {
                 repo._hotChange = Object.keys(properties); // mark the repo that its readme etc.. has fetched, do not fetch again
                 this.replaceOneRepoInList(repo);
 
-                this.selectedRepo = repo;
+                this.selectedRepo = Object.assign({}, selectedRepo, repo);
 
                 return repo;
             })
@@ -409,6 +417,10 @@ export default class MainStore {
                 this.onUpdateSelectedRepo(id, {
                     rxChange: Math.floor(moment.now().valueOf() / 1000)
                 });
+
+                if (this.selectedRepo.id === id) {
+                    this.selectRepoCategories = repo._categories;
+                }
 
                 // update all categories list, for updating the nav category node
                 this.updateCategoryList();
@@ -435,6 +447,9 @@ export default class MainStore {
                     repo._contributors = _contributors;
                     repo._hotChange = ["contributors"];
                     this.replaceOneRepoInList(repo);
+                    if (repo.id === this.selectedRepo.id) {
+                        this.selectRepoContributors = _contributors;
+                    }
                 }
 
                 // if it has same id with selectedRepo, also replace selectedRepo
@@ -452,11 +467,16 @@ export default class MainStore {
 
     @action
     onAddTagForRepo = (id: number, tagName: string) => {
+        logger.log(`Adding tag: ${tagName} for repo: ${id}`);
         return this.getDbHandler()
             .then(dbHandler => dbHandler.addRepoTag(id, tagName))
             .then(repo => {
                 // also replace the repo in repos list
                 this.replaceOneRepoInList(repo);
+
+                if (this.selectedRepo.id === id) {
+                    this.selectRepoTags = repo._tags;
+                }
 
                 // if it has same id with selectedRepo, also replace selectedRepo
                 this.onUpdateSelectedRepo(id, {
@@ -478,6 +498,10 @@ export default class MainStore {
             .then(repo => {
                 // also replace the repo in repos list
                 this.replaceOneRepoInList(repo);
+
+                if (this.selectedRepo.id === id) {
+                    this.selectRepoTags = repo._tags;
+                }
 
                 // if it has same id with selectedRepo, also replace selectedRepo
                 this.onUpdateSelectedRepo(id, {
@@ -502,6 +526,9 @@ export default class MainStore {
                 if (repo) {
                     repo._tags = tags;
                     this.replaceOneRepoInList(repo);
+                    if (this.selectedRepo.id === repo.id) {
+                        this.selectRepoTags = tags;
+                    }
                 }
 
                 return tags;
@@ -565,6 +592,10 @@ export default class MainStore {
                     repo._contributors = contributors;
                     repo._hotChange = ["contributors"];
                     this.replaceOneRepoInList(repo);
+
+                    if (repo.id === this.selectedRepo.id) {
+                        this.selectRepoContributors = contributors;
+                    }
                 }
 
                 // if it has same id with selectedRepo, also replace selectedRepo
@@ -597,6 +628,10 @@ export default class MainStore {
                 if (repo) {
                     repo._categories = categories;
                     this.replaceOneRepoInList(repo);
+
+                    if (this.selectedRepo.id === repo.id) {
+                        this.selectRepoCategories = categories;
+                    }
                 }
 
                 return categories;
@@ -606,4 +641,11 @@ export default class MainStore {
                 throw error;
             });
     };
+
+    /**
+     * Ext properties for selected repo
+     */
+    @observable selectRepoTags: ITag[] = [];
+    @observable selectRepoContributors: IContributor[] = [];
+    @observable selectRepoCategories: ICategory[] = [];
 }

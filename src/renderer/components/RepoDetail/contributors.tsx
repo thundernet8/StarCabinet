@@ -34,13 +34,14 @@ export default class RepoContributorsBar extends React.Component<
 
     render() {
         const mainStore = this.props.store!.main;
-        const { selectedRepo } = mainStore;
+        const { selectedRepo, selectRepoContributors } = mainStore;
+        console.log("Contributors component repo: ", selectedRepo);
 
-        if (!selectedRepo || !selectedRepo._contributors) {
+        if (!selectedRepo || !selectRepoContributors || selectRepoContributors.length === 0) {
             return null;
         }
 
-        const avatars = selectedRepo._contributors.map(contributor => {
+        const avatars = selectRepoContributors.map(contributor => {
             return (
                 <a key={contributor.id} href={contributor.htmlUrl} target="_blank">
                     <Tooltip placement="top" title={contributor.login}>

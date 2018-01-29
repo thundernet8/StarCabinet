@@ -77,6 +77,7 @@ export default class MainGroupFooter extends React.Component<
                 .then(() => {
                     this.setState({
                         submitting: false,
+                        modalVisible: false,
                         categoryName: ""
                     });
                 })
@@ -100,6 +101,8 @@ export default class MainGroupFooter extends React.Component<
     };
 
     render() {
+        const { categoryName } = this.state;
+
         return (
             <div className={ClassNames("groupFooter", styles.groupFooter)}>
                 <Icon
@@ -138,6 +141,7 @@ export default class MainGroupFooter extends React.Component<
                         size="large"
                         disabled={this.state.submitting}
                         onChange={this.onInputCategoryName}
+                        value={categoryName}
                     />
                 </Modal>
             </div>
