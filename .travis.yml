@@ -25,8 +25,8 @@ before_install:
   | tar -xz -C /tmp/git-lfs --strip-components 1 && /tmp/git-lfs/git-lfs pull
 - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install --no-install-recommends -y icnsutils graphicsmagick xz-utils; fi
 install:
-- nvm install 6
-- npm install electron-builder@next
+- nvm install 8
+- nvm use 8
 - npm install
 - npm prune
 - cd app

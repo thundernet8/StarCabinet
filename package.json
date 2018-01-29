@@ -22,7 +22,7 @@
             "output": "release"
         }
     },
-    "postinstall": "install-app-deps",
+    "postinstall": "electron-builder install-app-deps",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/thundernet8/StarCabinet.git"
@@ -51,8 +51,8 @@
         "analyze": "cross-env ANALYZE_ENV=true npm run build",
         "start": "cross-env NODE_ENV=production electron ./app",
         "start:dev": "cross-env NODE_ENV=development electron ./app",
-        "pack": "npm run build && build --dir",
-        "dist": "npm run build && build",
+        "pack": "npm run build && electron-builder --dir",
+        "dist": "npm run build && electron-builder",
         "rebuild": "electron-rebuild",
         "lint": "npm run lint:ts && npm run lint:style",
         "lint:ts": "tslint -e node_modules typings -c .tslintrc.json src/**/*.tsx",
@@ -83,6 +83,7 @@
         "cssnano": "^3.10.0",
         "custom-tslint-rules-collection": "^1.1.0",
         "customized-progress-webpack-plugin": "^0.0.3",
+        "electron-builder": "^19.55.2",
         "electron-rebuild": "^1.7.3",
         "extract-text-webpack-plugin": "^3.0.2",
         "file-loader": "^1.1.6",
