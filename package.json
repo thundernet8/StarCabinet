@@ -59,11 +59,12 @@
         "lint:style": "stylelint \"src/**/*.less\" --syntax less",
         "lint-staged": "lint-staged",
         "lint-staged:ts": "tslint --fix -c .tslintrc.json",
-        "lint-staged:style": "stylelint --syntax less"
+        "lint-staged:style": "stylelint --syntax less",
+        "format": "prettier --write"
     },
     "lint-staged": {
-        "src/**/*.{ts,tsx}": ["lint-staged:ts"],
-        "src/**/*.less": ["lint-staged:style"]
+        "src/**/*.{ts,tsx}": ["format", "lint-staged:ts", "git add"],
+        "src/**/*.less": ["format", "lint-staged:style", "git add"]
     },
     "pre-commit": "lint-staged",
     "devDependencies": {
